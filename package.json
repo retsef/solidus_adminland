@@ -1,0 +1,26 @@
+{
+  "name": "solidus_admin_backend",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hotwired/stimulus": "^3.0.1",
+    "@hotwired/turbo": "^7.1.0",
+    "@rails/actiontext": "^7.0.1",
+    "@rails/activestorage": "^7.0.1",
+    "@rails/ujs": "^7.0.1",
+    "stimulus-flatpickr": "^1.4.0",
+    "tailwindcss-stimulus-components": "^3.0.2",
+    "tom-select": "^2.0.0",
+    "trix": "^2.0.0-alpha.0"
+  }
+}
