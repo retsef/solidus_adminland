@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This migration comes from spree (originally 20200530111458)
 
 class AddBccEmailToSpreeStores < ActiveRecord::Migration[5.2]

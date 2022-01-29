@@ -1,0 +1,14 @@
+// 
+// user.scss
+// Use this to write your custom SCSS
+//
+
+@media(min-width: 768px) {
+  .navbar-vertical.navbar-expand-md .navbar-brand-img {
+    min-height: 6.5rem;
+  }
+}
+
+.form-select {
+  -webkit-appearance: none;
+}

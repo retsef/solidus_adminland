@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This migration comes from spree (originally 20170317035819)
 
 class AddLftAndRgtIndexesToTaxons < ActiveRecord::Migration[5.0]

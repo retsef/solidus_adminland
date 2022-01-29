@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This migration comes from spree (originally 20170522143442)
 
 class AddTimeRangeToTaxRate < ActiveRecord::Migration[5.0]

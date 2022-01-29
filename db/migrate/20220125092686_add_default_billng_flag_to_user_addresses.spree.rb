@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This migration comes from spree (originally 20200320144521)
 class AddDefaultBillngFlagToUserAddresses < ActiveRecord::Migration[5.2]
   def change

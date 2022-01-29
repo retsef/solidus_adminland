@@ -1,13 +1,14 @@
 # frozen_string_literal: true
+
 # This migration comes from spree (originally 20180710170104)
 
 class CreateSpreeStoreCreditReasonsTable < ActiveRecord::Migration[5.1]
   class StoreCreditUpdateReason < ActiveRecord::Base
-    self.table_name = "spree_store_credit_update_reasons"
+    self.table_name = 'spree_store_credit_update_reasons'
   end
 
   class StoreCreditReason < ActiveRecord::Base
-    self.table_name = "spree_store_credit_reasons"
+    self.table_name = 'spree_store_credit_reasons'
   end
 
   def up
@@ -23,7 +24,7 @@ class CreateSpreeStoreCreditReasonsTable < ActiveRecord::Migration[5.1]
     end
 
     add_column :spree_store_credit_events, :store_credit_reason_id, :integer
-    execute "update spree_store_credit_events set store_credit_reason_id = update_reason_id"
+    execute 'update spree_store_credit_events set store_credit_reason_id = update_reason_id'
 
     # TODO: table spree_store_credit_update_reasons and column
     # column spree_store_credit_update_reasons.update_reason_id

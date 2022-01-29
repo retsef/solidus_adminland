@@ -1,62 +1,157 @@
-<div class="md:flex justify-between items-center space-y-4 md:space-y-0">
-  <h1 class="text-xl font-semibold"><%= resource.friendly_name.pluralize %></h1>
+<!-- Header -->
+<div class="header">
+  <div class="header-body">
+    <div class="row align-items-center">
+      <div class="col">
+        <!-- Pretitle -->
+        <h6 class="header-pretitle">Overview</h6>
+        <!-- Title -->
+        <h1 class="header-title text-truncate"><%= resource.friendly_name.pluralize %></h1>
+      </div>
 
-  <div class="flex-grow flex md:justify-end gap-4">
-    <form class="flex items-center gap-2 relative">
-      <%= hidden_field_tag :page, params[:page], value: 1, class: "hidden" %>
-      <%= search_field_tag :q, params[:q], placeholder: "Search", class: "rounded-full px-4 focus:bg-white focus:border-indigo-500" %>
-      <%= link_to clear_search_params, class: "absolute top-1/2 right-3 text-gray-500 bg-white transform -translate-y-1/2" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-        </svg>
-      <% end %>
-    </form>
+      <div class="col-auto">
+        <!-- Actions -->
+        <%= link_to resource.new_path, class: "btn btn-primary ms-2" do %>
+          New <span class=""><%= resource.friendly_name %></span>
+        <% end %>
+      </div>
+    </div>
 
-    <%= link_to resource.new_path, class: "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" do %>
-      New <span class="hidden md:inline"><%= resource.friendly_name %></span>
-    <% end %>
+    <div class="row align-items-center">
+      <div class="col">
+
+        <!-- Scope Nav -->
+        <ul class="nav nav-tabs nav-overflow header-tabs">
+          <% if resource.scopes.any? %>
+            <li class="nav-item">
+              <%= link_to "All", resource.index_path, class: class_names('nav-link text-nowrap', {'active':  params[:scope].blank?}) %>
+            </li>
+          <% end %>
+
+          <% resource.scopes.each do |scope| %>
+            <li class="nav-item">
+              <%= link_to scope.to_s.humanize, resource.index_path(scope: scope), class: class_names('nav-link text-nowrap', {'active': params[:scope] == scope.to_s}) %>
+            </li>
+          <% end %>
+        </ul>
+
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="mb-4">
-  <% if resource.scopes.any? %>
-    <%= link_to "All", resource.index_path, class: class_names("p-2 rounded", {"bg-gray-100" =>  params[:scope].blank?}) %>
-  <% end %>
+<!-- Table Card -->
+<div class="card">
+  <!-- Table Header -->
+  <div class="card-header">
+    <div class="row align-items-center">
+      <div class="col">
+        
+        <!-- Search Form -->
+        <form>
+          <div class="input-group input-group-flush input-group-merge input-group-reverse">
+            <%= search_field_tag :q, params[:q], placeholder: "Search", class: "form-control list-search" %>
+            <span class="input-group-text">
+              <i class="fe fe-search"></i>
+            </span>
+          </div>
+        </form>
 
-  <% resource.scopes.each do |scope| %>
-    <%= link_to scope.to_s.humanize, resource.index_path(scope: scope), class: class_names("p-2 rounded", {"bg-gray-100" => params[:scope] == scope.to_s}) %>
-  <% end %>
-</div>
-<div class="min-w-full max-w-xl overflow-x-auto pb-4">
-  <table class="min-w-full divide-y divide-gray-200">
-    <thead>
-      <tr class="border-b border-gray-200">
-        <% resource.attributes.values.each do |attribute| %>
-          <% next if attribute.field.nil? %>
-          <% next unless attribute.field.visible?(action_name) %>
+      </div>
 
-          <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase whitespace-nowrap"><%= sortable attribute.name, attribute.name.to_s.titleize %></th>
-        <% end %>
-        <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase">Actions</th>
-      </tr>
-    </thead>
+      <div class="col-auto me-n3">
 
-    <tbody class="text-sm divide-y">
-      <% @records.each do |record| %>
+        <!-- Select -->
+        <form>
+          <select class="form-select form-control-sm form-control-flush">
+            <option>5 per page</option>
+            <option selected>10 per page</option>
+            <option>All</option>
+          </select>
+        </form>
+
+      </div>
+
+      <div class="col-auto">
+        <button class="btn btn-sm btn-white" type="button" 
+            data-bs-toggle="offcanvas" href="#offcanvasFilters" aria-controls="offcanvasFilters" 
+            data-bs-auto-close="outside">
+          <i class="fe fe-sliders me-1"></i> Filter <span class="badge bg-primary ms-1 d-none">0</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Table Body -->
+  <div class="table-responsive">
+    <table class="table table-sm table-hover table-nowrap card-table">
+      <thead>
         <tr>
           <% resource.attributes.values.each do |attribute| %>
             <% next if attribute.field.nil? %>
             <% next unless attribute.field.visible?(action_name) %>
-            <td class="px-4 py-2"><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record, resource: resource } %></td>
+
+            <th>
+              <%= sortable attribute.name, attribute.name.to_s.titleize, class: 'list-sort text-muted' %>
+            </th>
           <% end %>
 
-          <td class="px-4 py-2 text-center">
-            <%= link_to "View", resource.show_path(record), class: "text-indigo-500" %>
-            <%= link_to "Edit", resource.edit_path(record), class: "text-indigo-500" %>
-          </td>
+          <th>Actions</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <% @records.each do |record| %>
+          <tr>
+            <% resource.attributes.values.each do |attribute| %>
+              <% next if attribute.field.nil? %>
+              <% next unless attribute.field.visible?(action_name) %>
+              <td>
+                <%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record, resource: resource } %>
+              </td>
+            <% end %>
+
+            <td class="text-end">
+              <div class="dropdown">
+                <a class="dropdown-ellipses dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fe fe-more-vertical"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                  <%= link_to "View", resource.show_path(record), class: "dropdown-item" %>
+                  <%= link_to "Edit", resource.edit_path(record), class: "dropdown-item" %>
+                </div>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Table Footer -->
+  <div class="card-footer d-flex justify-content-between">
+    <%== render partial: 'madmin/pagy/nav', locals: { pagy: @pagy } if @pagy.pages > 1 %>
+  </div>
 </div>
-<%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+
+
+<!-- Filters -->
+<div class="offcanvas offcanvas-end" id="offcanvasFilters" tabindex="-1">
+  <form class="mb-4">
+    <div class="offcanvas-header">
+      <h4 class="offcanvas-title">Filters</h4>
+      
+      <button class="btn btn-sm btn-link text-reset d-none" type="reset">
+        <small>Clear filters</small>
+      </button>
+    </div>
+    <div class="offcanvas-body">
+      <!-- Implement collection of filters in resource class -->
+
+      <button class="btn w-100 btn-primary" type="submit">
+        Apply filter
+      </button>
+    </div>
+  </form>
+</div>

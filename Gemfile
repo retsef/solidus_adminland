@@ -22,17 +22,26 @@ gem 'redis', '~> 4.0'
 # gem 'image_processing', '~> 1.2'
 
 gem 'importmap-rails'
-gem 'turbo-rails'
 gem 'stimulus-rails'
+gem 'turbo-rails'
 
 # Solidus
-gem 'solidus_core', '~> 3.1', '>= 3.1.1'
 gem 'solidus_api', '~> 3.1', '>= 3.1.1'
+gem 'solidus_core', '~> 3.1', '>= 3.1.1'
 
 # Madmin
 gem 'madmin'
 
+# Policy
 gem 'action_policy'
+
+# View Component
+gem 'view_component'
+gem 'view_component-contrib'
+gem 'view_component-form'
+
+# Search
+gem 'ransack'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -47,12 +56,15 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   # Display performance information such as SQL time and flame graphs for each request in your browser.
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
-  gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
+  gem 'rack-mini-profiler', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
   gem 'solargraph'
+
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 end
 
 group :test do
@@ -64,4 +76,4 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

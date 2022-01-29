@@ -1,13 +1,14 @@
 # frozen_string_literal: true
+
 # This migration comes from spree (originally 20170412103617)
 
 class TransformTaxRateCategoryRelation < ActiveRecord::Migration[5.0]
   class TaxRate < ActiveRecord::Base
-    self.table_name = "spree_tax_rates"
+    self.table_name = 'spree_tax_rates'
   end
 
   class TaxRateTaxCategory < ActiveRecord::Base
-    self.table_name = "spree_tax_rate_tax_categories"
+    self.table_name = 'spree_tax_rate_tax_categories'
   end
 
   def up

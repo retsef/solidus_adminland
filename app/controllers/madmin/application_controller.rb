@@ -2,6 +2,8 @@ module Madmin
   class ApplicationController < Madmin::BaseController
     before_action :authenticate_admin_user
 
+    default_form_builder Madmin::FormBuilder
+
     def authenticate_admin_user
       # TODO: Add your authentication logic here
 

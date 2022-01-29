@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This migration comes from spree (originally 20180328172631)
 
 class AddJoinCharactersToPromotionCodeBatch < ActiveRecord::Migration[5.1]

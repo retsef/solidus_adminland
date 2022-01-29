@@ -1,7 +1,19 @@
-<h1 class="text-xl mb-4">
-  <%= link_to resource.friendly_name.pluralize, resource.index_path, class: "text-indigo-500" %>
-  /
-  <strong>Edit <%= link_to resource.display_name(@record), resource.show_path(@record), class: "text-indigo-500" %></strong>
-</h1>
+<!-- Header -->
+<div class="header">
+  <div class="header-body">
+    <div class="row align-items-center">
+      <div class="col">
+        <!-- Pretitle -->
+        <h6 class="header-pretitle">
+          <%= link_to resource.friendly_name.pluralize, resource.index_path %>
+        </h6>
+        <!-- Title -->
+        <h1 class="header-title text-truncate">
+          Edit <%= resource.display_name(@record), resource.show_path(@record) %>
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
 
 <%= render partial: "form", locals: { record: @record, resource: resource } %>

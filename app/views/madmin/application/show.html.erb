@@ -1,31 +1,61 @@
-<div class="md:flex items-center justify-between mb-4">
-  <h1 class="text-xl">
-    <%= link_to resource.friendly_name.pluralize, resource.index_path, class: "text-indigo-500" %>
-    /
-    <%= link_to resource.display_name(@record), resource.show_path(@record), class: "text-indigo-500 font-bold" %>
-  </h1>
 
-  <div class="flex items-center px-4">
-    <div class="mr-2">
-      <%= link_to "Edit", resource.edit_path(@record), class: "block bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" %>
+<div class="header">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center">
+        <div class="col">
+          <!-- Pretitle -->
+          <h6 class="header-pretitle"><%= link_to resource.friendly_name.pluralize, resource.index_path %></h6>
+          <!-- Title -->
+          <h1 class="header-title"><%= resource.display_name(@record) %></h1>
+        </div>
+
+        <!-- Actions -->
+        <div class="col-auto">
+          <%= link_to resource.edit_path(@record), class: "btn btn-white d-inline-flex" do %>
+            <i class="fe fe-edit"></i>
+            <span class="ms-2">Edit</span>
+          <% end %>
+          <%= link_to resource.show_path(@record), class: "btn btn-white text-danger ms-2", 
+              method: :delete, data: { confirm: "Are you sure?" } do %>
+            <i class="fe fe-trash"></i>
+            <span class="ms-2">Destroy</span>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Relations -->
+      <div class="row align-items-center">
+        <div class="col">
+          <ul class="nav nav-tabs nav-overflow header-tabs">
+            <!--
+            <li class="nav-item">
+              <a href="#" class="nav-link active">
+                Overview
+              </a>
+            </li>
+            -->
+          </ul>
+        </div>
+      </div>
     </div>
-    <%= button_to "Delete", resource.show_path(@record), method: :delete, data: { confirm: "Are you sure?" }, class: "bg-white hover:bg-gray-100 text-red-500 font-semibold py-2 px-4 border border-red-500 rounded shadow pointer-cursor" %>
+
   </div>
 </div>
 
-<div class="divide-y">
-  <% resource.attributes.values.each do |attribute| %>
-    <% next if attribute.field.nil? %>
-    <% next unless attribute.field.visible?(action_name) %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <% resource.attributes.values.each do |attribute| %>
+        <% next if attribute.field.nil? %>
+        <% next unless attribute.field.visible?(action_name) %>
 
-    <div class="px-4 py-3 md:grid md:grid-cols-4 md:gap-4 md:px-6">
-      <div class="text-sm font-medium text-gray-500">
-        <%= attribute.field.attribute_name.to_s.titleize %>
-      </div>
-
-      <div class="md:col-span-3">
-        <%= render partial: attribute.field.to_partial_path("show"), locals: { field: attribute.field, record: @record, resource: resource } %>
-      </div>
+        <div class="field_container">
+          <%= attribute.field.attribute_name.to_s.titleize %>
+          
+          <%= render partial: attribute.field.to_partial_path("show"), locals: { field: attribute.field, record: @record, resource: resource } %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>
