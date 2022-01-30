@@ -29,8 +29,8 @@ gem 'turbo-rails'
 gem 'solidus_api', '~> 3.1', '>= 3.1.1'
 gem 'solidus_core', '~> 3.1', '>= 3.1.1'
 
-# Madmin
-gem 'madmin'
+# Admin Panel
+gem 'administrate', github: 'thoughtbot/administrate'
 
 # Policy
 gem 'action_policy'
