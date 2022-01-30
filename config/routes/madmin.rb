@@ -1,22 +1,22 @@
 # Below are the routes for madmin
 scope module: :madmin, path: :admin, as: :madmin do
-  namespace :action_text do
-    resources :rich_texts
-  end
+  # namespace :action_text do
+  #   resources :rich_texts
+  # end
 
-  namespace :active_storage do
-    resources :attachments
-    resources :blobs
-    resources :variant_records
-  end
+  # namespace :active_storage do
+  #   resources :attachments
+  #   resources :blobs
+  #   resources :variant_records
+  # end
 
-  namespace :action_mailbox do
-    resources :inbound_emails
-  end
+  # namespace :action_mailbox do
+  #   resources :inbound_emails
+  # end
 
-  namespace :friendly_id do
-    resources :slugs
-  end
+  # namespace :friendly_id do
+  #   resources :slugs
+  # end
 
   scope module: :spree, as: :spree do
     resources :payment_capture_events
@@ -110,6 +110,7 @@ scope module: :madmin, path: :admin, as: :madmin do
 
       resources :prices
     end
+    resources :prices
 
     namespace :reimbursement_type do
       resources :exchanges

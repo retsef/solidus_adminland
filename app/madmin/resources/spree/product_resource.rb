@@ -3,40 +3,36 @@ class Spree::ProductResource < Madmin::Resource
   attribute :id, form: false
   attribute :name
   attribute :description
+  attribute :promotionable
+  attribute :discontinue_on
   attribute :available_on
-  attribute :deleted_at
   attribute :slug
+  attribute :meta_title
   attribute :meta_description
   attribute :meta_keywords
+  attribute :deleted_at, form: false
   attribute :created_at, form: false
   attribute :updated_at, form: false
-  attribute :promotionable
-  attribute :meta_title
-  attribute :discontinue_on
 
   # Associations
-  attribute :slugs
+  # attribute :slugs
   attribute :product_option_types
   attribute :option_types
-  attribute :product_properties
+  # attribute :product_properties
   attribute :properties
-  attribute :variant_property_rules
-  attribute :variant_property_rule_values
-  attribute :variant_property_rule_conditions
+  # attribute :variant_property_rules
+  # attribute :variant_property_rule_values
+  # attribute :variant_property_rule_conditions
   attribute :classifications
   attribute :taxons
-  attribute :product_promotion_rules
-  attribute :promotion_rules
+  # attribute :product_promotion_rules
+  # attribute :promotion_rules
   attribute :tax_category
   attribute :shipping_category
-  attribute :master
-  attribute :variants
-  attribute :variants_including_master
+  # attribute :master
+  # attribute :variants
   attribute :prices
-  attribute :stock_items
-  attribute :line_items
-  attribute :orders
-  attribute :variant_images
+  attribute :orders, form: false
 
   # Uncomment this to customize the display name of records in the admin area.
   # def self.display_name(record)

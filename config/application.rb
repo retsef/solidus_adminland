@@ -19,6 +19,7 @@ module SolidusAdminBackend
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
   
+    config.eager_load_paths << Rails.root.join('lib', 'spree', 'backend')
     config.eager_load_paths << Rails.root.join('app', 'forms')
 
     # overrides = "#{Rails.root}/app/overrides"
