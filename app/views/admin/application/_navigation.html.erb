@@ -6,15 +6,79 @@ By default, the navigation contains navigation links
 for all resources in the admin dashboard,
 as defined by the routes in the `admin/` namespace
 %>
+<nav class="navbar navbar-vertical fixed-start navbar-expand-md navbar-dark" id="sidebar">
+  <div class="container-fluid">
 
-<nav class="navigation" role="navigation">
-  <%= link_to(t("administrate.navigation.back_to_app"), root_url, class: "button button--alt button--nav") if defined?(root_url) %>
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <% Administrate::Namespace.new(namespace).resources_with_index_route.each do |resource| %>
-    <%= link_to(
-      display_resource_name(resource),
-      resource_index_route(resource),
-      class: "navigation__link navigation__link--#{nav_link_state(resource)}"
-    ) if valid_action?(:index, resource) && show_action?(:index, model_from_resource(resource)) %>
-  <% end %>
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">
+      <img src="<%= image_path("madmin/solidus-symbol-light.png") %>" class="navbar-brand-img mx-auto" alt="Solidus">
+    </a>
+
+    <!-- User (xs) -->
+    <div class="navbar-user d-md-none">
+
+    </div>
+
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse" id="sidebarCollapse">
+      <ul class="navbar-nav">
+        <%# Administrate::Namespace.new(namespace).resources_with_index_route.each do |resource| %>
+          <%# if valid_action?(:index, resource) && show_action?(:index, model_from_resource(resource)) %>
+            <!--
+            <li class="nav-item">
+              <%#= link_to(
+                display_resource_name(resource),
+                resource_index_route(resource),
+                class: "nav-link #{nav_link_state(resource)}"
+              ) %>
+            </li>
+            -->
+          <%# end %>
+        <%# end %>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarDashboards">
+            <i class="fe fe-home"></i> Dashboards
+          </a>
+          <div class="collapse show" id="sidebarDashboards">
+            <ul class="nav nav-sm flex-column">
+              <li class="nav-item">
+                <a href="#" class="nav-link active">
+                  Default
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= admin_products_path %>">
+            <i class="fe fe-tag"></i> Products
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="<%= admin_orders_path %>">
+            <i class="fe fe-package"></i> Orders
+          </a>
+        </li>
+      </ul>
+
+      <!-- Divider -->
+      <hr class="navbar-divider my-3">
+
+      <!-- Heading -->
+      <h6 class="navbar-heading">Documentation</h6>
+
+      <!-- Navigation -->
+      <ul class="navbar-nav mb-md-4">
+      </ul>
+
+      <!-- Push content down -->
+      <div class="mt-auto"></div>
+    </div>
 </nav>

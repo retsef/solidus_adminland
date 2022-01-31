@@ -1,0 +1,59 @@
+<%
+  attribute_labels ||= {}
+  attribute_types ||= @dashboard.filterable_attributes
+  form_options = { class: 'mb-4', html: { 'data-administrate-ransack-filters': '1' } }
+  namespace = local_assigns[:namespace] || :admin
+  if local_assigns.has_key?(:search_path)
+    form_path = @ransack_results
+    form_options[:url] = search_path
+    clear_filters_path = search_path
+  else
+    form_path = [namespace, @ransack_results]
+    clear_filters_path = url_for([namespace, @ransack_results.klass])
+  end
+%>
+
+<!-- Filters -->
+<div class="offcanvas offcanvas-end" id="offcanvasFilters" tabindex="-1">
+	<%= search_form_for form_path, form_options do |f| %>
+	<div class="offcanvas-header">
+		<h4 class="offcanvas-title">Filters</h4>
+		
+		<%= link_to t('administrate_ransack.filters.clear_filters'), clear_filters_path, class: 'btn btn-sm btn-link text-reset btn-clear-filters' %>
+	</div>
+	<div class="offcanvas-body filters">
+		<% attribute_types.each do |field, type| %>
+			<% next if field == :id %>
+
+			<% label = attribute_labels.include?(field) ? attribute_labels[field] : field %>
+			<% model = @ransack_results.klass %>
+			<% input_type = type.is_a?(Administrate::Field::Deferred) ? type.deferred_class.to_s : type.to_s %>
+			<div class="filter <%= input_type.parameterize %>">
+				<% case input_type %>
+				<% when 'Administrate::Field::BelongsTo' %>
+				<% association = model.reflections[field.to_s] %>
+				<%= render 'admin/filters/components/field_belongs_to', form: f, model: model, field: field, label: label, association: association %>
+				<% when 'Administrate::Field::Boolean' %>
+				<%= render 'admin/filters/components/field_boolean', form: f, model: model, field: field, label: label %>
+				<% when 'Administrate::Field::Date' %>
+				<%= render 'admin/filters/components/field_date', form: f, model: model, field: field, label: label %>
+				<% when 'Administrate::Field::DateTime' %>
+				<%= render 'admin/filters/components/field_datetime', form: f, model: model, field: field, label: label %>
+				<% when 'Administrate::Field::Email', 'Administrate::Field::String', 'Administrate::Field::Text' %>
+				<%= render 'admin/filters/components/field_string', form: f, model: model, field: field, label: label %>
+				<% when 'Administrate::Field::Number' %>
+				<%= render 'admin/filters/components/field_number', form: f, model: model, field: field, label: label %>
+				<% when 'Administrate::Field::HasMany' %>
+				<% association = model.reflections[field.to_s] %>
+				<%= render 'admin/filters/components/field_has_many', form: f, model: model, field: field, label: label, association: association %>
+				<% when 'Administrate::Field::Select' %>
+				<%= render 'admin/filters/components/field_select', form: f, model: model, field: field, label: label, type: type %>
+				<% else %>
+				<%= render 'admin/filters/components/field_other', form: f, model: model, field: field, label: label, type: type %>
+				<% end %>
+			</div>
+		<% end %>
+
+		<%= render 'admin/filters/components/filter_buttons', form: f, clear_filters_path: clear_filters_path %>
+	</div>
+<% end %>

@@ -8,23 +8,36 @@ class Spree::OrderDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    id: Field::Number,
+    number: Field::String,
+    email: Field::String,
     user: Field::BelongsTo,
+
     bill_address: Field::BelongsTo,
     ship_address: Field::BelongsTo,
+
+    state: Field::String,
     store: Field::BelongsTo,
+
     line_items: Field::HasMany,
     variants: Field::HasMany,
     products: Field::HasMany,
     shipments: Field::HasMany,
+
     inventory_units: Field::HasMany,
+
     cartons: Field::HasMany,
     adjustments: Field::HasMany,
+    all_adjustments: Field::HasMany,
+
     line_item_adjustments: Field::HasMany,
     shipment_adjustments: Field::HasMany,
-    all_adjustments: Field::HasMany,
+
     order_promotions: Field::HasMany,
     promotions: Field::HasMany,
+
     payments: Field::HasMany,
+
     valid_store_credit_payments: Field::HasMany,
     return_authorizations: Field::HasMany,
     return_items: Field::HasMany,
@@ -32,20 +45,17 @@ class Spree::OrderDashboard < Administrate::BaseDashboard
     reimbursements: Field::HasMany,
     refunds: Field::HasMany,
     state_changes: Field::HasMany,
-    created_by: Field::BelongsTo,
     approver: Field::BelongsTo,
     canceler: Field::BelongsTo,
-    id: Field::Number,
-    number: Field::String,
+
     item_total: Field::String.with_options(searchable: false),
     total: Field::String.with_options(searchable: false),
-    state: Field::String,
+
     adjustment_total: Field::String.with_options(searchable: false),
     completed_at: Field::DateTime,
     payment_total: Field::String.with_options(searchable: false),
     shipment_state: Field::String,
     payment_state: Field::String,
-    email: Field::String,
     special_instructions: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -59,6 +69,7 @@ class Spree::OrderDashboard < Administrate::BaseDashboard
     item_count: Field::Number,
     approved_at: Field::DateTime,
     confirmation_delivered: Field::Boolean,
+    created_by: Field::BelongsTo,
     guest_token: Field::String,
     canceled_at: Field::DateTime,
     approver_name: Field::String,
@@ -71,18 +82,25 @@ class Spree::OrderDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
+    number
+    email
     user
     bill_address
     ship_address
-    store
+    state
+    total
+    completed_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
+    number
+    email
     user
     bill_address
     ship_address
+    state
     store
     line_items
     variants
@@ -107,17 +125,15 @@ class Spree::OrderDashboard < Administrate::BaseDashboard
     created_by
     approver
     canceler
-    id
-    number
     item_total
     total
-    state
+    approved_at
+    canceled_at
     adjustment_total
     completed_at
     payment_total
     shipment_state
     payment_state
-    email
     special_instructions
     created_at
     updated_at
@@ -129,10 +145,8 @@ class Spree::OrderDashboard < Administrate::BaseDashboard
     channel
     included_tax_total
     item_count
-    approved_at
     confirmation_delivered
     guest_token
-    canceled_at
     approver_name
     frontend_viewable
   ].freeze

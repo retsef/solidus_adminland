@@ -17,26 +17,31 @@ By default, it renders:
 <head>
   <meta charset="utf-8">
   <meta name="ROBOTS" content="NOODP">
-  <meta name="viewport" content="initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
     <%= content_for(:title) %> - <%= application_title %>
   </title>
+
+  <%= favicon_link_tag image_path('madmin/solidus-symbol-dark.png') %>
+  
   <%= render "stylesheet" %>
+  <%= render "javascript" %>
+
   <%= csrf_meta_tags %>
   <%= csp_meta_tag if defined?(csp_meta_tag) %>
 </head>
 <body>
-  <%= render "icons" %>
+  <%= render "navigation" -%>
 
-  <div class="app-container">
-    <%= render "navigation" -%>
+  <main class="main-content" role="main">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <%= render "flashes" -%>
 
-    <main class="main-content" role="main">
-      <%= render "flashes" -%>
-      <%= yield %>
-    </main>
-  </div>
-
-  <%= render "javascript" %>
+        <%= yield %>
+      </div>
+    </div>
+  </main>
+  
 </body>
 </html>

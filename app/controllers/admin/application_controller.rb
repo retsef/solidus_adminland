@@ -4,8 +4,11 @@
 #
 # If you want to add pagination or other controller-level concerns,
 # you're free to overwrite the RESTful controller actions.
+
 module Admin
   class ApplicationController < Administrate::ApplicationController
+    prepend AdministrateRansack::Searchable
+
     before_action :authenticate_admin
 
     default_form_builder Admin::FormBuilder
@@ -15,9 +18,14 @@ module Admin
     end
 
     # Override this value to specify the number of elements to display at a time
-    # on index pages. Defaults to 20.
-    # def records_per_page
-    #   params[:per_page] || 20
-    # end
+    # on index pages. Defaults to 15.
+    def records_per_page
+      params[:per_page] || 15
+    end
+
+    def authorize_resource(resource)
+      resource
+      # authorize! action_name, resource
+    end
   end
 end

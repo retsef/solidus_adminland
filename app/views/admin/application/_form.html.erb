@@ -14,32 +14,36 @@ and renders all form fields for a resource's editable attributes.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
 %>
 
-<%= form_for([namespace, page.resource], html: { class: "form" }) do |f| %>
+<%= form_for([namespace, page.resource], html: { class: "form mb-4" }) do |f| %>
   <% if page.resource.errors.any? %>
-    <div id="error_explanation">
-      <h2>
+    <div id="error_explanation" class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">
         <%= t(
           "administrate.form.errors",
           pluralized_errors: pluralize(page.resource.errors.count, t("administrate.form.error")),
           resource_name: display_resource_name(page.resource_name, singular: true)
         ) %>
-      </h2>
-
-      <ul>
+      </h4>
+      <hr>
+      <ul class="list-group list-group-flush text-white">
         <% page.resource.errors.full_messages.each do |message| %>
-          <li class="flash-error"><%= message %></li>
+          <li class="flash-error list-group-item d-flex align-items-center justify-content-between px-0"><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <% page.attributes(controller.action_name).each do |attribute| -%>
-    <div class="field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
-      <%= render_field attribute, f: f %>
-    </div>
-  <% end -%>
+  <div class="row">
+    <% page.attributes.each do |attribute| -%>
+      <div class="col-12 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+        <%= render_field attribute, f: f %>
+      </div>
+    <% end -%>
+  </div>
+  
+  <hr class="mt-5 mb-5">
 
   <div class="form-actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn w-100 btn-primary" %>
   </div>
 <% end %>

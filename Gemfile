@@ -30,7 +30,10 @@ gem 'solidus_api', '~> 3.1', '>= 3.1.1'
 gem 'solidus_core', '~> 3.1', '>= 3.1.1'
 
 # Admin Panel
-gem 'administrate', github: 'thoughtbot/administrate'
+gem 'administrate'
+gem 'administrate_ransack'
+gem 'administrate_exportable'
+gem 'administrate_batch_actions'
 
 # Policy
 gem 'action_policy'
