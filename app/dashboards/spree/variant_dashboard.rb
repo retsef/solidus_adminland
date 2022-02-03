@@ -1,6 +1,4 @@
-require "administrate/base_dashboard"
-
-class Spree::VariantDashboard < Administrate::BaseDashboard
+class Spree::VariantDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -33,7 +31,7 @@ class Spree::VariantDashboard < Administrate::BaseDashboard
     cost_currency: Field::String,
     track_inventory: Field::Boolean,
     updated_at: Field::DateTime,
-    created_at: Field::DateTime,
+    created_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

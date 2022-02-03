@@ -1,6 +1,4 @@
-require "administrate/base_dashboard"
-
-class Spree::TaxCategoryDashboard < Administrate::BaseDashboard
+class Spree::TaxCategoryDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -17,7 +15,7 @@ class Spree::TaxCategoryDashboard < Administrate::BaseDashboard
     deleted_at: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    tax_code: Field::String,
+    tax_code: Field::String
   }.freeze
 
   # COLLECTION_ATTRIBUTES

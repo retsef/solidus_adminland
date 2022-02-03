@@ -8,13 +8,14 @@
 module Admin
   class ApplicationController < Administrate::ApplicationController
     prepend AdministrateRansack::Searchable
+    helper 'active_link_to'
 
     before_action :authenticate_admin
 
     default_form_builder Admin::FormBuilder
 
     def authenticate_admin
-      # TODO Add authentication logic here.
+      # TODO: Add authentication logic here.
     end
 
     # Override this value to specify the number of elements to display at a time

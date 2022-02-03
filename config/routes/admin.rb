@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   namespace :admin do
     scope module: :spree do
-      # resources :users
-
+      # Products
       resources :products do
         get :export, on: :collection
         
@@ -18,9 +17,18 @@ Rails.application.routes.draw do
       resources :option_types
       resources :properties
 
+      resources :taxonomies do
+        resources :taxons
+      end
+
+      resources :taxons
+
+      # Orders
       resources :orders do
         get :export, on: :collection
         
+        resources :line_items
+
         resources :adjustments
         resources :return_authorizations
 
@@ -32,7 +40,8 @@ Rails.application.routes.draw do
         end
       end
 
-      resource :promotions do
+      # Promotions
+      resources :promotions do
         resources :promotion_rules
         resources :promotion_actions
         
@@ -40,12 +49,16 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :taxonomies do
-        resources :taxons
-      end
+      resources :promotion_categories
 
-      resources :taxons
+      # Stock
+      resources :stock_items
+      resources :stock_locations
 
+      # Users
+      # resources :users
+
+      # Settings
       resources :stores
     end
   end

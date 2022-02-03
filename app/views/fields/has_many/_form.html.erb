@@ -21,7 +21,7 @@ and is augmented with [Selectize].
 
 <div class="form-group">
   <%= f.label field.attribute, for: "#{f.object_name}_#{field.attribute_key}" %>
-  <%= f.select(field.attribute_key, nil, {}, multiple: true) do %>
-    <%= options_for_select(field.associated_resource_options, field.selected_options) %>
-  <% end %>
+  <%# f.select(field.attribute_key, nil, {}, multiple: true) do %>
+    <%# options_for_select(field.associated_resource_options, field.selected_options) %>
+  <%# end %>
 </div>

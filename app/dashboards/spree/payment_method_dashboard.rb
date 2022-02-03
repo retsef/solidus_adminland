@@ -1,6 +1,4 @@
-require "administrate/base_dashboard"
-
-class Spree::PaymentMethodDashboard < Administrate::BaseDashboard
+class Spree::PaymentMethodDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -25,7 +23,7 @@ class Spree::PaymentMethodDashboard < Administrate::BaseDashboard
     preference_source: Field::String,
     position: Field::Number,
     available_to_users: Field::Boolean,
-    available_to_admin: Field::Boolean,
+    available_to_admin: Field::Boolean
   }.freeze
 
   # COLLECTION_ATTRIBUTES

@@ -1,0 +1,17 @@
+<%= link_to(
+	t(
+		"administrate.actions.export",
+		name: display_resource_name(page.resource_name, singular: true).downcase
+	),
+	[:export, namespace, page.resource_path.pluralize.to_sym, sanitized_order_params(page, :id).to_h.merge(format: :csv)],
+	class: 'btn btn-white'
+) if valid_action?(:export) %>
+	
+<%= link_to(
+	t(
+		"administrate.actions.new_resource",
+		name: display_resource_name(page.resource_name, singular: true).downcase
+	),
+	[:new, namespace, page.resource_path.to_sym],
+	class: "btn btn-primary",
+) if valid_action?(:new) && show_action?(:new, new_resource) %>

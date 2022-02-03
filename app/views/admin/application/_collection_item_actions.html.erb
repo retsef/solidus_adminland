@@ -1,0 +1,27 @@
+
+<td class="text-end">
+	<div class="dropdown">
+		<a href="#" class="dropdown-ellipses dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<i class="fe fe-more-vertical"></i>
+		</a>
+		<div class="dropdown-menu dropdown-menu-end">
+			<% if valid_action? :edit, collection_presenter.resource_name %>
+					<%= link_to(
+            t("administrate.actions.edit"),
+            [:edit, namespace, resource],
+            class: "action-edit dropdown-item",
+            ) if show_action? :edit, resource%>
+			<% end %>
+
+			<% if valid_action? :destroy, collection_presenter.resource_name %>
+					<%= link_to(
+            t("administrate.actions.destroy"),
+            [namespace, resource],
+            class: "text-danger dropdown-item",
+            method: :delete,
+            data: { confirm: t("administrate.actions.confirm") }
+            ) if show_action? :destroy, resource %>
+			<% end %>
+		</div>
+	</div>
+</td>

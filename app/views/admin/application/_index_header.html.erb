@@ -1,0 +1,35 @@
+
+<% content_for(:title) do %>
+  <%= display_resource_name(page.resource_name) %>
+<% end %>
+<!-- Header -->
+<header class="header" role="banner">
+  <div class="header-body">
+    <div class="row align-items-center">
+      <div class="col">
+        <!-- Pretitle -->
+        <h6 class="header-pretitle">Overview</h6>
+        <!-- Title -->
+        <h1 class="header-title text-truncate">
+          <%= content_for(:title) %>
+        </h1>
+      </div>
+
+      <div class="col-auto">
+        <!-- Actions -->
+        <%= render(
+          "index_header_actions",
+          page: page,
+          resources: resources
+        ) %>
+      </div>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col">
+        <!-- Tabs -->
+
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,6 +1,4 @@
-require "administrate/base_dashboard"
-
-class Spree::OrderDashboard < Administrate::BaseDashboard
+class Spree::OrderDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -11,69 +9,76 @@ class Spree::OrderDashboard < Administrate::BaseDashboard
     id: Field::Number,
     number: Field::String,
     email: Field::String,
-    user: Field::BelongsTo,
+    # user: Field::BelongsTo,
 
-    bill_address: Field::BelongsTo,
-    ship_address: Field::BelongsTo,
+    bill_address: Field::BelongsTo.with_options(class_name: 'Spree::Address'),
+    ship_address: Field::BelongsTo.with_options(class_name: 'Spree::Address'),
 
-    state: Field::String,
-    store: Field::BelongsTo,
+    state: Field::String.with_options(filterable: true),
+    store: Field::BelongsTo.with_options(class_name: 'Spree::Store', filterable: true),
 
-    line_items: Field::HasMany,
-    variants: Field::HasMany,
-    products: Field::HasMany,
-    shipments: Field::HasMany,
+    line_items: Field::NestedHasMany.with_options(class_name: 'Spree::LineItem', skip: :order),
+    variants: Field::HasMany.with_options(class_name: 'Spree::Variant'),
+    products: Field::HasMany.with_options(class_name: 'Spree::Product'),
+    shipments: Field::HasMany.with_options(class_name: 'Spree::Shipment'),
 
-    inventory_units: Field::HasMany,
+    inventory_units: Field::HasMany.with_options(class_name: 'Spree::InventoryUnit'),
 
-    cartons: Field::HasMany,
-    adjustments: Field::HasMany,
-    all_adjustments: Field::HasMany,
+    cartons: Field::HasMany.with_options(class_name: 'Spree::Carton'),
+    adjustments: Field::HasMany.with_options(class_name: 'Spree::Adjustment'),
+    # all_adjustments: Field::HasMany,
 
-    line_item_adjustments: Field::HasMany,
-    shipment_adjustments: Field::HasMany,
+    # line_item_adjustments: Field::HasMany,
+    #  shipment_adjustments: Field::HasMany,
 
-    order_promotions: Field::HasMany,
-    promotions: Field::HasMany,
+    # order_promotions: Field::HasMany,
+    promotions: Field::HasMany.with_options(class_name: 'Spree::Promotion'),
 
-    payments: Field::HasMany,
+    payments: Field::HasMany.with_options(class_name: 'Spree::Payment'),
 
-    valid_store_credit_payments: Field::HasMany,
-    return_authorizations: Field::HasMany,
-    return_items: Field::HasMany,
-    customer_returns: Field::HasMany,
-    reimbursements: Field::HasMany,
-    refunds: Field::HasMany,
-    state_changes: Field::HasMany,
-    approver: Field::BelongsTo,
-    canceler: Field::BelongsTo,
+    # valid_store_credit_payments: Field::HasMany,
+    # return_authorizations: Field::HasMany,
+    # return_items: Field::HasMany,
+    # customer_returns: Field::HasMany,
+    # reimbursements: Field::HasMany,
+    # refunds: Field::HasMany,
+    # state_changes: Field::HasMany,
+
+    # approver: Field::BelongsTo,
+    # canceler: Field::BelongsTo,
 
     item_total: Field::String.with_options(searchable: false),
     total: Field::String.with_options(searchable: false),
+    currency: Field::String,
 
     adjustment_total: Field::String.with_options(searchable: false),
-    completed_at: Field::DateTime,
+    completed_at: Field::DateTime.with_options(filterable: true),
     payment_total: Field::String.with_options(searchable: false),
-    shipment_state: Field::String,
-    payment_state: Field::String,
-    special_instructions: Field::Text,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
-    currency: Field::String,
-    last_ip_address: Field::String,
-    shipment_total: Field::String.with_options(searchable: false),
-    additional_tax_total: Field::String.with_options(searchable: false),
-    promo_total: Field::String.with_options(searchable: false),
+
+    shipment_state: Field::String.with_options(filterable: true),
+    payment_state: Field::String.with_options(filterable: true),
     channel: Field::String,
-    included_tax_total: Field::String.with_options(searchable: false),
-    item_count: Field::Number,
+
+    special_instructions: Field::Text,
+
+    # shipment_total: Field::String.with_options(searchable: false),
+    # additional_tax_total: Field::String.with_options(searchable: false),
+    # promo_total: Field::String.with_options(searchable: false),
+    # included_tax_total: Field::String.with_options(searchable: false),
+    # item_count: Field::Number,
+
     approved_at: Field::DateTime,
     confirmation_delivered: Field::Boolean,
+
     created_by: Field::BelongsTo,
     guest_token: Field::String,
     canceled_at: Field::DateTime,
     approver_name: Field::String,
     frontend_viewable: Field::Boolean,
+
+    last_ip_address: Field::String,
+    created_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -84,7 +89,6 @@ class Spree::OrderDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     number
     email
-    user
     bill_address
     ship_address
     state
@@ -97,7 +101,6 @@ class Spree::OrderDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     number
     email
-    user
     bill_address
     ship_address
     state
@@ -109,104 +112,24 @@ class Spree::OrderDashboard < Administrate::BaseDashboard
     inventory_units
     cartons
     adjustments
-    line_item_adjustments
-    shipment_adjustments
-    all_adjustments
-    order_promotions
     promotions
     payments
-    valid_store_credit_payments
-    return_authorizations
-    return_items
-    customer_returns
-    reimbursements
-    refunds
-    state_changes
-    created_by
-    approver
-    canceler
-    item_total
-    total
-    approved_at
-    canceled_at
-    adjustment_total
-    completed_at
-    payment_total
-    shipment_state
-    payment_state
-    special_instructions
-    created_at
-    updated_at
-    currency
-    last_ip_address
-    shipment_total
-    additional_tax_total
-    promo_total
-    channel
-    included_tax_total
-    item_count
-    confirmation_delivered
-    guest_token
-    approver_name
-    frontend_viewable
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    user
+    number
+    email
     bill_address
     ship_address
-    store
     line_items
-    variants
-    products
     shipments
-    inventory_units
     cartons
     adjustments
-    line_item_adjustments
-    shipment_adjustments
-    all_adjustments
-    order_promotions
     promotions
     payments
-    valid_store_credit_payments
-    return_authorizations
-    return_items
-    customer_returns
-    reimbursements
-    refunds
-    state_changes
-    created_by
-    approver
-    canceler
-    number
-    item_total
-    total
-    state
-    adjustment_total
-    completed_at
-    payment_total
-    shipment_state
-    payment_state
-    email
-    special_instructions
-    currency
-    last_ip_address
-    shipment_total
-    additional_tax_total
-    promo_total
-    channel
-    included_tax_total
-    item_count
-    approved_at
-    confirmation_delivered
-    guest_token
-    canceled_at
-    approver_name
-    frontend_viewable
   ].freeze
 
   # COLLECTION_FILTERS

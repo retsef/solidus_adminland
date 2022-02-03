@@ -1,6 +1,4 @@
-require "administrate/base_dashboard"
-
-class Spree::PaymentDashboard < Administrate::BaseDashboard
+class Spree::PaymentDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -25,7 +23,7 @@ class Spree::PaymentDashboard < Administrate::BaseDashboard
     updated_at: Field::DateTime,
     number: Field::String,
     cvv_response_code: Field::String,
-    cvv_response_message: Field::String,
+    cvv_response_message: Field::String
   }.freeze
 
   # COLLECTION_ATTRIBUTES

@@ -1,6 +1,4 @@
-require 'administrate/base_dashboard'
-
-class Spree::TaxonDashboard < Administrate::BaseDashboard
+class Spree::TaxonDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -42,12 +40,6 @@ class Spree::TaxonDashboard < Administrate::BaseDashboard
     id
     name
     taxonomy
-  ].freeze
-
-  # FILTERED_ATTRIBUTES 
-  # a hash that defines filters that can be used while searching
-  FILTERED_ATTRIBUTES = %i[
-
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES

@@ -1,6 +1,4 @@
-require "administrate/base_dashboard"
-
-class Spree::ImageDashboard < Administrate::BaseDashboard
+class Spree::ImageDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -22,7 +20,7 @@ class Spree::ImageDashboard < Administrate::BaseDashboard
     attachment_updated_at: Field::DateTime,
     alt: Field::Text,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

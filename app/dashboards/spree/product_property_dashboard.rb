@@ -1,6 +1,4 @@
-require "administrate/base_dashboard"
-
-class Spree::ProductPropertyDashboard < Administrate::BaseDashboard
+class Spree::ProductPropertyDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -14,7 +12,7 @@ class Spree::ProductPropertyDashboard < Administrate::BaseDashboard
     value: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    position: Field::Number,
+    position: Field::Number
   }.freeze
 
   # COLLECTION_ATTRIBUTES

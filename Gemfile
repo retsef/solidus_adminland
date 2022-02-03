@@ -19,14 +19,14 @@ gem 'redis', '~> 4.0'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.2'
 
 gem 'importmap-rails'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 
 # Solidus
-gem 'solidus_api', '~> 3.1', '>= 3.1.1'
+# gem 'solidus_api', '~> 3.1', '>= 3.1.1'
 gem 'solidus_core', '~> 3.1', '>= 3.1.1'
 
 # Admin Panel
@@ -34,6 +34,8 @@ gem 'administrate'
 gem 'administrate_ransack'
 gem 'administrate_exportable'
 gem 'administrate_batch_actions'
+
+gem 'administrate-field-active_storage'
 
 # Policy
 gem 'action_policy'
@@ -45,6 +47,8 @@ gem 'view_component-form'
 
 # Search
 gem 'ransack'
+
+gem "addressable", "~> 2.8"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

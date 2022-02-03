@@ -16,7 +16,7 @@ as defined by the routes in the `admin/` namespace
 
     <!-- Brand -->
     <a class="navbar-brand" href="#">
-      <img src="<%= image_path("madmin/solidus-symbol-light.png") %>" class="navbar-brand-img mx-auto" alt="Solidus">
+      <img src="<%= image_path("admin/solidus-symbol-light.png") %>" class="navbar-brand-img mx-auto" alt="Solidus">
     </a>
 
     <!-- User (xs) -->
@@ -42,29 +42,104 @@ as defined by the routes in the `admin/` namespace
         <%# end %>
         
         <li class="nav-item">
-          <a class="nav-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarDashboards">
+          <a class="nav-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" 
+              aria-expanded="false" aria-controls="sidebarDashboards">
             <i class="fe fe-home"></i> Dashboards
           </a>
-          <div class="collapse show" id="sidebarDashboards">
+          <div class="collapse" id="sidebarDashboards">
             <ul class="nav nav-sm flex-column">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="#" class="nav-link">
                   Default
                 </a>
               </li>
             </ul>
           </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= admin_products_path %>">
-            <i class="fe fe-tag"></i> Products
-          </a>
-        </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="<%= admin_orders_path %>">
+          <%= active_link_to admin_orders_path, class: 'nav-link' do %>
             <i class="fe fe-package"></i> Orders
+          <% end %>
+        </li>
+
+        <%- product_resource_paths = [admin_products_path, admin_option_types_path, admin_properties_path, admin_taxonomies_path] %>
+        <%- is_product_resources_active = product_resource_paths.any? {|resource| active_link? resource } %>
+        <li class="nav-item">
+          <a class="nav-link" href="#sidebarProducts" data-bs-toggle="collapse" role="button" 
+              aria-expanded="<%= is_product_resources_active ? 'true' : 'false'%>" aria-controls="sidebarProducts">
+            <i class="fe fe-tag"></i> Products
           </a>
+          <div class="collapse <%= 'show' if is_product_resources_active%>" id="sidebarProducts">
+            <ul class="nav nav-sm flex-column">
+              <li class="nav-item">
+                <%= active_link_to admin_products_path, class: 'nav-link' do %>
+                  All Products
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= active_link_to admin_option_types_path, class: 'nav-link' do %>
+                  Option Types
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= active_link_to admin_properties_path, class: 'nav-link' do %>
+                  Option Properties
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= active_link_to admin_taxonomies_path, class: 'nav-link' do %>
+                  Taxonomies
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <%- promotion_resource_paths = [admin_promotions_path, admin_promotion_categories_path] %>
+        <%- is_promotion_resources_active = promotion_resource_paths.any? {|resource| active_link? resource } %>
+        <li class="nav-item">
+          <a class="nav-link" href="#sidebarPromotions" data-bs-toggle="collapse" role="button" 
+              aria-expanded="<%= is_promotion_resources_active ? 'true' : 'false' %>" aria-controls="sidebarPromotions">
+            <i class="fe fe-percent"></i> Promotions
+          </a>
+          <div class="collapse <%= 'show' if is_promotion_resources_active %>" id="sidebarPromotions">
+            <ul class="nav nav-sm flex-column">
+              <li class="nav-item">
+                <%= active_link_to admin_promotions_path, class: 'nav-link' do %>
+                  All Promotions
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= active_link_to admin_promotion_categories_path, class: 'nav-link' do %>
+                  Promotion Categories
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <%- stock_resource_paths = [admin_stock_items_path, admin_stock_locations_path] %>
+        <%- is_stock_resources_active = stock_resource_paths.any? {|resource| active_link? resource } %>
+        <li class="nav-item">
+          <a class="nav-link" href="#sidebarStocks" data-bs-toggle="collapse" role="button" 
+              aria-expanded="<%= stock_resource_paths ? 'true' : 'false' %>" aria-controls="sidebarStocks">
+            <i class="fe fe-box"></i> Stocks
+          </a>
+          <div class="collapse <%= 'show' if is_stock_resources_active %>" id="sidebarStocks">
+            <ul class="nav nav-sm flex-column">
+              <li class="nav-item">
+                <%= active_link_to admin_stock_items_path, class: 'nav-link' do %>
+                   All Stock Items
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= active_link_to admin_stock_locations_path, class: 'nav-link' do %>
+                   Stock locations
+                <% end %>
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
 
@@ -72,12 +147,11 @@ as defined by the routes in the `admin/` namespace
       <hr class="navbar-divider my-3">
 
       <!-- Heading -->
-      <h6 class="navbar-heading">Documentation</h6>
+      <h6 class="navbar-heading">Settings</h6>
 
       <!-- Navigation -->
       <ul class="navbar-nav mb-md-4">
-      </ul>
-
+      
       <!-- Push content down -->
       <div class="mt-auto"></div>
     </div>

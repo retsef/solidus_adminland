@@ -1,6 +1,4 @@
-require "administrate/base_dashboard"
-
-class Spree::ShippingMethodDashboard < Administrate::BaseDashboard
+class Spree::ShippingMethodDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -32,7 +30,7 @@ class Spree::ShippingMethodDashboard < Administrate::BaseDashboard
     available_to_all: Field::Boolean,
     carrier: Field::String,
     service_level: Field::String,
-    available_to_users: Field::Boolean,
+    available_to_users: Field::Boolean
   }.freeze
 
   # COLLECTION_ATTRIBUTES

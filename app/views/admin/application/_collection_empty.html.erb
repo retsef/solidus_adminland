@@ -1,0 +1,9 @@
+<tr class="table-row">
+	<td class="cell-empty" colspan=<%= collection_presenter.attribute_types.size %>>
+		<span>
+			<i class="fe fe-info"></i>
+			<%= t("helpers.empty.#{collection_presenter.resource_name}", 
+						default: "No record of #{collection_presenter.resource_name} present") %>
+		</span>
+	</td>
+</tr>

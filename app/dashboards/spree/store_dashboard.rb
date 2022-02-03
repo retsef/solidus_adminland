@@ -1,6 +1,4 @@
-require 'administrate/base_dashboard'
-
-class Spree::StoreDashboard < Administrate::BaseDashboard
+class Spree::StoreDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -23,11 +21,11 @@ class Spree::StoreDashboard < Administrate::BaseDashboard
     seo_title: Field::String,
     meta_description: Field::Text,
     meta_keywords: Field::Text,
-    default_currency: Field::String,
+    default_currency: Field::String.with_options(searchable: true, filterable: true),
     cart_tax_country_iso: Field::String,
     available_locales: Field::String,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

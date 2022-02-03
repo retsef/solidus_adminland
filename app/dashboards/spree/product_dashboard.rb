@@ -1,6 +1,4 @@
-require 'administrate/base_dashboard'
-
-class Spree::ProductDashboard < Administrate::BaseDashboard
+class Spree::ProductDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -33,7 +31,7 @@ class Spree::ProductDashboard < Administrate::BaseDashboard
     variants: Field::HasMany,
     prices: Field::HasMany,
     stock_items: Field::HasMany,
-    orders: Field::HasMany,
+    orders: Field::HasMany
   }.freeze
 
   # COLLECTION_ATTRIBUTES
