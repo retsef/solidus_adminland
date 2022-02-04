@@ -36,7 +36,7 @@ It renders the `_table` partial to display details about the resources.
   <!-- Table Header -->
   <div class="card-header">
     <div class="row align-items-center">
-      <div class="col">
+      <div class="col-md col-sm-12">
         
         <!-- Search Form -->
         <% if show_search_bar %>
@@ -86,9 +86,12 @@ It renders the `_table` partial to display details about the resources.
   ) %>
 
   <!-- Table Footer -->
-  <div class="card-footer d-flex justify-content-between">
-    <%= paginate resources, param_name: '_page' %>
+  <div class="card-footer">
+    <%= paginate resources, param_name: '_page', theme: :admin %>
   </div>
 </section>
 
-<%= render 'filters' %>
+<%= render(
+  'filters', 
+  resource_name: display_resource_name(page.resource_name)
+) %>

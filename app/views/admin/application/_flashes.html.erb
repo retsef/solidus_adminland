@@ -11,11 +11,12 @@ This partial renders flash messages on every page.
   and the values are the message to be displayed.
 %>
 
-<% if flash.any? %>
-  <div class="flashes">
-    <% flash.each do |key, value| -%>
-      <% next unless value.respond_to?(:html_safe) %>
-      <div class="flash flash-<%= key %>"><%= value.html_safe %></div>
-    <% end -%>
-  </div>
-<% end %>
+<div id="flashes" class="flashes">
+  <% flash.each do |key, value| -%>
+    <% next unless value.respond_to?(:html_safe) %>
+    <div class="alert alert-<%= alert_class(key) %> alert-dismissible rounded-0 fade show" role="alert">
+      <%= value.html_safe %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end -%>
+</div>

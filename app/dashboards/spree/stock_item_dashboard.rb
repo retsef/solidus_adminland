@@ -6,14 +6,14 @@ class Spree::StockItemDashboard < Spree::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    id: Field::Number,
+    count_on_hand: Field::Number,
+    backorderable: Field::Boolean,
     stock_location: Field::BelongsTo,
     variant: Field::BelongsTo,
     stock_movements: Field::HasMany,
-    id: Field::Number,
-    count_on_hand: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    backorderable: Field::Boolean,
     deleted_at: Field::DateTime
   }.freeze
 
@@ -23,36 +23,34 @@ class Spree::StockItemDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    stock_location
-    variant
-    stock_movements
     id
+    variant
+    stock_location
+    count_on_hand
+    stock_movements
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
+    id
+    count_on_hand
+    backorderable
     stock_location
     variant
     stock_movements
-    id
-    count_on_hand
+    deleted_at
     created_at
     updated_at
-    backorderable
-    deleted_at
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    stock_location
     variant
-    stock_movements
-    count_on_hand
+    stock_location
     backorderable
-    deleted_at
   ].freeze
 
   # COLLECTION_FILTERS

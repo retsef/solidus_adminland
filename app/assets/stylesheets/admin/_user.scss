@@ -12,3 +12,62 @@
 .form-select {
   -webkit-appearance: none;
 }
+
+.card-table {
+  td.cell-action {
+    text-align: right;
+  }
+}
+
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+  .card-header {
+    height: auto;
+  }
+  
+  .card-table {
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr { 
+      display: block; 
+    }
+    
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr { 
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    
+    tbody {
+      td, td:first-child { 
+        /* Behave  like a "row" */
+        border: none;
+        position: relative;
+        padding-left: 50% !important;
+      }
+      
+      td:before { 
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding: 1rem 1rem;
+        white-space: nowrap;
+      }
+      
+      td.cell-action {
+        text-align: left;
+      }
+      
+      /*
+      Label the data
+      */
+      td:before { content: attr(data-label); }
+    }
+  }
+}

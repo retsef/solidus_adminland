@@ -19,9 +19,9 @@
 <div class="offcanvas offcanvas-end overflow-auto" id="offcanvasFilters" tabindex="-1">
 	<%= search_form_for form_path, form_options do |f| %>
 	<div class="offcanvas-header">
-		<h4 class="offcanvas-title">Filters</h4>
+		<h4 class="offcanvas-title"><%= t('administrate.filter.label', resource: resource_name) %></h4>
 		
-		<%= link_to t('administrate_ransack.filters.clear_filters'), clear_filters_path, class: 'btn btn-sm btn-link text-reset btn-clear-filters' %>
+		<%= link_to t('administrate.filter.clear'), clear_filters_path, class: 'btn btn-sm btn-link text-reset btn-clear-filters' %>
 	</div>
 	<div class="offcanvas-body filters">
 		<div class="list-group list-group-flush mt-n4 mb-4">

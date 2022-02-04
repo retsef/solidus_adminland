@@ -17,7 +17,7 @@ module ActiveLinkToHelper
 
     active_options  = {}
     link_options    = {}
-    attr_options = %i[active class_active class_inactive active_disable wrap_tag wrap_class]
+    attr_options    = %i[active class_active class_inactive active_disable wrap_tag wrap_class]
     html_options.each do |k, v|
       if attr_options.member?(k)
         active_options[k] = v

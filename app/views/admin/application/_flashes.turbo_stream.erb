@@ -1,0 +1,24 @@
+<%#
+# Flash Partial
+
+This partial renders flash messages on every page.
+
+## Relevant Helpers:
+
+- `flash`:
+  Returns a hash,
+  where the keys are the type of flash (alert, error, notice, etc)
+  and the values are the message to be displayed.
+%>
+
+<turbo-stream action="append" target="flashes">
+  <template>
+    <% flash.each do |key, value| -%>
+      <% next unless value.respond_to?(:html_safe) %>
+      <div class="alert alert-<%= alert_class(key) %> alert-dismissible rounded-0 fade show" role="alert">
+        <%= value.html_safe %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end -%>
+  </template>
+</turbo-stream>

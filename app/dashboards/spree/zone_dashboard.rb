@@ -1,6 +1,4 @@
-require "administrate/base_dashboard"
-
-class Spree::ZoneDashboard < Administrate::BaseDashboard
+class Spree::ZoneDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,18 +6,18 @@ class Spree::ZoneDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    zone_members: Field::HasMany,
-    tax_rates: Field::HasMany,
-    countries: Field::HasMany,
-    states: Field::HasMany,
-    shipping_method_zones: Field::HasMany,
-    shipping_methods: Field::HasMany,
     id: Field::Number,
     name: Field::String,
     description: Field::String,
+    # zone_members: Field::HasMany,
     zone_members_count: Field::Number,
+    countries: Field::HasMany.with_options(class_name: 'Spree::Country'),
+    states: Field::HasMany.with_options(class_name: 'Spree::State'),
+    # shipping_method_zones: Field::HasMany,
+    shipping_methods: Field::HasMany.with_options(class_name: 'Spree::ShippingMethod'),
+    tax_rates: Field::HasMany.with_options(class_name: 'Spree::TaxRate'),
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -28,25 +26,24 @@ class Spree::ZoneDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    zone_members
-    tax_rates
+    name
+    description
     countries
     states
+    tax_rates
+    shipping_methods
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    zone_members
-    tax_rates
-    countries
-    states
-    shipping_method_zones
-    shipping_methods
     id
     name
     description
-    zone_members_count
+    tax_rates
+    countries
+    states
+    shipping_methods
     created_at
     updated_at
   ].freeze
@@ -55,15 +52,12 @@ class Spree::ZoneDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    zone_members
+    name
+    description
     tax_rates
     countries
     states
-    shipping_method_zones
     shipping_methods
-    name
-    description
-    zone_members_count
   ].freeze
 
   # COLLECTION_FILTERS

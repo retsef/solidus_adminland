@@ -21,7 +21,7 @@ class Spree::StoreDashboard < Spree::BaseDashboard
     seo_title: Field::String,
     meta_description: Field::Text,
     meta_keywords: Field::Text,
-    default_currency: Field::String.with_options(searchable: true, filterable: true),
+    default_currency: Field::String.with_options(searchable: true),
     cart_tax_country_iso: Field::String,
     available_locales: Field::String,
     created_at: Field::DateTime,

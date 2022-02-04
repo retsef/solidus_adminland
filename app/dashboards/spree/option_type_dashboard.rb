@@ -1,4 +1,9 @@
 class Spree::OptionTypeDashboard < Spree::BaseDashboard
+
+  def display_resource(resource)
+    "#{resource.name} - #{resource.presentation}"
+  end
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -6,13 +11,13 @@ class Spree::OptionTypeDashboard < Spree::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    option_values: Field::HasMany,
-    product_option_types: Field::HasMany,
-    products: Field::HasMany,
     id: Field::Number,
     name: Field::String,
     presentation: Field::String,
     position: Field::Number,
+
+    option_values: Field::HasMany.with_options(class_name: 'Spree::OptionValue'),
+    products: Field::HasMany.with_options(class_name: 'Spree::Product'),
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -23,22 +28,22 @@ class Spree::OptionTypeDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    option_values
-    product_option_types
-    products
     id
+    name
+    presentation
+    option_values
+    products
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    option_values
-    product_option_types
-    products
     id
     name
     presentation
     position
+    option_values
+    products
     created_at
     updated_at
   ].freeze
@@ -47,12 +52,10 @@ class Spree::OptionTypeDashboard < Spree::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    option_values
-    product_option_types
-    products
     name
     presentation
     position
+    option_values
   ].freeze
 
   # COLLECTION_FILTERS

@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class Spree::TaxRateDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -23,7 +23,7 @@ class Spree::TaxRateDashboard < Administrate::BaseDashboard
     show_rate_in_label: Field::Boolean,
     deleted_at: Field::DateTime,
     starts_at: Field::DateTime,
-    expires_at: Field::DateTime,
+    expires_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

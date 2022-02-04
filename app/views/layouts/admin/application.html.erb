@@ -34,9 +34,10 @@ By default, it renders:
   <%= render "navigation" -%>
 
   <main class="main-content" role="main">
+    <%= render "flashes" -%>
+    
     <div class="container-fluid">
       <div class="row justify-content-center">
-        <%= render "flashes" -%>
 
         <%= yield %>
       </div>

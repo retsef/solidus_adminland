@@ -48,7 +48,7 @@ gem 'view_component-form'
 # Search
 gem 'ransack'
 
-gem "addressable", "~> 2.8"
+gem 'addressable', '~> 2.8'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

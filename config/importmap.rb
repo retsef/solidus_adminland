@@ -17,10 +17,8 @@ pin "bootstrap", to: "https://ga.jspm.io/npm:bootstrap@5.1.3/dist/js/bootstrap.e
 pin "@popperjs/core", to: "https://ga.jspm.io/npm:@popperjs/core@2.11.2/dist/esm/index.js"
 
 pin "choices.js", to: "https://ga.jspm.io/npm:choices.js@10.0.0/public/assets/scripts/choices.js"
-
-# ???
-# pin 'stimulus-flatpickr', to: 'https://ga.jspm.io/npm:stimulus-flatpickr@1.4.0/dist/index.js'
-# pin 'flatpickr', to: 'https://ga.jspm.io/npm:flatpickr@4.6.9/dist/flatpickr.js'
+pin 'flatpickr', to: 'https://ga.jspm.io/npm:flatpickr@4.6.9/dist/flatpickr.js'
+pin "inputmask", to: "https://ga.jspm.io/npm:inputmask@5.0.7/dist/inputmask.js"
 
 pin_all_from "app/javascript/controllers", under: "controllers"
 

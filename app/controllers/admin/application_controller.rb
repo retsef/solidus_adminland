@@ -9,6 +9,7 @@ module Admin
   class ApplicationController < Administrate::ApplicationController
     prepend AdministrateRansack::Searchable
     helper 'active_link_to'
+    helper 'alert'
 
     before_action :authenticate_admin
 

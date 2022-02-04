@@ -5,6 +5,6 @@ class Admin::Form::CheckBoxComponent < ViewComponent::Form::CheckBoxComponent
   self.tag_klass = ActionView::Helpers::Tags::CheckBox
 
   def html_class
-    'form-check'
+    'form-check-input'
   end
 end

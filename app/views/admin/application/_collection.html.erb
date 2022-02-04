@@ -18,7 +18,7 @@ to display a collection of resources in an HTML table.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Collection
 %>
 
-<div class="table-responsive">
+<div id="collection_table" class="table-responsive">
   <table class="table table-sm table-hover table-nowrap card-table" aria-labelledby="<%= table_title %>">
     <thead>
       <tr>
@@ -68,12 +68,12 @@ to display a collection of resources in an HTML table.
 
       <% resources.each do |resource| %>
         <tr class="table-row"
-            <% if show_action? :show, resource %>
-              <%= %(tabindex=0 role=link data-url=#{polymorphic_path([namespace, resource])}) %>
-            <% end %>
+            <%# if show_action? :show, resource %>
+              <%# = %(tabindex=0 role=link data-url=#{polymorphic_path([namespace, resource])}) %>
+            <%# end %>
             >
           <% collection_presenter.attributes_for(resource).each do |attribute| %>
-            <td class="cell-data cell-data--<%= attribute.html_class %>">
+            <td class="cell-data cell-data--<%= attribute.html_class %>" data-label="<%= attribute.name %>">
               <% if show_action? :show, resource -%>
                 <a href="<%= polymorphic_path([namespace, resource]) -%>"
                   tabindex="-1"

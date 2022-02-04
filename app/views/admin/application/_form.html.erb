@@ -25,9 +25,11 @@ and renders all form fields for a resource's editable attributes.
         ) %>
       </h4>
       <hr>
-      <ul class="list-group list-group-flush text-white">
+      <ul>
         <% page.resource.errors.full_messages.each do |message| %>
-          <li class="flash-error list-group-item d-flex align-items-center justify-content-between px-0"><%= message %></li>
+          <li class="flash-error align-items-center">
+            <%= message %>
+          </li>
         <% end %>
       </ul>
     </div>

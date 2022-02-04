@@ -1,7 +1,9 @@
+<%= render 'flashes' %>
+
 <turbo-stream action="replace" target="form_body">
   <template>
     <section class="main-content__body" id="form_body">
-        <%= render "form", page: page %>
+      <%= render "form", page: page %>
     </section>
   </template>
 </turbo-stream>

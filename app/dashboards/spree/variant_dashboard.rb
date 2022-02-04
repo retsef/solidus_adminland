@@ -1,4 +1,9 @@
 class Spree::VariantDashboard < Spree::BaseDashboard
+
+  def display_resource(resource)
+    "#{resource.sku}"
+  end
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -6,30 +11,31 @@ class Spree::VariantDashboard < Spree::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    product: Field::BelongsTo,
-    tax_category: Field::BelongsTo,
-    inventory_units: Field::HasMany,
-    line_items: Field::HasMany,
-    orders: Field::HasMany,
-    stock_items: Field::HasMany,
-    stock_locations: Field::HasMany,
-    stock_movements: Field::HasMany,
-    option_values_variants: Field::HasMany,
-    option_values: Field::HasMany,
-    images: Field::HasMany,
-    prices: Field::HasMany,
     id: Field::Number,
     sku: Field::String,
     weight: Field::String.with_options(searchable: false),
     height: Field::String.with_options(searchable: false),
     width: Field::String.with_options(searchable: false),
     depth: Field::String.with_options(searchable: false),
-    deleted_at: Field::DateTime,
     is_master: Field::Boolean,
     cost_price: Field::String.with_options(searchable: false),
     position: Field::Number,
     cost_currency: Field::String,
     track_inventory: Field::Boolean,
+
+    product: Field::BelongsTo.with_options(class_name: 'Spree::Product'),
+    tax_category: Field::BelongsTo.with_options(class_name: 'Spree::TaxCategory'),
+    inventory_units: Field::HasMany.with_options(class_name: 'Spree::InventoryUnit'),
+    # line_items: Field::HasMany,
+    # orders: Field::HasMany,
+    stock_items: Field::HasMany.with_options(class_name: 'Spree::StockItem'),
+    stock_locations: Field::HasMany.with_options(class_name: 'Spree::StockLocation'),
+    stock_movements: Field::HasMany.with_options(class_name: 'Spree::StockMovement'),
+    # option_values_variants: Field::HasMany,
+    option_values: Field::HasMany.with_options(class_name: 'Spree::OptionValue'),
+    images: Field::HasMany.with_options(class_name: 'Spree::Image'),
+    prices: Field::HasMany.with_options(class_name: 'Spree::Price'),
+    deleted_at: Field::DateTime,
     updated_at: Field::DateTime,
     created_at: Field::DateTime
   }.freeze
