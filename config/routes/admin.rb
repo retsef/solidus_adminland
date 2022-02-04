@@ -60,6 +60,16 @@ Rails.application.routes.draw do
 
       # Settings
       resources :stores
+
+      resources :payment_methods
+
+      resources :shipping_methods
+      resources :shipping_categories
+
+      resources :tax_categories
+      resources :tax_rates
+
+      resources :zones
     end
   end
 end

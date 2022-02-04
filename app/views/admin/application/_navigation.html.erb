@@ -123,7 +123,7 @@ as defined by the routes in the `admin/` namespace
         <%- is_stock_resources_active = stock_resource_paths.any? {|resource| active_link? resource } %>
         <li class="nav-item">
           <a class="nav-link" href="#sidebarStocks" data-bs-toggle="collapse" role="button" 
-              aria-expanded="<%= stock_resource_paths ? 'true' : 'false' %>" aria-controls="sidebarStocks">
+              aria-expanded="<%= is_stock_resources_active ? 'true' : 'false' %>" aria-controls="sidebarStocks">
             <i class="fe fe-box"></i> Stocks
           </a>
           <div class="collapse <%= 'show' if is_stock_resources_active %>" id="sidebarStocks">
@@ -151,7 +151,80 @@ as defined by the routes in the `admin/` namespace
 
       <!-- Navigation -->
       <ul class="navbar-nav mb-md-4">
-      
+        <%- settings_resource_paths = [admin_stores_path, admin_payment_methods_path, admin_zones_path] %>
+        <%- is_settings_resources_active = settings_resource_paths.any? {|resource| active_link? resource } %>
+        <li class="nav-item">
+          <a class="nav-link" href="#sidebarSettings" data-bs-toggle="collapse" role="button" 
+              aria-expanded="<%= is_settings_resources_active ? 'true' : 'false' %>" aria-controls="sidebarSettings">
+            <i class="fe fe-settings"></i> Settings
+          </a>
+          <div class="collapse <%= 'show' if is_settings_resources_active %>" id="sidebarSettings">
+            <ul class="nav nav-sm flex-column">
+              <li class="nav-item">
+                <%= active_link_to admin_stores_path, class: 'nav-link' do %>
+                   Stores
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= active_link_to admin_payment_methods_path, class: 'nav-link' do %>
+                   Payment Methods
+                <% end %>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="#sidebarSettingShipping" data-bs-toggle="collapse" role="button" 
+                    aria-expanded='false' aria-controls="sidebarSettingShipping">
+                  Shipping
+                </a>
+                <div class="collapse" id="sidebarSettingShipping">
+                  <ul class="nav nav-sm flex-column">
+                    <li class="nav-item">
+                      <%= active_link_to admin_shipping_methods_path, class: 'nav-link' do %>
+                        Shipping Methods
+                      <% end %>
+                    </li>
+                    <li class="nav-item">
+                      <%= active_link_to admin_shipping_categories_path, class: 'nav-link' do %>
+                        Shipping Categories
+                      <% end %>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="#sidebarSettingTaxes" data-bs-toggle="collapse" role="button" 
+                    aria-expanded='false' aria-controls="sidebarSettingTaxes">
+                  Taxes
+                </a>
+                <div class="collapse" id="sidebarSettingTaxes">
+                  <ul class="nav nav-sm flex-column">
+                    <li class="nav-item">
+                      <%= active_link_to admin_tax_categories_path, class: 'nav-link' do %>
+                        Tax Categories
+                      <% end %>
+                    </li>
+                    <li class="nav-item">
+                      <%= active_link_to admin_tax_rates_path, class: 'nav-link' do %>
+                        Tax Rates
+                      <% end %>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+
+              <li class="nav-item">
+                <%= active_link_to admin_zones_path, class: 'nav-link' do %>
+                   Zones
+                <% end %>
+              </li>
+
+            </ul>
+          </div>
+        </li>
+      </ul>
+
       <!-- Push content down -->
       <div class="mt-auto"></div>
     </div>

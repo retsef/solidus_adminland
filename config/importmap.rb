@@ -14,7 +14,7 @@ pin 'trix', to: 'https://ga.jspm.io/npm:trix@2.0.0-alpha.0/dist/trix.js'
 # pin 'tailwindcss-stimulus-components', to: 'https://ga.jspm.io/npm:tailwindcss-stimulus-components@3.0.2/dist/tailwindcss-stimulus-components.modern.js'
 
 pin "bootstrap", to: "https://ga.jspm.io/npm:bootstrap@5.1.3/dist/js/bootstrap.esm.js"
-pin "@popperjs/core", to: "https://ga.jspm.io/npm:@popperjs/core@2.11.2/lib/index.js"
+pin "@popperjs/core", to: "https://ga.jspm.io/npm:@popperjs/core@2.11.2/dist/esm/index.js"
 
 pin "choices.js", to: "https://ga.jspm.io/npm:choices.js@10.0.0/public/assets/scripts/choices.js"
 
