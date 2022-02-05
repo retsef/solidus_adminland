@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       end
       
       resources :option_types
+      resources :option_values
       resources :properties
 
       resources :taxonomies do
@@ -56,7 +57,7 @@ Rails.application.routes.draw do
       resources :stock_locations
 
       # Users
-      # resources :users
+      resources :users
 
       # Settings
       resources :stores

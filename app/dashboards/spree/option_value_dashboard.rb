@@ -27,7 +27,6 @@ class Spree::OptionValueDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    id
     name
     presentation
     option_type
@@ -38,13 +37,10 @@ class Spree::OptionValueDashboard < Spree::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    position
     name
     presentation
-    option_type_id
+    position
     variants
-    created_at
-    updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -54,8 +50,6 @@ class Spree::OptionValueDashboard < Spree::BaseDashboard
     name
     presentation
     position
-    option_type
-    variants
   ].freeze
 
   # COLLECTION_FILTERS

@@ -9,9 +9,9 @@ class Spree::TaxonDashboard < Spree::BaseDashboard
     id: Field::Number,
     name: Field::String,
     description: Field::Text,
-    taxonomy: Field::BelongsTo,
+    taxonomy: Field::BelongsTo.with_options(class_name: 'Spree::Taxonomy'),
     classifications: Field::HasMany,
-    products: Field::HasMany,
+    products: Field::HasMany.with_options(class_name: 'Spree::Product'),
     # icon_attachment: Field::HasOne,
     # icon_blob: Field::HasOne,
     # icon_file_name: Field::String,
@@ -19,16 +19,17 @@ class Spree::TaxonDashboard < Spree::BaseDashboard
     # icon_file_size: Field::Number,
     # icon_updated_at: Field::DateTime,
     # icon: Field::Image,
+    icon: Field::ActiveStorage,
     position: Field::Number,
     permalink: Field::String,
     # lft: Field::Number,
     # rgt: Field::Number,
     # depth: Field::Number,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
     meta_title: Field::String,
     meta_description: Field::String,
-    meta_keywords: Field::String
+    meta_keywords: Field::String,
+    created_at: Field::DateTime,
+    updated_at: Field::DateTime,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -37,9 +38,10 @@ class Spree::TaxonDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    id
     name
+    description
     taxonomy
+    products
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -48,14 +50,12 @@ class Spree::TaxonDashboard < Spree::BaseDashboard
     name
     description
     permalink
-    taxonomy
-    classifications
-    products
     meta_title
     meta_description
     meta_keywords
-    created_at
-    updated_at
+    taxonomy
+    classifications
+    products
   ].freeze
 
   # FORM_ATTRIBUTES

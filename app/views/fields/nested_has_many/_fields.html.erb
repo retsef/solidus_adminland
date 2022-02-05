@@ -5,8 +5,10 @@
     </div>
   <% end -%>
 
-  <%= link_to(I18n.t("administrate.fields.nested_has_many.remove", resource: field.associated_class_name.titleize), 
-        "#", data: { action: "click->nested-form#remove_association" }) %>
+  <%= link_to(I18n.t("administrate.fields.nested_has_many.remove", 
+        resource: field.associated_class_name.titleize), 
+        "#", class: 'text-danger',
+        data: { action: "click->nested-form#remove_association" }) %>
   
   <%= f.hidden_field :_destroy %>
 </div>

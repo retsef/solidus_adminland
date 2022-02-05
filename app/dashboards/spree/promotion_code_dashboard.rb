@@ -21,7 +21,6 @@ class Spree::PromotionCodeDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    id
     value
     promotion
     adjustments
@@ -30,13 +29,10 @@ class Spree::PromotionCodeDashboard < Spree::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    id
     value
     promotion
     promotion_code_batch
     adjustments
-    created_at
-    updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -45,6 +41,10 @@ class Spree::PromotionCodeDashboard < Spree::BaseDashboard
   FORM_ATTRIBUTES = %i[
     value
     promotion
+  ].freeze
+
+  FORM_ATTRIBUTES_NEW = %i[
+    value
   ].freeze
 
   # COLLECTION_FILTERS

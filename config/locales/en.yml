@@ -77,3 +77,7 @@ en:
     filter:
       clear: Clear filters
       label: Filter %{resource}
+    fields:
+      nested_has_many:
+        add: Add new %{resource}
+        remove: Remove %{resource}

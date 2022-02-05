@@ -6,31 +6,30 @@ class Spree::ShippingMethodDashboard < Spree::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    calculator: Field::HasOne,
-    shipping_method_categories: Field::HasMany,
-    shipping_categories: Field::HasMany,
-    shipping_rates: Field::HasMany,
-    shipments: Field::HasMany,
-    cartons: Field::HasMany,
-    shipping_method_zones: Field::HasMany,
-    zones: Field::HasMany,
-    tax_category: Field::BelongsTo,
-    shipping_method_stock_locations: Field::HasMany,
-    stock_locations: Field::HasMany,
-    store_shipping_methods: Field::HasMany,
-    stores: Field::HasMany,
     id: Field::Number,
     name: Field::String,
-    deleted_at: Field::DateTime,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    code: Field::String,
+
+    calculator: Field::HasOne,
+
+    shipping_categories: Field::HasMany.with_options(class_name: 'Spree::ShippingCategory'),
+    shipping_rates: Field::HasMany.with_options(class_name: 'Spree::ShippingRate'),
+    shipments: Field::HasMany.with_options(class_name: 'Spree::Shipment'),
+    cartons: Field::HasMany,
+    zones: Field::HasMany.with_options(class_name: 'Spree::Zone'),
+    tax_category: Field::BelongsTo.with_options(class_name: 'Spree::TaxCategory'),
+    stock_locations: Field::HasMany.with_options(class_name: 'Spree::StockLocation'),
+    stores: Field::HasMany.with_options(class_name: 'Spree::Store'),
+
     tracking_url: Field::String,
     admin_name: Field::String,
-    code: Field::String,
     available_to_all: Field::Boolean,
     carrier: Field::String,
     service_level: Field::String,
-    available_to_users: Field::Boolean
+    available_to_users: Field::Boolean,
+    deleted_at: Field::DateTime,
+    created_at: Field::DateTime,
+    updated_at: Field::DateTime,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -39,8 +38,8 @@ class Spree::ShippingMethodDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    calculator
-    shipping_method_categories
+    name
+    code
     shipping_categories
     shipping_rates
   ].freeze
@@ -48,52 +47,39 @@ class Spree::ShippingMethodDashboard < Spree::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
+    id
+    name
+    admin_name
+    code
+    available_to_all
     calculator
-    shipping_method_categories
     shipping_categories
     shipping_rates
     shipments
     cartons
-    shipping_method_zones
     zones
     tax_category
-    shipping_method_stock_locations
     stock_locations
-    store_shipping_methods
     stores
-    id
-    name
-    deleted_at
-    created_at
-    updated_at
     tracking_url
-    admin_name
-    code
-    available_to_all
     carrier
     service_level
     available_to_users
+    deleted_at
+    created_at
+    updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    calculator
-    shipping_method_categories
+    name
     shipping_categories
     shipping_rates
-    shipments
-    cartons
-    shipping_method_zones
-    zones
     tax_category
-    shipping_method_stock_locations
     stock_locations
-    store_shipping_methods
     stores
-    name
-    deleted_at
     tracking_url
     admin_name
     code

@@ -21,15 +21,21 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     match_policy: Field::Select.with_options(collection: Spree::Promotion::MATCH_POLICIES),
     advertise: Field::Boolean,
     path: Field::String,
-    #  promotion_code_batches: Field::HasMany,
+
     per_code_usage_limit: Field::Number,
     apply_automatically: Field::Boolean,
+
+    # activation_type: Field::Select.with_options(collection: ['auto', 'single_code', 'multiple_codes']),
+    # single_code: Field::String,
+    # promotion_code_batch: Field::HasOne.with_options(class_name: 'Spree::PromotionCodeBatch'),
+
+    codes: Field::NestedHasMany.with_options(class_name: 'Spree::PromotionCode'),
     promotion_category: Field::BelongsTo.with_options(class_name: 'Spree::PromotionCategory', filterable: true),
-    promotion_rules: Field::HasMany.with_options(class_name: 'Spree::PromotionRule'),
-    promotion_actions: Field::HasMany.with_options(class_name: 'Spree::PromotionAction'),
+    # promotion_rules: Field::HasMany.with_options(class_name: 'Spree::PromotionRule'),
+    # promotion_actions: Field::HasMany.with_options(class_name: 'Spree::PromotionAction'),
+
     # order_promotions: Field::HasMany,
     orders: Field::HasMany.with_options(class_name: 'Spree::Order'),
-    codes: Field::HasMany.with_options(class_name: 'Spree::PromotionCode'),
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -40,7 +46,6 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    id
     name
     description
     type
@@ -52,7 +57,6 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    id
     name
     type
     description
@@ -64,13 +68,11 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     path
     per_code_usage_limit
     apply_automatically
-    promotion_category
-    promotion_rules
-    promotion_actions
-    orders
+
     codes
-    created_at
-    updated_at
+    promotion_category
+
+    orders
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -88,9 +90,9 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     path
     per_code_usage_limit
     apply_automatically
+
     promotion_category
-    promotion_rules
-    promotion_actions
+
     orders
     codes
   ].freeze
@@ -101,10 +103,8 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     starts_at
     expires_at
     usage_limit
-    match_policy
-    advertise
-    path
     per_code_usage_limit
+    codes
     apply_automatically
   ].freeze
 

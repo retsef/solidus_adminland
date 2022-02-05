@@ -23,7 +23,6 @@ class Spree::StockItemDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    id
     variant
     stock_location
     count_on_hand
@@ -33,15 +32,11 @@ class Spree::StockItemDashboard < Spree::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    id
+    variant
     count_on_hand
     backorderable
     stock_location
-    variant
     stock_movements
-    deleted_at
-    created_at
-    updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -51,6 +46,14 @@ class Spree::StockItemDashboard < Spree::BaseDashboard
     variant
     stock_location
     backorderable
+    count_on_hand
+  ].freeze
+
+  FORM_ATTRIBUTES = %i[
+    variant
+    stock_location
+    backorderable
+    count_on_hand
   ].freeze
 
   # COLLECTION_FILTERS

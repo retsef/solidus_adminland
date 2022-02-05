@@ -8,22 +8,23 @@ class Spree::TaxRateDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    calculator: Field::HasOne,
-    zone: Field::BelongsTo,
-    tax_rate_tax_categories: Field::HasMany,
-    tax_categories: Field::HasMany,
-    adjustments: Field::HasMany,
-    shipping_rate_taxes: Field::HasMany,
     id: Field::Number,
+    name: Field::String,
     amount: Field::String.with_options(searchable: false),
     included_in_price: Field::Boolean,
+    show_rate_in_label: Field::Boolean,
+    starts_at: Field::DateTime,
+    expires_at: Field::DateTime,
+
+    calculator: Field::HasOne.with_options(class_name: 'Spree::Calculator'),
+    zone: Field::BelongsTo.with_options(class_name: 'Spree::Zone'),
+    tax_categories: Field::HasMany.with_options(class_name: 'Spree::TaxCategory'),
+    adjustments: Field::HasMany.with_options(class_name: 'Spree::Adjustment'),
+    # shipping_rate_taxes: Field::HasMany,
+
+    deleted_at: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    name: Field::String,
-    show_rate_in_label: Field::Boolean,
-    deleted_at: Field::DateTime,
-    starts_at: Field::DateTime,
-    expires_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -32,48 +33,44 @@ class Spree::TaxRateDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    calculator
+    name
     zone
-    tax_rate_tax_categories
+    starts_at
+    expires_at
+    amount
+    included_in_price
+    show_rate_in_label
     tax_categories
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    calculator
-    zone
-    tax_rate_tax_categories
-    tax_categories
-    adjustments
-    shipping_rate_taxes
-    id
-    amount
-    included_in_price
-    created_at
-    updated_at
     name
-    show_rate_in_label
-    deleted_at
     starts_at
     expires_at
+    amount
+    show_rate_in_label
+    included_in_price
+    calculator
+    zone
+    tax_categories
+    adjustments
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    calculator
-    zone
-    tax_rate_tax_categories
-    tax_categories
-    adjustments
-    shipping_rate_taxes
-    amount
-    included_in_price
     name
+
+    amount
+    zone
+    tax_categories
+
+    included_in_price
     show_rate_in_label
-    deleted_at
+
     starts_at
     expires_at
   ].freeze

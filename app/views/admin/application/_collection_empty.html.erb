@@ -1,5 +1,13 @@
+<%- colspan = collection_presenter.attribute_types.size %>
+<% actions = [
+    valid_action?(:edit, collection_presenter.resource_name),
+    valid_action?(:destroy, collection_presenter.resource_name)
+] %>
+
+<%- colspan += 1 if actions.include? true %>
+
 <tr class="table-row">
-	<td class="cell-empty" colspan=<%= collection_presenter.attribute_types.size %>>
+	<td class="cell-empty" colspan=<%= colspan %>>
 		<span>
 			<i class="fe fe-info"></i>
 			<%= t("helpers.empty.#{collection_presenter.resource_name}", 

@@ -18,11 +18,6 @@ class Spree::StockLocationDashboard < Spree::BaseDashboard
     restock_inventory: Field::Boolean,
     fulfillable: Field::Boolean,
     check_stock_on_transfer: Field::Boolean,
-    shipments: Field::HasMany,
-    stock_items: Field::HasMany,
-    cartons: Field::HasMany,
-    stock_movements: Field::HasMany,
-    user_stock_locations: Field::HasMany,
 
     default: Field::Boolean,
     address1: Field::String,
@@ -32,12 +27,16 @@ class Spree::StockLocationDashboard < Spree::BaseDashboard
     zipcode: Field::String,
     phone: Field::String,
     active: Field::Boolean,
-    users: Field::HasMany,
-    state: Field::BelongsTo,
-    country: Field::BelongsTo,
+    # users: Field::HasMany,
+    state: Field::BelongsTo.with_options(class_name: 'Spree::State'),
+    country: Field::BelongsTo.with_options(class_name: 'Spree::Country'),
 
-    shipping_method_stock_locations: Field::HasMany,
-    shipping_methods: Field::HasMany,
+    shipping_methods: Field::HasMany.with_options(class_name: 'Spree::ShippingMethod'),
+    # shipments: Field::HasMany,
+    stock_items: Field::HasMany.with_options(class_name: 'Spree::StockItem'),
+    # cartons: Field::HasMany,
+    stock_movements: Field::HasMany.with_options(class_name: 'Spree::StockMovement'),
+    
     backorderable_default: Field::Boolean,
     propagate_all_variants: Field::Boolean,
     admin_name: Field::String,
@@ -54,16 +53,13 @@ class Spree::StockLocationDashboard < Spree::BaseDashboard
     name
     code
     default
-    shipments
     stock_items
-    cartons
     stock_movements
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    id
     name
     code
     default
@@ -76,23 +72,15 @@ class Spree::StockLocationDashboard < Spree::BaseDashboard
     active
     backorderable_default
     propagate_all_variants
-    admin_name
     position
     restock_inventory
     fulfillable
     check_stock_on_transfer
-    shipments
     stock_items
-    cartons
     stock_movements
-    user_stock_locations
-    users
     state
     country
-    shipping_method_stock_locations
     shipping_methods
-    created_at
-    updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -102,29 +90,26 @@ class Spree::StockLocationDashboard < Spree::BaseDashboard
     name
     code
     default
+    admin_name
+    active
+    position
+
     address1
     address2
     city
     state_name
     zipcode
     phone
-    active
     backorderable_default
     propagate_all_variants
-    admin_name
-    position
     restock_inventory
     fulfillable
     check_stock_on_transfer
-    shipments
-    stock_items
-    cartons
-    stock_movements
-    user_stock_locations
-    users
     state
     country
-    shipping_method_stock_locations
+
+    stock_items
+    stock_movements
     shipping_methods
   ].freeze
 
