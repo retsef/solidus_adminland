@@ -4,6 +4,6 @@ class Admin::Form::CollectionSelectComponent < ViewComponent::Form::CollectionSe
   self.tag_klass = ActionView::Helpers::Tags::CollectionSelect
 
   def html_class
-    'form-control form-select'
+    "form-control form-select #{'is-invalid' if method_errors?}"
   end
 end

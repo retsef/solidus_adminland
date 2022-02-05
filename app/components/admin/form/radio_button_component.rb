@@ -4,6 +4,6 @@ class Admin::Form::RadioButtonComponent < ViewComponent::Form::RadioButtonCompon
   self.tag_klass = ActionView::Helpers::Tags::RadioButton
 
   def html_class
-    'form-control'
+    "form-control #{'is-invalid' if method_errors?}"
   end
 end

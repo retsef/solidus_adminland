@@ -1,6 +1,8 @@
-require 'administrate/base_dashboard'
+class Spree::ShippingCategoryDashboard < Spree::BaseDashboard
+  def display_resource(shipping_category)
+    shipping_category.name
+  end
 
-class Spree::ShippingCategoryDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #

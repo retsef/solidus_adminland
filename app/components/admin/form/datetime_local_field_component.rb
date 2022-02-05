@@ -4,6 +4,6 @@ class Admin::Form::DatetimeLocalFieldComponent < ViewComponent::Form::DatetimeLo
   self.tag_klass = ActionView::Helpers::Tags::DatetimeLocalField
 
   def html_class
-    'form-control'
+    "form-control #{'is-invalid' if method_errors?}"
   end
 end

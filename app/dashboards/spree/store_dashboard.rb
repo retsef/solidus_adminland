@@ -1,4 +1,8 @@
 class Spree::StoreDashboard < Spree::BaseDashboard
+  def display_resource(store)
+    "#{store.name} - #{store.code}"
+  end
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #

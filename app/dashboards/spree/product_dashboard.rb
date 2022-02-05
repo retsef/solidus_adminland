@@ -15,14 +15,10 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     description: Field::Text,
     available_on: Field::DateTime,
     discontinue_on: Field::DateTime,
-    deleted_at: Field::DateTime,
     slug: Field::String,
-    meta_title: Field::String,
-    meta_description: Field::Text,
-    meta_keywords: Field::String,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
     promotionable: Field::Boolean,
+
+    price: Field::Number,
 
     product_option_types: Field::HasMany,
     option_types: Field::HasMany,
@@ -35,7 +31,14 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     variants: Field::HasMany,
     prices: Field::HasMany,
     stock_items: Field::HasMany,
-    orders: Field::HasMany
+    orders: Field::HasMany,
+
+    meta_title: Field::String,
+    meta_description: Field::Text,
+    meta_keywords: Field::String,
+    deleted_at: Field::DateTime,
+    created_at: Field::DateTime,
+    updated_at: Field::DateTime,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -54,32 +57,24 @@ class Spree::ProductDashboard < Spree::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    id
     name
     description
     available_on
-    deleted_at
     slug
-    meta_title
-    meta_description
-    meta_keywords
-    created_at
-    updated_at
     promotionable
     discontinue_on
 
-    product_option_types
-    option_types
-    product_properties
     properties
-    classifications
-    taxons
+    option_types
+    variants
+    
     tax_category
     shipping_category
-    variants
     prices
-    stock_items
-    orders
+
+    meta_title
+    meta_description
+    meta_keywords
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -89,28 +84,37 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     name
     description
     available_on
-    deleted_at
-    slug
-    meta_title
-    meta_description
-    meta_keywords
-    promotionable
     discontinue_on
+    slug
+    promotionable
 
-    product_option_types
     option_types
-    product_properties
     properties
-    classifications
     taxons
     tax_category
     shipping_category
     variants
     prices
-    stock_items
-    orders
+
+    meta_title
+    meta_description
+    meta_keywords
   ].freeze
 
+  FORM_ATTRIBUTES_NEW = %i[
+    name
+    description
+    available_on
+    discontinue_on
+    price
+    promotionable
+
+    option_types
+    taxons
+    tax_category
+    shipping_category
+  ].freeze
+  
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search
   # field of the dashboard.

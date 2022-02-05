@@ -4,6 +4,6 @@ class Admin::Form::NumberFieldComponent < ViewComponent::Form::NumberFieldCompon
   self.tag_klass = ActionView::Helpers::Tags::NumberField
 
   def html_class
-    'form-control'
+    "form-control #{'is-invalid' if method_errors?}"
   end
 end
