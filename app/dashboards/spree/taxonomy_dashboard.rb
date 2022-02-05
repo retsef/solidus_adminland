@@ -1,15 +1,15 @@
 class Spree::TaxonomyDashboard < Spree::BaseDashboard
   def display_resource(taxonomy)
-    "#{taxonomy.name}"
+    taxonomy.name.to_s
   end
 
   TAXON_EXCLUDED_PARAMS = %i[
-    description 
-    permalink 
-    position 
-    taxonomy 
-    meta_title 
-    meta_description 
+    description
+    permalink
+    position
+    taxonomy
+    meta_title
+    meta_description
     meta_keywords
   ].freeze
 

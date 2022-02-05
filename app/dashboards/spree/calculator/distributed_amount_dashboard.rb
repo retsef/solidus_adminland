@@ -1,51 +1,27 @@
-class Spree::StateDashboard < Spree::BaseDashboard
-  def display_resource(state)
-    state.name.to_s
-  end
-
+class Spree::Calculator::DefaultTaxDashboard < Spree::CalculatorDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
   # Each different type represents an Administrate::Field object,
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
-  ATTRIBUTE_TYPES = {
-    id: Field::Number,
-    name: Field::String,
-    abbr: Field::String,
-    country: Field::BelongsTo.with_options(class_name: 'Spree::Country'),
-    addresses: Field::HasMany.with_options(class_name: 'Spree::Address'),
-    updated_at: Field::DateTime,
-    created_at: Field::DateTime
-  }.freeze
+  # ATTRIBUTE_TYPES = Spree::PaymentMethodDashboard::ATTRIBUTE_TYPES
 
   # COLLECTION_ATTRIBUTES
   # an array of attributes that will be displayed on the model's index page.
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = %i[
-    name
-    country
-  ].freeze
+  # COLLECTION_ATTRIBUTES = Spree::PaymentMethodDashboard::COLLECTION_ATTRIBUTES
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = %i[
-    id
-    name
-    abbr
-    country
-    addresses
-  ].freeze
+  # SHOW_PAGE_ATTRIBUTES = Spree::PaymentMethodDashboard::SHOW_PAGE_ATTRIBUTES
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = %i[
-    name
-    abbr
-  ].freeze
+  # FORM_ATTRIBUTES = Spree::PaymentMethodDashboard::FORM_ATTRIBUTES
 
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search
@@ -57,12 +33,12 @@ class Spree::StateDashboard < Spree::BaseDashboard
   #   COLLECTION_FILTERS = {
   #     open: ->(resources) { resources.where(open: true) }
   #   }.freeze
-  COLLECTION_FILTERS = {}.freeze
+  # COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how states are displayed
+  # Overwrite this method to customize how checks are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(state)
-  #   "Spree::State ##{state.id}"
+  # def display_resource(check)
+  #   "Spree::PaymentMethod::Check ##{check.id}"
   # end
 end

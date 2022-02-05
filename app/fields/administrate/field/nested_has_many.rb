@@ -1,3 +1,5 @@
+require 'administrate/field/has_many'
+
 class Administrate::Field::NestedHasMany < Administrate::Field::HasMany
   DEFAULT_ATTRIBUTES = %i[id _destroy].freeze
 

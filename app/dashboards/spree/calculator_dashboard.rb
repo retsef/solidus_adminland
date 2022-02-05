@@ -1,6 +1,4 @@
-require 'administrate/base_dashboard'
-
-class Spree::TaxRateDashboard < Administrate::BaseDashboard
+class Spree::CalculatorDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -9,22 +7,11 @@ class Spree::TaxRateDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    name: Field::String,
-    amount: Field::String.with_options(searchable: false),
-    included_in_price: Field::Boolean,
-    show_rate_in_label: Field::Boolean,
-    starts_at: Field::DateTime,
-    expires_at: Field::DateTime,
-
-    calculator: Field::HasOne.with_options(class_name: 'Spree::Calculator'),
-    zone: Field::BelongsTo.with_options(class_name: 'Spree::Zone'),
-    tax_categories: Field::HasMany.with_options(class_name: 'Spree::TaxCategory'),
-    adjustments: Field::HasMany.with_options(class_name: 'Spree::Adjustment'),
-    # shipping_rate_taxes: Field::HasMany,
-
-    deleted_at: Field::DateTime,
+    type: Field::String,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    updated_at: Field::DateTime,
+    preferences: Field::Text,
+    calculable: Field::Polymorphic
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -33,46 +20,30 @@ class Spree::TaxRateDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    name
-    zone
-    starts_at
-    expires_at
-    amount
-    included_in_price
-    show_rate_in_label
-    tax_categories
+    calculable
+    id
+    type
+    created_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    name
-    starts_at
-    expires_at
-    amount
-    show_rate_in_label
-    included_in_price
-    calculator
-    zone
-    tax_categories
-    adjustments
+    calculable
+    id
+    type
+    created_at
+    updated_at
+    preferences
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    name
-
-    amount
-    zone
-    tax_categories
-
-    included_in_price
-    show_rate_in_label
-
-    starts_at
-    expires_at
+    calculable
+    type
+    preferences
   ].freeze
 
   # COLLECTION_FILTERS
@@ -87,10 +58,10 @@ class Spree::TaxRateDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how tax rates are displayed
+  # Overwrite this method to customize how calculators are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(tax_rate)
-  #   "Spree::TaxRate ##{tax_rate.id}"
+  # def display_resource(calculator)
+  #   "Spree::Calculator ##{calculator.id}"
   # end
 end

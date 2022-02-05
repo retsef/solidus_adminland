@@ -1,7 +1,6 @@
 class Spree::StockLocationDashboard < Spree::BaseDashboard
-
   def display_resource(resource)
-    "#{resource.name}"
+    resource.name.to_s
   end
 
   # ATTRIBUTE_TYPES
@@ -36,12 +35,12 @@ class Spree::StockLocationDashboard < Spree::BaseDashboard
     stock_items: Field::HasMany.with_options(class_name: 'Spree::StockItem'),
     # cartons: Field::HasMany,
     stock_movements: Field::HasMany.with_options(class_name: 'Spree::StockMovement'),
-    
+
     backorderable_default: Field::Boolean,
     propagate_all_variants: Field::Boolean,
     admin_name: Field::String,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

@@ -15,7 +15,7 @@ class Spree::PaymentMethodDashboard < Spree::BaseDashboard
     credit_cards: Field::HasMany.with_options(class_name: 'Spree::CreditCard'),
     stores: Field::HasMany.with_options(class_name: 'Spree::Store'),
     auto_capture: Field::Boolean,
-    
+
     preference_source: Field::Select.with_options(collection: [[I18n.t('spree.preference_source_none'), nil]] + Spree::PaymentMethod.available_preference_sources),
 
     # preferences: Field::Text,
@@ -27,7 +27,7 @@ class Spree::PaymentMethodDashboard < Spree::BaseDashboard
     available_to_admin: Field::Boolean,
     deleted_at: Field::DateTime,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

@@ -1,5 +1,4 @@
 class Spree::OptionValueDashboard < Spree::BaseDashboard
-
   def display_resource(resource)
     "#{resource.name} - #{resource.presentation}"
   end

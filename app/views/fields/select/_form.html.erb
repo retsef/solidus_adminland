@@ -15,7 +15,7 @@ to be displayed on a resource's edit form page.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/Select
 %>
 
-<div class="form-group">
+<div class="form-group" data-controller='select'>
   <%= f.label field.attribute %>
   
   <% if field.selectable_options.first&.is_a?(Array) %>
@@ -27,8 +27,9 @@ to be displayed on a resource's edit form page.
         :first,
         field.data,
       ),
+      { },
       include_blank: field.include_blank_option,
-      'data-controller': 'select'
+      'data-select-target': 'input'
     ) %>
   <% else %>
     <%= f.select(
@@ -39,8 +40,9 @@ to be displayed on a resource's edit form page.
         :to_s,
         field.data,
       ),
+      { },
       include_blank: field.include_blank_option,
-      'data-controller': 'select'
+      'data-select-target': 'input'
     ) %>
   <% end %>
 </div>

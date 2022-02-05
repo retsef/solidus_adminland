@@ -29,7 +29,7 @@ class Spree::TaxonDashboard < Spree::BaseDashboard
     meta_description: Field::String,
     meta_keywords: Field::String,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

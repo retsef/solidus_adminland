@@ -1,5 +1,5 @@
 class Spree::PaymentMethod::CheckDashboard < Spree::PaymentMethodDashboard
-# ATTRIBUTE_TYPES
+  # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
   # Each different type represents an Administrate::Field object,

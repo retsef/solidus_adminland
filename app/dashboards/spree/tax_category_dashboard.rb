@@ -14,7 +14,7 @@ class Spree::TaxCategoryDashboard < Spree::BaseDashboard
     tax_rates: Field::HasMany.with_options(class_name: 'Spree::TaxRate'),
     deleted_at: Field::DateTime,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

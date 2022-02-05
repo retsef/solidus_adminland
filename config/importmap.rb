@@ -16,7 +16,7 @@ pin 'trix', to: 'https://ga.jspm.io/npm:trix@2.0.0-alpha.0/dist/trix.js'
 pin "bootstrap", to: "https://ga.jspm.io/npm:bootstrap@5.1.3/dist/js/bootstrap.esm.js"
 pin "@popperjs/core", to: "https://ga.jspm.io/npm:@popperjs/core@2.11.2/dist/esm/index.js"
 
-pin "choices.js", to: "https://ga.jspm.io/npm:choices.js@10.0.0/public/assets/scripts/choices.js"
+pin "choices.js", to: "https://ga.jspm.io/npm:choices.js@9.0.1/public/assets/scripts/choices.js"
 pin 'flatpickr', to: 'https://ga.jspm.io/npm:flatpickr@4.6.9/dist/flatpickr.js'
 pin "inputmask", to: "https://ga.jspm.io/npm:inputmask@5.0.7/dist/inputmask.js"
 

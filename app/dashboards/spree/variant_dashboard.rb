@@ -1,7 +1,6 @@
 class Spree::VariantDashboard < Spree::BaseDashboard
-
   def display_resource(resource)
-    "#{resource.sku}"
+    resource.sku.to_s
   end
 
   # ATTRIBUTE_TYPES

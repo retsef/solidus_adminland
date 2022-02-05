@@ -1,6 +1,5 @@
 module Admin
   class Spree::PaymentMethod::ChecksController < Admin::ApplicationController
-    
     def after_resource_destroyed_path(_requested_resource)
       { action: :index, controller: '/admin/spree/payment_methods' }
     end

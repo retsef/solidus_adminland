@@ -1,9 +1,8 @@
 class Spree::PromotionDashboard < Spree::BaseDashboard
-
   def display_resource(resource)
-    "#{resource.name}"
+    resource.name.to_s
   end
-  
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -25,7 +24,7 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     per_code_usage_limit: Field::Number,
     apply_automatically: Field::Boolean,
 
-    # activation_type: Field::Select.with_options(collection: ['auto', 'single_code', 'multiple_codes']),
+    #  activation_type: Field::Select.with_options(collection: ['auto', 'single_code', 'multiple_codes']),
     # single_code: Field::String,
     # promotion_code_batch: Field::HasOne.with_options(class_name: 'Spree::PromotionCodeBatch'),
 

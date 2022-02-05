@@ -19,10 +19,10 @@ and is augmented with [Selectize].
 [Selectize]: http://brianreavis.github.io/selectize.js
 %>
 
-<div class="form-group">
+<div class="form-group" data-controller='select'>
   <%= f.label field.attribute, for: "#{f.object_name}_#{field.attribute_key}" %>
   <%= f.select(field.attribute_key, 
         options_for_select(field.associated_resource_options, field.selected_options), 
-        multiple: true, include_blank: true, 'data-controller': 'select'
+        { }, include_blank: true, multiple: true, 'data-select-target': 'input'
       ) %>
 </div>

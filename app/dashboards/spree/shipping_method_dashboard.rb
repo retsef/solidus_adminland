@@ -29,7 +29,7 @@ class Spree::ShippingMethodDashboard < Spree::BaseDashboard
     available_to_users: Field::Boolean,
     deleted_at: Field::DateTime,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

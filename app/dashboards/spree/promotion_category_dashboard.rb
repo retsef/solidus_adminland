@@ -1,7 +1,6 @@
 class Spree::PromotionCategoryDashboard < Spree::BaseDashboard
-
   def display_resource(resource)
-    "#{resource.name}"
+    resource.name.to_s
   end
 
   # ATTRIBUTE_TYPES
