@@ -1,0 +1,14 @@
+<div class="nested-fields" data-new-record=<%= f.object.new_record?%>>
+  <% field.nested_fields_for_builder(f).each do |attribute| -%>
+    <div class="field-unit field-unit--<%= attribute.html_class %>">
+      <%= render_field attribute, f: f %>
+    </div>
+  <% end -%>
+
+  <%= link_to(I18n.t("administrate.fields.nested_has_many.remove", 
+        resource: field.associated_class_name.titleize), 
+        "#", class: 'text-danger',
+        data: { action: "click->nested-form#remove_association" }) %>
+  
+  <%= f.hidden_field :_destroy %>
+</div>

@@ -6,12 +6,12 @@ class Spree::PromotionActionDashboard < Spree::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    promotion: Field::BelongsTo,
     id: Field::Number,
     position: Field::Number,
     type: Field::String,
-    deleted_at: Field::DateTime,
+    promotion: Field::BelongsTo,
     preferences: Field::Text,
+    deleted_at: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -22,19 +22,18 @@ class Spree::PromotionActionDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    promotion
-    id
     position
     type
+    promotion
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    promotion
     id
     position
     type
+    promotion
     deleted_at
     preferences
     created_at
@@ -45,11 +44,8 @@ class Spree::PromotionActionDashboard < Spree::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    promotion
     position
     type
-    deleted_at
-    preferences
   ].freeze
 
   # COLLECTION_FILTERS

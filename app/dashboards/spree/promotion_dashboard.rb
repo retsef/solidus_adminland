@@ -17,21 +17,23 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     starts_at: Field::DateTime,
     expires_at: Field::DateTime,
     usage_limit: Field::Number,
-    match_policy: Field::Select.with_options(collection: Spree::Promotion::MATCH_POLICIES),
-    advertise: Field::Boolean,
-    path: Field::String,
 
     per_code_usage_limit: Field::Number,
     apply_automatically: Field::Boolean,
 
-    #  activation_type: Field::Select.with_options(collection: ['auto', 'single_code', 'multiple_codes']),
+    # activation_type: Field::Select.with_options(collection: ['auto', 'single_code', 'multiple_codes']),
     # single_code: Field::String,
     # promotion_code_batch: Field::HasOne.with_options(class_name: 'Spree::PromotionCodeBatch'),
 
-    codes: Field::NestedHasMany.with_options(class_name: 'Spree::PromotionCode'),
-    promotion_category: Field::BelongsTo.with_options(class_name: 'Spree::PromotionCategory', filterable: true),
-    # promotion_rules: Field::HasMany.with_options(class_name: 'Spree::PromotionRule'),
-    # promotion_actions: Field::HasMany.with_options(class_name: 'Spree::PromotionAction'),
+    match_policy: Field::Select.with_options(collection: Spree::Promotion::MATCH_POLICIES),
+    advertise: Field::Boolean,
+    path: Field::String.with_options(filterable: true),
+
+    codes: Field::HasMany.with_options(class_name: 'Spree::PromotionCode', skip: :promotion),
+    promotion_codes: Field::NestedHasMany.with_options(class_name: 'Spree::PromotionCode', skip: :promotion),
+    promotion_category: Field::BelongsTo.with_options(class_name: 'Spree::PromotionCategory'),
+    promotion_rules: Field::NestedHasMany.with_options(class_name: 'Spree::PromotionRule', skip: %i[promotion]),
+    promotion_actions: Field::NestedHasMany.with_options(class_name: 'Spree::PromotionAction', skip: %i[promotion]),
 
     # order_promotions: Field::HasMany,
     orders: Field::HasMany.with_options(class_name: 'Spree::Order'),
@@ -47,17 +49,16 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     name
     description
-    type
     starts_at
     expires_at
     per_code_usage_limit
+    codes
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     name
-    type
     description
     starts_at
     expires_at
@@ -68,7 +69,7 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     per_code_usage_limit
     apply_automatically
 
-    codes
+    promotion_codes
     promotion_category
 
     orders
@@ -82,18 +83,17 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     description
     starts_at
     expires_at
-    type
     usage_limit
-    match_policy
-    advertise
-    path
     per_code_usage_limit
     apply_automatically
 
     promotion_category
+    promotion_codes
 
-    orders
-    codes
+    match_policy
+
+    promotion_rules
+    promotion_actions
   ].freeze
 
   FORM_ATTRIBUTES_NEW = %i[
@@ -103,8 +103,8 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     expires_at
     usage_limit
     per_code_usage_limit
-    codes
     apply_automatically
+    promotion_codes
   ].freeze
 
   # COLLECTION_FILTERS

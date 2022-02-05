@@ -40,4 +40,7 @@ window.Tab = Tab;
 window.Toast = Toast;
 window.Tooltip = Tooltip;
 
+import LocalTime from "local-time-cdn"
+LocalTime.start()
+
 import "controllers"

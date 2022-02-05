@@ -43,8 +43,10 @@ Rails.application.routes.draw do
 
       # Promotions
       resources :promotions do
-        resources :promotion_rules
-        resources :promotion_actions
+        resources :codes
+
+        resources :rules
+        resources :actions
         
         scope module: :promotion do
         end

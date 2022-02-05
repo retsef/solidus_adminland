@@ -49,6 +49,7 @@ gem 'view_component-form'
 gem 'ransack'
 
 gem 'addressable', '~> 2.8'
+gem 'local_time'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

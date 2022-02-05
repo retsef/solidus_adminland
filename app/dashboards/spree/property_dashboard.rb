@@ -1,4 +1,8 @@
 class Spree::PropertyDashboard < Spree::BaseDashboard
+  def display_resource(property)
+    "#{property.name} - #{property.presentation}"
+  end
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #

@@ -8,6 +8,8 @@
 module Admin
   class ApplicationController < Administrate::ApplicationController
     prepend AdministrateRansack::Searchable
+    
+    helper 'local_time'
     helper 'active_link_to'
     helper 'alert'
 

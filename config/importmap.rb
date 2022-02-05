@@ -20,6 +20,8 @@ pin "choices.js", to: "https://ga.jspm.io/npm:choices.js@9.0.1/public/assets/scr
 pin 'flatpickr', to: 'https://ga.jspm.io/npm:flatpickr@4.6.9/dist/flatpickr.js'
 pin "inputmask", to: "https://ga.jspm.io/npm:inputmask@5.0.7/dist/inputmask.js"
 
+pin 'local-time-cdn', to: 'https://ga.jspm.io/npm:local-time@2.1.0/app/assets/javascripts/local-time.js'
+
 pin_all_from "app/javascript/controllers", under: "controllers"
 
 pin 'application'

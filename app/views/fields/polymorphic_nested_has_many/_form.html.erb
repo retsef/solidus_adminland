@@ -1,0 +1,31 @@
+<fieldset class="field-unit--nested" data-controller="nested-form">
+  <legend><%= f.label field.attribute %></legend>
+
+	<template data-target="nested-form.template">
+		<%= f.fields_for field.association_name, field.associated_class.new, child_index: 'NEW_RECORD' do |nested_form| %>
+			<%= render(
+        partial: "fields/nested_has_many/fields",
+        locals: {
+          f: nested_form,
+          field: field,
+        },
+      ) %>
+		<% end %>
+	</template>
+
+  <%= f.fields_for field.association_name do |nested_form| %>
+    <%= render(
+      partial: "fields/nested_has_many/fields",
+      locals: {
+        f: nested_form,
+        field: field,
+      },
+    ) %>
+  <% end %>
+
+	<div class="mb-3" data-target="nested-form.links">
+		<%= link_to(
+      	I18n.t("administrate.fields.nested_has_many.add", resource: field.associated_class_name.titleize),
+				"#", class: "btn btn-outline-primary", data: { action: "click->nested-form#add_association" }) %>
+	</div>
+</fieldset>
