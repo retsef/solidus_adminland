@@ -1,0 +1,25 @@
+<%#
+# String Index Partial
+
+This partial renders a string attribute
+to be displayed on a resource's index page.
+
+By default, the attribute is rendered as a truncated string.
+
+## Local variables:
+
+- `field`:
+  An instance of [Administrate::Field::String][1].
+  A wrapper around the String pulled from the database.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/String
+%>
+
+<!-- Avatar -->
+<div class="avatar avatar-md avatar-4by3 align-middle me-2">
+  <%- gallery = field.resource.gallery.images %>
+  <img src="<%= gallery.any? ? url_for(gallery.first) : image_path('admin/products/placeholder_1.png') %>" alt="<%= field.truncate %>" class="avatar-img rounded">
+</div>
+<span class="item-name text-reset">
+  <%= field.truncate %>
+</span>

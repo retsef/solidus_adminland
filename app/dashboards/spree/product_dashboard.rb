@@ -11,7 +11,7 @@ class Spree::ProductDashboard < Spree::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    name: Field::String,
+    name: ::Spree::Product::NamePreview,
     description: Field::Text,
     available_on: Field::DateTime,
     discontinue_on: Field::DateTime,
@@ -46,8 +46,8 @@ class Spree::ProductDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    sku
     name
+    sku
     available_on
     discontinue_on
     price

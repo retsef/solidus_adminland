@@ -1,0 +1,23 @@
+<%#
+# String Index Partial
+
+This partial renders a string attribute
+to be displayed on a resource's index page.
+
+By default, the attribute is rendered as a truncated string.
+
+## Local variables:
+
+- `field`:
+  An instance of [Administrate::Field::String][1].
+  A wrapper around the String pulled from the database.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/String
+%>
+
+<% if field.data %>
+  <%- status_class = field.states[field.data.to_sym] || field.default %>
+
+  <span class="text-<%= status_class %>">●</span>
+  <%= field.truncate %>
+<% end %>

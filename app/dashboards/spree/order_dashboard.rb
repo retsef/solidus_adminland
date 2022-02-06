@@ -1,4 +1,28 @@
 class Spree::OrderDashboard < Spree::BaseDashboard
+  STATE_CLASSES = {
+    pending: 'warning',
+    confirmed: 'info',
+    purchased: 'success',
+    declined: 'error',
+    deferred: 'secondary',
+  }
+
+  SHIPMENT_STATE_CLASSES = {
+    pending: 'warning',
+    confirmed: 'info',
+    purchased: 'success',
+    declined: 'error',
+    deferred: 'secondary',
+  }
+
+  PAYMENT_STATE_CLASSES = {
+    pending: 'warning',
+    confirmed: 'info',
+    purchased: 'success',
+    declined: 'error',
+    deferred: 'secondary',
+  }
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -14,7 +38,10 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     bill_address: Field::BelongsTo.with_options(class_name: 'Spree::Address'),
     ship_address: Field::BelongsTo.with_options(class_name: 'Spree::Address'),
 
-    state: Field::String.with_options(filterable: true),
+    state: ::Spree::Order::State.with_options(filterable: true, states: STATE_CLASSES, default: 'warning'),
+    shipment_state: ::Spree::Order::State.with_options(filterable: true, states: SHIPMENT_STATE_CLASSES, default: 'warning'),
+    payment_state: ::Spree::Order::State.with_options(filterable: true, states: PAYMENT_STATE_CLASSES, default: 'warning'),
+
     store: Field::BelongsTo.with_options(class_name: 'Spree::Store', filterable: true),
 
     line_items: Field::NestedHasMany.with_options(class_name: 'Spree::LineItem', skip: :order),
@@ -54,9 +81,6 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     adjustment_total: Field::String.with_options(searchable: false),
     completed_at: Field::DateTime.with_options(filterable: true),
     payment_total: Field::String.with_options(searchable: false),
-
-    shipment_state: Field::String.with_options(filterable: true),
-    payment_state: Field::String.with_options(filterable: true),
     channel: Field::String,
 
     special_instructions: Field::Text,
