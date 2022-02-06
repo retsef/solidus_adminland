@@ -18,5 +18,6 @@ formatter:
     only: []
     extra_args: []
 require_paths: []
-plugins: []
+plugins:
+  - solargraph-arc
 max_files: 5000
