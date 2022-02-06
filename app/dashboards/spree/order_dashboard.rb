@@ -47,8 +47,8 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     # approver: Field::BelongsTo,
     # canceler: Field::BelongsTo,
 
-    item_total: Field::String.with_options(searchable: false),
-    total: Field::String.with_options(searchable: false),
+    item_total: Field::Money.with_options(searchable: false),
+    total: Field::Money.with_options(searchable: false),
     currency: Field::String,
 
     adjustment_total: Field::String.with_options(searchable: false),
@@ -89,9 +89,9 @@ class Spree::OrderDashboard < Spree::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     number
     email
-    bill_address
-    ship_address
     state
+    payment_state
+    shipment_state
     total
     completed_at
   ].freeze
@@ -101,20 +101,16 @@ class Spree::OrderDashboard < Spree::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     number
     email
-    bill_address
-    ship_address
     state
-    store
-    line_items
-    variants
-    products
-    shipments
-    inventory_units
-    cartons
-    adjustments
-    promotions
-    payments
+    total
+    completed_at
   ].freeze
+  ## line_items
+  ## shipments
+  ## cartons
+  ## adjustments
+  ## promotions
+  ## payments
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
@@ -130,6 +126,11 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     adjustments
     promotions
     payments
+  ].freeze
+
+  FORM_ATTRIBUTES_NEW = %i[
+    email
+    line_items
   ].freeze
 
   # COLLECTION_FILTERS

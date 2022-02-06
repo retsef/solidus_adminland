@@ -13,7 +13,7 @@ Rails.application.routes.draw do
         end
       end
       
-      resources :variants
+      resources :variants, only: %i[index]
 
       resources :option_types
       resources :option_values
@@ -29,19 +29,19 @@ Rails.application.routes.draw do
       resources :orders do
         get :export, on: :collection
 
-        resources :line_items
-
-        resources :adjustments
-        resources :return_authorizations
-
-        resources :payments
-        resources :reimbursements
-        resources :cancellations
-
         scope module: :order do
           resources :line_items
+
+          resources :adjustments
+          resources :return_authorizations
+
+          resources :payments
+          resources :reimbursements
+          resources :cancellations
         end
       end
+
+      resources :line_items, only: %i[index]
 
       # Promotions
       resources :promotions do

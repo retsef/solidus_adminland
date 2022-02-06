@@ -2,7 +2,7 @@
   attribute_labels ||= {}
   filterable_attributes ||= @dashboard.filterable_attributes
   attribute_types ||= @dashboard.attribute_types.select {|attr, _type| filterable_attributes.include? attr }
-  form_options = { class: 'mb-4', html: { 'data-administrate-ransack-filters': '1' } }
+  form_options = { class: 'mb-4', html: { 'data-administrate-ransack-filters': '1' }, builder: Admin::SearchBuilder }
   namespace = local_assigns[:namespace] || :admin
   if local_assigns.has_key?(:search_path)
     form_path = @ransack_results

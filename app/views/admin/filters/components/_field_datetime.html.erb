@@ -1,7 +1,31 @@
 <%= form.label(label) %>
+
 <% if model.ransackable_scopes.include?(field) %>
-  <%= form.datetime_field(field, value: form.object.send(field)) %>
+  <div class="input-group">
+    <span class="input-group-text">
+      <i class="fe fe-calendar"></i>
+    </span>
+    <%= form.text_field field, value: form.object.send(field), data: { type: 'datetime', controller: 'datetime' } %>
+  </div>
 <% else %>
-  <%= form.datetime_field("#{field}_gteq") %>
-  <%= form.datetime_field("#{field}_lteq") %>
+  <div class="form-group">
+    <%= form.label 'start' %>
+
+    <div class="input-group mb-2">
+      <span class="input-group-text">
+        <i class="fe fe-calendar"></i>
+      </span>
+      <%= form.text_field "#{field}_gteq", data: { type: 'datetime', controller: 'datetime' } %>
+    </div>
+
+    <%= form.label 'end' %>
+
+    <div class="input-group">
+      <span class="input-group-text">
+        <i class="fe fe-calendar"></i>
+      </span>
+      <%= form.text_field "#{field}_lteq", data: { type: 'datetime', controller: 'datetime' } %>
+    </div>
+  </div>
 <% end %>
+

@@ -11,12 +11,17 @@ export default class extends Controller {
     }
 
     connect() {
-        this.fp = flatpickr(this.element)
+        this.fp = flatpickr(this.element, {
+            ...this.config,
+            enableTime: this.enableTime
+        })
+    }
+
+    get enableTime() {
+        return this.element.dataset.type == 'datetime';
     }
 
     disconnect() {
-        // const value = this.inputTarget.value
         this.fp.destroy()
-        // this.inputTarget.value = value
     }
 }

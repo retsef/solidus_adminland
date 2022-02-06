@@ -34,6 +34,8 @@ class Spree::LineItemDashboard < Spree::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     order
     variant
+    quantity
+    price
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -53,10 +55,12 @@ class Spree::LineItemDashboard < Spree::BaseDashboard
   FORM_ATTRIBUTES = %i[
     order
     variant
+    quantity
   ].freeze
 
   FORM_ATTRIBUTES_NEW = %i[
     variant
+    quantity
   ].freeze
 
   # COLLECTION_FILTERS

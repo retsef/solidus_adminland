@@ -1,10 +1,10 @@
-class Spree::Order::LineItemDashboard < Spree::BaseDashboard
+class Spree::Order::PaymentDashboard < Spree::BaseDashboard
   def self.model
-    ::Spree::LineItem
+    ::Spree::Payment
   end
-
+  
   def resource_class
-    ::Spree::LineItem
+    ::Spree::Payment
   end
 
   def resource_class_name
@@ -19,23 +19,26 @@ class Spree::Order::LineItemDashboard < Spree::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
+    number: Field::String,
+    cvv_response_code: Field::String,
+    cvv_response_message: Field::String,
+    amount: Field::String.with_options(searchable: false),
+    state: Field::String,
+    response_code: Field::String,
+    avs_response: Field::String,
+
+    source: Field::Polymorphic,
+    payment_method: Field::BelongsTo.with_options(class_name: 'Spree::PaymentMethod'),
+    # offsets: Field::HasMany,
+    # log_entries: Field::HasMany,
+    # state_changes: Field::HasMany,
+    # capture_events: Field::HasMany,
+    # refunds: Field::HasMany,
+
     order: Field::BelongsTo.with_options(class_name: 'Spree::Order'),
-    variant: Field::BelongsTo.with_options(class_name: 'Spree::Variant'),
-    # tax_category: Field::BelongsTo,
-    # product: Field::HasOne,
-    #  adjustments: Field::HasMany,
-    # inventory_units: Field::HasMany,
-    # line_item_actions: Field::HasMany,
-    # actions: Field::HasMany,
-    quantity: Field::Number,
-    price: Field::String.with_options(searchable: false),
+
     created_at: Field::DateTime,
-    updated_at: Field::DateTime
-    # cost_price: Field::String.with_options(searchable: false),
-    # adjustment_total: Field::String.with_options(searchable: false),
-    # additional_tax_total: Field::String.with_options(searchable: false),
-    # promo_total: Field::String.with_options(searchable: false),
-    # included_tax_total: Field::String.with_options(searchable: false),
+    updated_at: Field::DateTime,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -44,31 +47,39 @@ class Spree::Order::LineItemDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    variant
-    price
-    quantity
+    created_at
+    number
+    state
+    payment_method
+    amount
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
+    id
+    amount
+    state
+    response_code
+    avs_response
+    number
+    cvv_response_code
+    cvv_response_message
+
     order
-    variant
-    quantity
-    price
+    source
+    payment_method
+
+    created_at
+    updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    variant
-    quantity
-  ].freeze
-
-  FORM_ATTRIBUTES_NEW = %i[
-    variant
-    quantity
+    amount
+    payment_method
   ].freeze
 
   # COLLECTION_FILTERS
@@ -83,10 +94,10 @@ class Spree::Order::LineItemDashboard < Spree::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how line items are displayed
+  # Overwrite this method to customize how payments are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(line_item)
-  #   "Spree::LineItem ##{line_item.id}"
+  # def display_resource(payment)
+  #   "Spree::Payment ##{payment.id}"
   # end
 end

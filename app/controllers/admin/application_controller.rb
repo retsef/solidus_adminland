@@ -7,6 +7,9 @@
 
 module Admin
   class ApplicationController < Administrate::ApplicationController
+    # Solidus Core
+    include ::Spree::Core::ControllerHelpers::Store
+
     prepend AdministrateRansack::Searchable
 
     helper 'local_time'

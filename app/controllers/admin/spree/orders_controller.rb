@@ -10,13 +10,27 @@ module Admin
     #   send_foo_updated_email(requested_resource)
     # end
 
+    def new
+      user = Spree.user_class.find_by(id: params[:user_id]) if params[:user_id]
+      order_importer_params = order_params
+      order_importer_params[:bill_address] = user&.bill_address
+      order_importer_params[:ship_address] = user&.ship_address
+
+      resource = ::Spree::Core::Importer::Order.import(user, order_importer_params)
+
+      redirect_to(
+        after_resource_created_path(resource),
+        notice: translate_with_resource('create.success')
+      )
+    end
+
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
     # actions.
     #
-    # def find_resource(param)
-    #   Foo.find_by!(slug: param)
-    # end
+    def find_resource(param)
+      scoped_resource.find_by!(number: param)
+    end
 
     # The result of this lookup will be available as `requested_resource`
 
@@ -44,5 +58,15 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
+
+    private
+
+    def order_params
+      {
+        # created_by_id: try_spree_current_user.try(:id),
+        frontend_viewable: false,
+        store_id: current_store.try(:id)
+      }.with_indifferent_access
+    end
   end
 end

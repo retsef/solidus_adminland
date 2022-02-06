@@ -1,4 +1,8 @@
 class Spree::Product::VariantDashboard < Spree::BaseDashboard
+  def self.model
+    ::Spree::Variant
+  end
+
   def display_resource(resource)
     resource.sku.to_s
   end

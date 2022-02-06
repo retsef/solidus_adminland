@@ -1,16 +1,12 @@
 module Admin
-  class Spree::Order::LineItemsController < Spree::Order::BaseController
+  class Spree::Order::PaymentsController < Spree::Order::BaseController
     def resource_class
-      ::Spree::LineItem
+      ::Spree::Payment
     end
 
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
-    
-    def create
-      super
-    end
-
+    #
     # def update
     #   super
     #   send_foo_updated_email(requested_resource)

@@ -1,4 +1,8 @@
 class Spree::Product::PriceDashboard < Spree::BaseDashboard
+  def self.model
+    ::Spree::Price
+  end
+
   def resource_class
     ::Spree::Price
   end

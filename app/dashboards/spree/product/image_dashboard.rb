@@ -1,4 +1,8 @@
 class Spree::Product::ImageDashboard < Spree::BaseDashboard
+  def self.model
+    ::Spree::Image
+  end
+
   def resource_class
     ::Spree::Image
   end
