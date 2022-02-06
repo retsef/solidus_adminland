@@ -8,7 +8,7 @@
 module Admin
   class ApplicationController < Administrate::ApplicationController
     prepend AdministrateRansack::Searchable
-    
+
     helper 'local_time'
     helper 'active_link_to'
     helper 'alert'
@@ -30,6 +30,41 @@ module Admin
     def authorize_resource(resource)
       resource
       # authorize! action_name, resource
+    end
+
+    # Copied from https://github.com/thoughtbot/administrate/blob/v0.17.0/app/controllers/administrate/application_controller.rb#L5
+    def index
+      authorize_resource(resource_class)
+      search_term = params[:search].to_s.strip
+      resources = filter_resources(scoped_resource, search_term: search_term)
+      resources = apply_collection_includes(resources)
+      resources = order.apply(resources)
+      resources = resources.page(params[:_page]).per(records_per_page)
+      page = Administrate::Page::Collection.new(dashboard, order: order)
+
+      render locals: {
+        resources: resources,
+        search_term: search_term,
+        page: page,
+        show_search_bar: show_search_bar?,
+        show_filters: show_filters?
+      }
+    end
+
+    private
+
+    def filter_resources(resources, search_term:)
+      Administrate::Search.new(
+        resources,
+        dashboard,
+        search_term,
+      ).run
+    end
+
+    def show_filters?
+      dashboard.attribute_types_for(
+        dashboard.all_attributes
+      ).any? { |_name, attribute| attribute.filterable? }
     end
   end
 end

@@ -5,6 +5,7 @@ module Administrate::Page::BaseOverride
 
   included do
     def resource_class_name
+      @resource_class_name ||= dashboard.resource_class_name if dashboard.respond_to? :resource_class_name 
       @resource_class_name ||= dashboard.class.to_s.scan(/(.+)Dashboard/).first.first
     end
 

@@ -22,24 +22,26 @@ to do the heavy lifting.
   ) %>
 <% end %>
 
-<div class="col-12 col-lg-10 col-xl-8">
-  <!-- Header -->
-  <header class="header mt-md-5" role="banner">
-    <div class="header-body">
-      <div class="row align-items-center">
-        <div class="col">
-          <!-- Pretitle -->
-          <h6 class="header-pretitle">
-            <%= link_to t("administrate.actions.back"), :back %>
-          </h6>
-          <!-- Title -->
-          <h1 class="header-title text-truncate"><%= content_for(:title) %></h1>
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10 col-xl-8">
+    <!-- Header -->
+    <header class="header mt-md-5" role="banner">
+      <div class="header-body">
+        <div class="row align-items-center">
+          <div class="col">
+            <!-- Pretitle -->
+            <h6 class="header-pretitle">
+              <%= link_to t("administrate.actions.back"), :back %>
+            </h6>
+            <!-- Title -->
+            <h1 class="header-title text-truncate"><%= content_for(:title) %></h1>
+          </div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <section class="main-content__body" id="form_body">
-    <%= render "form", page: page %>
-  </section>
+    <section class="main-content__body" id="form_body">
+      <%= render "form", page: page %>
+    </section>
+  </div>
 </div>

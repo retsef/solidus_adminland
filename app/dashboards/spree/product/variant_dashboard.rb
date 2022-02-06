@@ -1,6 +1,14 @@
-class Spree::VariantDashboard < Spree::BaseDashboard
+class Spree::Product::VariantDashboard < Spree::BaseDashboard
   def display_resource(resource)
     resource.sku.to_s
+  end
+
+  def resource_class
+    ::Spree::Variant
+  end
+
+  def resource_class_name
+    resource_class.name
   end
 
   # ATTRIBUTE_TYPES
@@ -16,13 +24,14 @@ class Spree::VariantDashboard < Spree::BaseDashboard
     height: Field::String.with_options(searchable: false),
     width: Field::String.with_options(searchable: false),
     depth: Field::String.with_options(searchable: false),
-    is_master: Field::Boolean,
-    cost_price: Field::String.with_options(searchable: false),
     position: Field::Number,
+    is_master: Field::Boolean,
+    price: Field::Money,
+    cost_price: Field::String.with_options(searchable: false),
     cost_currency: Field::String,
     track_inventory: Field::Boolean,
 
-    product: Field::BelongsTo.with_options(class_name: 'Spree::Product'),
+    # product: Field::BelongsTo.with_options(class_name: 'Spree::Product'),
     tax_category: Field::BelongsTo.with_options(class_name: 'Spree::TaxCategory'),
     inventory_units: Field::HasMany.with_options(class_name: 'Spree::InventoryUnit'),
     # line_items: Field::HasMany,
@@ -34,6 +43,7 @@ class Spree::VariantDashboard < Spree::BaseDashboard
     option_values: Field::HasMany.with_options(class_name: 'Spree::OptionValue'),
     images: Field::HasMany.with_options(class_name: 'Spree::Image'),
     prices: Field::HasMany.with_options(class_name: 'Spree::Price'),
+
     deleted_at: Field::DateTime,
     updated_at: Field::DateTime,
     created_at: Field::DateTime
@@ -45,66 +55,55 @@ class Spree::VariantDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
+    position
     sku
-    product
-    tax_category
+    option_values
+    price
     inventory_units
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    product
+    sku
+    weight
+    height
+    width
+    depth
+    is_master
+    cost_price
+    cost_currency
+    position
+    track_inventory
+
     tax_category
     inventory_units
-    orders
     stock_items
     stock_locations
     stock_movements
     option_values
     images
     prices
-    id
-    sku
-    weight
-    height
-    width
-    depth
-    deleted_at
-    is_master
-    cost_price
-    position
-    cost_currency
-    track_inventory
-    updated_at
-    created_at
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    product
-    tax_category
-    inventory_units
-    orders
-    stock_items
-    stock_locations
-    stock_movements
-    option_values
-    images
-    prices
     sku
+
     weight
     height
     width
     depth
-    deleted_at
     is_master
-    cost_price
     position
+
+    cost_price
     cost_currency
     track_inventory
+
+    tax_category
   ].freeze
 
   # COLLECTION_FILTERS

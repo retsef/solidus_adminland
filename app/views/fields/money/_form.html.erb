@@ -1,0 +1,26 @@
+<%#
+# Money Form Partial
+This partial renders a masked input element.
+It keeps the (unmasked) value in sync with a sibling hidden field
+that gets submitted with the form.
+## Local variables:
+- `f`:
+  A Rails form generator, used to help create the appropriate input fields.
+- `field`:
+  An instance of Administrate::Field::Money.
+%>
+
+<div class="form-group">
+  <%= f.label field.attribute %>
+
+  <div class="input-group">
+    <span class="input-group-text">
+      <%= field.code %>
+    </span>
+    <%= f.number_field field.attribute, step: "any",
+        data: { controller: 'inputmask',
+          thousands: field.delimiter,
+          decimal: field.separator,
+          prefix: field.symbol } %>
+  </div>
+</div>

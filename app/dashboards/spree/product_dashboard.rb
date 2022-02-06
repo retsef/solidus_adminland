@@ -18,20 +18,19 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     slug: Field::String,
     promotionable: Field::Boolean,
 
-    price: Field::Number,
+    sku: Field::String,
+    price: Field::Money,
 
-    product_option_types: Field::HasMany,
-    option_types: Field::HasMany,
-    product_properties: Field::HasMany,
-    properties: Field::HasMany,
+    option_types: Field::HasMany.with_options(class_name: 'Spree::OptionType'),
+    properties: Field::HasMany.with_options(class_name: 'Spree::Property'),
     classifications: Field::HasMany,
-    taxons: Field::HasMany,
-    tax_category: Field::BelongsTo,
-    shipping_category: Field::BelongsTo,
-    variants: Field::HasMany,
-    prices: Field::HasMany,
-    stock_items: Field::HasMany,
-    orders: Field::HasMany,
+    taxons: Field::HasMany.with_options(class_name: 'Spree::Taxon'),
+    tax_category: Field::BelongsTo.with_options(class_name: 'Spree::TaxCategory'),
+    shipping_category: Field::BelongsTo.with_options(class_name: 'Spree::ShippingCategory'),
+    variants: Field::HasMany.with_options(class_name: 'Spree::Variant'),
+    prices: Field::HasMany.with_options(class_name: 'Spree::Price'),
+    stock_items: Field::HasMany.with_options(class_name: 'Spree::StockItem'),
+    orders: Field::HasMany.with_options(class_name: 'Spree::Order'),
 
     meta_title: Field::String,
     meta_description: Field::Text,
@@ -47,11 +46,11 @@ class Spree::ProductDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    id
+    sku
     name
-    description
     available_on
     discontinue_on
+    price
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -64,13 +63,14 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     promotionable
     discontinue_on
 
+    sku
+    price
+
     properties
     option_types
-    variants
     
     tax_category
     shipping_category
-    prices
 
     meta_title
     meta_description
@@ -86,15 +86,16 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     available_on
     discontinue_on
     slug
+    price
     promotionable
 
+    sku
     option_types
     properties
     taxons
     tax_category
     shipping_category
     variants
-    prices
 
     meta_title
     meta_description
@@ -113,6 +114,8 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     taxons
     tax_category
     shipping_category
+
+    sku
   ].freeze
   
   # COLLECTION_FILTERS

@@ -4,16 +4,17 @@ Rails.application.routes.draw do
       # Products
       resources :products do
         get :export, on: :collection
-        
-        resources :product_properties
-        resources :images
-        resources :variants
-        resources :prices
 
         scope module: :product do
+          resources :images
+          resources :prices
+
+          resources :variants
         end
       end
       
+      resources :variants
+
       resources :option_types
       resources :option_values
       resources :properties
@@ -27,7 +28,7 @@ Rails.application.routes.draw do
       # Orders
       resources :orders do
         get :export, on: :collection
-        
+
         resources :line_items
 
         resources :adjustments
@@ -38,6 +39,7 @@ Rails.application.routes.draw do
         resources :cancellations
 
         scope module: :order do
+          resources :line_items
         end
       end
 
