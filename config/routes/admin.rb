@@ -26,18 +26,37 @@ Rails.application.routes.draw do
       resources :taxons
 
       # Orders
-      resources :orders do
+      resources :orders, except: %i[edit update] do
         get :export, on: :collection
+
+        member do
+          put :cancel
+          put :approve
+          put :resend
+        end
 
         scope module: :order do
           resources :line_items
 
+          resources :line_item_adjustments, only: %i[index]
+          resources :shipment_adjustments, only: %i[index]
+
           resources :adjustments
           resources :return_authorizations
 
-          resources :payments
+          resources :payments, only: %i[index show new create] do
+            member do
+              patch :capture
+              patch :void
+            end
+
+            resources :refunds
+          end
+
           resources :reimbursements
           resources :cancellations
+
+          resources :shipments
         end
       end
 

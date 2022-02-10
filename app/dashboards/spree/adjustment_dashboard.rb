@@ -1,4 +1,4 @@
-class Spree::StockItemDashboard < Spree::BaseDashboard
+class Spree::AdjustmentDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -7,14 +7,18 @@ class Spree::StockItemDashboard < Spree::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    count_on_hand: Field::Number,
-    backorderable: Field::Boolean,
-    stock_location: Field::BelongsTo.with_options(class_name: 'Spree::StockLocation'),
-    variant: Field::BelongsTo.with_options(class_name: 'Spree::Variant'),
-    stock_movements: Field::HasMany.with_options(class_name: 'Spree::StockMovement'),
+    amount: Field::String.with_options(searchable: false),
+    label: Field::String,
+    eligible: Field::Boolean,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    deleted_at: Field::DateTime
+    included: Field::Boolean,
+    finalized: Field::Boolean,
+    adjustable: Field::Polymorphic,
+    source: Field::Polymorphic,
+    order: Field::BelongsTo,
+    promotion_code: Field::BelongsTo,
+    adjustment_reason: Field::BelongsTo,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -23,30 +27,44 @@ class Spree::StockItemDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    variant
-    stock_location
-    count_on_hand
-    stock_movements
+    adjustable
+    source
+    order
+    promotion_code
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    variant
-    count_on_hand
-    backorderable
-    stock_location
-    stock_movements
+    adjustable
+    source
+    order
+    promotion_code
+    adjustment_reason
+    id
+    amount
+    label
+    eligible
+    created_at
+    updated_at
+    included
+    finalized
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    variant
-    stock_location
-    backorderable
-    count_on_hand
+    adjustable
+    source
+    order
+    promotion_code
+    adjustment_reason
+    amount
+    label
+    eligible
+    included
+    finalized
   ].freeze
 
   # COLLECTION_FILTERS
@@ -61,10 +79,10 @@ class Spree::StockItemDashboard < Spree::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how stock items are displayed
+  # Overwrite this method to customize how adjustments are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(stock_item)
-  #   "Spree::StockItem ##{stock_item.id}"
+  # def display_resource(adjustment)
+  #   "Spree::Adjustment ##{adjustment.id}"
   # end
 end

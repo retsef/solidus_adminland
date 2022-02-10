@@ -56,7 +56,7 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     # all_adjustments: Field::HasMany,
 
     # line_item_adjustments: Field::HasMany,
-    #  shipment_adjustments: Field::HasMany,
+    # shipment_adjustments: Field::HasMany,
 
     # order_promotions: Field::HasMany,
     promotions: Field::HasMany.with_options(class_name: 'Spree::Promotion'),
@@ -74,13 +74,15 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     # approver: Field::BelongsTo,
     # canceler: Field::BelongsTo,
 
-    item_total: Field::Money.with_options(searchable: false),
     total: Field::Money.with_options(searchable: false),
+    item_total: Field::Money.with_options(searchable: false),
+    additional_tax_total: Field::Money.with_options(searchable: false),
+    shipment_total: Field::Money.with_options(searchable: false),
+    adjustment_total: Field::Money.with_options(searchable: false),
+    payment_total: Field::Money.with_options(searchable: false),
     currency: Field::String,
 
-    adjustment_total: Field::String.with_options(searchable: false),
     completed_at: Field::DateTime.with_options(filterable: true),
-    payment_total: Field::String.with_options(searchable: false),
     channel: Field::String,
 
     special_instructions: Field::Text,
@@ -126,6 +128,11 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     number
     email
     state
+    item_total
+    shipment_total
+    additional_tax_total
+    adjustment_total
+    payment_total
     total
     completed_at
   ].freeze

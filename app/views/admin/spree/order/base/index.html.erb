@@ -81,14 +81,16 @@ It renders the `_table` partial to display details about the resources.
       </div>
 
       <!-- Table Body -->
-      <%= render(
-        "collection",
-        collection_presenter: page,
-        collection_field_name: resource_name,
-        page: page,
-        resources: resources,
-        table_title: "page-title"
-      ) %>
+      <turbo-frame id="index_<%= page.resource_name %>">
+        <%= render(
+          "collection",
+          collection_presenter: page,
+          collection_field_name: resource_name,
+          page: page,
+          resources: resources,
+          table_title: "page-title"
+        ) %>
+      </turbo-frame>
 
       <!-- Table Footer -->
       <div class="card-footer">

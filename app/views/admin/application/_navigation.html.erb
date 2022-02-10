@@ -47,125 +47,26 @@ as defined by the routes in the `admin/` namespace
           </a>
         </li>
 
-        <!-- Orders -->
-        <%- order_resource_paths = [admin_orders_path] %>
-        <%- is_order_resources_active = order_resource_paths.any? {|resource| active_link? resource } %>
-        <li class="nav-item">
-          <a class="nav-link" href="#sidebarOrders" data-bs-toggle="collapse" role="button" 
-              aria-expanded="<%= is_order_resources_active ? 'true' : 'false'%>" aria-controls="sidebarOrders">
-            <i class="fe fe-package"></i> Orders
-          </a>
-          <div class="collapse <%= 'show' if is_order_resources_active%>" id="sidebarOrders">
-            <ul class="nav nav-sm flex-column">
-              <li class="nav-item">
-                <%= active_link_to admin_orders_path, class: 'nav-link' do %>
-                  All Orders
-                <% end %>
-              </li>
-            </ul>
-          </div>
-        </li>
+        <%- Rails.application.config.admin_navigation.main_entries.sort_by(&:position).each do |menu_item| %>
+          <% if menu_item.children? %>
 
-        <!-- Products -->
-        <%- product_resource_paths = [admin_products_path, admin_option_types_path, admin_properties_path, admin_taxonomies_path] %>
-        <%- is_product_resources_active = product_resource_paths.any? {|resource| active_link? resource } %>
-        <li class="nav-item">
-          <a class="nav-link" href="#sidebarProducts" data-bs-toggle="collapse" role="button" 
-              aria-expanded="<%= is_product_resources_active ? 'true' : 'false'%>" aria-controls="sidebarProducts">
-            <i class="fe fe-tag"></i> Products
-          </a>
-          <div class="collapse <%= 'show' if is_product_resources_active%>" id="sidebarProducts">
-            <ul class="nav nav-sm flex-column">
-              <li class="nav-item">
-                <%= active_link_to admin_products_path, class: 'nav-link' do %>
-                  All Products
+            <%= render Admin::Navigation::MenuDropdown::Component.new(icon: menu_item.icon, label: menu_item.label, 
+                active: menu_item.urls.any?(:active_link?)) do |c| %>
+              <%- menu_item.ordered_children.each do |child_menu_item| %>
+                <% c.item do %>
+                  <li class="nav-item">
+                    <%= active_link_to child_menu_item.label, child_menu_item.url, class: 'nav-link' %>
+                  </li>
                 <% end %>
-              </li>
-              <li class="nav-item">
-                <%= active_link_to admin_option_types_path, class: 'nav-link' do %>
-                  Option Types
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= active_link_to admin_properties_path, class: 'nav-link' do %>
-                  Option Properties
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= active_link_to admin_taxonomies_path, class: 'nav-link' do %>
-                  Taxonomies
-                <% end %>
-              </li>
-            </ul>
-          </div>
-        </li>
-        
-        <!-- Users -->
-        <%- user_resource_paths = [admin_users_path] %>
-        <%- is_user_resources_active = user_resource_paths.any? {|resource| active_link? resource } %>
-        <li class="nav-item">
-          <a class="nav-link" href="#sidebarUsers" data-bs-toggle="collapse" role="button" 
-              aria-expanded="<%= is_user_resources_active ? 'true' : 'false'%>" aria-controls="sidebarUsers">
-            <i class="fe fe-user"></i> Users
-          </a>
-          <div class="collapse <%= 'show' if is_user_resources_active%>" id="sidebarUsers">
-            <ul class="nav nav-sm flex-column">
-              <li class="nav-item">
-                <%= active_link_to admin_users_path, class: 'nav-link' do %>
-                  All Users
-                <% end %>
-              </li>
-            </ul>
-          </div>
-        </li>
+              <% end %>
+            <% end %>
 
-        <!-- Promotions -->
-        <%- promotion_resource_paths = [admin_promotions_path, admin_promotion_categories_path] %>
-        <%- is_promotion_resources_active = promotion_resource_paths.any? {|resource| active_link? resource } %>
-        <li class="nav-item">
-          <a class="nav-link" href="#sidebarPromotions" data-bs-toggle="collapse" role="button" 
-              aria-expanded="<%= is_promotion_resources_active ? 'true' : 'false' %>" aria-controls="sidebarPromotions">
-            <i class="fe fe-percent"></i> Promotions
-          </a>
-          <div class="collapse <%= 'show' if is_promotion_resources_active %>" id="sidebarPromotions">
-            <ul class="nav nav-sm flex-column">
-              <li class="nav-item">
-                <%= active_link_to admin_promotions_path, class: 'nav-link' do %>
-                  All Promotions
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= active_link_to admin_promotion_categories_path, class: 'nav-link' do %>
-                  Promotion Categories
-                <% end %>
-              </li>
-            </ul>
-          </div>
-        </li>
-
-        <!-- Stocks -->
-        <%- stock_resource_paths = [admin_stock_items_path, admin_stock_locations_path] %>
-        <%- is_stock_resources_active = stock_resource_paths.any? {|resource| active_link? resource } %>
-        <li class="nav-item">
-          <a class="nav-link" href="#sidebarStocks" data-bs-toggle="collapse" role="button" 
-              aria-expanded="<%= is_stock_resources_active ? 'true' : 'false' %>" aria-controls="sidebarStocks">
-            <i class="fe fe-box"></i> Stocks
-          </a>
-          <div class="collapse <%= 'show' if is_stock_resources_active %>" id="sidebarStocks">
-            <ul class="nav nav-sm flex-column">
-              <li class="nav-item">
-                <%= active_link_to admin_stock_items_path, class: 'nav-link' do %>
-                   All Stock Items
-                <% end %>
-              </li>
-              <li class="nav-item">
-                <%= active_link_to admin_stock_locations_path, class: 'nav-link' do %>
-                   Stock locations
-                <% end %>
-              </li>
-            </ul>
-          </div>
-        </li>
+          <% else %>
+            <li class="nav-item">
+              <%= active_link_to menu_item.label, menu_item.url, class: 'nav-link' %>
+            </li>
+          <% end %>
+        <% end %>
       </ul>
 
       <!-- Divider -->
@@ -176,82 +77,36 @@ as defined by the routes in the `admin/` namespace
 
       <!-- Navigation -->
       <ul class="navbar-nav mb-md-4">
-        <%- settings_root_resource_paths = [admin_stores_path, admin_payment_methods_path, admin_zones_path] %>
-        <%- settings_shipping_resource_paths = [admin_shipping_methods_path, admin_shipping_categories_path] %>
-        <%- settings_taxes_resource_paths = [admin_tax_categories_path, admin_tax_rates_path] %>
-
-        <%- is_settings_shipping_resources_active = settings_shipping_resource_paths.any? {|resource| active_link? resource } %>
-        <%- is_settings_taxes_resources_active = settings_taxes_resource_paths.any? {|resource| active_link? resource } %>
-        <%- is_settings_root_resources_active = settings_root_resource_paths.any? {|resource| active_link? resource } %>
-
-        <%- is_settings_resources_active = is_settings_root_resources_active || is_settings_taxes_resources_active || is_settings_shipping_resources_active %>
         <li class="nav-item">
+          <%- settings_menu_item = Admin::MenuItem.new(label: 'Settings', icon: 'fe fe-settings', children: Rails.application.config.admin_navigation.setting_entries) %>
+
           <a class="nav-link" href="#sidebarSettings" data-bs-toggle="collapse" role="button" 
-              aria-expanded="<%= is_settings_resources_active ? 'true' : 'false' %>" aria-controls="sidebarSettings">
-            <i class="fe fe-settings"></i> Settings
+              aria-expanded="<%= settings_menu_item.urls.any?(:active_link?) ? 'true' : 'false' %>" aria-controls="sidebarSettings">
+            <i class="<%= settings_menu_item.icon %>"></i> <%= settings_menu_item.label %>
           </a>
-          <div class="collapse <%= 'show' if is_settings_resources_active %>" id="sidebarSettings">
+          <div class="collapse <%= 'show' if settings_menu_item.urls.any?(:active_link?) %>" id="sidebarSettings">
             <ul class="nav nav-sm flex-column">
-              <li class="nav-item">
-                <%= active_link_to admin_stores_path, class: 'nav-link' do %>
-                   Stores
+              <%- settings_menu_item.ordered_children.each do |menu_item| %>
+                <% if menu_item.children? %>
+          
+                  <%= render Admin::Navigation::MenuDropdown::Component.new(icon: menu_item.icon, label: menu_item.label, 
+                      active: menu_item.urls.any?(:active_link?)) do |c| %>
+                    <%- menu_item.ordered_children.each do |child_menu_item| %>
+                      <% c.item do %>
+                        <li class="nav-item">
+                          <%= active_link_to child_menu_item.label, child_menu_item.url, class: 'nav-link' %>
+                        </li>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+
+                <% else %>
+                  <li class="nav-item">
+                    <%= active_link_to menu_item.label, menu_item.url, class: 'nav-link' %>
+                  </li>
                 <% end %>
-              </li>
-              <li class="nav-item">
-                <%= active_link_to admin_payment_methods_path, class: 'nav-link' do %>
-                   Payment Methods
-                <% end %>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="#sidebarSettingShipping" data-bs-toggle="collapse" role="button" 
-                    aria-expanded="<%= is_settings_shipping_resources_active ? 'true' : 'false' %>" aria-controls="sidebarSettingShipping">
-                  Shipping
-                </a>
-                <div class="collapse <%= 'show' if is_settings_shipping_resources_active %>" id="sidebarSettingShipping">
-                  <ul class="nav nav-sm flex-column">
-                    <li class="nav-item">
-                      <%= active_link_to admin_shipping_methods_path, class: 'nav-link' do %>
-                        Shipping Methods
-                      <% end %>
-                    </li>
-                    <li class="nav-item">
-                      <%= active_link_to admin_shipping_categories_path, class: 'nav-link' do %>
-                        Shipping Categories
-                      <% end %>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="#sidebarSettingTaxes" data-bs-toggle="collapse" role="button" 
-                    aria-expanded="<%= is_settings_taxes_resources_active ? 'true' : 'false' %>" aria-controls="sidebarSettingTaxes">
-                  Taxes
-                </a>
-                <div class="collapse <%= 'show' if is_settings_taxes_resources_active %>" id="sidebarSettingTaxes">
-                  <ul class="nav nav-sm flex-column">
-                    <li class="nav-item">
-                      <%= active_link_to admin_tax_categories_path, class: 'nav-link' do %>
-                        Tax Categories
-                      <% end %>
-                    </li>
-                    <li class="nav-item">
-                      <%= active_link_to admin_tax_rates_path, class: 'nav-link' do %>
-                        Tax Rates
-                      <% end %>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-
-
-              <li class="nav-item">
-                <%= active_link_to admin_zones_path, class: 'nav-link' do %>
-                   Zones
-                <% end %>
-              </li>
-
+                
+              <% end %>
             </ul>
           </div>
         </li>
