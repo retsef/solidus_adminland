@@ -1,5 +1,3 @@
-require 'administrate/field/number'
-
 class Administrate::Field::Money < Administrate::Field::Number
   delegate :currency, to: :money
 

@@ -1,6 +1,6 @@
 class Spree::VariantDashboard < Spree::BaseDashboard
   def display_resource(resource)
-    "#{resource.sku} - #{resource.product.name}"
+    "#{"#{resource.sku} - " if resource.sku.present?}#{resource.product.name}"
   end
 
   # ATTRIBUTE_TYPES

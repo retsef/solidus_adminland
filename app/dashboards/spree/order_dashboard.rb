@@ -38,9 +38,9 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     bill_address: Field::BelongsTo.with_options(class_name: 'Spree::Address'),
     ship_address: Field::BelongsTo.with_options(class_name: 'Spree::Address'),
 
-    state: ::Spree::Order::State.with_options(filterable: true, states: STATE_CLASSES, default: 'warning'),
-    shipment_state: ::Spree::Order::State.with_options(filterable: true, states: SHIPMENT_STATE_CLASSES, default: 'warning'),
-    payment_state: ::Spree::Order::State.with_options(filterable: true, states: PAYMENT_STATE_CLASSES, default: 'warning'),
+    state: Field::String.with_options(filterable: true, states: STATE_CLASSES, default: 'warning'),
+    shipment_state: Field::String.with_options(filterable: true, states: SHIPMENT_STATE_CLASSES, default: 'warning'),
+    payment_state: Field::String.with_options(filterable: true, states: PAYMENT_STATE_CLASSES, default: 'warning'),
 
     store: Field::BelongsTo.with_options(class_name: 'Spree::Store', filterable: true),
 
@@ -118,6 +118,7 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     state
     payment_state
     shipment_state
+    variants
     total
     completed_at
   ].freeze

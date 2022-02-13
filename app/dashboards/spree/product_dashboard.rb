@@ -11,7 +11,7 @@ class Spree::ProductDashboard < Spree::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    name: ::Spree::Product::NamePreview,
+    name: Field::String,
     description: Field::Text,
     available_on: Field::DateTime,
     discontinue_on: Field::DateTime,

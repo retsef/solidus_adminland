@@ -4,8 +4,60 @@ module Admin
       ::Spree::LineItem
     end
 
+    def resource_title
+      resource_class.model_name.human
+    end
+
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
+
+    def create
+      dry_resource = resource_class.new(resource_params)
+      authorize_resource(dry_resource)
+
+      resource = requested_parent_resource.contents.add(
+        dry_resource.variant,
+        dry_resource.quantity || 1,
+        options: resource_params[:options].to_h
+      )
+
+      if resource.valid?
+        redirect_to(
+          after_resource_created_path(resource),
+          notice: translate_with_resource('create.success'),
+        )
+      else
+        render :new, locals: {
+          page: Administrate::Page::Form.new(dashboard, resource),
+        }, status: :unprocessable_entity
+      end
+    end
+
+    def update
+      # if requested_resource.update(resource_params)
+      if requested_parent_resource.contents.update_cart(resource_params)
+        redirect_to(
+          after_resource_updated_path(requested_resource),
+          notice: translate_with_resource('update.success'),
+        )
+      else
+        render :edit, locals: {
+          page: Administrate::Page::Form.new(dashboard, requested_resource),
+        }, status: :unprocessable_entity
+      end
+    end
+
+    def destroy
+      requested_parent_resource.contents.remove_line_item(requested_resource)
+
+      # if requested_resource.destroy
+      #   flash[:notice] = translate_with_resource('destroy.success')
+      # else
+      #   flash[:error] = requested_resource.errors.full_messages.join('<br/>')
+      # end
+      redirect_to after_resource_destroyed_path(requested_resource)
+    end
+
 
     # def update
     #   super

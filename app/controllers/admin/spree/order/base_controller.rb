@@ -45,5 +45,17 @@ module Admin
       end
       params.permit(:search, :id, :order_id, :_page, :per_page, association_params)
     end
+
+    # def after_resource_destroyed_path(_requested_resource)
+    #   { action: :index }
+    # end
+
+    def after_resource_created_path(requested_resource)
+      [namespace, requested_parent_resource, resource_class]
+    end
+
+    def after_resource_updated_path(requested_resource)
+      [namespace, requested_parent_resource, resource_class]
+    end
   end
 end

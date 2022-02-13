@@ -51,7 +51,7 @@ as defined by the routes in the `admin/` namespace
           <% if menu_item.children? %>
 
             <%= render Admin::Navigation::MenuDropdown::Component.new(icon: menu_item.icon, label: menu_item.label, 
-                active: menu_item.urls.any?(:active_link?)) do |c| %>
+                active: menu_item.urls.any? {|u| active_link? u }) do |c| %>
               <%- menu_item.ordered_children.each do |child_menu_item| %>
                 <% c.item do %>
                   <li class="nav-item">
@@ -81,7 +81,7 @@ as defined by the routes in the `admin/` namespace
           <%- settings_menu_item = Admin::MenuItem.new(label: 'Settings', icon: 'fe fe-settings', children: Rails.application.config.admin_navigation.setting_entries) %>
 
           <a class="nav-link" href="#sidebarSettings" data-bs-toggle="collapse" role="button" 
-              aria-expanded="<%= settings_menu_item.urls.any?(:active_link?) ? 'true' : 'false' %>" aria-controls="sidebarSettings">
+              aria-expanded="<%= settings_menu_item.urls.any? {|u| active_link? u } ? 'true' : 'false' %>" aria-controls="sidebarSettings">
             <i class="<%= settings_menu_item.icon %>"></i> <%= settings_menu_item.label %>
           </a>
           <div class="collapse <%= 'show' if settings_menu_item.urls.any?(:active_link?) %>" id="sidebarSettings">
@@ -90,7 +90,7 @@ as defined by the routes in the `admin/` namespace
                 <% if menu_item.children? %>
           
                   <%= render Admin::Navigation::MenuDropdown::Component.new(icon: menu_item.icon, label: menu_item.label, 
-                      active: menu_item.urls.any?(:active_link?)) do |c| %>
+                      active: menu_item.urls.any? {|u| active_link? u }) do |c| %>
                     <%- menu_item.ordered_children.each do |child_menu_item| %>
                       <% c.item do %>
                         <li class="nav-item">

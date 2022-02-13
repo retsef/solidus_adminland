@@ -69,5 +69,16 @@ module Admin
         dashboard.all_attributes
       ).any? { |_name, attribute| attribute.filterable? }
     end
+
+    # TODO: create a custom resource_resolver for nested resources
+    delegate :resource_title, to: :resource_resolver
+    helper_method :resource_title
+
+    def translate_with_resource(key)
+      t(
+        "administrate.controller.#{key}",
+        resource: resource_title,
+      )
+    end
   end
 end

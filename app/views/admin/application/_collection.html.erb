@@ -75,9 +75,9 @@ to display a collection of resources in an HTML table.
           <% collection_presenter.attributes_for(resource).each do |attribute| %>
             <td class="cell-data cell-data--<%= attribute.html_class %>" data-label="<%= attribute.name %>">
               <% if show_action? :show, resource -%>
-                <a href="<%= polymorphic_path([namespace, resource]) -%>" tabindex="-1" class="action-show text-reset">
+                <%= link_to polymorphic_path([namespace, resource]), tabindex: -1, class: "action-show text-reset", target: '_top' do %>
                   <%= render_field attribute %>
-                </a>
+                <% end %>
               <% else %>
                 <%= render_field attribute %>
               <% end -%>

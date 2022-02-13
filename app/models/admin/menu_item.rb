@@ -2,7 +2,8 @@ class Admin::MenuItem
   include ActiveModel::Model
   include ActiveLinkToHelper
 
-  attr_accessor :label, :icon, :url, :position, :children
+  attr_accessor :label, :icon, :position, :children
+  attr_writer :url
 
   def initialize(label: '', icon: nil, url: nil, position: 0, children: [])
     @label = label
@@ -27,7 +28,7 @@ class Admin::MenuItem
 
   def urls
     urls = []
-    urls << @url if url.present?
+    urls << url if url.present? && url != '#'
     urls += children.map(&:urls).flatten
     urls.compact
   end
