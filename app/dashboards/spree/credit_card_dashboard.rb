@@ -16,8 +16,8 @@ class Spree::CreditCardDashboard < Spree::BaseDashboard
     gateway_customer_profile_id: Field::String,
     gateway_payment_profile_id: Field::String,
 
-    payment_method: Field::BelongsTo.with_options(class_name: 'Spree::PaymentMethod'),
-    payments: Field::HasMany.with_options(class_name: 'Spree::Payments'),
+    payment_method: Field::BelongsTo,
+    payments: Field::HasMany,
     # wallet_payment_sources: Field::HasMany,
     # user: Field::BelongsTo,
     # address: Field::BelongsTo,

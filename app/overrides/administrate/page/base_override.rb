@@ -9,12 +9,17 @@ module Administrate::Page::BaseOverride
       @resource_class_name ||= dashboard.class.to_s.scan(/(.+)Dashboard/).first.first
     end
 
+    def relative_resource_class_name
+      @relative_resource_class_name ||= dashboard.class.to_s.scan(/(.+)Dashboard/).first.first
+    end
+
     def resource_class
       @resource_class ||= resource_class_name.constantize
     end
 
     def resource_name
-      @resource_name ||= resource_class.model_name.to_s.underscore
+      # @resource_name ||= resource_class.model_name.to_s.underscore
+      @resource_name ||= relative_resource_class_name.to_s.underscore
     end
 
     def resource_path

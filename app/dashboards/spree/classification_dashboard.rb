@@ -1,4 +1,6 @@
-class Spree::PriceDashboard < Spree::BaseDashboard
+require "administrate/base_dashboard"
+
+class Spree::ClassificationDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -7,14 +9,11 @@ class Spree::PriceDashboard < Spree::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    amount: Field::String.with_options(searchable: false),
-    variant: Field::BelongsTo.with_options(class_name: 'Spree::Variant'),
-    currency: Field::String,
-    country: Field::BelongsTo.with_options(class_name: 'Spree::Country'),
-    country_iso: Field::String,
-    deleted_at: Field::DateTime,
+    product: Field::BelongsTo.with_options(class_name: "Spree::Product"),
+    taxon: Field::BelongsTo.with_options(class_name: "Spree::Taxon"),
+    position: Field::Number,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    updated_at: Field::DateTime,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -23,28 +22,25 @@ class Spree::PriceDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    variant
-    amount
-    country
+    position
+    product
+    taxon
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    variant
-    amount
-    currency
-    country
+    product
+    taxon
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    variant
-    amount
-    currency
-    country
+    product
+    taxon
+    position
   ].freeze
 
   # COLLECTION_FILTERS
@@ -59,10 +55,10 @@ class Spree::PriceDashboard < Spree::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how prices are displayed
+  # Overwrite this method to customize how classifications are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(price)
-  #   "Spree::Price ##{price.id}"
+  # def display_resource(classification)
+  #   "Spree::Classification ##{classification.id}"
   # end
 end

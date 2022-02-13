@@ -1,11 +1,11 @@
 module Admin
-  class Spree::Product::ImagesController < Spree::Product::BaseController
+  class Spree::Product::StockItemsController < Spree::Product::BaseController
     def resource_class
-      ::Spree::Image
+      ::Spree::StockItem
     end
-    
+
     def scoped_resource
-      scoped_resource ||= resource_class.where(viewable: parent_page.resource.variants_including_master)
+      scoped_resource ||= resource_class.where(variant: parent_page.resource.variants_including_master)
 
       # Administrate ransack
       @ransack_results = scoped_resource.ransack(params[:q])

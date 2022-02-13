@@ -76,6 +76,10 @@ group :development do
 
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
+
+  gem 'rubycritic', require: false
+
+  gem 'overcommit', require: false
 end
 
 group :test do

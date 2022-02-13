@@ -5,7 +5,7 @@ module Admin
     end
 
     def scoped_resource
-      scoped_resource ||= resource_class.where(variant: parent_page.resource.variants)
+      scoped_resource ||= resource_class.where(variant: parent_page.resource.variants_including_master)
 
       # Administrate ransack
       @ransack_results = scoped_resource.ransack(params[:q])

@@ -15,7 +15,8 @@
           <%= link_to(
             t("administrate.actions.edit"),
             [:edit, namespace, parent_resource, resource],
-            class: "action-edit dropdown-item",
+            class: "action-edit dropdown-item", 
+            target: '_top',
             ) if show_action? :edit, resource%>
         <% end %>
 
@@ -25,7 +26,8 @@
             [namespace, parent_resource, resource],
             class: "text-danger dropdown-item",
             method: :delete,
-            data: { confirm: t("administrate.actions.confirm") }
+            data: { confirm: t("administrate.actions.confirm") }, 
+            target: '_top'
             ) if show_action? :destroy, resource %>
         <% end %>
       </div>

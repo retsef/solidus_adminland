@@ -26,7 +26,8 @@ as well as a link to its edit page.
         <!-- Avatar -->
         <div class="avatar avatar-lg avatar-4by3">
           <%- gallery = page.resource.gallery.images %>
-          <img src="<%= gallery.any? ? url_for(gallery.first) : image_path('admin/products/placeholder_1.png') %>" alt="<%= page.page_title %>" class="avatar-img rounded">
+          <%- image_src = gallery.any? && gallery.first.attachment.attached? ? url_for(gallery.first.attachment) : image_path('admin/default-placeholder.png') %>
+          <img src="<%= image_src %>" alt="<%= page.page_title %>" class="avatar-img rounded">
         </div>
       </div>
 

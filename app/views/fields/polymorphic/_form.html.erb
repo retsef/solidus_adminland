@@ -16,11 +16,12 @@ This partial renders an input element for polymorphic relationships.
 %>
 
 <%= f.fields_for field.attribute do |pf| %>
-<div class="form-group">
+  <div class="form-group">
     <%= pf.label :value, field.name.humanize %>
     <%= pf.hidden_field(:type, value: field.class.name) %>
-    <%= pf.select(:value) do %>
-      <%= grouped_options_for_select(field.associated_resource_grouped_options, field.selected_global_id, prompt: true) %>
-    <% end %>
+    <%= pf.select(:value, 
+                  grouped_options_for_select(field.associated_resource_grouped_options, 
+                                            field.selected_global_id, prompt: true),
+                  'data-select-target': 'input') %>
   </div>
 <% end %>

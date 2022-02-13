@@ -17,9 +17,9 @@ class Spree::CountryDashboard < Spree::BaseDashboard
     name: Field::String,
     numcode: Field::Number,
     states_required: Field::Boolean,
-    states: Field::HasMany.with_options(class_name: 'Spree::State'),
-    addresses: Field::HasMany.with_options(class_name: 'Spree::Address'),
-    prices: Field::HasMany.with_options(class_name: 'Spree::Price'),
+    states: Field::HasMany,
+    addresses: Field::HasMany,
+    prices: Field::HasMany,
     updated_at: Field::DateTime,
     created_at: Field::DateTime
   }.freeze

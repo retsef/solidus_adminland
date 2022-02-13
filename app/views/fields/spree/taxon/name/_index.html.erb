@@ -16,10 +16,9 @@ By default, the attribute is rendered as a truncated string.
 %>
 
 <!-- Avatar -->
-<div class="avatar avatar-md avatar-4by3 align-middle me-2">
-  <%- gallery = field.resource.gallery.images %>
-  <%- image_src = gallery.any? && gallery.first.attachment.attached? ? url_for(gallery.first.attachment) : image_path('admin/default-placeholder.png') %>
-  <img src="<%= image_src %>" alt="<%= field.truncate %>" class="avatar-img rounded">
+<div class="avatar avatar-md align-middle me-2">
+  <%- icon = field.resource.icon %>
+  <img src="<%= icon.attached? ? url_for(icon) : image_path('admin/default-placeholder.png') %>" alt="<%= field.truncate %>" class="avatar-img rounded">
 </div>
 <span class="item-name text-reset">
   <%= field.truncate %>

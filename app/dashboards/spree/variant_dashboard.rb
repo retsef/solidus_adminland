@@ -26,7 +26,7 @@ class Spree::VariantDashboard < Spree::BaseDashboard
     tax_category: Field::BelongsTo.with_options(class_name: 'Spree::TaxCategory'),
     inventory_units: Field::HasMany.with_options(class_name: 'Spree::InventoryUnit'),
     # line_items: Field::HasMany,
-    # orders: Field::HasMany,
+    orders: Field::HasMany.with_options(class_name: 'Spree::Order'),
     stock_items: Field::HasMany.with_options(class_name: 'Spree::StockItem'),
     stock_locations: Field::HasMany.with_options(class_name: 'Spree::StockLocation'),
     stock_movements: Field::HasMany.with_options(class_name: 'Spree::StockMovement'),
@@ -54,30 +54,26 @@ class Spree::VariantDashboard < Spree::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
+    sku
+    weight
+    height
+    width
+    depth
+    is_master
+    cost_price
+    position
+    cost_currency
+    track_inventory
+
     product
     tax_category
     inventory_units
-    orders
     stock_items
     stock_locations
     stock_movements
     option_values
     images
     prices
-    id
-    sku
-    weight
-    height
-    width
-    depth
-    deleted_at
-    is_master
-    cost_price
-    position
-    cost_currency
-    track_inventory
-    updated_at
-    created_at
   ].freeze
 
   # FORM_ATTRIBUTES

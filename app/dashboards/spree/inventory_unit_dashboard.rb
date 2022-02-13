@@ -1,4 +1,6 @@
-class Spree::PriceDashboard < Spree::BaseDashboard
+require "administrate/base_dashboard"
+
+class Spree::InventoryUnitDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -7,14 +9,18 @@ class Spree::PriceDashboard < Spree::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    amount: Field::String.with_options(searchable: false),
-    variant: Field::BelongsTo.with_options(class_name: 'Spree::Variant'),
-    currency: Field::String,
-    country: Field::BelongsTo.with_options(class_name: 'Spree::Country'),
-    country_iso: Field::String,
-    deleted_at: Field::DateTime,
+    state: Field::String,
+    variant: Field::BelongsTo,
+    shipment: Field::BelongsTo,
+    carton: Field::BelongsTo,
+    line_item: Field::BelongsTo,
+    return_items: Field::HasMany,
+    original_return_item: Field::HasOne,
+    unit_cancel: Field::HasOne,
+    order: Field::HasOne,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    updated_at: Field::DateTime,
+    pending: Field::Boolean,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -24,27 +30,43 @@ class Spree::PriceDashboard < Spree::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     variant
-    amount
-    country
+    shipment
+    carton
+    line_item
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
+    id
+    state
     variant
-    amount
-    currency
-    country
+    shipment
+    carton
+    line_item
+    return_items
+    original_return_item
+    unit_cancel
+    order
+    created_at
+    updated_at
+    pending
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
+    state
     variant
-    amount
-    currency
-    country
+    shipment
+    carton
+    line_item
+    return_items
+    original_return_item
+    unit_cancel
+    order
+    pending
   ].freeze
 
   # COLLECTION_FILTERS
@@ -59,10 +81,10 @@ class Spree::PriceDashboard < Spree::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how prices are displayed
+  # Overwrite this method to customize how inventory units are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(price)
-  #   "Spree::Price ##{price.id}"
+  # def display_resource(inventory_unit)
+  #   "Spree::InventoryUnit ##{inventory_unit.id}"
   # end
 end

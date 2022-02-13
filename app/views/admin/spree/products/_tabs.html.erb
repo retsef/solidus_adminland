@@ -19,4 +19,9 @@
       t("administrate.product.actions.prices"),
       [namespace, page.resource, ::Spree::Price], class: 'nav-link') %>
   </li>
+  <li class="nav-item">
+    <%= active_link_to(
+      t("administrate.product.actions.stock_items"),
+      [namespace, page.resource, ::Spree::StockItem], class: 'nav-link') %>
+  </li>
 </ul>

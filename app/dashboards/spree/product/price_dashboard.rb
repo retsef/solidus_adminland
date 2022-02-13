@@ -20,11 +20,12 @@ class Spree::Product::PriceDashboard < Spree::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     variant: Field::BelongsTo.with_options(class_name: 'Spree::Variant'),
-    country: Field::BelongsTo.with_options(class_name: 'Spree::Country'),
-    country_iso: Field::String,
     amount: Field::Money.with_options(searchable: false),
-    currency: Field::String,
-    deleted_at: Field::DateTime,
+
+    country: Field::BelongsTo.with_options(class_name: 'Spree::Country'),
+    country_iso: Field::Select.with_options(collection: Spree::Country.all.map { |c| [c.name, c.iso] }),
+    currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
+    deleted_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -45,7 +46,6 @@ class Spree::Product::PriceDashboard < Spree::BaseDashboard
     amount
     currency
     country
-    country_iso
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -55,7 +55,18 @@ class Spree::Product::PriceDashboard < Spree::BaseDashboard
     variant
     amount
     currency
-    country
+    country_iso
+  ].freeze
+
+  FORM_ATTRIBUTES_NEW = %i[
+    variant
+    amount
+    currency
+    country_iso
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
+    amount
   ].freeze
 
   # COLLECTION_FILTERS

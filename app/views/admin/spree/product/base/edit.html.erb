@@ -1,0 +1,46 @@
+<%#
+# Edit
+
+This view is the template for the edit page.
+
+It displays a header, and renders the `_form` partial to do the heavy lifting.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Form][1].
+  Contains helper methods to help display a form,
+  and knows which attributes should be displayed in the resource's form.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
+%>
+
+<% content_for(:title) { t("administrate.actions.edit_resource", name: page.page_title) } %>
+
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10 col-xl-8">
+    <!-- Header -->
+    <header class="header mt-md-5" role="banner">
+      <div class="header-body">
+        <div class="row align-items-center">
+          <div class="col">
+            <!-- Title -->
+            <h1 class="header-title text-truncate"><%= content_for(:title) %></h1>
+          </div>
+
+          <div class="col-auto">
+            <%= link_to(
+              t("administrate.actions.show_resource", name: page.page_title),
+              [namespace, parent_page.resource, page.resource],
+              class: "btn btn-white", target: '_top',
+            ) if valid_action?(:show) && show_action?(:show, page.resource) %>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="main-content__body" id="form_body">
+      <%= render "form", page: page %>
+    </section>
+  </div>
+</div>

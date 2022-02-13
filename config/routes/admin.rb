@@ -10,10 +10,12 @@ Rails.application.routes.draw do
           resources :prices
 
           resources :variants
+
+          resources :stock_items
         end
       end
       
-      resources :variants, only: %i[index]
+      resources :variants, only: %i[index show]
 
       resources :option_types
       resources :option_values

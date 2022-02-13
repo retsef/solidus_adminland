@@ -23,7 +23,7 @@ class Spree::ProductDashboard < Spree::BaseDashboard
 
     option_types: Field::HasMany.with_options(class_name: 'Spree::OptionType'),
     properties: Field::HasMany.with_options(class_name: 'Spree::Property'),
-    classifications: Field::HasMany,
+    classifications: Field::HasMany.with_options(class_name: 'Spree::Classification'),
     taxons: Field::HasMany.with_options(class_name: 'Spree::Taxon'),
     tax_category: Field::BelongsTo.with_options(class_name: 'Spree::TaxCategory'),
     shipping_category: Field::BelongsTo.with_options(class_name: 'Spree::ShippingCategory'),

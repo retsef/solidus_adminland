@@ -14,7 +14,7 @@ class Spree::TaxonDashboard < Spree::BaseDashboard
     name: Field::String,
     description: Field::Text,
     taxonomy: Field::BelongsTo.with_options(class_name: 'Spree::Taxonomy'),
-    classifications: Field::HasMany,
+    classifications: Field::HasMany.with_options(class_name: 'Spree::Classification'),
     products: Field::HasMany.with_options(class_name: 'Spree::Product'),
     # icon_attachment: Field::HasOne,
     # icon_blob: Field::HasOne,
@@ -54,12 +54,10 @@ class Spree::TaxonDashboard < Spree::BaseDashboard
     name
     description
     permalink
+    icon
     meta_title
     meta_description
     meta_keywords
-    taxonomy
-    classifications
-    products
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -69,8 +67,7 @@ class Spree::TaxonDashboard < Spree::BaseDashboard
     name
     description
     permalink
-    position
-    taxonomy
+    icon
     meta_title
     meta_description
     meta_keywords

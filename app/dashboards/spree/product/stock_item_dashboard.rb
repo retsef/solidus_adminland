@@ -1,4 +1,16 @@
-class Spree::PriceDashboard < Spree::BaseDashboard
+class Spree::Product::StockItemDashboard < Spree::BaseDashboard
+  def self.model
+    ::Spree::StockItem
+  end
+
+  def resource_class
+    ::Spree::StockItem
+  end
+
+  def resource_class_name
+    resource_class.name
+  end
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -7,14 +19,14 @@ class Spree::PriceDashboard < Spree::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    amount: Field::String.with_options(searchable: false),
+    count_on_hand: Field::Number,
+    backorderable: Field::Boolean,
+    stock_location: Field::BelongsTo.with_options(class_name: 'Spree::StockLocation'),
     variant: Field::BelongsTo.with_options(class_name: 'Spree::Variant'),
-    currency: Field::String,
-    country: Field::BelongsTo.with_options(class_name: 'Spree::Country'),
-    country_iso: Field::String,
-    deleted_at: Field::DateTime,
+    stock_movements: Field::HasMany.with_options(class_name: 'Spree::StockMovement'),
     created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    updated_at: Field::DateTime,
+    deleted_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -24,17 +36,19 @@ class Spree::PriceDashboard < Spree::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     variant
-    amount
-    country
+    stock_location
+    count_on_hand
+    stock_movements
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     variant
-    amount
-    currency
-    country
+    count_on_hand
+    backorderable
+    stock_location
+    stock_movements
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -42,9 +56,9 @@ class Spree::PriceDashboard < Spree::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     variant
-    amount
-    currency
-    country
+    stock_location
+    backorderable
+    count_on_hand
   ].freeze
 
   # COLLECTION_FILTERS
@@ -59,10 +73,10 @@ class Spree::PriceDashboard < Spree::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how prices are displayed
+  # Overwrite this method to customize how stock items are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(price)
-  #   "Spree::Price ##{price.id}"
+  # def display_resource(stock_item)
+  #   "Spree::StockItem ##{stock_item.id}"
   # end
 end

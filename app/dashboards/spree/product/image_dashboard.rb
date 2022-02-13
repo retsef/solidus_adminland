@@ -21,7 +21,7 @@ class Spree::Product::ImageDashboard < Spree::BaseDashboard
     id: Field::Number,
     type: Field::String,
     alt: Field::Text,
-    viewable: Field::Polymorphic,
+    viewable: Field::Polymorphic.with_options(classes: [Spree::Variant]),
 
     attachment: Field::ActiveStorage,
 
@@ -36,7 +36,7 @@ class Spree::Product::ImageDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    viewable
+    position
     attachment
     alt
   ].freeze
@@ -44,14 +44,10 @@ class Spree::Product::ImageDashboard < Spree::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    id
     attachment
     viewable
-    position
     type
     alt
-    created_at
-    updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -66,9 +62,16 @@ class Spree::Product::ImageDashboard < Spree::BaseDashboard
   ].freeze
 
   FORM_ATTRIBUTES_NEW = %i[
+    viewable
+    position
     attachment
+    alt
+  ].freeze
+  
+  FORM_ATTRIBUTES_EDIT = %i[
     position
     alt
+    attachment
   ].freeze
 
   # COLLECTION_FILTERS
