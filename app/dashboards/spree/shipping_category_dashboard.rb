@@ -1,8 +1,4 @@
 class Spree::ShippingCategoryDashboard < Spree::BaseDashboard
-  def display_resource(shipping_category)
-    shipping_category.name
-  end
-
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -59,7 +55,7 @@ class Spree::ShippingCategoryDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how shipping categories are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(shipping_category)
-  #   "Spree::ShippingCategory ##{shipping_category.id}"
-  # end
+  def display_resource(shipping_category)
+    shipping_category.name
+  end
 end

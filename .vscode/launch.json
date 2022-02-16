@@ -14,6 +14,41 @@
                 "--port",
                 "3005"
             ]
+        },
+        {
+            "name": "Rake db:migrate",
+            "type": "Ruby",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "program": "${workspaceRoot}/vendor/rake",
+            "useBundler": true,
+            "args": [
+                "db:migrate"
+            ]
+        },
+        {
+            "name": "RSpec - all",
+            "type": "Ruby",
+            "request": "launch",
+            "cwd": "${workspaceRoot}",
+            "program": "/usr/bin/rspec",
+            "args": [
+                "--require",
+                "spec_helper",
+                "--require",
+                "rails_helper",
+                "--format",
+                "documentation"
+            ]
+        },
+        {
+            "name": "Debug Attach",
+            "type": "Ruby",
+            "request": "attach",
+            "cwd": "${workspaceRoot}",
+            "remoteWorkspaceRoot": "${workspaceRoot}",
+            "remoteHost": "SERVER_IP_ADDRESS",
+            "remotePort": "SERVER_LISTENING_PORT"
         }
     ]
 }

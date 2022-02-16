@@ -6,19 +6,14 @@ class Spree::ImageDashboard < Spree::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    viewable: Field::Polymorphic,
-    attachment_attachment: Field::HasOne,
-    attachment_blob: Field::HasOne,
     id: Field::Number,
-    attachment_width: Field::Number,
-    attachment_height: Field::Number,
-    attachment_file_size: Field::Number,
-    position: Field::Number,
-    attachment_content_type: Field::String,
-    attachment_file_name: Field::String,
     type: Field::String,
-    attachment_updated_at: Field::DateTime,
     alt: Field::Text,
+    viewable: Field::Polymorphic.with_options(classes: [Spree::Variant]),
+
+    attachment: Field::ActiveStorage,
+
+    position: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -30,29 +25,18 @@ class Spree::ImageDashboard < Spree::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     viewable
-    attachment_attachment
-    attachment_blob
-    id
+    position
+    attachment
+    alt
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
+    attachment
     viewable
-    attachment_attachment
-    attachment_blob
-    id
-    attachment_width
-    attachment_height
-    attachment_file_size
-    position
-    attachment_content_type
-    attachment_file_name
     type
-    attachment_updated_at
     alt
-    created_at
-    updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -60,17 +44,23 @@ class Spree::ImageDashboard < Spree::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     viewable
-    attachment_attachment
-    attachment_blob
-    attachment_width
-    attachment_height
-    attachment_file_size
+    attachment
     position
-    attachment_content_type
-    attachment_file_name
     type
-    attachment_updated_at
     alt
+  ].freeze
+
+  FORM_ATTRIBUTES_NEW = %i[
+    viewable
+    position
+    attachment
+    alt
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
+    position
+    alt
+    attachment
   ].freeze
 
   # COLLECTION_FILTERS

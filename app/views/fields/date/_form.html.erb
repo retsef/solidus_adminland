@@ -18,6 +18,7 @@ By default, the input is a text field that is augmented with [DateTimePicker].
 
 <div class="form-group">
   <%= f.label field.attribute %>
+  <%= f.hint field.attribute %>
 
   <div class="input-group">
     <span class="input-group-text">
@@ -25,4 +26,6 @@ By default, the input is a text field that is augmented with [DateTimePicker].
     </span>
     <%= f.text_field field.attribute, data: { type: 'date', controller: 'datetime' } %>
   </div>
+
+  <%= f.error_message field.attribute %>
 </div>

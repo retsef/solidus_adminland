@@ -18,7 +18,9 @@ that displays all possible records to associate with.
 
 <div class="form-group">
   <%= f.label field.permitted_attribute %>
+  <%= f.hint field.permitted_attribute %>
   <%= f.select(field.permitted_attribute,
                options_for_select(field.associated_resource_options, field.selected_option),
-               include_blank: field.include_blank_option) %>
+               { include_blank: field.include_blank_option }, 'data-select-target': 'input') %>
+  <%= f.error_message field.permitted_attribute %>
 </div>

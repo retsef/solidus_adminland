@@ -23,6 +23,6 @@ and is augmented with [Selectize].
   <%= f.label field.attribute, for: "#{f.object_name}_#{field.attribute_key}" %>
   <%= f.select(field.attribute_key, 
         options_for_select(field.associated_resource_options, field.selected_options), 
-        { }, include_blank: true, multiple: true, 'data-select-target': 'input'
+        { include_blank: true }, multiple: true, 'data-select-target': 'input'
       ) %>
 </div>

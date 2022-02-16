@@ -15,12 +15,20 @@ Rails.application.routes.draw do
         end
       end
       
-      resources :variants, only: %i[index show]
+      resources :variants, only: %i[index show] do
+        scope module: :variant do
+          resources :images
+          resources :prices
+        end
+      end
+      resources :product_properties, only: %i[index show]
 
+      # Product Properties
       resources :option_types
       resources :option_values
       resources :properties
 
+      # Taxonomies
       resources :taxonomies do
         resources :taxons
       end
@@ -43,8 +51,10 @@ Rails.application.routes.draw do
           resources :line_item_adjustments, only: %i[index]
           resources :shipment_adjustments, only: %i[index]
 
+          resources :shipments
           resources :adjustments
           resources :return_authorizations
+          resources :customer_returns
 
           resources :payments, only: %i[index show new create] do
             member do
@@ -57,8 +67,6 @@ Rails.application.routes.draw do
 
           resources :reimbursements
           resources :cancellations
-
-          resources :shipments
         end
       end
 
@@ -80,6 +88,7 @@ Rails.application.routes.draw do
       # Stock
       resources :stock_items
       resources :stock_locations
+      resources :stock_movements
 
       # Users
       resources :users

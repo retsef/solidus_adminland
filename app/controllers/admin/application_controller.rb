@@ -60,7 +60,7 @@ module Admin
       Administrate::Search.new(
         resources,
         dashboard,
-        search_term,
+        search_term
       ).run
     end
 
@@ -77,7 +77,7 @@ module Admin
     def translate_with_resource(key)
       t(
         "administrate.controller.#{key}",
-        resource: resource_title,
+        resource: resource_title
       )
     end
   end

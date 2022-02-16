@@ -1,8 +1,4 @@
 class Spree::OptionValueDashboard < Spree::BaseDashboard
-  def display_resource(resource)
-    "#{resource.name} - #{resource.presentation}"
-  end
-
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -66,7 +62,7 @@ class Spree::OptionValueDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how option values are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(option_value)
-  #   "Spree::OptionValue ##{option_value.id}"
-  # end
+  def display_resource(option_value)
+    option_value.name
+  end
 end

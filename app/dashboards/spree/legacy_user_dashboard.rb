@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class Spree::LegacyUserDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -46,7 +46,7 @@ class Spree::LegacyUserDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     openid_identifier: Field::String,
-    spree_api_key: Field::String,
+    spree_api_key: Field::String
   }.freeze
 
   # COLLECTION_ATTRIBUTES

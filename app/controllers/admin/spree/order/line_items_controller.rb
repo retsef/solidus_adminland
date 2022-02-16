@@ -20,11 +20,11 @@ module Admin
       if resource.valid?
         redirect_to(
           after_resource_created_path(resource),
-          notice: translate_with_resource('create.success'),
+          notice: translate_with_resource('create.success')
         )
       else
         render :new, locals: {
-          page: Administrate::Page::Form.new(dashboard, resource),
+          page: Administrate::Page::Form.new(dashboard, resource)
         }, status: :unprocessable_entity
       end
     end
@@ -34,11 +34,11 @@ module Admin
       if requested_parent_resource.contents.update_cart(resource_params)
         redirect_to(
           after_resource_updated_path(requested_resource),
-          notice: translate_with_resource('update.success'),
+          notice: translate_with_resource('update.success')
         )
       else
         render :edit, locals: {
-          page: Administrate::Page::Form.new(dashboard, requested_resource),
+          page: Administrate::Page::Form.new(dashboard, requested_resource)
         }, status: :unprocessable_entity
       end
     end
@@ -53,7 +53,6 @@ module Admin
       # end
       redirect_to after_resource_destroyed_path(requested_resource)
     end
-
 
     # def update
     #   super

@@ -1,8 +1,4 @@
 class Spree::PromotionDashboard < Spree::BaseDashboard
-  def display_resource(resource)
-    resource.name.to_s
-  end
-
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -122,7 +118,7 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how promotions are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(promotion)
-  #   "Spree::Promotion ##{promotion.id}"
-  # end
+  def display_resource(promotion)
+    promotion.name
+  end
 end

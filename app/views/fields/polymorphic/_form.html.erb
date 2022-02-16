@@ -16,7 +16,7 @@ This partial renders an input element for polymorphic relationships.
 %>
 
 <%= f.fields_for field.attribute do |pf| %>
-  <div class="form-group">
+  <div class="form-group" data-controller='select'>
     <%= pf.label :value, field.name.humanize %>
     <%= pf.hidden_field(:type, value: field.class.name) %>
     <%= pf.select(:value, 

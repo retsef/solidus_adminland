@@ -1,5 +1,9 @@
 module Admin
   class Spree::Order::AdjustmentsController < Spree::Order::BaseController
+    def resource_class
+      ::Spree::Adjustment
+    end
+
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #

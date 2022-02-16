@@ -3,7 +3,7 @@ module Admin
     def resource_class
       ::Spree::Image
     end
-    
+
     def scoped_resource
       scoped_resource ||= resource_class.where(viewable: parent_page.resource.variants_including_master)
 

@@ -1,0 +1,14 @@
+<%- frame_id = dom_id(form.object, "#{attribute}_inline") %>
+<%= turbo_frame_tag frame_id, class: 'contents' do %>
+  <%= yield %>
+
+  <%= form.button class: 'btn btn-sm text-primary inline-action' do %>
+    <span>Save</span>
+    <i class="fe fe-check"></i>
+  <% end %>
+
+  <%= link_to polymorphic_path([namespace, form.object]), class: 'btn btn-sm text-danger inline-action' do %>
+    <span>Cancel</span>
+    <i class="fe fe-x"></i>
+  <% end %>
+<% end %>

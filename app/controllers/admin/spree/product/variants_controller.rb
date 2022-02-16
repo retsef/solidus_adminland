@@ -4,6 +4,35 @@ module Admin
       ::Spree::Variant
     end
 
+    def scoped_resource
+      scoped_resource ||= resource_class.where(product: requested_parent_resource)
+
+      # Administrate ransack
+      @ransack_results = scoped_resource.ransack(params[:q])
+      @ransack_results.result(distinct: true)
+    end
+
+    def new_resource
+      resource_class.new(new_resource_params)
+    end
+
+    def create
+      resource = new_resource
+      resource.assign_attributes(resource_params)
+      authorize_resource(resource)
+
+      if resource.save
+        redirect_to(
+          after_resource_created_path(resource),
+          notice: translate_with_resource('create.success')
+        )
+      else
+        render :new, locals: {
+          page: Administrate::Page::Form.new(dashboard, resource)
+        }, status: :unprocessable_entity
+      end
+    end
+
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #
@@ -21,6 +50,8 @@ module Admin
     # end
 
     # The result of this lookup will be available as `requested_resource`
+
+    private 
 
     # Override this if you have certain roles that require a subset
     # this will be used to set the records shown on the `index` action.
@@ -43,6 +74,15 @@ module Admin
     #     permit(dashboard.permitted_attributes).
     #     transform_values { |value| value == "" ? nil : value }
     # end
+
+    def new_resource_params
+      {
+        product: requested_parent_resource,
+        price: requested_parent_resource.price, 
+        cost_price: requested_parent_resource.cost_price,
+        cost_currency: requested_parent_resource.cost_currency
+      }
+    end
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information

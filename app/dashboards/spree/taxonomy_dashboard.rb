@@ -1,8 +1,4 @@
 class Spree::TaxonomyDashboard < Spree::BaseDashboard
-  def display_resource(taxonomy)
-    taxonomy.name.to_s
-  end
-
   TAXON_EXCLUDED_PARAMS = %i[
     description
     permalink
@@ -68,7 +64,7 @@ class Spree::TaxonomyDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how taxonomies are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(taxonomy)
-  #   "Spree::Taxonomy ##{taxonomy.id}"
-  # end
+  def display_resource(taxonomy)
+    taxonomy.name
+  end
 end

@@ -1,4 +1,4 @@
-class Spree::LineItemDashboard < Spree::BaseDashboard
+class Spree::Variant::PriceDashboard < Spree::Variant::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -7,23 +7,13 @@ class Spree::LineItemDashboard < Spree::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    order: Field::BelongsTo.with_options(class_name: 'Spree::Order'),
     variant: Field::BelongsTo.with_options(class_name: 'Spree::Variant'),
-    # tax_category: Field::BelongsTo,
-    # product: Field::HasOne,
-    #  adjustments: Field::HasMany,
-    # inventory_units: Field::HasMany,
-    # line_item_actions: Field::HasMany,
-    # actions: Field::HasMany,
-    quantity: Field::Number,
-    price: Field::String.with_options(searchable: false),
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime
-    # cost_price: Field::String.with_options(searchable: false),
-    # adjustment_total: Field::String.with_options(searchable: false),
-    # additional_tax_total: Field::String.with_options(searchable: false),
-    # promo_total: Field::String.with_options(searchable: false),
-    # included_tax_total: Field::String.with_options(searchable: false),
+    amount: Field::Money.with_options(searchable: false),
+
+    country: Field::BelongsTo.with_options(class_name: 'Spree::Country'),
+    country_iso: Field::Select.with_options(collection: Spree::Country.all.map { |c| [c.name, c.iso] }),
+    currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
+    deleted_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -32,35 +22,39 @@ class Spree::LineItemDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    order
     variant
-    quantity
-    price
+    amount
+    country
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    order
     variant
-    quantity
-    price
-    created_at
-    updated_at
+    amount
+    currency
+    country
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    order
     variant
-    quantity
+    amount
+    currency
+    country_iso
   ].freeze
 
   FORM_ATTRIBUTES_NEW = %i[
     variant
-    quantity
+    amount
+    currency
+    country_iso
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
+    amount
   ].freeze
 
   # COLLECTION_FILTERS
@@ -75,10 +69,10 @@ class Spree::LineItemDashboard < Spree::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how line items are displayed
+  # Overwrite this method to customize how prices are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(line_item)
-  #   "Spree::LineItem ##{line_item.id}"
+  # def display_resource(price)
+  #   "Spree::Price ##{price.id}"
   # end
 end

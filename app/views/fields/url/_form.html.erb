@@ -17,6 +17,7 @@ By default, the input is a text box.
 
 <div class="form-group">
   <%= f.label field.attribute %>
+  <%= f.hint field.attribute %>
 
   <div class="input-group">
     <span class="input-group-text">
@@ -24,4 +25,5 @@ By default, the input is a text box.
     </span>
     <%= f.url_field field.attribute %>
   </div>
+  <%= f.error_message field.attribute %>
 </div>

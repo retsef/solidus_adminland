@@ -17,5 +17,7 @@ By default, the input is a text field.
 
 <div class="form-group">
   <%= f.label field.attribute %>
+  <%= f.hint field.attribute %>
   <%= f.text_field field.attribute %>
+  <%= f.error_message field.attribute %>
 </div>

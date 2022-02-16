@@ -72,20 +72,31 @@ only screen and (max-width: 760px),
         text-align: left;
       }
       
-      /*
-      Label the data
-      */
+      /* Label the data */
       td:before { content: attr(data-label); }
     }
   }
 }
 
 
-.attachments-listing {
+// Active Storage Field
+
+.attachments-listing, .cell-data.cell-data--active-storage {
   img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     object-position: center;
   }
+}
+
+
+// Inline Edit
+
+.inline-action {
+  display: none;
+}
+
+.inline-edit .inline-action {
+  display: initial;
 }

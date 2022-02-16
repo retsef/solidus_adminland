@@ -18,7 +18,7 @@ class Spree::AdjustmentDashboard < Spree::BaseDashboard
     source: Field::Polymorphic,
     order: Field::BelongsTo,
     promotion_code: Field::BelongsTo,
-    adjustment_reason: Field::BelongsTo,
+    adjustment_reason: Field::BelongsTo
   }.freeze
 
   # COLLECTION_ATTRIBUTES

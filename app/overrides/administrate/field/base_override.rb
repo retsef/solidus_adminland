@@ -7,13 +7,21 @@ module Administrate::Field::BaseOverride
     def filterable?
       false
     end
+
+    def editable_inline?
+      false
+    end
   end
 
   included do
+    def editable_inline?
+      options.fetch(:editable_inline, self.class.editable_inline?)
+    end
+
     def to_partial_path
       return "/fields/#{self.class.field_type}/#{page}" unless lookup_context.exists?(page, lookup_context.prefixes, true)
 
-      lookup_context.find(page, lookup_context.prefixes, true).virtual_path.gsub("_#{page}", "#{page}")
+      lookup_context.find(page, lookup_context.prefixes, true).virtual_path.gsub("_#{page}", page.to_s)
     end
 
     private

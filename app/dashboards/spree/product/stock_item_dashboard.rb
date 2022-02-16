@@ -1,16 +1,4 @@
-class Spree::Product::StockItemDashboard < Spree::BaseDashboard
-  def self.model
-    ::Spree::StockItem
-  end
-
-  def resource_class
-    ::Spree::StockItem
-  end
-
-  def resource_class_name
-    resource_class.name
-  end
-
+class Spree::Product::StockItemDashboard < Spree::Product::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -19,11 +7,12 @@ class Spree::Product::StockItemDashboard < Spree::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
+    variant_name: Field::String,
+    variant: Field::BelongsTo.with_options(class_name: 'Spree::Variant'),
+    stock_location: Field::BelongsTo.with_options(class_name: 'Spree::StockLocation'),
+    stock_movements: Field::HasMany.with_options(class_name: 'Spree::StockMovement'),
     count_on_hand: Field::Number,
     backorderable: Field::Boolean,
-    stock_location: Field::BelongsTo.with_options(class_name: 'Spree::StockLocation'),
-    variant: Field::BelongsTo.with_options(class_name: 'Spree::Variant'),
-    stock_movements: Field::HasMany.with_options(class_name: 'Spree::StockMovement'),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     deleted_at: Field::DateTime
@@ -35,10 +24,11 @@ class Spree::Product::StockItemDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
+    variant_name
     variant
     stock_location
+    backorderable
     count_on_hand
-    stock_movements
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES

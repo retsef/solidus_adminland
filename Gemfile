@@ -72,7 +72,7 @@ group :development do
   gem 'solargraph'
   gem 'solargraph-arc'
   gem 'htmlbeautifier'
-  # gem 'ripper-tags'
+  #  gem 'ripper-tags'
 
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false

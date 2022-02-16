@@ -6,10 +6,10 @@ class Spree::StockMovementDashboard < Spree::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    id: Field::Number,
     stock_item: Field::BelongsTo,
     originator: Field::Polymorphic,
     variant: Field::HasOne,
-    id: Field::Number,
     quantity: Field::Number,
     action: Field::String,
     created_at: Field::DateTime,
@@ -22,10 +22,11 @@ class Spree::StockMovementDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
+    variant
     stock_item
     originator
-    variant
-    id
+    action
+    quantity
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES

@@ -55,20 +55,34 @@ as well as a link to its edit page.
       </div>
     </header>
 
-    <section class="main-content__body">
-      <dl>
-        <% page.attributes.each do |attribute| %>
-          <dt class="attribute-label" id="<%= attribute.name %>">
-          <%= t(
-            "helpers.label.#{resource_name}.#{attribute.name}",
-            default: page.resource.class.human_attribute_name(attribute.name),
-          ) %>
-          </dt>
+    <div class="row">
+      <div class="col-12">
+        <section class="main-content__body">
+          <dl>
+            <% page.attributes.each do |attribute| %>
+              <%- attr_id = "#{attribute.name}_attribute".to_sym %>
+              <%- content_for(attr_id) do %>
+                <dt class="attribute-label" id="<%= attribute.name %>">
+                  <%= t( "helpers.label.#{resource_name}.#{attribute.name}",
+                      default: page.resource.class.human_attribute_name(attribute.name)) %>
+                </dt>
 
-          <dd class="attribute-data attribute-data--<%=attribute.html_class%>"
-              ><%= render_field attribute, page: page %></dd>
-        <% end %>
-      </dl>
-    </section>
+                <dd class="attribute-data attribute-data--<%=attribute.html_class%>">
+                  <%= render_field attribute, page: page %>
+                </dd>
+              <% end %>
+
+              <% unless attribute.editable_inline? %>
+                <%= content_for(attr_id) %>
+              <% else %>
+                <%= render('inline_edit', resource: page.resource, attribute: attribute.name, namespace: namespace) do %>
+                  <%= content_for(attr_id) %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </dl>
+        </section>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,16 +1,4 @@
-class Spree::Product::ImageDashboard < Spree::BaseDashboard
-  def self.model
-    ::Spree::Image
-  end
-
-  def resource_class
-    ::Spree::Image
-  end
-
-  def resource_class_name
-    resource_class.name
-  end
-
+class Spree::Product::ImageDashboard < Spree::Product::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -67,7 +55,7 @@ class Spree::Product::ImageDashboard < Spree::BaseDashboard
     attachment
     alt
   ].freeze
-  
+
   FORM_ATTRIBUTES_EDIT = %i[
     position
     alt

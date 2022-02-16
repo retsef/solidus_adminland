@@ -4,24 +4,24 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     confirmed: 'info',
     purchased: 'success',
     declined: 'error',
-    deferred: 'secondary',
-  }
+    deferred: 'secondary'
+  }.freeze
 
   SHIPMENT_STATE_CLASSES = {
     pending: 'warning',
     confirmed: 'info',
     purchased: 'success',
     declined: 'error',
-    deferred: 'secondary',
-  }
+    deferred: 'secondary'
+  }.freeze
 
   PAYMENT_STATE_CLASSES = {
     pending: 'warning',
     confirmed: 'info',
     purchased: 'success',
     declined: 'error',
-    deferred: 'secondary',
-  }
+    deferred: 'secondary'
+  }.freeze
 
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
@@ -113,6 +113,7 @@ class Spree::OrderDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
+    completed_at
     number
     email
     state
@@ -120,7 +121,6 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     shipment_state
     variants
     total
-    completed_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -180,7 +180,7 @@ class Spree::OrderDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how orders are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(order)
-  #   "Spree::Order ##{order.id}"
-  # end
+  def display_resource(order)
+    order.number
+  end
 end

@@ -53,18 +53,22 @@ as well as a link to its edit page.
   </div>
 </header>
 
-<section class="main-content__body">
-  <dl>
-    <% page.attributes.each do |attribute| %>
-      <dt class="attribute-label" id="<%= attribute.name %>">
-      <%= t(
-        "helpers.label.#{resource_name}.#{attribute.name}",
-        default: page.resource.class.human_attribute_name(attribute.name),
-      ) %>
-      </dt>
+<div class="row">
+  <div class="col-12">
+    <section class="main-content__body">
+      <dl>
+        <% page.attributes.each do |attribute| %>
+          <dt class="attribute-label" id="<%= attribute.name %>">
+          <%= t(
+            "helpers.label.#{resource_name}.#{attribute.name}",
+            default: page.resource.class.human_attribute_name(attribute.name),
+          ) %>
+          </dt>
 
-      <dd class="attribute-data attribute-data--<%=attribute.html_class%>"
-          ><%= render_field attribute, page: page %></dd>
-    <% end %>
-  </dl>
-</section>
+          <dd class="attribute-data attribute-data--<%=attribute.html_class%>"
+              ><%= render_field attribute, page: page %></dd>
+        <% end %>
+      </dl>
+    </section>
+  </div>
+</div>

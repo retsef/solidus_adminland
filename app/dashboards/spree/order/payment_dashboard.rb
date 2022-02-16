@@ -1,16 +1,4 @@
-class Spree::Order::PaymentDashboard < Spree::BaseDashboard
-  def self.model
-    ::Spree::Payment
-  end
-  
-  def resource_class
-    ::Spree::Payment
-  end
-
-  def resource_class_name
-    resource_class.name
-  end
-
+class Spree::Order::PaymentDashboard < Spree::Order::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -32,13 +20,13 @@ class Spree::Order::PaymentDashboard < Spree::BaseDashboard
     # offsets: Field::HasMany,
     # log_entries: Field::HasMany,
     # state_changes: Field::HasMany,
-    # capture_events: Field::HasMany,
+    #  capture_events: Field::HasMany,
     # refunds: Field::HasMany,
 
     order: Field::BelongsTo.with_options(class_name: 'Spree::Order'),
 
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

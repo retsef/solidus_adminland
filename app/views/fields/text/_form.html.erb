@@ -16,5 +16,7 @@ This partial renders a textarea element for a text attribute.
 
 <div class="form-group">
   <%= f.label field.attribute %>
+  <%= f.hint field.attribute %>
   <%= f.text_area field.attribute %>
+  <%= f.error_message field.attribute %>
 </div>

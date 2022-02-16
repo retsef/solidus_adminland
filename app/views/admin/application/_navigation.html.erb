@@ -84,7 +84,7 @@ as defined by the routes in the `admin/` namespace
               aria-expanded="<%= settings_menu_item.urls.any? {|u| active_link? u } ? 'true' : 'false' %>" aria-controls="sidebarSettings">
             <i class="<%= settings_menu_item.icon %>"></i> <%= settings_menu_item.label %>
           </a>
-          <div class="collapse <%= 'show' if settings_menu_item.urls.any?(:active_link?) %>" id="sidebarSettings">
+          <div class="collapse <%= 'show' if settings_menu_item.urls.any? {|u| active_link? u } %>" id="sidebarSettings">
             <ul class="nav nav-sm flex-column">
               <%- settings_menu_item.ordered_children.each do |menu_item| %>
                 <% if menu_item.children? %>

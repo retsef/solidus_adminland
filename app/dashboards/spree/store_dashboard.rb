@@ -1,8 +1,4 @@
 class Spree::StoreDashboard < Spree::BaseDashboard
-  def display_resource(store)
-    "#{store.name} - #{store.code}"
-  end
-
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -15,11 +11,6 @@ class Spree::StoreDashboard < Spree::BaseDashboard
     url: Field::Url,
     code: Field::String,
     default: Field::Boolean,
-    # store_payment_methods: Field::HasMany,
-    payment_methods: Field::HasMany.with_options(class_name: 'Spree::PaymentMethod'),
-    # store_shipping_methods: Field::HasMany,
-    shipping_methods: Field::HasMany.with_options(class_name: 'Spree::ShippingMethod'),
-    orders: Field::HasMany.with_options(class_name: 'Spree::Order'),
     bcc_email: Field::String,
     mail_from_address: Field::String,
     seo_title: Field::String,
@@ -28,6 +19,11 @@ class Spree::StoreDashboard < Spree::BaseDashboard
     default_currency: Field::String.with_options(searchable: true),
     cart_tax_country_iso: Field::String,
     available_locales: Field::String,
+    # store_payment_methods: Field::HasMany,
+    payment_methods: Field::HasMany.with_options(class_name: 'Spree::PaymentMethod'),
+    # store_shipping_methods: Field::HasMany,
+    shipping_methods: Field::HasMany.with_options(class_name: 'Spree::ShippingMethod'),
+    orders: Field::HasMany.with_options(class_name: 'Spree::Order'),
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -47,7 +43,6 @@ class Spree::StoreDashboard < Spree::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    id
     name
     url
     code
@@ -60,7 +55,6 @@ class Spree::StoreDashboard < Spree::BaseDashboard
 
     payment_methods
     shipping_methods
-    orders
 
     seo_title
     meta_description
@@ -105,7 +99,7 @@ class Spree::StoreDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how stores are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(store)
-  #   "Spree::Store ##{store.id}"
-  # end
+  def display_resource(store)
+    "#{store.name} - #{store.code}"
+  end
 end

@@ -12,6 +12,7 @@ that gets submitted with the form.
 
 <div class="form-group">
   <%= f.label field.attribute %>
+  <%= f.hint field.attribute %>
 
   <div class="input-group">
     <span class="input-group-text">
@@ -23,4 +24,5 @@ that gets submitted with the form.
           decimal: field.separator,
           prefix: field.symbol } %>
   </div>
+  <%= f.error_message field.attribute %>
 </div>

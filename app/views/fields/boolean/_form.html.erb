@@ -16,6 +16,8 @@ By default, the input is a checkbox.
 %>
 
 <div class="form-group form-switch">
+  <%= f.hint field.attribute %>
   <%= f.check_box field.attribute %>
   <%= f.label field.attribute, class: 'form-check-label' %>
+  <%= f.error_message field.attribute %>
 </div>

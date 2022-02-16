@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class Spree::ClassificationDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -9,11 +9,11 @@ class Spree::ClassificationDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    product: Field::BelongsTo.with_options(class_name: "Spree::Product"),
-    taxon: Field::BelongsTo.with_options(class_name: "Spree::Taxon"),
+    product: Field::BelongsTo.with_options(class_name: 'Spree::Product'),
+    taxon: Field::BelongsTo.with_options(class_name: 'Spree::Taxon'),
     position: Field::Number,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES

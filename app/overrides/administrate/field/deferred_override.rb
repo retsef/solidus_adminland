@@ -11,6 +11,10 @@ module Administrate::Field::DeferredOverride
     def filterable_fields
       options.fetch(:filterable_fields)
     end
+
+    def editable_inline?
+      options.fetch(:editable_inline, deferred_class.editable_inline?)
+    end
   end
 end
 

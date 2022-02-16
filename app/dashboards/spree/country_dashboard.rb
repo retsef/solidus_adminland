@@ -1,8 +1,4 @@
 class Spree::CountryDashboard < Spree::BaseDashboard
-  def display_resource(country)
-    country.name.to_s
-  end
-
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -79,7 +75,7 @@ class Spree::CountryDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how countries are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(country)
-  #   "Spree::Country ##{country.id}"
-  # end
+  def display_resource(country)
+    country.name
+  end
 end

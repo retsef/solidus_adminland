@@ -1,5 +1,7 @@
 module Admin
   class Spree::Product::StockItemsController < Spree::Product::BaseController
+    before_action :grep_count_on_hand, only: %i[create update]
+
     def resource_class
       ::Spree::StockItem
     end
@@ -19,10 +21,17 @@ module Admin
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #
-    # def update
-    #   super
-    #   send_foo_updated_email(requested_resource)
-    # end
+    def create
+      super
+
+      adjust_stock_item_count_on_hand(resource, @adjustment.to_i)
+    end
+
+    def update
+      super
+
+      adjust_stock_item_count_on_hand(requested_resource, @adjustment.to_i)
+    end
 
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
@@ -58,5 +67,19 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
+
+    private
+
+    def grep_count_on_hand
+      @adjustment = params[resource_class.model_name.param_key][:count_on_hand]
+      params[resource_class.model_name.param_key].delete(:count_on_hand)
+    end
+
+    def adjust_stock_item_count_on_hand(resource, count_on_hand_adjustment)
+      raise StockLocation::InvalidMovementError, t('spree.api.stock_not_below_zero') if (resource.count_on_hand + count_on_hand_adjustment).negative?
+
+      @stock_movement = resource.stock_location.move(resource.variant, count_on_hand_adjustment, nil)
+      @stock_item = @stock_movement.stock_item
+    end
   end
 end

@@ -17,6 +17,7 @@ to be displayed on a resource's edit form page.
 
 <div class="form-group" data-controller='select'>
   <%= f.label field.attribute %>
+  <%= f.hint field.attribute %>
   
   <% if field.selectable_options.first&.is_a?(Array) %>
     <%= f.select(
@@ -27,8 +28,7 @@ to be displayed on a resource's edit form page.
         :first,
         field.data,
       ),
-      { },
-      include_blank: field.include_blank_option,
+      { include_blank: field.include_blank_option }, 
       'data-select-target': 'input'
     ) %>
   <% else %>
@@ -40,9 +40,10 @@ to be displayed on a resource's edit form page.
         :to_s,
         field.data,
       ),
-      { },
-      include_blank: field.include_blank_option,
+      { include_blank: field.include_blank_option },
       'data-select-target': 'input'
     ) %>
   <% end %>
+  
+  <%= f.error_message field.attribute %>
 </div>

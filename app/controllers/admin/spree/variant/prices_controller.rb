@@ -1,5 +1,21 @@
 module Admin
-  class Spree::LineItemsController < Admin::ApplicationController
+  class Spree::Variant::PricesController < Spree::Variant::BaseController
+    def resource_class
+      ::Spree::Price
+    end
+
+    def scoped_resource
+      scoped_resource ||= resource_class.where(variant: parent_page.resource)
+
+      # Administrate ransack
+      @ransack_results = scoped_resource.ransack(params[:q])
+      @ransack_results.result(distinct: true)
+    end
+
+    def new_resource
+      resource_class.new
+    end
+
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #

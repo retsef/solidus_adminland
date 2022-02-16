@@ -18,6 +18,7 @@ export default class extends Controller {
         selectedState: 'active',
       },
       shouldSort: false,
+      removeItemButton: this.removeItemButton,
       callbackOnCreateTemplates: this.callbackOnCreateTemplates.bind(this)
     }
   }
@@ -32,6 +33,10 @@ export default class extends Controller {
     // const value = this.inputTarget.value
     this.choices.destroy()
     // this.inputTarget.value = value
+  }
+
+  get removeItemButton() {
+    return this.inputTarget.hasAttribute('multiple');
   }
 
   callbackOnCreateTemplates(template) {

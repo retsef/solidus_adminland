@@ -1,8 +1,4 @@
 class Spree::VariantDashboard < Spree::BaseDashboard
-  def display_resource(resource)
-    "#{"#{resource.sku} - " if resource.sku.present?}#{resource.product.name}"
-  end
-
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -54,26 +50,25 @@ class Spree::VariantDashboard < Spree::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
+    product
     sku
+
     weight
     height
     width
     depth
+
     is_master
     cost_price
+
     position
     cost_currency
     track_inventory
 
-    product
     tax_category
     inventory_units
     stock_items
-    stock_locations
-    stock_movements
     option_values
-    images
-    prices
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -118,7 +113,7 @@ class Spree::VariantDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how variants are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(variant)
-  #   "Spree::Variant ##{variant.id}"
-  # end
+  def display_resource(resource)
+    "#{"#{resource.sku} - " if resource.sku.present?}#{resource.product.name}"
+  end
 end

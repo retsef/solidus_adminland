@@ -1,8 +1,4 @@
 class Spree::StockLocationDashboard < Spree::BaseDashboard
-  def display_resource(resource)
-    resource.name.to_s
-  end
-
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -106,10 +102,6 @@ class Spree::StockLocationDashboard < Spree::BaseDashboard
     check_stock_on_transfer
     state
     country
-
-    stock_items
-    stock_movements
-    shipping_methods
   ].freeze
 
   # COLLECTION_FILTERS
@@ -127,7 +119,7 @@ class Spree::StockLocationDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how stock locations are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(stock_location)
-  #   "Spree::StockLocation ##{stock_location.id}"
-  # end
+  def display_resource(stock_location)
+    stock_location.name
+  end
 end

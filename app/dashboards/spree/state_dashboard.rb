@@ -1,8 +1,4 @@
 class Spree::StateDashboard < Spree::BaseDashboard
-  def display_resource(state)
-    state.name.to_s
-  end
-
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -62,7 +58,7 @@ class Spree::StateDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how states are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(state)
-  #   "Spree::State ##{state.id}"
-  # end
+  def display_resource(state)
+    state.name
+  end
 end

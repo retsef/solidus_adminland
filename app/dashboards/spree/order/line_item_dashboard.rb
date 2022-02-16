@@ -1,16 +1,4 @@
-class Spree::Order::LineItemDashboard < Spree::BaseDashboard
-  def self.model
-    ::Spree::LineItem
-  end
-
-  def resource_class
-    ::Spree::LineItem
-  end
-
-  def resource_class_name
-    resource_class.name
-  end
-
+class Spree::Order::LineItemDashboard < Spree::Order::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #

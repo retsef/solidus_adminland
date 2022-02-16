@@ -1,16 +1,4 @@
-class Spree::Product::PriceDashboard < Spree::BaseDashboard
-  def self.model
-    ::Spree::Price
-  end
-
-  def resource_class
-    ::Spree::Price
-  end
-
-  def resource_class_name
-    resource_class.name
-  end
-
+class Spree::Product::PriceDashboard < Spree::Product::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #

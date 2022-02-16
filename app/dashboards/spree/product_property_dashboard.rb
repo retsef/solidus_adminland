@@ -21,9 +21,7 @@ class Spree::ProductPropertyDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    product
     property
-    id
     value
   ].freeze
 
@@ -32,10 +30,7 @@ class Spree::ProductPropertyDashboard < Spree::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     product
     property
-    id
     value
-    created_at
-    updated_at
     position
   ].freeze
 

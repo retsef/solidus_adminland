@@ -11,7 +11,27 @@
   </li>
   <li class="nav-item">
     <%= active_link_to(
+      t("administrate.order.actions.shipments"),
+      [namespace, page.resource, ::Spree::Shipment], class: 'nav-link') %>
+  </li>
+  <li class="nav-item">
+    <%= active_link_to(
+      t("administrate.order.actions.adjustments"),
+      [namespace, page.resource, ::Spree::Adjustment], class: 'nav-link') %>
+  </li>
+  <li class="nav-item">
+    <%= active_link_to(
       t("administrate.order.actions.payments"),
       [namespace, page.resource, ::Spree::Payment], class: 'nav-link') %>
+  </li>
+  <li class="nav-item">
+    <%= active_link_to(
+      t("administrate.order.actions.return_authorizations"),
+      [namespace, page.resource, ::Spree::ReturnAuthorization], class: 'nav-link') %>
+  </li>
+  <li class="nav-item">
+    <%= active_link_to(
+      t("administrate.order.actions.customer_returns"),
+      [namespace, page.resource, ::Spree::CustomerReturn], class: 'nav-link') %>
   </li>
 </ul>

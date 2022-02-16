@@ -1,8 +1,4 @@
 class Spree::TaxonDashboard < Spree::BaseDashboard
-  def display_resource(taxon)
-    taxon.name
-  end
-
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -88,7 +84,7 @@ class Spree::TaxonDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how taxons are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(taxon)
-  #   "Spree::Taxon ##{taxon.id}"
-  # end
+  def display_resource(taxon)
+    taxon.name
+  end
 end

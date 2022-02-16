@@ -1,8 +1,4 @@
 class Spree::ProductDashboard < Spree::BaseDashboard
-  def display_resource(resource)
-    resource.name.to_s
-  end
-
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -22,7 +18,9 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     price: Field::Money,
 
     option_types: Field::HasMany.with_options(class_name: 'Spree::OptionType'),
-    properties: Field::HasMany.with_options(class_name: 'Spree::Property'),
+    # properties: Field::HasMany.with_options(class_name: 'Spree::Property'),
+    product_properties: Field::NestedHasMany.with_options(class_name: 'Spree::ProductProperty', skip: %i[product position]),
+
     classifications: Field::HasMany.with_options(class_name: 'Spree::Classification'),
     taxons: Field::HasMany.with_options(class_name: 'Spree::Taxon'),
     tax_category: Field::BelongsTo.with_options(class_name: 'Spree::TaxCategory'),
@@ -37,7 +35,7 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     meta_keywords: Field::String,
     deleted_at: Field::DateTime,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -66,9 +64,9 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     sku
     price
 
-    properties
+    product_properties
     option_types
-    
+
     tax_category
     shipping_category
 
@@ -91,7 +89,7 @@ class Spree::ProductDashboard < Spree::BaseDashboard
 
     sku
     option_types
-    properties
+    product_properties
     taxons
     tax_category
     shipping_category
@@ -117,7 +115,7 @@ class Spree::ProductDashboard < Spree::BaseDashboard
 
     sku
   ].freeze
-  
+
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search
   # field of the dashboard.
@@ -133,7 +131,7 @@ class Spree::ProductDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how products are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(product)
-  #   "Spree::Product ##{product.id}"
-  # end
+  def display_resource(product)
+    product.name
+  end
 end

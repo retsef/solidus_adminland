@@ -1,4 +1,4 @@
-require "administrate/base_dashboard"
+require 'administrate/base_dashboard'
 
 class Spree::InventoryUnitDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -20,7 +20,7 @@ class Spree::InventoryUnitDashboard < Administrate::BaseDashboard
     order: Field::HasOne,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    pending: Field::Boolean,
+    pending: Field::Boolean
   }.freeze
 
   # COLLECTION_ATTRIBUTES

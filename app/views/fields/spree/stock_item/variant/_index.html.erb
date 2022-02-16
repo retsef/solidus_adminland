@@ -15,12 +15,21 @@ By default, the attribute is rendered as a truncated string.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/String
 %>
 
-<!-- Avatar -->
-<div class="avatar avatar-md avatar-4by3 align-middle me-2">
-  <%- gallery = field.resource.variant.gallery.images %>
-  <%- image_src = gallery.any? && gallery.first.attachment.attached? ? url_for(gallery.first.attachment) : image_path('admin/default-placeholder.png') %>
-  <img src="<%= image_src %>" alt="<%= field.display_associated_resource %>" class="avatar-img rounded">
+<%# page = ::Administrate::Page::Show.new(@dashboard, field.resource) %>
+<%- variant = field.resource.variant %>
+
+<div class="row align-items-center">
+  <div class="col-auto">
+    <% variant.option_values.each do |option_value| %>
+      <p class="mb-1 small">
+        <span class="attribute-label fw-bolder">
+          <%= option_value.presentation %>
+        </span>
+
+        <span class="attribute-data fw-normal">
+          <%= option_value.name %>
+        </span>
+      </p>
+    <% end %>
+  </div>
 </div>
-<span class="item-name text-reset">
-  <%= field.display_associated_resource %>
-</span>

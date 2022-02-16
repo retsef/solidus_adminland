@@ -1,0 +1,34 @@
+<%#
+# HasMany Form Partial
+
+This partial renders an input element for has_many relationships.
+By default, the input is a collection select box
+that displays all possible records to associate with.
+The collection select box supports multiple inputs,
+and is augmented with [Selectize].
+
+## Local variables:
+
+- `f`:
+  A Rails form generator, used to help create the appropriate input fields.
+- `field`:
+  An instance of [Administrate::Field::HasMany][1].
+  Contains helper methods for displaying a collection select box.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/HasMany
+[Selectize]: http://brianreavis.github.io/selectize.js
+%>
+
+<% field.resource.product.option_types.each_with_index do |option_type, index| %>
+  <div class="form-group">
+    <%= f.label option_type.presentation, for: "#{f.object_name}_#{field.attribute_key}_#{option_type.id}" %>
+    <%= f.select(field.attribute_key, 
+          options_from_collection_for_select(
+            option_type.option_values, 
+            :id, :name, 
+            field.selected_options),
+          # options_for_select(field.associated_resource_options, field.selected_options), 
+          { include_blank: true }, 'data-select-target': 'input'
+        ) %>
+  </div>
+<% end %>

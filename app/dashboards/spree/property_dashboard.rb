@@ -1,8 +1,4 @@
 class Spree::PropertyDashboard < Spree::BaseDashboard
-  def display_resource(property)
-    "#{property.name} - #{property.presentation}"
-  end
-
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -11,8 +7,8 @@ class Spree::PropertyDashboard < Spree::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    name: Field::String,
-    presentation: Field::String,
+    name: Field::String.with_options(editable_inline: true),
+    presentation: Field::String.with_options(editable_inline: true),
     products: Field::HasMany.with_options(class_name: 'Spree::Product'),
     created_at: Field::DateTime,
     updated_at: Field::DateTime
@@ -60,7 +56,7 @@ class Spree::PropertyDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how properties are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(property)
-  #   "Spree::Property ##{property.id}"
-  # end
+  def display_resource(property)
+    property.name
+  end
 end
