@@ -16,13 +16,17 @@ that gets submitted with the form.
 
   <div class="input-group">
     <span class="input-group-text">
-      <%= field.code %>
+      <%= field.symbol %>
     </span>
     <%= f.number_field field.attribute, step: "any",
         data: { controller: 'inputmask',
           thousands: field.delimiter,
           decimal: field.separator,
           prefix: field.symbol } %>
+          
+    <span class="input-group-text">
+      <%= field.code %>
+    </span>
   </div>
   <%= f.error_message field.attribute %>
 </div>

@@ -1,6 +1,4 @@
-require "administrate/base_dashboard"
-
-class Spree::ShipmentDashboard < Administrate::BaseDashboard
+class Spree::ShipmentDashboard < ApplicationDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,6 +6,14 @@ class Spree::ShipmentDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    id: Field::Number,
+    tracking: Field::String,
+    number: Field::String,
+    cost: Field::String.with_options(searchable: false),
+    shipped_at: Field::DateTime,
+    deprecated_address_id: Field::Number,
+    state: Field::String,
+
     order: Field::BelongsTo,
     stock_location: Field::BelongsTo,
     adjustments: Field::HasMany,
@@ -17,15 +23,10 @@ class Spree::ShipmentDashboard < Administrate::BaseDashboard
     state_changes: Field::HasMany,
     cartons: Field::HasMany,
     line_items: Field::HasMany,
-    id: Field::Number,
-    tracking: Field::String,
-    number: Field::String,
-    cost: Field::String.with_options(searchable: false),
-    shipped_at: Field::DateTime,
-    deprecated_address_id: Field::Number,
-    state: Field::String,
+
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+
     adjustment_total: Field::String.with_options(searchable: false),
     additional_tax_total: Field::String.with_options(searchable: false),
     promo_total: Field::String.with_options(searchable: false),

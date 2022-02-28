@@ -1,27 +1,27 @@
 <ul class="nav nav-tabs nav-overflow header-tabs">
   <li class="nav-item">
     <%= active_link_to(
-      t("administrate.product.actions.show"),
+      t("administrate.product.actions.show", default: 'Overview'),
       [namespace, page.resource], class: 'nav-link', active: :exclusive) %>
   </li>
   <li class="nav-item">
     <%= active_link_to(
-      t("administrate.product.actions.variants"),
+      t("administrate.product.actions.variants", default: ::Spree::Variant.model_name.human(count: 2)),
       [namespace, page.resource, ::Spree::Variant], class: 'nav-link') %>
   </li>
   <li class="nav-item">
     <%= active_link_to(
-      t("administrate.product.actions.images"),
+      t("administrate.product.actions.images", default: ::Spree::Image.model_name.human(count: 2)),
       [namespace, page.resource, ::Spree::Image], class: 'nav-link') %>
   </li>
   <li class="nav-item">
     <%= active_link_to(
-      t("administrate.product.actions.prices"),
+      t("administrate.product.actions.prices", default: ::Spree::Price.model_name.human(count: 2)),
       [namespace, page.resource, ::Spree::Price], class: 'nav-link') %>
   </li>
   <li class="nav-item">
     <%= active_link_to(
-      t("administrate.product.actions.stock_items"),
+      t("administrate.product.actions.stock_items", default: ::Spree::StockItem.model_name.human(count: 2)),
       [namespace, page.resource, ::Spree::StockItem], class: 'nav-link') %>
   </li>
 </ul>

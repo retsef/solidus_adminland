@@ -1,0 +1,78 @@
+<%#
+# Show
+
+This view is the template for the show page.
+It renders the attributes of a resource,
+as well as a link to its edit page.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Show][1].
+  Contains methods for accessing the resource to be displayed on the page,
+  as well as helpers for describing how each attribute of the resource
+  should be displayed.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Show
+%>
+
+<% content_for(:title) { t("administrate.actions.show_resource", name: page.page_title) } %>
+
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10 col-xl-8">
+    <!-- Header -->
+    <header class="header mt-md-5" role="banner">
+      <div class="header-body">
+        <div class="row align-items-center">
+          <div class="col">
+            <!-- Pretitle -->
+            <h6 class="header-pretitle">
+              <%= link_to t("administrate.actions.back"), :back %>
+            </h6>
+            <!-- Title -->
+            <h1 class="header-title text-truncate">
+              <%= content_for(:title) %>
+            </h1>
+          </div>
+
+
+          <div class="col-auto">
+            <!-- Actions -->
+            <%= link_to(
+                t("administrate.actions.edit_resource", name: page.page_title),
+                [:edit, namespace, parent_page.resource, page.resource],
+                class: "btn btn-white", target: '_top',
+              ) if valid_action?(:edit) && show_action?(:edit, page.resource) %>
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div class="col">
+            <!-- Tabs -->
+
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="row">
+      <div class="col-12">
+        <section class="main-content__body">
+          <dl>
+            <% page.attributes.each do |attribute| %>
+              <dt class="attribute-label" id="<%= attribute.name %>">
+              <%= t(
+                "helpers.label.#{resource_name}.#{attribute.name}",
+                default: page.resource.class.human_attribute_name(attribute.name),
+              ) %>
+              </dt>
+
+              <dd class="attribute-data attribute-data--<%=attribute.html_class%>"
+                  ><%= render_field attribute, page: page %></dd>
+            <% end %>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

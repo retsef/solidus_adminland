@@ -1,0 +1,767 @@
+---
+it:
+  activemodel:
+    attributes:
+      spree/order_cancellations:
+        cancel: Rimuovi
+        quantity: Quantità
+        shipment: Spedizione
+        state: Stato
+    errors:
+      models:
+        spree/fulfilment_changer:
+          attributes:
+            current_shipment:
+              can_not_have_backordered_inventory_units: ha unità di inventario ordinate, anche se terminate
+              has_already_been_shipped: è già stato spedito
+            desired_shipment:
+              can_not_transfer_within_same_shipment: non può essere uguale alla spedizione
+                corrente
+              not_enough_stock_at_desired_location: scorte insufficienti nel magazzino
+                desiderato
+  activerecord:
+    attributes:
+      spree/address:
+        address1: Indirizzo
+        address2: Indirizzo (agg.)
+        city: Città
+        company: Azienda
+        firstname: Nome
+        lastname: Cognome
+        phone: Telefono
+        zipcode: CAP
+      spree/adjustment:
+        adjustable: Variabile
+        adjustment_reason_id: Motivazione
+        amount: Importo
+        label: Descrizione
+        name: Nome
+        state: Stato
+      spree/adjustment_reason:
+        active: Attivo
+        code: Codice
+        name: Nome
+        state: Stato
+      spree/calculator/flat_rate:
+        preferred_amount: Importo
+      spree/calculator/tiered_flat_rate:
+        preferred_base_amount: Importo Base
+        preferred_currency: Valuta
+        preferred_tiers: Livelli
+      spree/calculator/tiered_percent:
+        preferred_base_percent: Percentuale Base
+        preferred_currency: Valuta
+        preferred_tiers: Livelli
+      spree/carton:
+        tracking: Tracciamento
+      spree/country:
+        iso: ISO
+        iso3: ISO3
+        iso_name: Nome ISO
+        name: Nome
+        numcode: Codice ISO
+        states_required: Province o Stati necessari
+      spree/credit_card:
+        base: ''
+        card_code: Codice Carta
+        cc_type: Tipologia
+        expiration: Scadenza
+        month: Mese
+        name: Nome
+        number: Numero
+        verification_value: Codice di Verifica
+        year: Anno
+      spree/customer_return:
+        created_at: Data/Ora
+        name: Nome
+        number: Numero Reso
+        pre_tax_total: Totale al lordo delle tasse
+        reimbursement_status: Stato Rimborso
+        total: Totale
+        total_excluding_vat: Totale al lordo delle tasse
+      spree/image:
+        alt: Testo Alternativo
+        attachment: Nome del file
+      spree/inventory_unit:
+        state: Stato
+      spree/legacy_user:
+        email: E-mail
+        password: Password
+        password_confirmation: Conferma Password
+        spree_roles: Ruoli
+      spree/line_item:
+        description: Descrizione dell'articolo
+        name: Nome
+        price: Prezzo
+        quantity: Quantità
+        total: Prezzo totale
+      spree/log_entry:
+        details: Messaggio
+        created_at: Data/Ora
+      spree/option_type:
+        name: Nome
+        presentation: Presentazione
+      spree/option_value:
+        name: Nome
+        presentation: Presentazione
+      spree/order:
+        additional_tax_total: Tassazione
+        approved_at: Approvato il
+        approver: Approvato da # NOTE: Solidus uses approver, not approver_id
+        canceled_at: Annullato il
+        canceler: Annullato da # NOTE: Solidus uses canceler, not canceler_id
+        checkout_complete: Checkout Completato
+        completed_at: Completato il
+        considered_risky: A rischio
+        coupon_code: Codice Coupon
+        created_at: Data Ordine
+        email: E-mail Cliente
+        included_tax_total: Tasse (incl.)
+        ip_address: Indirizzo IP
+        item_total: Totale Articoli
+        number: Numero
+        payment_state: Stato Pagamento
+        shipment_state: Stato Spedizione
+        shipment_total: Totale Spedizione
+        special_instructions: Istruzioni Aggiuntive
+        state: Stato
+        total: Totale
+      spree/order/bill_address:
+        address1: Indirizzo di fatturazione
+        city: Città di fatturazione
+        firstname: Nome indirizzo di fatturazione
+        lastname: Cognome indirizzo di fatturazione
+        phone: Telefono indirizzo di fatturazione
+        state: Provincia indirizzo di fatturazione
+        zipcode: CAP indirizzo di fatturazione
+      spree/order/ship_address:
+        address1: Indirizzo di spedizione
+        city: Città indirizzo di spedizione
+        firstname: Nome indirizzo di spedizione
+        lastname: Cognome indirizzo di spedizione
+        phone: Telefono indirizzo di spedizione
+        state: Provincia indirizzo di spedizione
+        zipcode: CAP indirizzo di spedizione
+      spree/payment:
+        amount: Importo
+        created_at: Data/Ora
+        number: Identificativo
+        response_code: ID transazione
+        state: Stato Pagamento
+      spree/payment_capture_event:
+        created_at: Data/Ora
+        amount: Importo
+      spree/payment_method:
+        active: Attivo
+        auto_capture: Riscossione Automatica
+        available_to_admin: Disponibile agli amministratori
+        available_to_users: Disponibile agli utenti
+        description: Descrizione
+        display_on: Mostra
+        name: Nome
+        preference_source: Origine preferenze
+        type: Fornitore
+      spree/price:
+        amount: Prezzo
+        country: Paese
+        currency: Valuta
+        is_default: Valido
+        price: Prezzo
+        variant: Variante
+      spree/product:
+        available_on: Disponibile dal
+        cost_currency: Valuta Costo
+        cost_price: Prezzo di Costo
+        depth: Profondità
+        description: Descrizione
+        height: Altezza
+        master_price: Prezzo Principale
+        meta_description: Meta Description
+        meta_keywords: Meta Keywords
+        meta_title: Meta Title
+        name: Nome
+        on_hand: Disponibilità
+        price: Prezzo Principale
+        promotionable: Promuovibile
+        shipping_category: Categoria di Spedizione
+        slug: Slug
+        tax_category: Categoria di Tassazione
+        weight: Peso
+        width: Larghezza
+      spree/product_property:
+        value: Valore
+      spree/promotion:
+        apply_automatically: Applica automaticamente
+        code: Codice
+        description: Descrizione
+        event_name: Nome Evento
+        expires_at: Scade il
+        name: Nome
+        path: Percorso
+        per_code_usage_limit: Limite di Utilizzo per Codice
+        promotion_uses: Promozione usa
+        starts_at: Inizia il
+        status: Stato
+        usage_limit: Limite di Utilizzo
+        uses: Utilizzi
+      spree/promotion/actions/create_adjustment:
+        description: Crea una variazione promozionale sull'ordine
+      spree/promotion/actions/create_item_adjustments:
+        description: Crea una variazione promozionale per un articolo
+      spree/promotion/actions/create_quantity_adjustments:
+        description: Crea una variazione promozionale per un articolo basata sulla quantità
+      spree/promotion/actions/free_shipping:
+        description: Rendi gratuite tutte le spedizioni dell'ordine
+      spree/promotion/rules/first_order:
+        description: Deve essere il primo ordine del cliente
+      spree/promotion/rules/first_repeat_purchase_since:
+        description: Disponibile solo se il cliente non ha ordinato da un po' di tempo
+        form_text: 'Applica questa promozione ai clienti il cui ultimo ordine è stato
+          più di X giorni fa: '
+      spree/promotion/rules/item_total:
+        description: Il totale dell'ordine soddisfa questi criteri
+      spree/promotion/rules/landing_page:
+        description: Il cliente deve aver visitato la pagina specificata
+      spree/promotion/rules/nth_order:
+        description: Applica questa promozione per ogni ordine N che il cliente ha completato.
+        form_text: 'Applica questa promozione ad ogni ordine N: '
+      spree/promotion/rules/one_use_per_user:
+        description: Solo un utilizzo per cliente
+      spree/promotion/rules/option_value:
+        description: L'ordine include i prodotti specificati con corrispondenti valori opzione
+      spree/promotion/rules/product:
+        description: L'ordine include i prodotti specificati
+      spree/promotion/rules/store:
+        description: Disponibile solo per gli Store specificati
+      spree/promotion/rules/taxon:
+        description: L'ordine include prodotti delle categorie specificate
+      spree/promotion/rules/user:
+        description: Disponibile solo per gli utenti specificati
+      spree/promotion/rules/user_logged_in:
+        description: Disponibile solo per utenti autenticati
+      spree/promotion/rules/user_role:
+        description: Disponibile solo per gli utenti con i ruoli specificati
+      spree/promotion_category:
+        name: Nome
+        code: Codice
+      spree/promotion_code:
+        value: Valore
+      spree/promotion_code_batch:
+        base_code: Codice base
+        email: E-mail
+        join_characters: Caratteri di giunzione
+        number_of_codes: Numero di codici
+        status: Stato
+        total_codes: Codici totali
+      spree/property:
+        name: Nome
+        presentation: Presentazione
+      spree/refund:
+        amount: Importo
+        description: Descrizione
+        refund_reason_id: Motivazione
+      spree/refund_reason:
+        active: Attivo
+        code: Codice
+        name: Nome
+        state: Stato
+      spree/reimbursement:
+        created_at: Data/Ora
+        number: Numero
+        reimbursement_status: Stato
+        total: Totale
+      spree/reimbursement/credit:
+        amount: Importo
+      spree/reimbursement_type:
+        created_at: Data/Ora
+        name: Nome
+        type: Tipo
+      spree/return_authorization:
+        amount: Importo
+        pre_tax_total: Totale al lordo delle tasse
+        total_excluding_vat: Totale al lordo delle tasse
+      spree/return_item:
+        acceptance_status: Stato Accettazione
+        acceptance_status_errors: Errori Accettazione
+        amount: Importo al lordo delle tasse
+        charged: Addebitato
+        exchange_variant: Cambio per
+        inventory_unit_state: Stato
+        item_received?: Prodotto ricevuto?
+        override_reimbursement_type_id: Override Tipologia Rimborso
+        preferred_reimbursement_type_id: Tipologia di rimborso preferita
+        reception_status: Stato ricezione
+        resellable: Rivendibile?
+        return_reason: Motivazione
+        total: Totale
+      spree/return_reason:
+        active: Attivo
+        created_at: Data/Ora
+        memo: Memo
+        name: Nome
+        number: Numero RMA
+        state: Stato
+      spree/role:
+        name: Nome
+      spree/shipment:
+        tracking: Codice Tracciamento
+      spree/shipping_category:
+        name: Nome
+      spree/shipping_method:
+        admin_name: Nome Interno
+        available_to_users: Disponibile agli utenti
+        carrier: Vettore
+        code: Codice
+        display_on: Mostra
+        name: Nome
+        service_level: Livello Servizio
+        tracking_url: URL Tracciamento
+      spree/shipping_rate:
+        amount: Importo
+        label: Etichetta
+        shipping_rate: Tariffa spedizione
+        tax_rate: Aliquota
+      spree/state:
+        abbr: Abbreviazione
+        name: Nome
+      spree/stock_item:
+        count_on_hand: Disponibilità
+      spree/stock_location:
+        active: Attivo
+        address1: Indirizzo
+        address2: Indirizzo (agg.)
+        admin_name: Nome Interno
+        backorderable_default: Ordinabile anche se terminato (di default)
+        check_stock_on_transfer: Controlla scorte al trasferimento
+        city: Città
+        code: Codice
+        country_id: Paese
+        default: Predefinito
+        fulfillable: Adempimento
+        name: Nome
+        phone: Telefono
+        propagate_all_variants: Propaga a tutte le varianti
+        restock_inventory: Rifornisci inventario
+        state: Stato
+        state_id: Stato
+        zipcode: CAP
+      spree/stock_movement:
+        originated_by: Originato da
+        quantity: Quantità
+        variant: Variante
+      spree/store:
+        available_locales: Lingue disponibili
+        cart_tax_country_iso: Codice ISO per Paese predefinito del carrello
+        code: Identificativo
+        default: Predefinito
+        default_currency: Valuta predefinita
+        mail_from_address: Indirizzo mittente e-mail
+        meta_description: Meta Description
+        meta_keywords: Meta Keywords
+        name: Nome del Sito
+        seo_title: Titolo SEO
+        url: URL Sito
+      spree/store_credit:
+        amount: Importo
+        amount_authorized: Importo Autorizzato
+        amount_credited: Importo accreditato
+        amount_used: Importo usato
+        category_id: Tipo Credito
+        created_at: Creato il
+        created_by_id: Creato da
+        invalidated_at: Invalidato
+        memo: Memo
+      spree/store_credit_event:
+        action: Azione
+        amount_remaining: Importo rimanente
+        user_total_amount: Importo totale
+      spree/store_credit_reason:
+        name: Nome
+        state: Stato
+      spree/store_credit_update_reason:
+        name: Nome
+      spree/tax_category:
+        description: Descrizione
+        is_default: Predefinito
+        name: Nome
+        tax_code: Codice Tassa
+      spree/tax_rate:
+        amount: Tariffa
+        expires_at: Finisce il
+        included_in_price: Incluso nel Prezzo
+        name: Nome
+        show_rate_in_label: Mostra tariffa nell'etichetta
+        starts_at: Comincia il
+        tax_categories: Categorie di Tassazione
+      spree/taxon:
+        description: Descrizione
+        icon: Icona
+        meta_description: Meta Description
+        meta_keywords: Meta Keywords
+        meta_title: Meta Title
+        name: Nome
+        permalink: Slug
+        position: Posizione
+      spree/taxonomy:
+        name: Nome
+      spree/tracker:
+        active: Attivo
+        analytics_id: ID Analytics
+      spree/user:
+        email: E-mail
+        lifetime_value: Totale speso
+        password: Password
+        password_confirmation: Conferma Password
+        spree_roles: Ruoli
+      spree/variant:
+        cost_currency: Valuta Costo
+        cost_price: Prezzo di Costo
+        depth: Profondità
+        height: Altezza
+        price: Prezzo
+        rebuild_vat_prices: Aggiorna i prezzi con l'IVA
+        sku: SKU
+        tax_category: Categoria tassa
+        weight: Peso
+        width: Larghezza
+      spree/zone:
+        description: Descrizione
+        name: Nome
+    errors:
+      messages:
+        invalid_transition: transizione non valida
+      models:
+        spree/address:
+          attributes:
+            state:
+              does_not_match_country: non corrisponde al Paese
+        spree/calculator/tiered_flat_rate:
+          attributes:
+            base:
+              keys_should_be_positive_number: Le chiavi dei livelli devono tutti essere
+                numeri maggiori di 0
+            preferred_tiers:
+              should_be_hash: deve essere un Hash
+        spree/calculator/tiered_percent:
+          attributes:
+            base:
+              keys_should_be_positive_number: Le chiavi dei livelli devono tutti essere
+                numeri maggiori di 0
+              values_should_be_percent: I valori dei livelli devono tutti essere percentuali
+                tra 0% e 100%
+            preferred_tiers:
+              should_be_hash: deve essere un Hash
+        spree/classification:
+          attributes:
+            taxon_id:
+              already_linked: è già collegato a questo prodotto
+        spree/credit_card:
+          attributes:
+            base:
+              card_expired: La Carta è scaduta
+              expiry_invalid: La scadenza della Carta non è valida
+        spree/inventory_unit:
+          attributes:
+            base:
+              cannot_destroy_shipment_state: Impossibile cancellare un'unità inventario
+                per una spedizione nello stato %{state}
+            state:
+              cannot_destroy: Impossibile cancellare un'unità inventario nello stato
+                %{state}
+        spree/line_item:
+          attributes:
+            price:
+              not_a_number: non è valido
+        spree/price:
+          attributes:
+            currency:
+              invalid_code: non è un codice valuta valido
+        spree/promotion:
+          attributes:
+            apply_automatically:
+              disallowed_with_code: Non permesso per promozioni con un codice
+              disallowed_with_path: Non permesso per promozioni con un percorso
+        spree/refund:
+          attributes:
+            amount:
+              greater_than_allowed: è maggiore dell'importo consentito.
+        spree/reimbursement:
+          attributes:
+            base:
+              return_items_order_id_does_not_match: Uno o più degli articoli resi
+                specificati non appartengono allo stesso ordine del rimborso.
+        spree/return_item:
+          attributes:
+            inventory_unit:
+              other_completed_return_item_exists: "%{inventory_unit_id} è già stato
+                preso dall'articolo reso %{return_item_id}"
+            reimbursement:
+              cannot_be_associated_unless_accepted: non può essere associato a un
+                articolo reso che non è accettato.
+        spree/shipment:
+          attributes:
+            base:
+              cannot_remove_items_shipment_state: Impossibile cancellare elementi da
+                una spedizione nello stato %{state}
+            state:
+              cannot_destroy: Impossibile cancellare una spedizione nello stato %{state}
+        spree/store:
+          attributes:
+            base:
+              cannot_destroy_default_store: Non è possibile cancellare lo Store di
+                default.
+        spree/user_address:
+          attributes:
+            user_id:
+              default_address_exists: ha già un indirizzo predefinito
+        spree/wallet_payment_source:
+          attributes:
+            payment_source:
+              has_to_be_payment_source_class: non è una fonte di pagamento valida
+              not_owned_by_user: non appartiene all'utente associato all'ordine
+            user_id:
+              payment_source_already_exists: questa fonte di pagamento è già presente nel loro portafoglio
+    models:
+      spree/address:
+        one: Indirizzo
+        other: Indirizzi
+      spree/adjustment:
+        one: Variazione
+        other: Variazioni
+      spree/adjustment_reason:
+        one: Motivazione per la variazione
+        other: Motivazioni per la variazione
+      spree/calculator:
+        one: Calcolatore base
+        other: Calcolatori base
+      spree/calculator/default_tax:
+        one: Tassa predefinita
+        other: Tasse predefinite
+      spree/calculator/distributed_amount:
+        one: Importo distribuito
+        other: Importi distribuiti
+      spree/calculator/flat_percent_item_total:
+        one: Percentuale fissa
+        other: Percentuali fisse
+      spree/calculator/flat_rate:
+        one: Tariffa fissa
+        other: Tariffe fisse
+      spree/calculator/flexi_rate:
+        one: Tariffa variabile
+        other: Tariffe variabili
+      spree/calculator/free_shipping:
+        one: Spedizione gratuita
+        other: Spedizioni gratuite
+      spree/calculator/percent_on_line_item:
+        one: Percentuale per riga d'ordine
+        other: Percentuali per riga d'ordine
+      spree/calculator/percent_per_item:
+        one: Percentuale per riga d'ordine
+        other: Percentuali per riga d'ordine
+      spree/calculator/price_sack:
+        one: Scontato per ordini superiori a
+        other: Scontati per ordini superiori a
+      spree/calculator/returns/default_refund_amount:
+        one: Importo predefinito rimborso
+        other: Importi predefiniti rimborsi
+      spree/calculator/shipping/flat_percent_item_total:
+        one: Percentuale fissa
+        other: Percentuali fisse
+      spree/calculator/shipping/flat_rate:
+        one: Tariffa fissa
+        other: Tariffe fisse
+      spree/calculator/shipping/flexi_rate:
+        one: Tariffa variabile
+        other: Tariffe variabili
+      spree/calculator/shipping/per_item:
+        one: Tariffa fissa per articolo
+        other: Tariffe fisse per articolo
+      spree/calculator/shipping/price_sack:
+        one: Scontato per ordini superiori a
+        other: Scontato per ordini superiori a
+      spree/calculator/tiered_flat_rate:
+        one: Tariffa fissa a livelli
+        other: Tariffe fisse a livelli
+      spree/calculator/tiered_percent:
+        one: Percentuale a livelli
+        other: Percentuali a livelli
+      spree/country:
+        one: Paese
+        other: Paesi
+      spree/credit_card:
+        one: Carta di Credito
+        other: Carte di Credito
+      spree/customer_return:
+        one: Reso Cliente
+        other: Resi Cliente
+      spree/exchange:
+        one: Sostituzione
+        other: Sostituzioni
+      spree/image:
+        one: Immagine
+        other: Immagini
+      spree/inventory_unit:
+        one: Unità di Inventario
+        other: Unità di Inventario
+      spree/legacy_user:
+        one: Utente
+        other: Utenti
+      spree/line_item:
+        one: Riga d'ordine
+        other: Righe d'ordine
+      spree/log_entry:
+        one: Voce di registro
+        other: Voci di registro
+      spree/option_type:
+        one: Opzione
+        other: Opzioni
+      spree/option_value:
+        one: Valore Opzione
+        other: Valori Opzione
+      spree/order:
+        one: Ordine
+        other: Ordini
+      spree/payment:
+        one: Pagamento
+        other: Pagamenti
+      spree/payment_capture_event:
+        one: Evento di cattura pagamento
+        other: Eventi di cattura pagamento
+      spree/payment_method:
+        one: Metodo di Pagamento
+        other: Metodi di Pagamento
+      spree/payment_method/bogus_credit_card: Pagamento Carta di credito fittizia
+      spree/payment_method/check: Pagamento con assegno
+      spree/payment_method/simple_bogus_credit_card: Pagamento semplice con carta
+        di credito fittizia
+      spree/payment_method/store_credit: Pagamento con credito negozio
+      spree/price:
+        one: Prezzo
+        other: Prezzi
+      spree/product:
+        one: Prodotto
+        other: Prodotti
+      spree/product_property:
+        one: Categoria prodotto
+        other: Categorie prodotto
+      spree/promotion:
+        one: Promozione
+        other: Promozioni
+      spree/promotion/actions/create_adjustment: Crea variazione per ordine completo
+      spree/promotion/actions/create_item_adjustments: Crea variazione per articolo carrello
+      spree/promotion/actions/create_quantity_adjustments: Crea una variazione per quantità
+      spree/promotion/actions/free_shipping: Spedizione gratuita
+      spree/promotion/rules/first_order: Primo ordine
+      spree/promotion/rules/first_repeat_purchase_since: Primo acquisto ripetuto da
+      spree/promotion/rules/item_total: Totale articolo
+      spree/promotion/rules/landing_page: Landing Page
+      spree/promotion/rules/nth_order: Ordine N
+      spree/promotion/rules/one_use_per_user: Un uso per utente
+      spree/promotion/rules/option_value: Valore(i) opzione
+      spree/promotion/rules/product: Prodotto(i)
+      spree/promotion/rules/taxon: Categoria(e)
+      spree/promotion/rules/user: Utente
+      spree/promotion/rules/user_logged_in: Utente autenticato
+      spree/promotion/rules/user_role: Ruolo(i) utente
+      spree/promotion_category:
+        one: Categoria Promozione
+        other: Categorie Promozione
+      spree/promotion_code:
+        one: Codice promozione
+        other: Codici promozione
+      spree/promotion_code_batch:
+        one: Lotto di codici promozione
+        other: Lotti di codici promozione
+      spree/property:
+        one: Proprietà
+        other: Proprietà
+      spree/refund:
+        one: Rimborso
+        other: Rimborsi
+      spree/refund_reason:
+        one: Motivazione Rimborso
+        other: Motivazioni Rimborso
+      spree/reimbursement:
+        one: Rimborso
+        other: Rimborsi
+      spree/reimbursement_type:
+        one: Tipologia Rimborso
+        other: Tipologie Rimborso
+      spree/return_authorization:
+        one: Autorizzazione Restituzione
+        other: Autorizzazioni Restituzione
+      spree/return_reason:
+        one: Motivazione restituzione
+        other: Motivazioni restituzione
+      spree/role:
+        one: Ruolo
+        other: Ruoli
+      spree/shipment:
+        one: Spedizione
+        other: Spedizioni
+      spree/shipping_category:
+        one: Categoria di Spedizione
+        other: Categorie di Spedizione
+      spree/shipping_method:
+        one: Metodo di Spedizione
+        other: Metodi di Spedizione
+      spree/state:
+        one: Provincia
+        other: Province
+      spree/stock: Scorte
+      spree/stock_item:
+        one: Articolo magazzino
+        other: Articoli magazzino
+      spree/stock_location:
+        one: Magazzino
+        other: Magazzini
+      spree/stock_movement:
+        one: Movimento di Magazzino
+        other: Movimenti di Magazzino
+      spree/store:
+        one: Negozio
+        other: Negozi
+      spree/store_credit:
+        one: Credito negozio
+        other: Crediti negozio
+      spree/store_credit_category:
+        one: Categoria del credito
+        other: Categorie del credito
+      spree/store_credit_reason:
+        one: Motivazione per il credito
+        other: Motivazioni per il credito
+      spree/tax_category:
+        one: Categoria di Tassazione
+        other: Categorie di Tassazione
+      spree/tax_rate:
+        one: Aliquota
+        other: Aliquote
+      spree/taxon:
+        one: Categoria
+        other: Categorie
+      spree/taxonomy:
+        one: Tassonomia
+        other: Tassonomie
+      spree/tracker:
+        one: Tracker
+        other: Trackers
+      spree/user:
+        one: Utente
+        other: Utenti
+      spree/variant:
+        one: Variante
+        other: Varianti
+      spree/zone:
+        one: Zona
+        other: Zone
+      user:
+        one: Utente
+        other: Utenti
+  errors:
+    messages:
+      already_confirmed: è già stato confermato
+      not_found: non trovato
+      not_locked: non era bloccato
+      not_saved:
+        one: '1 errore ha impedito di salvare %{resource}:'
+        other: "%{count} errori hanno impedito di salvare %{resource}:"

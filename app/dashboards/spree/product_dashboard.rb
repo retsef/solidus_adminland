@@ -14,12 +14,15 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     slug: Field::String,
     promotionable: Field::Boolean,
 
-    sku: Field::String,
+    sku: Field::String.with_options(searchable: false),
     price: Field::Money,
+    cost_price: Field::Money,
+    cost_currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
 
     option_types: Field::HasMany.with_options(class_name: 'Spree::OptionType'),
     # properties: Field::HasMany.with_options(class_name: 'Spree::Property'),
     product_properties: Field::NestedHasMany.with_options(class_name: 'Spree::ProductProperty', skip: %i[product position]),
+    # images: Field::NestedHasMany.with_options(class_name: 'Spree::Image', skip: %i[viewable position alt]),
 
     classifications: Field::HasMany.with_options(class_name: 'Spree::Classification'),
     taxons: Field::HasMany.with_options(class_name: 'Spree::Taxon'),
@@ -105,7 +108,10 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     description
     available_on
     discontinue_on
+
     price
+    cost_price
+    cost_currency
     promotionable
 
     option_types

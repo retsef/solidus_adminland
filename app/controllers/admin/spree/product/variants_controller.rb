@@ -80,7 +80,8 @@ module Admin
         product: requested_parent_resource,
         price: requested_parent_resource.price, 
         cost_price: requested_parent_resource.cost_price,
-        cost_currency: requested_parent_resource.cost_currency
+        cost_currency: requested_parent_resource.cost_currency,
+        tax_category: requested_parent_resource.tax_category,
       }
     end
 

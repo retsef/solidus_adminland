@@ -1,0 +1,17 @@
+<ul class="nav nav-tabs nav-overflow header-tabs">
+  <li class="nav-item">
+    <%= active_link_to(
+      t("administrate.promotion.actions.show", default: 'Overview'),
+      [namespace, page.resource], class: 'nav-link', active: :exclusive) %>
+  </li>
+  <li class="nav-item">
+    <%= active_link_to(
+      t("administrate.promotion.actions.rules", default: ::Spree::PromotionRule.model_name.human(count: 2)),
+      [namespace, page.resource, ::Spree::PromotionRule], class: 'nav-link') %>
+  </li>
+  <li class="nav-item">
+    <%= active_link_to(
+      t("administrate.promotion.actions.actions", default: ::Spree::PromotionAction.model_name.human(count: 2)),
+      [namespace, page.resource, ::Spree::PromotionAction], class: 'nav-link') %>
+  </li>
+</ul>

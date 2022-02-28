@@ -9,8 +9,10 @@ class Spree::PromotionCodeDashboard < Spree::BaseDashboard
     id: Field::Number,
     value: Field::String,
     promotion: Field::BelongsTo.with_options(class_name: 'Spree::Promotion'),
-    # promotion_code_batch: Field::BelongsTo,
     adjustments: Field::HasMany.with_options(class_name: 'Spree::Adjustment'),
+    # promotion_code_batch: Field::BelongsTo,
+    usage_count: Field::Number,
+    usage_limit: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -23,7 +25,8 @@ class Spree::PromotionCodeDashboard < Spree::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     value
     promotion
-    adjustments
+    usage_count
+    usage_limit
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -31,7 +34,6 @@ class Spree::PromotionCodeDashboard < Spree::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     value
     promotion
-    promotion_code_batch
     adjustments
   ].freeze
 

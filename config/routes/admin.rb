@@ -75,11 +75,35 @@ Rails.application.routes.draw do
       # Promotions
       resources :promotions do
         resources :codes
-
-        resources :rules
-        resources :actions
         
         scope module: :promotion do
+          resources :rules, except: %i[edit update]
+          resources :actions, except: %i[edit update]
+
+          scope module: :rules do
+            with_options except: %i[index] do
+              resources :first_orders
+              resources :first_repeat_purchase_sinces
+              resources :item_totals
+              resources :nth_orders
+              resources :one_use_per_users
+              resources :option_values
+              resources :products
+              resources :stores
+              resources :taxons
+              resources :user_logged_ins
+              resources :user_roles
+            end
+          end
+
+          scope module: :actions do
+            with_options except: %i[index] do
+              resources :create_adjustments
+              resources :create_item_adjustments
+              resources :create_quantity_adjustments
+              resources :free_shippings
+            end
+          end
         end
       end
 

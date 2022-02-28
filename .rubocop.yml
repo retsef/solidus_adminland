@@ -24,6 +24,9 @@ Style/FrozenStringLiteralComment:
 Style/ClassAndModuleChildren:
   Enabled: false
 
+Style/TrailingCommaInHashLiteral:
+  Enabled: false
+
 Bundler/OrderedGems:
   Enabled: false
 
@@ -31,4 +34,9 @@ Layout/LineLength:
   Enabled: false
   Max: 180
   IgnoredPatterns: ['\A#']
+
+Metrics/ClassLength:
+  Enabled: true
+  Exclude:
+    - 'app/dashboards/**/*.rb'
   

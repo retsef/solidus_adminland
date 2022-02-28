@@ -1,18 +1,22 @@
 class Spree::OrderDashboard < Spree::BaseDashboard
   STATE_CLASSES = {
-    pending: 'warning',
-    confirmed: 'info',
-    purchased: 'success',
-    declined: 'error',
-    deferred: 'secondary'
+    cart: 'secondary',
+    address: 'secondary',
+    payment: 'secondary',
+    delivery: 'secondary',
+    completed: 'success',
+    cancelled: 'error',
+    awaiting_return: 'warning',
+    returned: 'success',
+    resumed: 'warning'
   }.freeze
 
   SHIPMENT_STATE_CLASSES = {
     pending: 'warning',
-    confirmed: 'info',
-    purchased: 'success',
-    declined: 'error',
-    deferred: 'secondary'
+    ready: 'info',
+    backorder: 'info',
+    partial: 'warning',
+    shipped: 'success'
   }.freeze
 
   PAYMENT_STATE_CLASSES = {
@@ -32,15 +36,15 @@ class Spree::OrderDashboard < Spree::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     number: Field::String,
-    email: Field::String,
+    email: Field::Email,
     # user: Field::BelongsTo,
 
     bill_address: Field::BelongsTo.with_options(class_name: 'Spree::Address'),
     ship_address: Field::BelongsTo.with_options(class_name: 'Spree::Address'),
 
-    state: Field::String.with_options(filterable: true, states: STATE_CLASSES, default: 'warning'),
-    shipment_state: Field::String.with_options(filterable: true, states: SHIPMENT_STATE_CLASSES, default: 'warning'),
-    payment_state: Field::String.with_options(filterable: true, states: PAYMENT_STATE_CLASSES, default: 'warning'),
+    state: Field::Select.with_options(collection: STATE_CLASSES.keys, filterable: true, states: STATE_CLASSES, default: 'warning'),
+    shipment_state: Field::Select.with_options(collection: SHIPMENT_STATE_CLASSES.keys, filterable: true, states: SHIPMENT_STATE_CLASSES, default: 'warning'),
+    payment_state: Field::Select.with_options(collection: PAYMENT_STATE_CLASSES.keys, filterable: true, states: PAYMENT_STATE_CLASSES, default: 'warning'),
 
     store: Field::BelongsTo.with_options(class_name: 'Spree::Store', filterable: true),
 
@@ -80,7 +84,7 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     shipment_total: Field::Money.with_options(searchable: false),
     adjustment_total: Field::Money.with_options(searchable: false),
     payment_total: Field::Money.with_options(searchable: false),
-    currency: Field::String,
+    currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
 
     completed_at: Field::DateTime.with_options(filterable: true),
     channel: Field::String,

@@ -6,7 +6,8 @@
   <% end -%>
 
   <%= link_to(I18n.t("administrate.fields.nested_has_many.remove", 
-        resource: field.associated_class_name.titleize), 
+        # resource: field.associated_class_name.titleize), 
+        resource: field.associated_class.model_name.human),
         "#", class: 'text-danger',
         data: { action: "click->nested-form#remove_association" }) %>
   

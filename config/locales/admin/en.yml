@@ -1,0 +1,39 @@
+---
+en:
+  admin:
+    navigation:
+      main:
+        orders:
+          title: 'Orders'
+          all_orders: 'All Orders'
+        products:
+          title: 'Products'
+          all_products: 'All Products'
+          option_types: 'Option Types'
+          properties: 'Properties'
+          taxonomies: 'Taxonomies'
+        customers:
+          title: 'Customers'
+          all_customers: 'All Customers'
+        promotions:
+          title: 'Promotions'
+          all_promotions: 'All Promotions'
+          promotion_categories: 'Promotion Categories'
+        stocks:
+          title: 'Stocks'
+          all_stock_items: 'All Stock items'
+          stock_locations: 'Stock locations'
+
+      settings:
+        title: 'Settings'
+        stores: 'Stores'
+        shippings: 
+          title: 'Shippings'
+          shipping_methods: 'Shipping Methods'
+          shipping_categories: 'Shipping Categories'
+        taxes:
+          title: 'Taxes'
+          tax_categories: 'Tax Categories'
+          tax_rates: 'Tax Rates'
+        zones: 'Zones'
+        

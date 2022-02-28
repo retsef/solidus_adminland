@@ -16,7 +16,7 @@ class Spree::Product::VariantDashboard < Spree::Product::BaseDashboard
     is_master: Field::Boolean,
     price: Field::Money,
     cost_price: Field::Money.with_options(searchable: false),
-    cost_currency: Field::String,
+    cost_currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
     track_inventory: Field::Boolean,
 
     product: Field::BelongsTo.with_options(class_name: 'Spree::Product'),
@@ -28,7 +28,7 @@ class Spree::Product::VariantDashboard < Spree::Product::BaseDashboard
     stock_locations: Field::HasMany.with_options(class_name: 'Spree::StockLocation'),
     stock_movements: Field::HasMany.with_options(class_name: 'Spree::StockMovement'),
     # option_values_variants: Field::HasMany,
-    option_values: Field::HasMany.with_options(class_name: 'Spree::OptionValue'), # , scope: ->(field) { ::Spree::OptionValue.where(option_type: field.resource.product.option_types) }),
+    option_values: Field::HasMany.with_options(class_name: 'Spree::OptionValue'),
 
     images: Field::HasMany.with_options(class_name: 'Spree::Image'),
     prices: Field::HasMany.with_options(class_name: 'Spree::Price'),
@@ -63,7 +63,6 @@ class Spree::Product::VariantDashboard < Spree::Product::BaseDashboard
     is_master
     cost_price
     cost_currency
-    position
     track_inventory
 
     tax_category
@@ -81,18 +80,18 @@ class Spree::Product::VariantDashboard < Spree::Product::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     sku
-    option_values
-
-    price
-    cost_price
-    cost_currency
     track_inventory
+    option_values
 
     weight
     height
     width
     depth
-    position
+
+    price
+    cost_price
+    cost_currency
+    tax_category
   ].freeze
 
   # COLLECTION_FILTERS

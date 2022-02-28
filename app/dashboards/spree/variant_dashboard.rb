@@ -15,7 +15,7 @@ class Spree::VariantDashboard < Spree::BaseDashboard
     is_master: Field::Boolean,
     cost_price: Field::String.with_options(searchable: false),
     position: Field::Number,
-    cost_currency: Field::String,
+    cost_currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
     track_inventory: Field::Boolean,
 
     product: Field::BelongsTo.with_options(class_name: 'Spree::Product'),

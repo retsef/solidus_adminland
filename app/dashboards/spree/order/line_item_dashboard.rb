@@ -16,7 +16,7 @@ class Spree::Order::LineItemDashboard < Spree::Order::BaseDashboard
     # line_item_actions: Field::HasMany,
     # actions: Field::HasMany,
     quantity: Field::Number,
-    price: Field::String.with_options(searchable: false),
+    price: Field::Money,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
     # cost_price: Field::String.with_options(searchable: false),

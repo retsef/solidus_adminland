@@ -43,7 +43,6 @@ class Spree::OptionTypeDashboard < Spree::BaseDashboard
   FORM_ATTRIBUTES = %i[
     name
     presentation
-    position
     option_values
   ].freeze
 

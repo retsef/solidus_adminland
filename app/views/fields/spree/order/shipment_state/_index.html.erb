@@ -21,5 +21,5 @@ By default, the attribute is rendered as a truncated string.
   <%- status_class = states[field.data.to_sym] || default_state %>
 
   <span class="text-<%= status_class %>">●</span>
-  <%= field.truncate %>
+  <%= field.data %>
 <% end %>

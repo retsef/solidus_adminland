@@ -2,8 +2,8 @@ class Admin::MenuItem
   include ActiveModel::Model
   include ActiveLinkToHelper
 
-  attr_accessor :label, :icon, :position, :children
-  attr_writer :url
+  attr_accessor :icon, :position, :children
+  attr_writer :url, :label
 
   def initialize(label: '', icon: nil, url: nil, position: 0, children: [])
     @label = label
@@ -24,6 +24,12 @@ class Admin::MenuItem
   def append(child)
     child.position = children.size
     @children << child
+  end
+
+  def label
+    return I18n.t(@label) if I18n.exists?(@label)
+
+    @label
   end
 
   def urls

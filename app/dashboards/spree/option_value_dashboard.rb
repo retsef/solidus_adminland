@@ -34,7 +34,6 @@ class Spree::OptionValueDashboard < Spree::BaseDashboard
     id
     name
     presentation
-    position
     variants
   ].freeze
 
@@ -44,7 +43,6 @@ class Spree::OptionValueDashboard < Spree::BaseDashboard
   FORM_ATTRIBUTES = %i[
     name
     presentation
-    position
   ].freeze
 
   # COLLECTION_FILTERS

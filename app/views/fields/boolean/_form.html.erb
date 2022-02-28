@@ -15,9 +15,14 @@ By default, the input is a checkbox.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/Boolean
 %>
 
-<div class="form-group form-switch">
+<div class="form-group">
+  <label class="form-label mb-1"> <%= f.object.class.human_attribute_name(field.attribute) %> </label>
   <%= f.hint field.attribute %>
-  <%= f.check_box field.attribute %>
-  <%= f.label field.attribute, class: 'form-check-label' %>
+
+  <div class="form-check form-switch">
+    <%= f.check_box field.attribute %>
+    <label class='form-check-label' for="<%= f.field_id(f.object_name, field.attribute) %>"></label>
+  </div>
+
   <%= f.error_message field.attribute %>
 </div>

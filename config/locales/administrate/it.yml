@@ -1,0 +1,44 @@
+---
+it:
+  administrate:
+    actions:
+      confirm: Sei sicuro?
+      destroy: Rimuovi
+      edit: Modifica
+      edit_resource: Modifica %{name}
+      show_resource: Mostra %{name}
+      new_resource: Nuovo %{name}
+      back: Indietro
+    controller:
+      create:
+        success: "%{resource} è stato creato con successo."
+      destroy:
+        success: "%{resource} è stato distrutto con successo."
+      update:
+        success: "%{resource} è stato aggiornato con successo."
+    fields:
+      has_many:
+        more: Mostrando %{count} di %{total_count}
+        none: Nessuno
+    form:
+      error: errore
+      errors: "%{pluralized_errors} impediscono a %{resource_name} dall'essere salvato:"
+    navigation:
+      back_to_app: "Torna all'app"
+    search:
+      clear: Pulisci ricerca
+      label: Cerca %{resource}
+    filter:
+      clear: Pulisci filtri
+      label: Filtri %{resource}
+      search: Applica filtri
+    filters:
+      yes: 'Si'
+      no: 'No'
+    fields:
+      nested_has_many:
+        add: Aggiungi nuovo %{resource}
+        remove: Rimuovi %{resource}
+      active_storage:
+        add: Aggiungi file
+        replace: Rimpiazza file

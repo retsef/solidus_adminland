@@ -1,0 +1,85 @@
+<%#
+# Show
+
+This view is the template for the show page.
+It renders the attributes of a resource,
+as well as a link to its edit page.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Show][1].
+  Contains methods for accessing the resource to be displayed on the page,
+  as well as helpers for describing how each attribute of the resource
+  should be displayed.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Show
+%>
+
+<% content_for(:title) { t("administrate.actions.show_resource", name: page.page_title) } %>
+
+<!-- Header -->
+<header class="header mt-md-5" role="banner">
+  <div class="header-body">
+    <div class="row align-items-center">
+      <div class="col">
+        <!-- Pretitle -->
+        <h6 class="header-pretitle">
+          <%= link_to t("administrate.actions.back"), :back %>
+        </h6>
+        <!-- Title -->
+        <h1 class="header-title text-truncate">
+          <%= content_for(:title) %>
+        </h1>
+      </div>
+
+
+      <div class="col-auto">
+        <!-- Actions -->
+        <%= link_to(
+          t("administrate.actions.edit_resource", name: page.page_title),
+          [:edit, namespace, page.resource],
+          class: "btn btn-white",
+        ) if valid_action?(:edit) && show_action?(:edit, page.resource) %>
+      </div>
+    </div>
+
+    <div class="row align-items-center">
+      <div class="col">
+        <!-- Tabs -->
+        <%= render 'tabs', page: page, namespace: namespace %>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<div class="row">
+  <div class="col-12">
+    <section class="main-content__body">
+      <dl>
+        <% page.attributes.each do |attribute| %>
+          <%- attr_id = "#{attribute.name}_attribute".to_sym %>
+          <%- content_for(attr_id) do %>
+            <dt class="attribute-label" id="<%= attribute.name %>">
+              <%= t( "helpers.label.#{resource_name}.#{attribute.name}",
+                  default: page.resource.class.human_attribute_name(attribute.name)) %>
+            </dt>
+
+            <dd class="attribute-data attribute-data--<%=attribute.html_class%>">
+              <%= render_field attribute, page: page %>
+            </dd>
+          <% end %>
+
+          <% unless attribute.editable_inline? %>
+            <%= content_for(attr_id) %>
+          <% else %>
+            <%= render('inline_edit', resource: page.resource, attribute: attribute.name, namespace: namespace) do %>
+              <%= content_for(attr_id) %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </dl>
+    </section>
+  </div>
+</div>

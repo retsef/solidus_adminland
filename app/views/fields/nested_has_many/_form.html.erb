@@ -25,7 +25,10 @@
 
 	<div class="mb-3" data-target="nested-form.links">
 		<%= link_to(
-      	I18n.t("administrate.fields.nested_has_many.add", resource: field.associated_class_name.titleize),
-				"#", class: "btn btn-outline-primary", data: { action: "click->nested-form#add_association" }) %>
+      	I18n.t("administrate.fields.nested_has_many.add", 
+        # resource: field.associated_class_name.titleize), 
+        resource: field.associated_class.model_name.human),
+				"#", class: "btn btn-outline-primary", 
+        data: { action: "click->nested-form#add_association" }) %>
 	</div>
 </fieldset>

@@ -9,7 +9,7 @@ class Spree::PriceDashboard < Spree::BaseDashboard
     id: Field::Number,
     amount: Field::String.with_options(searchable: false),
     variant: Field::BelongsTo.with_options(class_name: 'Spree::Variant'),
-    currency: Field::String,
+    currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
     country: Field::BelongsTo.with_options(class_name: 'Spree::Country'),
     country_iso: Field::String,
     deleted_at: Field::DateTime,

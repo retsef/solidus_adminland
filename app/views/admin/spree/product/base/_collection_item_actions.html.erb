@@ -5,31 +5,35 @@
 
 <% if actions.include?(true) %>
   <td class="cell-action" data-label="Actions">
-    <div class="dropdown">
-      <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" 
-          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fe fe-more-vertical"></i>
-      </a>
-      <div class="dropdown-menu dropdown-menu-end">
-        <% if valid_action? :edit, collection_presenter.resource_name %>
-          <%= link_to(
-            t("administrate.actions.edit"),
-            [:edit, namespace, parent_resource, resource],
-            class: "action-edit dropdown-item", 
-            target: '_top',
-            ) if show_action? :edit, resource%>
-        <% end %>
+    <div class="btn-group" role="group">
+    
+      <% if valid_action? :edit, collection_presenter.resource_name %>
+        <%= link_to(
+          t("administrate.actions.edit"),
+          [:edit, namespace, parent_resource, resource],
+          class: "btn-sm action-edit",
+          target: '_top'
+          ) if show_action? :edit, resource%>
+      <% end %>
 
-        <% if valid_action? :destroy, collection_presenter.resource_name %>
-          <%= link_to(
-            t("administrate.actions.destroy"),
-            [namespace, parent_resource, resource],
-            class: "text-danger dropdown-item",
-            method: :delete,
-            data: { confirm: t("administrate.actions.confirm") }, 
-            target: '_top'
-            ) if show_action? :destroy, resource %>
-        <% end %>
+      <div class="dropdown">
+        <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" 
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fe fe-more-vertical"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+
+          <% if valid_action? :destroy, collection_presenter.resource_name %>
+            <%= link_to(
+              t("administrate.actions.destroy"),
+              [namespace, parent_resource, resource],
+              class: "text-danger dropdown-item",
+              method: :delete,
+              data: { confirm: t("administrate.actions.confirm") }
+              ) if show_action? :destroy, resource %>
+          <% end %>
+
+        </div>
       </div>
     </div>
   </td>

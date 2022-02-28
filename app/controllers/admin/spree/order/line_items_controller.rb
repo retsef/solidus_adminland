@@ -30,8 +30,18 @@ module Admin
     end
 
     def update
+      requested_resource.assign_attributes(resource_params)
+      authorize_resource(requested_resource)
+
+      line_items_attributes = {
+        id: requested_resource.id,
+        variant_id: requested_resource.variant_id,
+        quantity: requested_resource.quantity || 1,
+        options: resource_params[:options].to_h
+      }
+
       # if requested_resource.update(resource_params)
-      if requested_parent_resource.contents.update_cart(resource_params)
+      if requested_parent_resource.contents.update_cart(line_items_attributes: line_items_attributes)
         redirect_to(
           after_resource_updated_path(requested_resource),
           notice: translate_with_resource('update.success')

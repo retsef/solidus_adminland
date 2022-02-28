@@ -1,37 +1,37 @@
 <ul class="nav nav-tabs nav-overflow header-tabs">
   <li class="nav-item">
     <%= active_link_to(
-      t("administrate.order.actions.show"),
+      t("administrate.order.actions.show", default: 'Overview'),
       [namespace, page.resource], class: 'nav-link', active: :exclusive) %>
   </li>
   <li class="nav-item">
     <%= active_link_to(
-      t("administrate.order.actions.line_items"),
+      t("administrate.order.actions.line_items", default: ::Spree::LineItem.model_name.human(count: 2)),
       [namespace, page.resource, ::Spree::LineItem], class: 'nav-link') %>
   </li>
   <li class="nav-item">
     <%= active_link_to(
-      t("administrate.order.actions.shipments"),
+      t("administrate.order.actions.shipments", default: ::Spree::Shipment.model_name.human(count: 2)),
       [namespace, page.resource, ::Spree::Shipment], class: 'nav-link') %>
   </li>
   <li class="nav-item">
     <%= active_link_to(
-      t("administrate.order.actions.adjustments"),
+      t("administrate.order.actions.adjustments", default: ::Spree::Adjustment.model_name.human(count: 2)),
       [namespace, page.resource, ::Spree::Adjustment], class: 'nav-link') %>
   </li>
   <li class="nav-item">
     <%= active_link_to(
-      t("administrate.order.actions.payments"),
+      t("administrate.order.actions.payments", default: ::Spree::Payment.model_name.human(count: 2)),
       [namespace, page.resource, ::Spree::Payment], class: 'nav-link') %>
   </li>
   <li class="nav-item">
     <%= active_link_to(
-      t("administrate.order.actions.return_authorizations"),
+      t("administrate.order.actions.return_authorizations", default: ::Spree::ReturnAuthorization.model_name.human(count: 2)),
       [namespace, page.resource, ::Spree::ReturnAuthorization], class: 'nav-link') %>
   </li>
   <li class="nav-item">
     <%= active_link_to(
-      t("administrate.order.actions.customer_returns"),
+      t("administrate.order.actions.customer_returns", default: ::Spree::CustomerReturn.model_name.human(count: 2)),
       [namespace, page.resource, ::Spree::CustomerReturn], class: 'nav-link') %>
   </li>
 </ul>

@@ -11,20 +11,24 @@ Solidus has a great core component and a battery included admin interface, but, 
 ## Why rewrite the wheel?
 
 As said, in my opinion, solidus_admin relay on so many caveout of beeing stuck to the library chosed back then and this make it opinionable for different reason:
-- So much of the filters on index routing are made with ransack, but there are soo many customizzation for custom params digest and this cause non consitency between controllers
-- Relay too much on cancan and this choise is not bad but it relay its usage with 'macros' (:manage, :admin) and not with real CRUD routes and stick more on conventions of MVC pattern.
-- The assets for javascript files and stylesheet are difficult to synergize with the hosting rails app and relies on opinionable implementation such as Backbone
+- So many of the filters on index are made with ransack: It's ok but there are soo many customization for custom params digest and this cause non consitency between controllers
+- Relay too much on cancan: this choice is not bad but it relay its usage with 'macros' (:manage, :admin) and not with real CRUD routes and not stick on conventions of MVC pattern.
+- The assets for javascript files and stylesheet are difficult to synergize with the hosting rails app and relies on opinionable implementation such as Backbone inerithed from Spree 2.4 fork.
 - Rely on solidus_api for ajax interactions with certain sections such as Orders and this approches are essentially DOM maninpulation and for coexcion of responsability those bonds are too strict in this era.
-- Not "really" turbo compatible. Turbolinks is evolved in hotwired and the current usage are only a snippet for javascript correct loads.
+- Not "really" turbo compatible: Turbolinks is evolved in hotwire and the current usage are only a snippet for javascript correct script execution.
 - usage of rails-ujs and 'remote: true' approach are opinionable, mostly for 'remote' usage. I think that remote is not a good approach because it injects javascript code in the browser console in hoping to be executed and is, for me, as cross scripting potential security threat.
 
-As you see, the solidus_admin is pretty old and as for the [solidus_fronted](https://github.com/solidus/solidus) with solidus_starter_frontend it's time for a renewal!
+As you see, the solidus_admin is pretty old and as for the [solidus_frontend](https://github.com/solidus/solidus) revamp with solidus_starter_frontend it's time for a renewal!
 
-## Ok, so what is your choise? Are also yours opinionable?
+## Are you tryng to create a new solidus_admin gem?
 
-I think we could think for the code structure to repect this fundamentals:
+Sort of but No. I'm starting this as an alternative because it's an alpha project and it's objective it's to offer, along a battery included backend with low couppling with rails framework, but also a pretty structured Adminland framework for extendability and UI customizzation without headdacle.
+
+## Ok, so what is your choice? Are also yours opinionable?
+
+I think we could think for the adminland code structure to repect this fundamentals:
 - Be easy to override and extends with less overrides/monkey-patch approach. We are humans not monkey!
-- Prior ban for Deface. I never liked the deface approach and i think is better to think the UI as modulare from the beginning, in alternative override but not by patch
+- Prior ban for Deface. I never liked the deface approach and i think is better to think the UI as modular from the beginning, in alternative overriding views by copy but not by patch and inject
 - Strict to CRUD routes. Everithing must rely on CRUDs routes as strict as possible, as also for nested routes approach, in favor of convention over configuration approach
 - Add external resources from hosting rails app should with a generator scaffold template
 
@@ -48,7 +52,7 @@ The initial design is made with bootstrap 5 but you can easly override the stand
 
 ## Roadmap
 
-- [] Products CRUD
+- [ ] Products CRUD
   - [ ] Variants CRUD
   - [ ] Prices CRUD
   - [ ] Images
@@ -61,7 +65,7 @@ The initial design is made with bootstrap 5 but you can easly override the stand
 - [ ] Promotions CRUD
   - [ ] Promotion Codes CRUD
   - [ ] Promotion Rules CRUD
-  - [ ] Promotion Actins CRUD
+  - [ ] Promotion Actions CRUD
 - [x] Promotion Category CRUD
 
 - [x] Stores CRUD

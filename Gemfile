@@ -36,6 +36,7 @@ gem 'administrate_exportable'
 gem 'administrate_batch_actions'
 
 gem 'administrate-field-active_storage'
+gem 'administrate-field-hidden'
 
 # Policy
 gem 'action_policy'
@@ -47,6 +48,7 @@ gem 'view_component-form'
 
 # Search
 gem 'ransack'
+gem 'order_query', '~> 0.5.2'
 
 gem 'addressable', '~> 2.8'
 gem 'local_time'

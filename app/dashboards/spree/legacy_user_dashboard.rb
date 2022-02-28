@@ -27,7 +27,7 @@ class Spree::LegacyUserDashboard < Administrate::BaseDashboard
     id: Field::Number,
     crypted_password: Field::String,
     salt: Field::String,
-    email: Field::String,
+    email: Field::Email,
     remember_token: Field::String,
     remember_token_expires_at: Field::String,
     persistence_token: Field::String,

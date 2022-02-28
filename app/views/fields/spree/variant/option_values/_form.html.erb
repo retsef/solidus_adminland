@@ -22,13 +22,16 @@ and is augmented with [Selectize].
 <% field.resource.product.option_types.each_with_index do |option_type, index| %>
   <div class="form-group">
     <%= f.label option_type.presentation, for: "#{f.object_name}_#{field.attribute_key}_#{option_type.id}" %>
-    <%= f.select(field.attribute_key, 
-          options_from_collection_for_select(
-            option_type.option_values, 
-            :id, :name, 
-            field.selected_options),
-          # options_for_select(field.associated_resource_options, field.selected_options), 
-          { include_blank: true }, 'data-select-target': 'input'
+    <%= f.collection_select(field.attribute_key,
+            option_type.option_values,
+            :id, :presentation,
+            # field.selected_options,
+            # options_for_select(field.associated_resource_options, field.selected_options), 
+            { include_blank: true }, 
+            {
+              'data-select-target': 'input',
+               name: "#{f.object_name}[#{field.attribute_key}][]"
+            }
         ) %>
   </div>
 <% end %>

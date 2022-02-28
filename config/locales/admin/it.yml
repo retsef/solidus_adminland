@@ -1,0 +1,38 @@
+---
+it:
+  admin:
+    navigation:
+      main:
+        orders:
+          title: 'Ordini'
+          all_orders: 'Tutti gli ordini'
+        products:
+          title: 'Prodotti'
+          all_products: 'Tutti i prodotti'
+          option_types: 'Opzioni per varianti'
+          properties: 'Propietà'
+          taxonomies: 'Tassonomie'
+        customers:
+          title: 'Clienti'
+          all_customers: 'Tutti i clienti'
+        promotions:
+          title: 'Promozioni'
+          all_promotions: 'Tutte le promozioni'
+          promotion_categories: 'Categorie di promozione'
+        stocks:
+          title: 'Scorte'
+          all_stock_items: 'Tutti gli articoli'
+          stock_locations: 'Magazzini'
+
+      settings:
+        title: 'Impostazioni'
+        stores: 'Negozi'
+        shippings: 
+          title: 'Spedizioni'
+          shipping_methods: 'Metodi di spedizione'
+          shipping_categories: 'Categorie di spedizione'
+        taxes:
+          title: 'Aliquote'
+          tax_categories: 'Categorie di tassazione'
+          tax_rates: 'Aliquote'
+        zones: 'Zone'

@@ -14,8 +14,8 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     expires_at: Field::DateTime,
     usage_limit: Field::Number,
 
-    per_code_usage_limit: Field::Number,
-    apply_automatically: Field::Boolean,
+    # per_code_usage_limit: Field::Number,
+    # apply_automatically: Field::Boolean,
 
     # activation_type: Field::Select.with_options(collection: ['auto', 'single_code', 'multiple_codes']),
     # single_code: Field::String,
@@ -23,16 +23,16 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
 
     match_policy: Field::Select.with_options(collection: Spree::Promotion::MATCH_POLICIES),
     advertise: Field::Boolean,
-    path: Field::String.with_options(filterable: true),
+    path: Field::String,
 
     codes: Field::HasMany.with_options(class_name: 'Spree::PromotionCode', skip: :promotion),
     promotion_codes: Field::NestedHasMany.with_options(class_name: 'Spree::PromotionCode', skip: :promotion),
-    promotion_category: Field::BelongsTo.with_options(class_name: 'Spree::PromotionCategory'),
+    promotion_category: Field::BelongsTo.with_options(class_name: 'Spree::PromotionCategory', filterable: true),
     promotion_rules: Field::NestedHasMany.with_options(class_name: 'Spree::PromotionRule', skip: %i[promotion]),
     promotion_actions: Field::NestedHasMany.with_options(class_name: 'Spree::PromotionAction', skip: %i[promotion]),
 
     # order_promotions: Field::HasMany,
-    orders: Field::HasMany.with_options(class_name: 'Spree::Order'),
+    # orders: Field::HasMany.with_options(class_name: 'Spree::Order'),
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -47,7 +47,7 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     description
     starts_at
     expires_at
-    per_code_usage_limit
+    usage_limit
     codes
   ].freeze
 
@@ -58,17 +58,10 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     description
     starts_at
     expires_at
+
     usage_limit
-    match_policy
-    advertise
-    path
-    per_code_usage_limit
-    apply_automatically
-
-    promotion_codes
     promotion_category
-
-    orders
+    promotion_codes
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -80,14 +73,11 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     starts_at
     expires_at
     usage_limit
-    per_code_usage_limit
-    apply_automatically
 
     promotion_category
     promotion_codes
 
     match_policy
-
     promotion_rules
     promotion_actions
   ].freeze
@@ -98,9 +88,20 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     starts_at
     expires_at
     usage_limit
-    per_code_usage_limit
-    apply_automatically
+
     promotion_codes
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
+    name
+    description
+    starts_at
+    expires_at
+    usage_limit
+
+    match_policy
+    promotion_rules
+    promotion_actions
   ].freeze
 
   # COLLECTION_FILTERS

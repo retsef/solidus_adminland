@@ -84,6 +84,9 @@ GEM
     administrate-field-active_storage (0.3.8)
       administrate (>= 0.2.2)
       rails (>= 6.0)
+    administrate-field-hidden (0.1.0)
+      administrate (< 1.0.0)
+      rails (>= 4.2, < 8)
     administrate_batch_actions (0.3.0)
       administrate
       rails (>= 5.2)
@@ -229,6 +232,9 @@ GEM
     nokogiri (1.13.1)
       mini_portile2 (~> 2.7.0)
       racc (~> 1.4)
+    order_query (0.5.2)
+      activerecord (>= 5.0, < 7.1)
+      activesupport (>= 5.0, < 7.1)
     overcommit (0.58.0)
       childprocess (>= 0.6.3, < 5)
       iniparse (~> 1.4)
@@ -458,6 +464,7 @@ DEPENDENCIES
   addressable (~> 2.8)
   administrate
   administrate-field-active_storage
+  administrate-field-hidden
   administrate_batch_actions
   administrate_exportable
   administrate_ransack
@@ -469,6 +476,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (~> 3.3)
   local_time
+  order_query (~> 0.5.2)
   overcommit
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
@@ -498,4 +506,4 @@ RUBY VERSION
    ruby 2.7.2p137
 
 BUNDLED WITH
-   2.3.5
+   2.3.7
