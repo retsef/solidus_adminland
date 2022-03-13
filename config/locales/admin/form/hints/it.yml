@@ -1,0 +1,7 @@
+---
+it:
+  admin:
+    form:
+      hints:
+        product:
+          promotionable: Abilitando questo permetterai che il prodotto possa subire modifiche al prezzo

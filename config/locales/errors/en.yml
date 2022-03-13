@@ -1,0 +1,72 @@
+---
+en:
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: must be accepted
+      after: must be after %{date}
+      after_or_equal_to: must be after or equal to %{date}
+      allowed_file_content_types: the file has to be one %{types}
+      aspect_ratio_is_not: it must have ratio %{aspect_ratio}
+      aspect_ratio_not_landscape: it has to be an horizontal picture
+      aspect_ratio_not_portrait: it has to be a vertical picture
+      aspect_ratio_not_square: it has to be a square picture
+      aspect_ratio_unknown: dimension ratio unknown
+      attached: it must be provided
+      before: it must come before  %{date}
+      before_or_equal_to: it must be previous or equal to %{date}
+      blank: mandatory field
+      confirmation: it doesn't match  %{attribute}
+      content_type_invalid: it doesn't mach the requested size
+      dimension_height_equal_to: height must be of  %{length} pixel.
+      dimension_height_greater_than_or_equal_to: height must be greater or equal to %{length} pixel.
+      dimension_height_inclusion: height not included between  %{min} and %{max} pixel.
+      dimension_height_less_than_or_equal_to: height must be less or equal to %{length} pixel.
+      dimension_max_inclusion: it must be less or equal to %{width} x %{height} pixel.
+      dimension_min_inclusion: it must be greater or equal to %{width} x %{height} pixel.
+      dimension_width_equal_to: width must be equal to  %{length} pixel.
+      dimension_width_greater_than_or_equal_to: width must be grater or equal to %{length} pixel.
+      dimension_width_inclusion: width not included between %{min} and %{max} pixel.
+      dimension_width_less_than_or_equal_to: width must be less or equal to %{length} pixel.
+      empty: it cannot be empty
+      equal_to: it must be equal to %{count}
+      even: must be equal
+      excluded_file_content_types: the file cannot be  %{types}
+      exclusion: it's confidential
+      file_size_is_greater_than: the file size must be greater than %{count}
+      file_size_is_greater_than_or_equal_to: file size must be greater or equal to %{count}
+      file_size_is_in: file size must be between  %{min} and %{max}
+      file_size_is_less_than: file size must be smaller than  %{count}
+      file_size_is_less_than_or_equal_to: file size must be smaller or equal to %{count}
+      file_size_out_of_range: 'size  %{file_size} is out of the requested range '
+      greater_than: it must be grater than %{count}
+      greater_than_or_equal_to: it must be greater or equal to  %{count}
+      image_metadata_missing: invalid picture
+      inclusion: it is not between the available options
+      invalid: invalid
+      less_than: it must be less than %{count}
+      less_than_or_equal_to: less or equal to %{count}
+      limit_out_of_range: total number out of range
+      not_a_date: non è una data
+      not_a_number: it's not a number
+      not_an_integer: it is not an integer
+      odd: must be odd
+      other_than: Must be a different number from %{count}
+      overlap: overlap
+      present: It must be blank
+      required: required field
+      taken: already present
+      too_long:
+        one: too long (max 1 character)
+        other: too long (max %{count} characters)
+      too_short:
+        one: too short (minimum 1 character)
+        other: too short (minimum %{count} characters)
+      wrong_length:
+        one: wrong length (must be 1 character)
+        other: wrong length (must be %{count} characters)
+    template:
+      body: 'check these fields again:'
+      header:
+        one: 'This cannot be saved  %{model}: 1 error'
+        other: 'This cannot be saved %{model}: %{count} errors.'

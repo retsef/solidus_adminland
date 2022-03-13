@@ -8,7 +8,7 @@ class Spree::Order::CustomerReturnDashboard < Spree::Order::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     number: Field::String,
-    
+
     stock_location: Field::BelongsTo,
     return_items: Field::HasMany,
     return_authorizations: Field::HasMany,

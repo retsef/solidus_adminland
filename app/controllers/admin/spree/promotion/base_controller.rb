@@ -13,7 +13,7 @@ module Admin
     end
 
     def requested_parent_resource
-      @requested_parent_resource ||= ::Spree::Promotion.find_by!(id: params[:promotion_id]).tap do |resource|
+      @requested_parent_resource ||= ::Spree::Promotion.find(params[:promotion_id]).tap do |resource|
         authorize_resource(resource)
       end
     end

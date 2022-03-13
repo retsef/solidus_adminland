@@ -51,7 +51,7 @@ module Admin
 
     # The result of this lookup will be available as `requested_resource`
 
-    private 
+    private
 
     # Override this if you have certain roles that require a subset
     # this will be used to set the records shown on the `index` action.
@@ -78,7 +78,7 @@ module Admin
     def new_resource_params
       {
         product: requested_parent_resource,
-        price: requested_parent_resource.price, 
+        price: requested_parent_resource.price,
         cost_price: requested_parent_resource.cost_price,
         cost_currency: requested_parent_resource.cost_currency,
         tax_category: requested_parent_resource.tax_category,
