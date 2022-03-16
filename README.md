@@ -5,32 +5,33 @@
 ### This is a pre-alfa stage and can be changed in the future. 
 ---
 
-This starts as a fun project to make a more reliable version of [solidus_admin](https://github.com/solidus/solidus) admin panel.
-Solidus has a great core component and a battery included admin interface, but, in my opinion and due to my customizations, the admin gen lacks of design for beeing a real side infrastructure for comunicating with solidus_core structure.
+This starts as a fun project for internal purpose to make a more reliable version of [solidus_backend](https://github.com/solidusio/solidus/tree/master/backend) admin panel.
+Solidus has a great core component and a battery included admin interface, but, in our opinion and due to our customizations, the admin gem lacks of design stucture for being a real side infrastructure for comunicating with solidus_core structure.
 
 ## Why rewrite the wheel?
 
-As said, in my opinion, solidus_admin relay on so many caveout of beeing stuck to the library chosed back then and this make it opinionable for different reason:
-- So many of the filters on index are made with ransack: It's ok but there are soo many customization for custom params digest and this cause non consitency between controllers
+As said, in our opinion, solidus_backend relay on so many caveout of being stuck to libraries chosed back to the spree fork (Deface im looking at you!) and this stucure is unopinionable for different reason:
+- So many of the filters on index are made with ransack: It's ok, Ransack is a realiable choice but there are soo many customization for custom params digest and this cause non consitency between controllers
 - Relay too much on cancan: this choice is not bad but it relay its usage with 'macros' (:manage, :admin) and not with real CRUD routes and not stick on conventions of MVC pattern.
 - The assets for javascript files and stylesheet are difficult to synergize with the hosting rails app and relies on opinionable implementation such as Backbone inerithed from Spree 2.4 fork.
 - Rely on solidus_api for ajax interactions with certain sections such as Orders and this approches are essentially DOM maninpulation and for coexcion of responsability those bonds are too strict in this era.
 - Not "really" turbo compatible: Turbolinks is evolved in hotwire and the current usage are only a snippet for javascript correct script execution.
 - usage of rails-ujs and 'remote: true' approach are opinionable, mostly for 'remote' usage. I think that remote is not a good approach because it injects javascript code in the browser console in hoping to be executed and is, for me, as cross scripting potential security threat.
 
-As you see, the solidus_admin is pretty old and as for the [solidus_frontend](https://github.com/solidus/solidus) revamp with solidus_starter_frontend it's time for a renewal!
+As you see, the solidus_admin is pretty old and as for the [solidus_frontend](https://github.com/solidusio/solidus/tree/master/frontend) revamp with [solidus_starter_frontend](https://github.com/solidusio/solidus_starter_frontend) it's time for a renewal!
 
-## Are you tryng to create a new solidus_admin gem?
+## Are you tryng to create a new solidus_backend gem?
 
-Sort of but No. I'm starting this as an alternative because it's an alpha project and it's objective it's to offer, along a battery included backend with low couppling with rails framework, but also a pretty structured Adminland framework for extendability and UI customizzation without headdacle.
+Sort of but No. I'm starting this as an alternative first of all because it's an alpha project and it's objective it's to offer, along a battery included backend with low couppling with rails framework, but also a pretty structured Adminland framework for extendability and UI customizzation without headdacle.
+I want to be make it more rely on the library choised from the owner of the host project, in alternative to be too strict to be the real obbligatory collaction of library choice.
 
 ## Ok, so what is your choice? Are also yours opinionable?
 
 I think we could think for the adminland code structure to repect this fundamentals:
 - Be easy to override and extends with less overrides/monkey-patch approach. We are humans not monkey!
-- Prior ban for Deface. I never liked the deface approach and i think is better to think the UI as modular from the beginning, in alternative overriding views by copy but not by patch and inject
-- Strict to CRUD routes. Everithing must rely on CRUDs routes as strict as possible, as also for nested routes approach, in favor of convention over configuration approach
-- Add external resources from hosting rails app should with a generator scaffold template
+- Prior ban for Deface. I never liked the deface approach and i think is better to think the UI as modular from the beginning, in alternative overriding views by copy but not by patch and inject. For the extedability of another sidecar tool (all the solidus extensions with admin sections), i prefer to make a more clear and exposed point-of-prepend.
+- Strict to CRUD routes. Everithing must rely on CRUDs routes as strict as possible, as also for nested routes approach, in favor of convention over configuration approach.
+- Add external resources from hosting rails app should with a generator scaffold template.
 
 With this in mind i have begin to put some choices for the 'new' solidus_adminland project such as:
 - hotwire by default. If i need to update interface i prefer to replace/update html pages with html reponses
@@ -48,7 +49,7 @@ As you can see, for every resource there is:
 
 ... and as a 'conventional' approach you could just create your own (or extend 😉) of those three and put you business logic as you like (or your app demands)!
 
-The initial design is made with bootstrap 5 but you can easly override the standard views from admin/application for CRUD. The number of views will remain strict to low as possible
+The initial design is made with bootstrap 5 with [Tabler](https://github.com/tabler/tabler) but you can easly override the standard views from admin/application for CRUD. The number of views will remain strict to low as possible
 
 ## Roadmap
 
