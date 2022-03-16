@@ -1,4 +1,4 @@
-![desktop](https://imgur.com/HtCxrsM)
+![desktop](https://i.imgur.com/HtCxrsM.png)
 
 # Solidus Adminland
 
