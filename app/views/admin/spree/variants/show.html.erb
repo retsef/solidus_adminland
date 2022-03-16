@@ -19,45 +19,41 @@ as well as a link to its edit page.
 <% content_for(:title) { t("administrate.actions.show_resource", name: page.page_title) } %>
 
 <!-- Header -->
-<header class="header mt-md-5" role="banner">
-  <div class="header-body">
-    <div class="row align-items-center">
-      <div class="col-auto">
-        <!-- Avatar -->
-        <div class="avatar avatar-lg avatar-4by3">
-          <%- gallery = page.resource.gallery.images %>
-          <%- image_src = gallery.any? && gallery.first.attachment.attached? ? url_for(gallery.first.attachment) : image_path('admin/default-placeholder.png') %>
-          <img src="<%= image_src %>" alt="<%= page.page_title %>" class="avatar-img rounded">
-        </div>
-      </div>
-
-      <div class="col ms-n3 ms-md-n2">
-        <!-- Pretitle -->
-        <h6 class="header-pretitle">
-          <%= link_to t("administrate.actions.back"), :back %>
-        </h6>
-        <!-- Title -->
-        <h1 class="header-title text-truncate">
-          <%= content_for(:title) %>
-        </h1>
-      </div>
-
-
-      <div class="col-auto">
-        <!-- Actions -->
-        <%= link_to(
-          t("administrate.actions.edit_resource", name: page.page_title),
-          [:edit, namespace, page.resource],
-          class: "btn btn-white",
-        ) if valid_action?(:edit) && show_action?(:edit, page.resource) %>
-      </div>
+<header class="page-header d-print-none" role="banner">
+  <div class="row g-2 align-items-center">
+    <div class="col-auto">
+      <!-- Avatar -->
+      <%- gallery = page.resource.gallery.images %>
+      <%- image_src = gallery.any? && gallery.first.attachment.attached? ? url_for(gallery.first.attachment) : image_path('admin/default-placeholder.png') %>
+      <img src="<%= image_src %>" alt="<%= page.page_title %>" class="avatar avatar-lg rounded">
     </div>
 
-    <div class="row align-items-center">
-      <div class="col">
-        <!-- Tabs -->
-        <%= render 'tabs', page: page, namespace: namespace %>
+    <div class="col ms-n3 ms-md-n2">
+      <!-- Pretitle -->
+      <div class="page-pretitle">
+        <%= link_to t("administrate.actions.back"), :back %>
       </div>
+      <!-- Title -->
+      <h2 class="page-title text-truncate">
+        <%= content_for(:title) %>
+      </h2>
+    </div>
+
+
+    <div class="col-auto">
+      <!-- Actions -->
+      <%= link_to(
+        t("administrate.actions.edit_resource", name: page.page_title),
+        [:edit, namespace, page.resource],
+        class: "btn btn-white",
+      ) if valid_action?(:edit) && show_action?(:edit, page.resource) %>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+    <div class="col">
+      <!-- Tabs -->
+      <%= render 'tabs', page: page, namespace: namespace %>
     </div>
   </div>
 </header>

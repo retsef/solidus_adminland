@@ -20,21 +20,19 @@ It displays a header, and renders the `_form` partial to do the heavy lifting.
 <div class="row justify-content-center">
   <div class="col-12 col-lg-10 col-xl-8">
     <!-- Header -->
-    <header class="header mt-md-5" role="banner">
-      <div class="header-body">
-        <div class="row align-items-center">
-          <div class="col">
-            <!-- Title -->
-            <h1 class="header-title text-truncate"><%= content_for(:title) %></h1>
-          </div>
+    <header class="page-header d-print-none" role="banner">
+      <div class="row g-3 align-items-center">
+        <div class="col">
+          <!-- Title -->
+          <h2 class="page-title text-truncate"><%= content_for(:title) %></h2>
+        </div>
 
-          <div class="col-auto">
-            <%= link_to(
-              t("administrate.actions.show_resource", name: page.page_title),
-              [namespace, page.resource],
-              class: "btn btn-white",
-            ) if valid_action?(:show) && show_action?(:show, page.resource) %>
-          </div>
+        <div class="col-auto">
+          <%= link_to(
+            t("administrate.actions.show_resource", name: page.page_title),
+            [namespace, page.resource],
+            class: "btn btn-white",
+          ) if valid_action?(:show) && show_action?(:show, page.resource) %>
         </div>
       </div>
     </header>

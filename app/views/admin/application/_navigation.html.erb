@@ -6,7 +6,7 @@ By default, the navigation contains navigation links
 for all resources in the admin dashboard,
 as defined by the routes in the `admin/` namespace
 %>
-<nav class="navbar navbar-vertical fixed-start navbar-expand-md navbar-dark" id="sidebar">
+<aside class="navbar navbar-vertical navbar-expand-lg navbar-dark" id="sidebar">
   <div class="container-fluid">
 
     <!-- Toggler -->
@@ -15,18 +15,17 @@ as defined by the routes in the `admin/` namespace
     </button>
 
     <!-- Brand -->
-    <a class="navbar-brand" href="#">
+    <h1 class="navbar-brand navbar-brand-autodark">
       <img src="<%= image_path("admin/solidus-symbol-light.png") %>" class="navbar-brand-img mx-auto" alt="Solidus">
-    </a>
+    </h1>
 
-    <!-- User (xs) -->
-    <div class="navbar-user d-md-none">
-
+    <div class="navbar-nav flex-row d-lg-none">
+      <%= render "user_session" -%>
     </div>
 
     <!-- Collapse -->
-    <div class="collapse navbar-collapse" id="sidebarCollapse">
-      <ul class="navbar-nav">
+    <div class="collapse navbar-collapse" id="navbar-menu">
+      <ul class="navbar-nav flex-grow-0">
         <%# Administrate::Namespace.new(namespace).resources_with_index_route.each do |resource| %>
           <%# if valid_action?(:index, resource) && show_action?(:index, model_from_resource(resource)) %>
             <!--
@@ -43,7 +42,12 @@ as defined by the routes in the `admin/` namespace
         
         <li class="nav-item">
           <a class="nav-link" href="#">
-            <i class="fe fe-home"></i> Home
+            <span class="nav-link-icon d-md-none d-lg-inline-block">
+              <i class="icon ti ti-home"></i> 
+            </span>
+            <span class="nav-link-title">
+              Home
+            </span>
           </a>
         </li>
 
@@ -54,16 +58,16 @@ as defined by the routes in the `admin/` namespace
                 active: menu_item.urls.any? {|u| active_link? u }) do |c| %>
               <%- menu_item.ordered_children.each do |child_menu_item| %>
                 <% c.item do %>
-                  <li class="nav-item">
-                    <%= active_link_to child_menu_item.label, child_menu_item.url, class: 'nav-link' %>
-                  </li>
+                  <%= active_link_to child_menu_item.label, child_menu_item.url, class: 'dropdown-item' %>
                 <% end %>
               <% end %>
             <% end %>
 
           <% else %>
             <li class="nav-item">
-              <%= active_link_to menu_item.label, menu_item.url, class: 'nav-link' %>
+              <%= active_link_to menu_item.url, class: 'nav-link' do %>
+                <%= render Admin::Navigation::MenuItem::Component.new(item: menu_item) %>
+              <% end %>
             </li>
           <% end %>
         <% end %>
@@ -73,46 +77,34 @@ as defined by the routes in the `admin/` namespace
       <hr class="navbar-divider my-3">
 
       <!-- Heading -->
-      <h6 class="navbar-heading">Settings</h6>
+      <h6 class="navbar-heading"><%= t 'admin.navigation.settings.title' %></h6>
 
       <!-- Navigation -->
       <ul class="navbar-nav mb-md-4">
-        <li class="nav-item">
-          <%- settings_menu_item = Admin::MenuItem.new(label: 'admin.navigation.settings.title', icon: 'fe fe-settings', children: Rails.application.config.admin_navigation.setting_entries) %>
+        <%- Rails.application.config.admin_navigation.setting_entries.sort_by(&:position).each do |menu_item| %>
+          <% if menu_item.children? %>
 
-          <a class="nav-link" href="#sidebarSettings" data-bs-toggle="collapse" role="button" 
-              aria-expanded="<%= settings_menu_item.urls.any? {|u| active_link? u } ? 'true' : 'false' %>" aria-controls="sidebarSettings">
-            <i class="<%= settings_menu_item.icon %>"></i> <%= settings_menu_item.label %>
-          </a>
-          <div class="collapse <%= 'show' if settings_menu_item.urls.any? {|u| active_link? u } %>" id="sidebarSettings">
-            <ul class="nav nav-sm flex-column">
-              <%- settings_menu_item.ordered_children.each do |menu_item| %>
-                <% if menu_item.children? %>
-          
-                  <%= render Admin::Navigation::MenuDropdown::Component.new(icon: menu_item.icon, label: menu_item.label, 
-                      active: menu_item.urls.any? {|u| active_link? u }) do |c| %>
-                    <%- menu_item.ordered_children.each do |child_menu_item| %>
-                      <% c.item do %>
-                        <li class="nav-item">
-                          <%= active_link_to child_menu_item.label, child_menu_item.url, class: 'nav-link' %>
-                        </li>
-                      <% end %>
-                    <% end %>
-                  <% end %>
-
-                <% else %>
-                  <li class="nav-item">
-                    <%= active_link_to menu_item.label, menu_item.url, class: 'nav-link' %>
-                  </li>
+            <%= render Admin::Navigation::MenuDropdown::Component.new(icon: menu_item.icon, label: menu_item.label,
+                                                                      active: menu_item.urls.any? {|u| active_link? u }) do |c| %>
+              <%- menu_item.ordered_children.each do |child_menu_item| %>
+                <% c.item do %>
+                  <%= active_link_to child_menu_item.label, child_menu_item.url, class: 'dropdown-item' %>
                 <% end %>
-                
               <% end %>
-            </ul>
-          </div>
-        </li>
+            <% end %>
+
+          <% else %>
+            <li class="nav-item">
+              <%= active_link_to menu_item.url, class: 'nav-link' do %>
+                <%= render Admin::Navigation::MenuItem::Component.new(item: menu_item) %>
+              <% end %>
+            </li>
+          <% end %>
+        <% end %>
       </ul>
 
       <!-- Push content down -->
       <div class="mt-auto"></div>
     </div>
-</nav>
+  </div>
+</aside>

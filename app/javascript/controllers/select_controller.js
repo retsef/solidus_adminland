@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus'
-import Choices from 'choices.js'
+import TomSelect from 'tom-select'
 
 export default class extends Controller {
   static targets = ['input'];
@@ -8,23 +8,21 @@ export default class extends Controller {
 
   initialize() {
     this.config = {
-      classNames: {
-        containerInner: this.inputTarget.className,
-        input: 'form-control',
-        inputCloned: 'form-control-sm',
-        listDropdown: 'dropdown-menu',
-        itemChoice: 'dropdown-item',
-        activeState: 'show',
-        selectedState: 'active',
+      create: false,
+      sortField: {
+        field: "text",
+        direction: "asc"
       },
-      shouldSort: false,
-      removeItemButton: this.removeItemButton,
-      callbackOnCreateTemplates: this.callbackOnCreateTemplates.bind(this)
+      allowEmptyOption: this.allowEmptyOption,
+      placeholder: this.placeholder,
+      // shouldSort: false,
+      // removeItemButton: this.removeItemButton,
+      // callbackOnCreateTemplates: this.callbackOnCreateTemplates.bind(this)
     }
   }
 
   connect() {
-    this.choices = new Choices(this.inputTarget, {
+    this.choices = new TomSelect(this.inputTarget, {
       ...this.config
     });
   }
@@ -37,6 +35,14 @@ export default class extends Controller {
 
   get removeItemButton() {
     return this.inputTarget.hasAttribute('multiple');
+  }
+
+  get allowEmptyOption() {
+    return !this.inputTarget.hasAttribute('multiple');
+  }
+
+  get placeholder() {
+    return this.inputTarget.getAttribute('placeholder') || 'Select a value...';
   }
 
   callbackOnCreateTemplates(template) {

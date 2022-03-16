@@ -6,12 +6,10 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<ul class="list-pagination-next pagination pagination-tabs card-pagination">
-  <li class="page-item next">
-    <%= link_to url, rel: 'next', disabled: current_page.out_of_range?, remote: remote, 
-        class: "page-link btn-link ps-4 pe-0 border-start #{'disabled' if current_page.out_of_range?}" do %>
-      <%= t('views.pagination.next') %>
-      <i class="fe fe-arrow-right me-1"></i>
-    <% end %>
-  </li>
-</ul>
+<li class="page-item next">
+  <%= link_to url, rel: 'next', disabled: current_page.out_of_range?, remote: remote,
+      class: "page-link btn-link ps-4 pe-0 border-start #{'disabled' if current_page.out_of_range?}" do %>
+    <%= t('views.pagination.next') %>
+    <i class="icon ti ti-arrow-right me-1"></i>
+  <% end %>
+</li>

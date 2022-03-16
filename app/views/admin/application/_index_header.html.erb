@@ -4,33 +4,33 @@
 <% end %>
 
 <!-- Header -->
-<header class="header mt-md-5" role="banner">
-  <div class="header-body">
-    <div class="row align-items-center">
-      <div class="col">
-        <!-- Pretitle -->
-        <h6 class="header-pretitle">Overview</h6>
-        <!-- Title -->
-        <h1 class="header-title text-truncate">
-          <%= content_for(:title) %>
-        </h1>
-      </div>
-
-      <div class="col-auto">
-        <!-- Actions -->
-        <%= render(
-          "index_header_actions",
-          page: page,
-          resources: resources
-        ) %>
-      </div>
+<% content_for :page_header do %>
+<header class="page-header d-print-none" role="banner">
+  <div class="row g-2 align-items-center">
+    <div class="col">
+      <!-- Pretitle -->
+      <div class="page-pretitle">Overview</div>
+      <!-- Title -->
+      <h2 class="page-title">
+        <%= content_for(:title) %>
+      </h2>
     </div>
 
-    <div class="row align-items-center">
-      <div class="col">
-        <!-- Tabs -->
+    <div class="col-12 col-md-auto ms-auto d-print-none">
+      <!-- Actions -->
+      <%= render(
+        "index_header_actions",
+        page: page,
+        resources: resources
+      ) %>
+    </div>
+  </div>
 
-      </div>
+  <div class="row align-items-center">
+    <div class="col">
+      <!-- Tabs -->
+
     </div>
   </div>
 </header>
+<% end %>

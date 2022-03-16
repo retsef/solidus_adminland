@@ -82,4 +82,4 @@ The initial design is made with bootstrap 5 but you can easly override the stand
 - [x] Payment Method CRUD
 
 All the rights of logos and colors are get from solidus presskit
-The Admin theme is inspired from solidus website mockups and based on [Bootstrap 5](https://getbootstrap.com) version of [Dashkit](https://dashkit.goodthemes.co)
+The Admin theme is inspired from solidus website mockups and based on [Bootstrap 5](https://getbootstrap.com) version of [Tabler](https://github.com/tabler/tabler)

@@ -1,3 +1,5 @@
 <% field_key = model.ransackable_scopes.include?(field) ? field : "#{field}_cont" %>
-<%= form.label(label) %>
-<%= form.text_field(field_key) %>
+<div class="form-group">
+  <%= form.label(label) %>
+  <%= form.text_field(field_key) %>
+</div>

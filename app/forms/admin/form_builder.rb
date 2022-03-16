@@ -10,6 +10,10 @@ class Admin::FormBuilder < ViewComponent::Form::Builder
     render_component(:hint, @object_name, method, text, objectify_options(options), &block)
   end
 
+  def help(method, text = nil, options = {}, &block)
+    render_component(:help, @object_name, method, label, text, objectify_options(options), &block)
+  end
+
   # Backport field_id from Rails 7.0
   if Rails::VERSION::MAJOR < 7
     def field_id(method_name, *suffixes, namespace: @options[:namespace], index: @index)

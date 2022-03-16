@@ -30,14 +30,25 @@ By default, it renders:
   <%= csrf_meta_tags %>
   <%= csp_meta_tag if defined?(csp_meta_tag) %>
 </head>
-<body>
-  <%= render "navigation" -%>
-
-  <main class="main-content" role="main">
-    <%= render "flashes" -%>
+<body class="layout-fluid theme-light" data-controller="theme">
+  <main class="page" role="main">
+    <%= render "navigation" -%>
+    <%= render "header" %>
     
-    <div class="container-fluid">
-      <%= yield %>
+    <div class="page-wrapper">
+      <%= render "flashes" -%>
+
+      <div class="container-xl">
+        <%= yield :page_header %>
+      </div>
+
+      <div class="page-body">
+        <div class="container-xl">
+          <%= yield %>
+        </div>
+      </div>
+
+      <%= render "footer" %>
     </div>
   </main>
   

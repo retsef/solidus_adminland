@@ -1,7 +1,9 @@
 <% if association %>
-  <% field_key = model.ransackable_scopes.include?(field) ? field : "#{field}_id_eq" %>
-  <% desc = association.klass.method_defined?(:admin_label) ? :admin_label : :to_s %>
-  <% collection = association.klass.send(association.klass.respond_to?(:admin_scope) ? :admin_scope : :all) %>
-  <%= form.label(label) %>
-  <%= form.collection_select(field_key, collection, :id, desc, include_blank: true) %>
+  <div class="form-group" data-controller='select'>
+    <% field_key = model.ransackable_scopes.include?(field) ? field : "#{field}_id_eq" %>
+    <% desc = association.klass.method_defined?(:admin_label) ? :admin_label : :to_s %>
+    <% collection = association.klass.send(association.klass.respond_to?(:admin_scope) ? :admin_scope : :all) %>
+    <%= form.label(label) %>
+    <%= form.collection_select(field_key, collection, :id, desc, { include_blank: true }, 'data-select-target': 'input') %>
+  </div>
 <% end %>

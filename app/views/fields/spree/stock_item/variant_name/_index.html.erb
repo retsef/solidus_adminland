@@ -19,16 +19,12 @@ By default, the attribute is rendered as a truncated string.
 <%- attributes = %i[sku name] %>
 <%- variant = field.resource.variant %>
 
-<div class="row align-items-center">
-  <div class="col-auto">
-    <!-- Avatar -->
-    <div class="avatar avatar-md avatar-4by3 align-middle me-2">
-      <%- gallery = variant.gallery.images %>
-      <%- image_src = gallery.any? && gallery.first.attachment.attached? ? url_for(gallery.first.attachment) : image_path('admin/default-placeholder.png') %>
-      <img src="<%= image_src %>" alt="<%= field.truncate %>" class="avatar-img rounded">
-    </div>
-  </div>
-  <div class="col ms-n2">
+<div class="d-flex py-1 align-items-center">
+  <!-- Avatar -->
+  <%- gallery = variant.gallery.images %>
+  <%- image_src = gallery.any? && gallery.first.attachment.attached? ? url_for(gallery.first.attachment) : image_path('admin/default-placeholder.png') %>
+  <img src="<%= image_src %>" alt="<%= field.truncate %>" class="avatar me-2">
+  <div class="flex-fill">
     <% attributes.each do |attribute_name| %>
       <p class="mb-1 small">
         <span class="attribute-label fw-bolder">

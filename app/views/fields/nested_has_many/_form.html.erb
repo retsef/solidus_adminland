@@ -1,5 +1,6 @@
 <fieldset class="field-unit--nested" data-controller="nested-form">
   <legend><%= f.label field.attribute %></legend>
+  <%= f.hint field.attribute %>
 
 	<template data-target="nested-form.template">
 		<%= f.fields_for field.association_name, field.associated_class.new, child_index: 'NEW_RECORD' do |nested_form| %>

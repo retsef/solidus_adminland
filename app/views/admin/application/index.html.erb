@@ -36,9 +36,9 @@ It renders the `_table` partial to display details about the resources.
   <div class="col-12">
     <section class="card p-0">
       <!-- Table Header -->
-      <div class="card-header">
+      <div class="card-header container">
         <div class="row align-items-center">
-          <div class="col-md col-sm-12">
+          <div class="col">
             
             <!-- Search Form -->
             <% if show_search_bar %>
@@ -51,11 +51,11 @@ It renders the `_table` partial to display details about the resources.
 
           </div>
 
-          <div class="col-auto me-n3">
+          <div class="col-auto">
 
             <!-- Select -->
             <form>
-              <select class="form-select form-control-sm form-control-flush">
+              <select class="form-select form-control-sm">
                 <option selected>15 per page</option>
                 <option>25 per page</option>
                 <option>50 per page</option>
@@ -67,11 +67,12 @@ It renders the `_table` partial to display details about the resources.
 
           <% if show_filters %>
             <div class="col-auto">
-              <button class="btn btn-sm btn-white" type="button" 
+              <button class="btn btn-white" type="button" 
                   data-bs-toggle="offcanvas" href="#offcanvasFilters" aria-controls="offcanvasFilters" 
                   data-bs-auto-close="outside">
-                <i class="fe fe-sliders me-1"></i> 
-                Filter <span class="badge bg-primary ms-1 d-none">0</span>
+                <i class="icon ti ti-adjustments me-1"></i>
+                <span>Filter</span>
+                <span class="badge bg-primary ms-1 d-none">0</span>
               </button>
             </div>
           <% end %>
@@ -92,7 +93,10 @@ It renders the `_table` partial to display details about the resources.
       </turbo-frame>
 
       <!-- Table Footer -->
-      <div class="card-footer">
+      <div class="card-footer d-flex align-items-center">
+        <p class="m-0 text-muted d-none">
+          Showing <span>1</span> to <span>15</span> of <span>15</span> entries
+        </p>
         <%= paginate resources, param_name: '_page', theme: :admin %>
       </div>
     </section>

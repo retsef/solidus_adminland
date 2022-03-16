@@ -7,23 +7,21 @@
     paginator:     the paginator that renders the pagination tags inside
 -%>
 <%= paginator.render do -%>
-  <nav class="pagination d-flex justify-content-between" role="navigation" aria-label="pager">
+  <ul class="pagination m-0 ms-auto" role="navigation" aria-label="pager">
     <%# = first_page_tag unless current_page.first? %>
     <%= prev_page_tag %>
-    
-    <ul class="list-pagination pagination pagination-tabs card-pagination">
-      <% each_page do |page| -%>
-        <% if page.display_tag? -%>
-          <%= page_tag page %>
-        <% elsif !page.was_truncated? -%>
-          <%= gap_tag %>
-        <% end -%>
+
+    <% each_page do |page| -%>
+      <% if page.display_tag? -%>
+        <%= page_tag page %>
+      <% elsif !page.was_truncated? -%>
+        <%= gap_tag %>
       <% end -%>
-    </ul>
+    <% end -%>
 
     <%= next_page_tag %>
     <% unless current_page.out_of_range? %>
       <%# = last_page_tag unless current_page.last? %>
     <% end %>
-  </nav>
+  </ul>
 <% end -%>

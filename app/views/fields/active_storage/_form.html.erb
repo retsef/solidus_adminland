@@ -17,6 +17,7 @@ By default, the input is a text field for the image's URL.
 
 <div class="form-group">
   <%= f.label field.attribute %>
+  <%= f.hint field.attribute %>
   
   <% if field.attached? %>
     <%= render partial: 'fields/active_storage/items', locals: { field: field } %>
@@ -29,4 +30,5 @@ By default, the input is a text field for the image's URL.
     %>
     <%= f.file_field field.attribute, multiple: field.many?, direct_upload: field.direct? %>
   </div>
+  <%= f.error_message field.attribute %>
 </div>

@@ -1,4 +1,4 @@
-<div class="nested-fields mb-4" data-new-record=<%= f.object.new_record?%>>
+<fieldset class="form-fieldset nested-fields mb-3" data-new-record=<%= f.object.new_record?%>>
   <% field.nested_fields_for_builder(f).each do |attribute| -%>
     <div class="field-unit field-unit--<%= attribute.html_class %>">
       <%= render_field attribute, f: f %>
@@ -12,4 +12,4 @@
         data: { action: "click->nested-form#remove_association" }) %>
   
   <%= f.hidden_field :_destroy %>
-</div>
+</fieldset>

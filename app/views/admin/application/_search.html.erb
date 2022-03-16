@@ -1,21 +1,22 @@
 <form class="search" role="search">
   
-  <div class="input-group input-group-flush input-group-merge input-group-reverse">
+  <div class="input-icon">
 
-    <%= link_to clear_search_params, class: "input-group-text" do %>
-      <span class="d-none"><%= t("administrate.search.clear") %></span>
-      <i class="fe fe-clear"></i>
-    <% end %>
+    <span class="input-icon-addon">
+      <i class="icon ti ti-search"></i>
+    </span>
 
-    <input class="form-control list-search"
+    <input class="form-control"
           id="search" type="search" name="search"
           placeholder="<%= t("administrate.search.label",
                               resource: resource_name) %>"
           value="<%= search_term %>">
-          
-    <span class="input-group-text">
-      <i class="fe fe-search"></i>
-    </span>
+
+
+    <%= link_to clear_search_params, class: "input-icon-addon" do %>
+      <span class="d-none"><%= t("administrate.search.clear") %></span>
+      <i class="icon ti ti-clear"></i>
+    <% end %>
   </div>
 
 </form>

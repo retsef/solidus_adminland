@@ -1,27 +1,11 @@
-// 
-// user-variables.scss
-// Use this to overwrite Bootstrap and theme variables
-//
-
-// Example of a variable override to change theme's background color
-// Remove the "//" to comment it in and see it in action!
-// $body-bg: #12263F;
-
-// Color system
-
-$primary: #3c76f0 !default;
-// $secondary: $gray-700 !default;
-// $success: $green !default;
-// $info: $cyan !default;
-// $warning: $yellow !default;
-// $danger: $red !default;
-// $light: $gray-200 !default;
-// $lighter: $gray-100 !default;
-$dark: #24282f !default;
-
-// Body
-//
-// Settings for the `<body>` element.
-
-$body-bg: #fafbfc !default;
-$body-color: #24282f !default;
+:root {
+  --tblr-blue: #3c76f0;
+  --tblr-primary: #3c76f0;
+  --tblr-dark: #24282f;
+  --tblr-primary-rgb: 32, 107, 196;
+  --tblr-dark-rgb: 30, 41, 59;
+  // --tblr-body-color-rgb: 30, 41, 59;
+  // --tblr-body-bg-rgb: 245, 247, 251;
+  --tblr-body-color: #24282f;
+  // --tblr-body-bg: #fafbfc;
+}

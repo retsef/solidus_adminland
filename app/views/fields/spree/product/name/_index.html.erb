@@ -16,11 +16,14 @@ By default, the attribute is rendered as a truncated string.
 %>
 
 <!-- Avatar -->
-<div class="avatar avatar-md avatar-4by3 align-middle me-2">
+<div class="d-flex py-1 align-items-center">
   <%- gallery = field.resource.gallery.images %>
   <%- image_src = gallery.any? && gallery.first.attachment.attached? ? url_for(gallery.first.attachment) : image_path('admin/default-placeholder.png') %>
-  <img src="<%= image_src %>" alt="<%= field.truncate %>" class="avatar-img rounded">
+  <img src="<%= image_src %>" alt="<%= field.truncate %>" class="avatar me-2">
+
+  <div class="flex-fill">
+    <span class="font-weight-medium">
+      <%= field.truncate %>
+    </span>
+  </div>
 </div>
-<span class="item-name text-reset">
-  <%= field.truncate %>
-</span>

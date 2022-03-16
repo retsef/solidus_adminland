@@ -1,17 +1,23 @@
-<li class="nav-item">
-  <a class="nav-link" href="#sidebar<%= unique_id %>" data-bs-toggle="collapse" role="button" 
+<li class="nav-item dropdown <%= 'active' if link_active? %>">
+  <a class="nav-link dropdown-toggle" href="#sidebar<%= unique_id %>" data-bs-toggle="collapse" role="button"
       aria-expanded="<%= link_active? ? 'true' : 'false' %>" aria-controls="sidebar<%= unique_id %>">
     <%- if icon.present? -%>
-      <i class="<%= icon %>" aria-hidden="true"></i>
+      <span class="nav-link-icon d-md-none d-lg-inline-block">
+        <i class="icon <%= icon %>" aria-hidden="true"></i>
+      </span>
     <% end %>
 
-    <%= label %>
+    <span class="nav-link-title">
+      <%= label %>
+    </span>
   </a>
-  <div class="collapse <%= 'show' if link_active? %>" id="sidebar<%= unique_id %>">
-    <ul class="nav nav-sm flex-column">
-      <% items.each do |item| %>
-        <%= item %>
-      <% end %>
-    </ul>
+  <div class="dropdown-menu <%= 'show' if link_active? %>" id="sidebar<%= unique_id %>">
+    <div class="dropdown-menu-columns">
+      <div class="dropdown-menu-column">
+        <% items.each do |item| %>
+          <%= item %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </li>

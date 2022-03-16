@@ -20,9 +20,9 @@ By default, the input is a text field that is augmented with [DateTimePicker].
   <%= f.label field.attribute %>
   <%= f.hint field.attribute %>
 
-  <div class="input-group">
-    <span class="input-group-text">
-      <i class="fe fe-calendar"></i>
+  <div class="input-icon">
+    <span class="input-icon-addon">
+      <i class="icon ti ti-calendar"></i>
     </span>
     <%= f.text_field field.attribute, data: { type: 'date', controller: 'datetime' } %>
   </div>

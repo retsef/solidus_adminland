@@ -1,4 +1,7 @@
 <% field_key = model.ransackable_scopes.include?(field) ? field : "#{field}_eq" %>
 <% values = [[t('administrate.filters.no'), false], [t('administrate.filters.yes'), true]] %>
-<%= form.label(label) %>
-<%= form.select(field_key, values, include_blank: true) %>
+
+<div class="form-group" data-controller='select'>
+  <%= form.label(label) %>
+  <%= form.select(field_key, values, include_blank: true, 'data-select-target': 'input') %>
+</div>

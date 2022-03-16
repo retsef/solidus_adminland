@@ -14,8 +14,8 @@ that gets submitted with the form.
   <%= f.label field.attribute %>
   <%= f.hint field.attribute %>
 
-  <div class="input-group">
-    <span class="input-group-text">
+  <div class="input-icon">
+    <span class="input-icon-addon">
       <%= field.symbol %>
     </span>
     <%= f.number_field field.attribute, step: "any",
@@ -24,7 +24,7 @@ that gets submitted with the form.
           decimal: field.separator,
           prefix: field.symbol } %>
           
-    <span class="input-group-text">
+    <span class="input-icon-addon">
       <%= field.code %>
     </span>
   </div>

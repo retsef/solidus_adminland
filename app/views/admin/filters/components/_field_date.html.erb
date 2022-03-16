@@ -1,9 +1,9 @@
 <%= form.label(label) %>
 
 <% if model.ransackable_scopes.include?(field) %>
-  <div class="input-group">
-    <span class="input-group-text">
-      <i class="fe fe-calendar"></i>
+  <div class="input-icon">
+    <span class="input-icon-addon">
+      <i class="icon ti ti-calendar"></i>
     </span>
     <%= form.text_field field, value: form.object.send(field), data: { type: 'date', controller: 'datetime' } %>
   </div>
@@ -11,18 +11,18 @@
   <div class="form-group">
     <%= form.label 'start' %>
 
-    <div class="input-group mb-2">
-      <span class="input-group-text">
-        <i class="fe fe-calendar"></i>
+    <div class="input-icon mb-3">
+      <span class="input-icon-addon">
+        <i class="icon ti ti-calendar"></i>
       </span>
       <%= form.text_field "#{field}_gteq", data: { type: 'date', controller: 'datetime' } %>
     </div>
 
     <%= form.label 'end' %>
 
-    <div class="input-group">
-      <span class="input-group-text">
-        <i class="fe fe-calendar"></i>
+    <div class="input-icon">
+      <span class="input-icon-addon">
+        <i class="icon ti ti-calendar"></i>
       </span>
       <%= form.text_field "#{field}_lteq", data: { type: 'date', controller: 'datetime' } %>
     </div>

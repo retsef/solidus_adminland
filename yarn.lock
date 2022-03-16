@@ -19,6 +19,11 @@
   resolved "https://registry.yarnpkg.com/@hotwired/turbo/-/turbo-7.1.0.tgz#27e44e0e3dc5bd1d4bda0766d579cf5a14091cd7"
   integrity sha512-Q8kGjqwPqER+CtpQudbH+3Zgs2X4zb6pBAlr6NsKTXadg45pAOvxI9i4QpuHbwSzR2+x87HUm+rot9F/Pe8rxA==
 
+"@orchidjs/sifter@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@orchidjs/sifter/-/sifter-0.9.1.tgz#20580cb75bcc1de3c9b9c021e0e546eb59ff2813"
+  integrity sha512-bdW8vKTlWXfoAvUud0a4OeVPrtdvHH8gTshKqndzxAI6bXGPBejgry2wvIz0OZOqOuWuFAJWgNCjq/6S85U77A==
+
 "@popperjs/core@^2.11.2":
   version "2.11.2"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.2.tgz#830beaec4b4091a9e9398ac50f865ddea52186b9"
@@ -43,7 +48,21 @@
   resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-7.0.1.tgz#cb515d52c85be107908dd00822042f04e52cdea7"
   integrity sha512-ZUkgsbz5KFLfBwjIQ2D/kvyq+2w5BuNnkUJf3940VVJxov9GECu6n2BSXUTmyNAx+R6JQdibzXBuR7nz3crZYw==
 
-bootstrap@^5.1.3:
+"@tabler/core@^1.0.0-beta9":
+  version "1.0.0-beta9"
+  resolved "https://registry.yarnpkg.com/@tabler/core/-/core-1.0.0-beta9.tgz#5ec33675a63bf8eb562b8d7ff26684e6e53d869b"
+  integrity sha512-4+QYkL+s0IXZUlJc6oNpugVIFgwXOW5HfcxSO08SKCIaa8uGBZ9OqFq5duX+IpG/PWKroEnIQO8XAGELigvK7A==
+  dependencies:
+    "@popperjs/core" "^2.11.2"
+    "@tabler/icons" "^1.53.0"
+    bootstrap "5.1.3"
+
+"@tabler/icons@^1.53.0", "@tabler/icons@^1.55.0":
+  version "1.55.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-1.55.0.tgz#db72bddbd2be9a75405f2eab102d7d06e5a6f1d0"
+  integrity sha512-svozMn83K/93R8NZrklc8b0TtuzAVckKaYHgOu5ZRCeGwoyGPUCgeWd3/cTFoE0eUaJ4KwhqU1eXa2yJ8KcT5w==
+
+bootstrap@5.1.3, bootstrap@^5.1.3:
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.1.3.tgz#ba081b0c130f810fa70900acbc1c6d3c28fa8f34"
   integrity sha512-fcQztozJ8jToQWXxVuEyXWW+dSo8AiXWKwiSSrKWsRB/Qt+Ewwza+JWoLKiTuQLaEPhdNAJ7+Dosc9DOIqNy7Q==
@@ -248,6 +267,13 @@ spark-md5@^3.0.1:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/spark-md5/-/spark-md5-3.0.2.tgz#7952c4a30784347abcee73268e473b9c0167e3fc"
   integrity sha512-wcFzz9cDfbuqe0FZzfi2or1sgyIrsDwmPwfZC4hiNidPdPINjeUwNfv5kldczoEAcjl9Y1L3SM7Uz2PUEQzxQw==
+
+tom-select@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/tom-select/-/tom-select-2.0.1.tgz#e3a6e6de61070274f746543f177107970a36b878"
+  integrity sha512-HTFf0OTwA2k8YCUqIZOenvr+ZrV4LMOUjCn3n5XS8wIpigcxKVvs5XRhBSGedhRJ8s+VmemIqy6rnabgBYX+6w==
+  dependencies:
+    "@orchidjs/sifter" "^0.9.1"
 
 trix@^2.0.0-alpha.0:
   version "2.0.0-alpha.0"

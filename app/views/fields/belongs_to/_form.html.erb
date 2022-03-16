@@ -16,7 +16,7 @@ that displays all possible records to associate with.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/BelongsTo
 %>
 
-<div class="form-group">
+<div class="form-group" data-controller='select'>
   <%= f.label field.permitted_attribute %>
   <%= f.hint field.permitted_attribute %>
   <%= f.select(field.permitted_attribute,

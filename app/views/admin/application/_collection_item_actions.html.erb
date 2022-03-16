@@ -5,22 +5,22 @@
 
 <% if actions.include?(true) %>
   <td class="cell-action" data-label="Actions">
-    <div class="btn-group" role="group">
+    <div class="btn-list flex-nowrap" role="group">
     
       <% if valid_action? :edit, collection_presenter.resource_name %>
         <%= link_to(
           t("administrate.actions.edit"),
           [:edit, namespace, resource],
-          class: "btn-sm action-edit",
+          class: "btn action-edit",
           target: '_top'
           ) if show_action? :edit, resource%>
       <% end %>
 
       <div class="dropdown">
-        <a href="#" class="dropdown-ellipses dropdown-toggle" role="button" 
+        <button class="btn dropdown-toggle align-text-top" role="button" 
             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fe fe-more-vertical"></i>
-        </a>
+          Actions
+        </button>
         <div class="dropdown-menu dropdown-menu-end">
 
           <% if valid_action? :destroy, collection_presenter.resource_name %>
