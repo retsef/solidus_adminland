@@ -1,6 +1,6 @@
 <% if association %>
   <% field_key = model.ransackable_scopes.include?(field) ? field : "#{field}_id_in" %>
-  <% desc = association.klass.method_defined?(:admin_label) ? :admin_label : :to_s %>
+  <% desc = association.klass.method_defined?(:dashboard_display_name) ? :dashboard_display_name : :to_s %>
   <% collection = association.klass.send(association.klass.respond_to?(:admin_scope) ? :admin_scope : :all) %>
 
   <div class="form-group">

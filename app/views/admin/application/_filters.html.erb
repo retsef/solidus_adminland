@@ -38,29 +38,29 @@
 					<% case input_type %>
 					<% when 'Administrate::Field::BelongsTo' %>
 					<% association = model.reflections[field.to_s] %>
-					<%= render 'admin/filters/components/field_belongs_to', form: f, model: model, field: field, label: label, association: association %>
+					<%= render 'admin/filters/field_belongs_to', form: f, model: model, field: field, label: label, association: association %>
 					<% when 'Administrate::Field::Boolean' %>
-					<%= render 'admin/filters/components/field_boolean', form: f, model: model, field: field, label: label %>
+					<%= render 'admin/filters/field_boolean', form: f, model: model, field: field, label: label %>
 					<% when 'Administrate::Field::Date' %>
-					<%= render 'admin/filters/components/field_date', form: f, model: model, field: field, label: label %>
+					<%= render 'admin/filters/field_date', form: f, model: model, field: field, label: label %>
 					<% when 'Administrate::Field::DateTime' %>
-					<%= render 'admin/filters/components/field_datetime', form: f, model: model, field: field, label: label %>
+					<%= render 'admin/filters/field_datetime', form: f, model: model, field: field, label: label %>
 					<% when 'Administrate::Field::Email', 'Administrate::Field::String', 'Administrate::Field::Text' %>
-					<%= render 'admin/filters/components/field_string', form: f, model: model, field: field, label: label %>
+					<%= render 'admin/filters/field_string', form: f, model: model, field: field, label: label %>
 					<% when 'Administrate::Field::Number' %>
-					<%= render 'admin/filters/components/field_number', form: f, model: model, field: field, label: label %>
+					<%= render 'admin/filters/field_number', form: f, model: model, field: field, label: label %>
 					<% when 'Administrate::Field::HasMany' %>
 					<% association = model.reflections[field.to_s] %>
-					<%= render 'admin/filters/components/field_has_many', form: f, model: model, field: field, label: label, association: association %>
+					<%= render 'admin/filters/field_has_many', form: f, model: model, field: field, label: label, association: association %>
 					<% when 'Administrate::Field::Select' %>
-					<%= render 'admin/filters/components/field_select', form: f, model: model, field: field, label: label, type: type %>
+					<%= render 'admin/filters/field_select', form: f, model: model, field: field, label: label, type: type %>
 					<% else %>
-					<%= render 'admin/filters/components/field_other', form: f, model: model, field: field, label: label, type: type %>
+					<%= render 'admin/filters/field_other', form: f, model: model, field: field, label: label, type: type %>
 					<% end %>
 				</div>
 			<% end %>
 		</div>
 
-		<%= render 'admin/filters/components/filter_buttons', form: f, clear_filters_path: clear_filters_path %>
+		<%= render 'admin/filters/filter_buttons', form: f, clear_filters_path: clear_filters_path %>
 	</div>
 <% end %>

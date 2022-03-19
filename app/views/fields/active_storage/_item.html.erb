@@ -30,14 +30,14 @@ controlled via a boolean local variable.
 <% end %>
 
 <div>
-  <%= link_to attachment.filename, field.blob_url(attachment), title: attachment.filename %>
+  <%= link_to attachment.filename, field.blob_url(attachment), title: attachment.filename, target: '_top' %>
 </div>
 
 <% if field.destroy_url.present? %>
   <% destroy_url = field.destroy_url.call(namespace, field.data.record, attachment) %>
   <div>
     <%= link_to I18n.t("administrate.fields.active_storage.remove", default: 'Remove'),
-                destroy_url, method: :delete, class: 'remove-attachment-link', data: { confirm: t("administrate.actions.confirm") } %>
+                destroy_url, method: :delete, class: 'remove-attachment-link', target: '_top', data: { confirm: t("administrate.actions.confirm") } %>
   </div>
   <hr>
 <% end %>
