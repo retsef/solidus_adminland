@@ -16,23 +16,6 @@ module Admin
       resource_class.new(new_resource_params)
     end
 
-    def create
-      resource = new_resource
-      resource.assign_attributes(resource_params)
-      authorize_resource(resource)
-
-      if resource.save
-        redirect_to(
-          after_resource_created_path(resource),
-          notice: translate_with_resource('create.success')
-        )
-      else
-        render :new, locals: {
-          page: Administrate::Page::Form.new(dashboard, resource)
-        }, status: :unprocessable_entity
-      end
-    end
-
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #

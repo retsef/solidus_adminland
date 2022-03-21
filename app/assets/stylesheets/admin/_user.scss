@@ -25,6 +25,10 @@
   object-position: center;
 }
 
+.border-dashed {
+  border-style: dashed;
+}
+
 // Active Storage Field
 
 .attachments-listing, .cell-data.cell-data--active-storage {

@@ -29,7 +29,7 @@ It displays a header, and renders the `_form` partial to do the heavy lifting.
       </div>
     </header>
 
-    <section class="main-content__body" id="form_body">
+    <section class="main-content__body" id="<%= dom_id(page.resource, :form_body) %>">
       <%= render "form", page: page %>
     </section>
   </div>

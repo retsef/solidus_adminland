@@ -28,8 +28,7 @@
               t("administrate.actions.destroy"),
               [namespace, resource],
               class: "text-danger dropdown-item",
-              method: :delete,
-              data: { confirm: t("administrate.actions.confirm") }
+              data: { turbo_method: :delete, turbo_confirm: t("administrate.actions.confirm"), turbo_action: "replace" }
               ) if show_action? :destroy, resource %>
           <% end %>
 

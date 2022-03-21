@@ -22,24 +22,9 @@ to do the heavy lifting.
   ) %>
 <% end %>
 
-<div class="row justify-content-center">
-  <div class="col-12 col-lg-10">
-    <!-- Header -->
-    <header class="page-header d-print-none" role="banner">
-      <div class="row g-3 align-items-center">
-        <div class="col">
-          <!-- Pretitle -->
-          <div class="page-pretitle">
-            <%= link_to t("administrate.actions.back"), :back %>
-          </div>
-          <!-- Title -->
-          <h1 class="page-title text-truncate"><%= content_for(:title) %></h1>
-        </div>
-      </div>
-    </header>
-
+<%= render "modal_edit", title: content_for(:title) do %>
     <section class="main-content__body" id="<%= dom_id(page.resource, :form_body) %>">
       <%= render "form", page: page %>
     </section>
   </div>
-</div>
+<% end %>

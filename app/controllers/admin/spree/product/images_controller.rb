@@ -13,7 +13,7 @@ module Admin
     end
 
     def new_resource
-      resource_class.new
+      resource_class.new(viewable: parent_page.resource.master)
     end
 
     # Overwrite any of the RESTful controller actions to implement custom behavior

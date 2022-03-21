@@ -40,6 +40,28 @@ window.Tab = Tab;
 window.Toast = Toast;
 window.Tooltip = Tooltip;
 
+/*
+const newConfirmMethod = async (message, formElement) => {
+  let confirmModal = new Modal(document.getElementById('confirm_modal'));
+  confirmModal.show();
+
+  let titleElement = confirmModal._element.querySelector('.modal-title');
+  titleElement.innerText = ''
+
+  let p = confirmModal._element.querySelector('.modal-body p')
+  p.innerText = message;
+
+  return new Promise((resolve, reject) => {
+    const confirmButton = confirmModal._element.querySelector('.confirm');
+    const cancelButton = confirmModal._element.querySelector('.cancel');
+    confirmButton.addEventListener('click', () => { resolve(true) });
+    cancelButton.addEventListener('click', () => { resolve(false) });
+  });
+};
+*/
+
+// Turbo.setConfirmMethod(newConfirmMethod);
+
 import LocalTime from "local-time-cdn"
 LocalTime.start()
 

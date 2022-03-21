@@ -1,0 +1,55 @@
+<%#
+# Form Partial
+
+This partial is rendered on a resource's `new` and `edit` pages,
+and renders all form fields for a resource's editable attributes.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Form][1].
+  Contains helper methods to display a form,
+  and knows which attributes should be displayed in the resource's form.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
+%>
+
+<%= form_for([namespace, parent_page.resource, page.resource], html: { class: "form" }) do |f| %>
+  <% if page.resource.errors.any? %>
+    <div id="error_explanation" class="form-errors alert alert-danger" role="alert">
+      <h4 class="alert-title">
+        <%= t(
+          "administrate.form.errors",
+          pluralized_errors: pluralize(page.resource.errors.count, t("administrate.form.error")),
+          resource_name: display_resource_name(page.resource_name, singular: true)
+        ) %>
+      </h4>
+      <hr>
+      <ul>
+        <% page.resource.errors.full_messages.each do |message| %>
+          <li class="flash-error align-items-center">
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-body">
+    <% page.attributes(controller.action_name).each do |attribute| -%>
+      <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+        <% unless attribute.editable_inline? %>
+          <%= render_field attribute, f: f %>
+        <% else %>
+          <%= render('inline_fields', form: f, attribute: attribute.name, namespace: namespace) do %>
+            <%= render_field attribute, f: f %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end -%>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit class: "btn w-100 btn-primary" %>
+  </div>
+<% end %>

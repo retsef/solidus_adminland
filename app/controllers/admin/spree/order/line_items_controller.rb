@@ -20,7 +20,8 @@ module Admin
       if resource.valid?
         redirect_to(
           after_resource_created_path(resource),
-          notice: translate_with_resource('create.success')
+          notice: translate_with_resource('create.success'),
+          status: :see_other
         )
       else
         render :new, locals: {
@@ -44,7 +45,8 @@ module Admin
       if requested_parent_resource.contents.update_cart(line_items_attributes: line_items_attributes)
         redirect_to(
           after_resource_updated_path(requested_resource),
-          notice: translate_with_resource('update.success')
+          notice: translate_with_resource('update.success'),
+          status: :see_other
         )
       else
         render :edit, locals: {
@@ -61,7 +63,7 @@ module Admin
       # else
       #   flash[:error] = requested_resource.errors.full_messages.join('<br/>')
       # end
-      redirect_to after_resource_destroyed_path(requested_resource)
+      redirect_to after_resource_destroyed_path(requested_resource), status: :see_other
     end
 
     # def update

@@ -21,8 +21,7 @@
           t("administrate.actions.destroy"),
           [namespace, parent_resource, resource],
           class: "btn btn-sm btn-outline-danger",
-          method: :delete,
-          data: { confirm: t("administrate.actions.confirm") }
+          data: { turbo_method: :delete, turbo_confirm: t("administrate.actions.confirm"), turbo_action: "replace" }
           ) if show_action? :destroy, resource %>
       <% end %>
     </div>

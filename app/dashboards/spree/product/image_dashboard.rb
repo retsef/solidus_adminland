@@ -50,16 +50,13 @@ class Spree::Product::ImageDashboard < Spree::Product::BaseDashboard
   ].freeze
 
   FORM_ATTRIBUTES_NEW = %i[
-    viewable
-    position
     attachment
     alt
   ].freeze
 
   FORM_ATTRIBUTES_EDIT = %i[
-    position
-    alt
     attachment
+    alt
   ].freeze
 
   # COLLECTION_FILTERS
