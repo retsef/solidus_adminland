@@ -56,12 +56,20 @@ The initial design is made with bootstrap 5 with [Tabler](https://github.com/tab
 - [ ] Products CRUD
   - [ ] Variants CRUD
   - [ ] Prices CRUD
-  - [ ] Images
+  - [ ] Images CRUD
+  - [ ] Stocks CRUD
+
+- [ ] Variants CRUD
+  - [ ] Prices CRUD
+  - [ ] Images CRUD
+  - [ ] Stocks CRUD
 
 - [ ] Orders CRUD
   - [ ] Line Items CRUD
   - [ ] Customer info CRUD
   - [ ] Payments CRUD
+  - [ ] Refunds CRUD
+  - [ ] RMA CRUD
 
 - [ ] Promotions CRUD
   - [ ] Promotion Codes CRUD
