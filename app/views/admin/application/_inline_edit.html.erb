@@ -3,8 +3,9 @@
   <%= turbo_frame_tag frame_id, class: 'inline-edit' do %>
     <%= yield %>
 
-    <%= link_to polymorphic_path([:edit, namespace, resource]), class: 'inline-action' do %>
+    <%= link_to polymorphic_path([:edit, namespace, resource]), class: 'btn btn-sm btn-ghost-primary inline-action' do %>
       <i class="icon ti ti-edit"></i>
+      Modifica
     <% end %>
   <% end %>
 <% end %>

@@ -2,13 +2,15 @@
 <%= turbo_frame_tag frame_id, class: 'contents' do %>
   <%= yield %>
 
-  <%= form.button class: 'btn btn-sm text-primary inline-action' do %>
-    <span>Save</span>
-    <i class="icon ti ti-check"></i>
-  <% end %>
+  <div class="inline-actions mt-3 mb-3">
+    <%= form.button class: 'btn btn-sm btn-ghost-success inline-action' do %>
+      <i class="icon ti ti-check"></i>
+      Save
+    <% end %>
 
-  <%= link_to polymorphic_path([namespace, form.object]), class: 'btn btn-sm text-danger inline-action' do %>
-    <span>Cancel</span>
-    <i class="icon ti ti-x"></i>
-  <% end %>
+    <%= link_to polymorphic_path([namespace, form.object]), class: 'btn btn-sm btn-ghost-danger inline-action' do %>
+      <i class="icon ti ti-x"></i>
+      Cancel
+    <% end %>
+  </div>
 <% end %>

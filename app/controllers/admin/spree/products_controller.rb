@@ -10,6 +10,10 @@ module Admin
     #   send_foo_updated_email(requested_resource)
     # end
 
+    def show
+      redirect_to [:edit, namespace, requested_resource], status: :moved_permanently
+    end
+
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
     # actions.
@@ -44,5 +48,15 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
+
+    private
+
+    def after_resource_created_path(requested_resource)
+      [:edit, namespace, requested_resource]
+    end
+
+    def after_resource_updated_path(requested_resource)
+      [:edit, namespace, requested_resource]
+    end
   end
 end

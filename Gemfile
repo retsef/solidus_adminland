@@ -80,6 +80,7 @@ group :development do
   gem 'rubocop-rails', require: false
 
   gem 'rubycritic', require: false
+  gem 'erb_lint', require: false
 
   gem 'overcommit', require: false
 end

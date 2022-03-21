@@ -26,6 +26,33 @@ module Administrate::Page::BaseOverride
       # @resource_path ||= resource_name.gsub("/", "_")
       @resource_path ||= resource_class.model_name.singular_route_key # route_key
     end
+
+    # Resource siblings navigation
+    def resource_pointer
+      @resource_pointer ||= resource.seek([:id, :asc])
+    end
+
+    def next_resource
+      @next_resource ||= resource_pointer.next
+    end
+
+    def next_resource?
+      return false unless next_resource
+      return false unless next_resource == resource
+
+      true
+    end
+
+    def prev_resource
+      @prev_resource ||= resource_pointer.previous
+    end
+
+    def prev_resource?
+      return false unless prev_resource
+      return false unless prev_resource == resource
+
+      true
+    end
   end
 end
 

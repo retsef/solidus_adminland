@@ -1,0 +1,175 @@
+<%#
+# Form Partial
+
+This partial is rendered on a resource's `new` and `edit` pages,
+and renders all form fields for a resource's editable attributes.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Form][1].
+  Contains helper methods to display a form,
+  and knows which attributes should be displayed in the resource's form.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
+%>
+
+<%= form_for([namespace, parent_page.resource, page.resource], html: { class: "form mb-3 mt-3" }) do |f| %>
+  <% if page.resource.errors.any? %>
+    <div id="error_explanation" class="form-errors alert alert-danger" role="alert">
+      <h4 class="alert-title">
+        <%= t(
+          "administrate.form.errors",
+          pluralized_errors: pluralize(page.resource.errors.count, t("administrate.form.error")),
+          resource_name: display_resource_name(page.resource_name, singular: true)
+        ) %>
+      </h4>
+      <hr>
+      <ul>
+        <% page.resource.errors.full_messages.each do |message| %>
+          <li class="flash-error align-items-center">
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <%= render('summary',
+          page: parent_page,
+          resource: parent_page.resource) %>
+    </div>
+    <div class="col-12 col-md-8">
+      <div class="form-body">
+        <%- attributes = page.attributes(controller.action_name) %>
+
+        <!-- Main Variant Content -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="card-title">Opzioni</h3>
+            <% content_attributes = %i[option_values] %>
+            <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+              <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                <%= render_field attribute, f: f %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Variant Prices -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="card-title">Prezzi</h3>
+            <% content_attributes = %i[price cost_price cost_currency tax_category] %>
+            <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+              <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                <%= render_field attribute, f: f %>
+              </div>
+            <% end %>
+
+            <% if page.resource.persisted? %>
+              <turbo-frame id="<%= dom_id(page.resource, "prices") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Price]) %>">
+                <div class="row w-100">
+                  <% 3.times do %>
+                    <div class="col-12 col-md-4">
+                      <div class="card skeleton">
+                        <div class="card-body"></div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </turbo-frame>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Variant Images -->
+        <% if page.resource.persisted? %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h3 class="card-title">Contenuti Multimediali</h3>
+              <turbo-frame id="<%= dom_id(page.resource, "images") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Image]) %>">
+                <div class="row w-100">
+                  <% 3.times do %>
+                    <div class="col-12 col-md-4">
+                      <div class="card skeleton">
+                        <div class="card-body"></div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </turbo-frame>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Variant Stocks -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="card-title">Scorte</h3>
+            <% content_attributes = %i[sku track_inventory] %>
+            <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+              <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                <%= render_field attribute, f: f %>
+              </div>
+            <% end %>
+          </div>
+          <% if page.resource.persisted? %>
+            <turbo-frame id="<%= dom_id(page.resource, "stocks") %>" src="/">
+              <div class="card-body">
+                <div class="row w-100">
+                  <% 3.times do %>
+                    <div class="col-12 col-md-4">
+                      <div class="card skeleton">
+                        <div class="card-body"></div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </turbo-frame>
+          <% end %>
+        </div>
+
+        <!-- Variant Shipping -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="card-title">Spedizione</h3>
+            <% content_attributes = %i[height width depth weight] %>
+            <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+              <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                <%= render_field attribute, f: f %>
+              </div>
+            <% end %>
+          </div>
+          <% if page.resource.persisted? %>
+            <turbo-frame id="<%= dom_id(page.resource, "stocks") %>" src="/">
+              <div class="card-body">
+                <div class="row w-100">
+                  <% 3.times do %>
+                    <div class="col-12 col-md-4">
+                      <div class="card skeleton">
+                        <div class="card-body"></div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </turbo-frame>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <hr/>
+    <% if valid_action? :destroy, page.resource_name %>
+      <%= link_to 'Delete', [namespace, parent_page.resource, page.resource], method: :delete, class: 'btn btn-outline-danger' %>
+    <% end %>
+
+    <%= f.submit class: "btn btn-primary float-end" %>
+  </div>
+<% end %>

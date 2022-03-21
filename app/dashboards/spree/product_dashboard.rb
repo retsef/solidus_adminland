@@ -8,7 +8,7 @@ class Spree::ProductDashboard < Spree::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
-    description: Field::Text,
+    description: Field::ActionText,
     available_on: Field::DateTime,
     discontinue_on: Field::DateTime,
     slug: Field::String,

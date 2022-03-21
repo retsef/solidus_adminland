@@ -1,9 +1,9 @@
 <%#
-# New
+# new
 
-This view is the template for the "new resource" page.
-It displays a header, and then renders the `_form` partial
-to do the heavy lifting.
+This view is the template for the new page.
+
+It displays a header, and renders the `_form` partial to do the heavy lifting.
 
 ## Local variables:
 
@@ -15,25 +15,16 @@ to do the heavy lifting.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
 %>
 
-<% content_for(:title) do %>
-  <%= t(
-    "administrate.actions.new_resource",
-    name: display_resource_name(page.resource_name).titleize
-  ) %>
-<% end %>
+<% content_for(:title) { t("administrate.actions.new_resource", name: page.page_title) } %>
 
 <div class="row justify-content-center">
   <div class="col-12 col-lg-10">
     <!-- Header -->
     <header class="page-header d-print-none" role="banner">
-      <div class="row g-3 align-items-center">
+      <div class="row g-2 align-items-center">
         <div class="col">
-          <!-- Pretitle -->
-          <div class="page-pretitle">
-            <%= link_to t("administrate.actions.back"), :back %>
-          </div>
           <!-- Title -->
-          <h1 class="page-title text-truncate"><%= content_for(:title) %></h1>
+          <h2 class="page-title text-truncate"><%= content_for(:title) %></h2>
         </div>
       </div>
     </header>

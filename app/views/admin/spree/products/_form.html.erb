@@ -1,0 +1,224 @@
+<%#
+# Form Partial
+
+This partial is rendered on a resource's `new` and `edit` pages,
+and renders all form fields for a resource's editable attributes.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Form][1].
+  Contains helper methods to display a form,
+  and knows which attributes should be displayed in the resource's form.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
+%>
+
+<%= form_for([namespace, page.resource], html: { class: "form mb-3 mt-3" }) do |f| %>
+  <% if page.resource.errors.any? %>
+    <div id="error_explanation" class="form-errors alert alert-danger" role="alert">
+      <h4 class="alert-title">
+        <%= t(
+          "administrate.form.errors",
+          pluralized_errors: pluralize(page.resource.errors.count, t("administrate.form.error")),
+          resource_name: display_resource_name(page.resource_name, singular: true)
+        ) %>
+      </h4>
+      <ul>
+        <% page.resource.errors.full_messages.each do |message| %>
+          <li class="flash-error align-items-center">
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-body mt-3 mb-3">
+    <div class="row">
+      <%- attributes = page.attributes(controller.action_name) %>
+
+      <!-- Content -->
+      <div class="col-12 col-md-8">
+
+        <!-- Main Product Content -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <% content_attributes = %i[name description] %>
+            <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+              <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                <%= render_field attribute, f: f %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Product Images -->
+        <% if page.resource.persisted? %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h3 class="card-title">Contenuti Multimediali</h3>
+              <turbo-frame id="<%= dom_id(page.resource, "images") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Image]) %>">
+                <div class="row w-100">
+                  <% 3.times do %>
+                    <div class="col-12 col-md-4">
+                      <div class="card skeleton">
+                        <div class="card-body"></div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </turbo-frame>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Product Prices -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="card-title">Prezzi</h3>
+            <% content_attributes = %i[price cost_price cost_currency] %>
+            <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+              <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                <%= render_field attribute, f: f %>
+              </div>
+            <% end %>
+
+            <% if page.resource.persisted? %>
+              <turbo-frame id="<%= dom_id(page.resource, "prices") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Price]) %>">
+                <div class="row w-100">
+                  <% 3.times do %>
+                    <div class="col-12 col-md-4">
+                      <div class="card skeleton">
+                        <div class="card-body"></div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </turbo-frame>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Product Stocks -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="card-title">Scorte</h3>
+            <% content_attributes = %i[sku] %>
+            <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+              <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                <%= render_field attribute, f: f %>
+              </div>
+            <% end %>
+          </div>
+          <% if page.resource.persisted? %>
+            <turbo-frame id="<%= dom_id(page.resource, "stocks") %>" src="/">
+              <div class="card-body">
+                <div class="row w-100">
+                  <% 3.times do %>
+                    <div class="col-12 col-md-4">
+                      <div class="card skeleton">
+                        <div class="card-body"></div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </turbo-frame>
+          <% end %>
+        </div>
+        
+        <!-- Product Shippings -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="card-title">Spedizione</h3>
+            <% content_attributes = %i[height width depth weight] %>
+            <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+              <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                <%= render_field attribute, f: f %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Product Properties -->
+        <% if page.resource.persisted? %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h3 class="card-title">Opzioni</h3>
+              <% content_attributes = %i[product_properties] %>
+              <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+                <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                  <%= render_field attribute, f: f %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Product Variants -->
+        <% if page.resource.persisted? %>
+          <div class="card mb-3">
+            <div class="card-header">
+              <h3 class="card-title">Varianti</h3>
+            </div>
+            <turbo-frame id="<%= dom_id(page.resource, "variants") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Variant]) %>">
+              <div class="card-body">
+                <div class="row w-100">
+                  <% 3.times do %>
+                    <div class="col-12 col-md-4">
+                      <div class="card skeleton">
+                        <div class="card-body"></div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </turbo-frame>
+          </div>
+        <% end %>
+        
+        <!-- Product SEO -->
+        <%= render 'admin/spree/products/components/seo', f: f, attributes: attributes, page: page %>
+
+      </div>
+
+      <!-- Side content -->
+      <div class="col-12 col-md-4">
+        <!-- Available -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="card-title">Disponibilità</h3>
+            <% content_attributes = %i[available_on discontinue_on] %>
+            <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+              <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                <%= render_field attribute, f: f %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="card mb-3 bg-light-lt">
+          <div class="card-body text-black">
+            <h3 class="card-title">Organizzazione dei prodotti</h3>
+            <% content_attributes = %i[taxons tax_category shipping_category] %>
+            <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+              <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                <%= render_field attribute, f: f %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <hr/>
+    <% if valid_action? :destroy, page.resource_name %>
+      <%= link_to 'Delete', [namespace, page.resource], method: :delete, class: 'btn btn-outline-danger' %>
+    <% end %>
+
+    <%= f.submit class: "btn btn-primary float-end" %>
+  </div>
+<% end %>

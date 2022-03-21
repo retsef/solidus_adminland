@@ -8,6 +8,7 @@ export default class extends Controller {
 
   initialize() {
     this.config = {
+      plugins: this.plugins,
       create: false,
       sortField: {
         field: "text",
@@ -33,16 +34,40 @@ export default class extends Controller {
     // this.inputTarget.value = value
   }
 
-  get removeItemButton() {
+  get isMultiple() {
     return this.inputTarget.hasAttribute('multiple');
   }
 
+  get isSingle() {
+    return !this.isMultiple;
+  }
+
+  get allowRemoveItemButton() {
+    return this.isMultiple;
+  }
+
   get allowEmptyOption() {
-    return !this.inputTarget.hasAttribute('multiple');
+    return false;
+    // return !this.inputTarget.hasAttribute('multiple');
   }
 
   get placeholder() {
     return this.inputTarget.getAttribute('placeholder') || 'Select a value...';
+  }
+
+  get plugins() {
+    var _plugins = [];
+
+    if(this.allowRemoveItemButton) {
+      _plugins.push('remove_button');
+    }
+
+    if(this.isSingle) {
+      _plugins.push('clear_button');
+    }
+
+    return _plugins;
+    // return ['remove_button', 'clear_button'];
   }
 
   callbackOnCreateTemplates(template) {

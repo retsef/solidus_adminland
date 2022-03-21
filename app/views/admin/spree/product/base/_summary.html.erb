@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row align-items-center">
+      <div class="col-auto">
+        <!-- Avatar -->
+        <%- gallery = page.resource.gallery.images %>
+        <%- image_src = gallery.any? && gallery.first.attachment.attached? ? url_for(gallery.first.attachment) : image_path('admin/default-placeholder.png') %>
+        <img src="<%= image_src %>" alt="<%= parent_page.resource.name %>" class="avatar avatar-lg">
+      </div>
+      <div class="col">
+        <% content_attributes = %i[name] %>
+        <% page.attributes.select{|a| content_attributes.include? a.attribute}.each do |attribute| %>
+          <div class="attribute-data attribute-data--<%=attribute.html_class%>">
+            <%= render_field attribute, page: page %>
+          </div>
+        <% end %>
+
+        <%= link_to 'Back to product', polymorphic_path([namespace, page.resource]), class: 'btn-link', target: '_top' %>
+      </div>
+    </div>
+
+  </div>
+</div>

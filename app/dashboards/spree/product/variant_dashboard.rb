@@ -44,12 +44,10 @@ class Spree::Product::VariantDashboard < Spree::Product::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    position
-    sku
     option_values
     price
     inventory_units
-    is_master
+    sku
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES

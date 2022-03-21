@@ -1,0 +1,125 @@
+//
+// Provides a drop-in pointer for the default Trix stylesheet that will format the toolbar and
+// the trix-editor content (whether displayed or under editing). Feel free to incorporate this
+// inclusion directly in any other asset bundle and remove this file.
+//
+@import "trix/dist/trix";
+
+// We need to override trix.css’s image gallery styles to accommodate the
+// <action-text-attachment> element we wrap around attachments. Otherwise,
+// images in galleries will be squished by the max-width: 33%; rule.
+
+trix-toolbar {
+  padding: .5rem .75rem;
+  background-color: #fff;
+  border: 1px solid #d9dbde;
+  border-radius: .375rem .375rem 0 0;
+
+  overflow-y: auto;
+
+  .trix-button-group {
+    margin: 0;
+    border: 0;
+
+    .trix-button {
+      border: 0;
+
+      &.trix-active {
+        fill: #cbeefa;
+        color: #cbeefa;
+      }
+    }
+  }
+
+  .trix-button-row {
+    overflow-y: hidden;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar{
+      -webkit-overflow-scrolling: auto;
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb{
+      border-radius: 4px;
+      background-color: rgba(201, 201, 201, 0.11);
+      box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  button.underline {
+    font-size: 18px;
+    vertical-align: bottom;
+    text-decoration: underline;
+  }
+
+  .trix-dialogs {
+    position: absolute;
+    width: 100%;
+  }
+
+  .trix-dialog {
+    background-color: #fff;
+    border: 1px solid rgba(18,38,63,.2);
+    border-radius: .5rem;
+    padding: .5rem .75rem;
+    margin-top: .6rem;
+    box-shadow: 0 0 1rem rgba(18,38,63,.03);
+
+    /*
+    &:before {
+      border-bottom: .6rem solid rgba(18,38,63,.2);
+      border-left: .6rem solid transparent;
+      border-right: .6rem solid transparent
+    }
+    */
+  }
+
+  .trix-dialog__link-fields {
+    .trix-input {
+      border: 0;
+    }
+
+    .trix-button-group {
+      .trix-button.trix-button--dialog {
+        color: var(--tblr-primary);
+      }
+    }
+  }
+}
+
+trix-editor {
+  min-height: 15em;
+  height: auto;
+  border: 1px solid #d9dbde;
+
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.trix-content {
+  .attachment-gallery {
+    > action-text-attachment,
+    > .attachment {
+      flex: 1 0 33%;
+      padding: 0 0.5em;
+      max-width: 33%;
+    }
+
+    &.attachment-gallery--2,
+    &.attachment-gallery--4 {
+      > action-text-attachment,
+      > .attachment {
+        flex-basis: 50%;
+        max-width: 50%;
+      }
+    }
+  }
+
+  action-text-attachment {
+    .attachment {
+      padding: 0 !important;
+      max-width: 100% !important;
+    }
+  }
+}
