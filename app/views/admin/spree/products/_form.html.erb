@@ -179,7 +179,22 @@ and renders all form fields for a resource's editable attributes.
         <% end %>
         
         <!-- Product SEO -->
-        <%= render 'admin/spree/products/components/seo', f: f, attributes: attributes, page: page %>
+        <% seo_attributes = %i[meta_title meta_description meta_keywords slug] %>
+        <% if attributes.detect{|a| seo_attributes.include? a.attribute } %>
+          <div class="card mt-3 mb-3">
+            <div class="card-body">
+              <h3 class="card-title mb-3">Anteprima inserzione per i motori di ricerca</h3>
+              <%= render Admin::Product::SeoPreview::Component.new(resource: page.resource) %>
+            </div>
+            <div class="card-body">
+              <% attributes.select{|a| seo_attributes.include? a.attribute }.each do |attribute| %>
+                <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                  <%= render_field attribute, f: f %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
 
       </div>
 
