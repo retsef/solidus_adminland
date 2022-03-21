@@ -5,8 +5,7 @@ module Administrate::Page::BaseOverride
 
   included do
     def resource_class_name
-      @resource_class_name ||= dashboard.resource_class_name.to_s if dashboard.respond_to? :resource_class_name
-      @resource_class_name ||= relative_resource_class_name
+      @resource_class_name ||= dashboard.try(:resource_class_name) || relative_resource_class_name
     end
 
     def relative_resource_class_name
