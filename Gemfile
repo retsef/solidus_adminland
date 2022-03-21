@@ -81,6 +81,7 @@ group :development do
 
   gem 'rubycritic', require: false
   gem 'erb_lint', require: false
+  gem 'reek', require: false
 
   gem 'overcommit', require: false
 end
