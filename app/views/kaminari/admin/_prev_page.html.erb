@@ -8,8 +8,8 @@
 -%>
 <li class="page-item prev">
   <%= link_to url, rel: 'prev', disable: current_page.last?, remote: remote,
-      class: "page-link btn-link ps-0 pe-4 border-end #{'disabled' if current_page.first?}" do %>
-    <i class="icon ti ti-arrow-left me-1"></i>
+      class: "page-link #{'disabled' if current_page.first?}" do %>
+    <i class="icon ti ti-chevron-left"></i>
     <%= t('views.pagination.previous') %>
   <% end %>
 </li>

@@ -5,4 +5,8 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<li class="page-item gap"><%= t('views.pagination.truncate').html_safe %></li>
+<li class="page-item gap">
+  <a class="page-link" href="#">
+    <%= t('views.pagination.truncate').html_safe %>
+  </a>
+</li>

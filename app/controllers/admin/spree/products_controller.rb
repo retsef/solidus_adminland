@@ -14,6 +14,19 @@ module Admin
       redirect_to [:edit, namespace, requested_resource], status: :moved_permanently
     end
 
+    def clone
+      new_resource = requested_resource.duplicate
+      authorize_resource(new_resource)
+
+      if new_resource.save
+        redirect_to(after_resource_created_path(new_resource), notice: translate_with_resource('create.success'), status: :see_other)
+      else
+        render :new, locals: {
+          page: Administrate::Page::Form.new(dashboard, new_resource)
+        }, status: :unprocessable_entity
+      end
+    end
+
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
     # actions.

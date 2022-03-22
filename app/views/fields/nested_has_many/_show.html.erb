@@ -27,8 +27,11 @@ from the associated resource class's dashboard.
     ) %>
     
     <% if field.more_than_limit? %>
-      <div class="card-footer">
-        <%= paginate field.resources(page_number), param_name: "#{field.name}[page]" %>
+      <div class="card-footer d-flex align-items-center">
+        <p class="m-0 text-muted d-none">
+          Showing <span>1</span> to <span>15</span> of <span>15</span> entries
+        </p>
+        <%= paginate field.resources(page_number), param_name: "#{field.name}[page]", theme: :admin %>
       </div>
     <% end %>
   </section>

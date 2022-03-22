@@ -14,7 +14,7 @@ and renders all form fields for a resource's editable attributes.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
 %>
 
-<%= form_for([namespace, parent_page.resource, page.resource], html: { class: "form mb-3 mt-3" }) do |f| %>
+<%= form_for([namespace, parent_page.resource, page.resource], html: { class: "form mb-3 mt-3", data: { turbo_action: "replace" } }) do |f| %>
   <% if page.resource.errors.any? %>
     <div id="error_explanation" class="form-errors alert alert-danger" role="alert">
       <h4 class="alert-title">
@@ -71,13 +71,9 @@ and renders all form fields for a resource's editable attributes.
 
             <% if page.resource.persisted? %>
               <turbo-frame id="<%= dom_id(page.resource, "prices") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Price]) %>">
-                <div class="row w-100">
+                <div class="row w-100 placeholder-glow gy-1">
                   <% 3.times do %>
-                    <div class="col-12 col-md-4">
-                      <div class="card skeleton">
-                        <div class="card-body"></div>
-                      </div>
-                    </div>
+                    <div class="placeholder col-12"></div>
                   <% end %>
                 </div>
               </turbo-frame>
@@ -91,11 +87,11 @@ and renders all form fields for a resource's editable attributes.
             <div class="card-body">
               <h3 class="card-title">Contenuti Multimediali</h3>
               <turbo-frame id="<%= dom_id(page.resource, "images") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Image]) %>">
-                <div class="row w-100">
+                <div class="row w-100 placeholder-glow gy-1">
                   <% 3.times do %>
                     <div class="col-12 col-md-4">
-                      <div class="card skeleton">
-                        <div class="card-body"></div>
+                      <div class="ratio ratio-1x1 card">
+                        <div class="card-body placeholder"></div>
                       </div>
                     </div>
                   <% end %>
@@ -119,13 +115,9 @@ and renders all form fields for a resource's editable attributes.
           <% if page.resource.persisted? %>
             <turbo-frame id="<%= dom_id(page.resource, "stocks") %>" src="/">
               <div class="card-body">
-                <div class="row w-100">
+                <div class="row w-100 placeholder-glow gy-1 gy-1">
                   <% 3.times do %>
-                    <div class="col-12 col-md-4">
-                      <div class="card skeleton">
-                        <div class="card-body"></div>
-                      </div>
-                    </div>
+                    <div class="placeholder col-12"></div>
                   <% end %>
                 </div>
               </div>
@@ -147,13 +139,9 @@ and renders all form fields for a resource's editable attributes.
           <% if page.resource.persisted? %>
             <turbo-frame id="<%= dom_id(page.resource, "stocks") %>" src="/">
               <div class="card-body">
-                <div class="row w-100">
+                <div class="row w-100 placeholder-glow gy-1 gy-1">
                   <% 3.times do %>
-                    <div class="col-12 col-md-4">
-                      <div class="card skeleton">
-                        <div class="card-body"></div>
-                      </div>
-                    </div>
+                    <div class="placeholder col-12"></div>
                   <% end %>
                 </div>
               </div>

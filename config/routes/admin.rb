@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       # Products
       resources :products do
         get :export, on: :collection
+        post :clone, on: :member
 
         scope module: :product do
           resources :images

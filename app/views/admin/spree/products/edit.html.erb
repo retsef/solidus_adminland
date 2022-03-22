@@ -1,0 +1,51 @@
+<%#
+# Edit
+
+This view is the template for the edit page.
+
+It displays a header, and renders the `_form` partial to do the heavy lifting.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Form][1].
+  Contains helper methods to help display a form,
+  and knows which attributes should be displayed in the resource's form.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
+%>
+
+<% content_for(:title) { t("administrate.actions.edit_resource", name: page.page_title) } %>
+
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
+    <!-- Header -->
+    <header class="page-header d-print-none" role="banner">
+      <div class="row g-3 align-items-center">
+        <div class="col">
+          <!-- Pretitle -->
+          <div class="page-pretitle">
+            <%= link_to t("administrate.actions.back"), :back %>
+          </div>
+          <!-- Title -->
+          <h2 class="page-title">
+            <%= content_for(:title) %>
+          </h2>
+        </div>
+
+        <div class="col-auto">
+          <%= link_to(
+            t("administrate.actions.clone_resource", name: page.page_title),
+            [:clone, namespace, page.resource],
+            class: "btn btn-ghost-secondary",
+            data: { turbo_method: :post }
+          ) if valid_action?(:clone) && show_action?(:clone, page.resource) %>
+        </div>
+      </div>
+    </header>
+
+    <section class="main-content__body" id="<%= dom_id(page.resource, :form_body) %>">
+      <%= render "form", page: page %>
+    </section>
+  </div>
+</div>

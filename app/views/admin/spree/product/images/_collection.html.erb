@@ -22,38 +22,41 @@ to display a collection of resources in an HTML table.
   <div class="row row-cards">
     <% resources.each do |resource| %>
       <div class="col-sm-6 col-md-4">
-        <div class="card card-sm">
+        <div class="card card-sm ratio ratio-1x1">
           <%# if show_action? :show, resource %>
             <%# = %(tabindex=0 role=link data-url=#{polymorphic_path([namespace, resource])}) %>
           <%# end %>
-
-          <%= render_field collection_presenter.attributes_for(resource).detect {|a| a.attribute == :attachment } %>
-
-          <%= render(
-            "collection_item_actions",
-            collection_presenter: collection_presenter,
-            collection_field_name: collection_field_name,
-            page: page,
-            parent_page: parent_page,
-            resource: resource,
-            parent_resource: parent_page.resource,
-            namespace: namespace,
-            table_title: "page-title"
-          ) %>
+          <div class="card-body">
+            <%= render_field collection_presenter.attributes_for(resource).detect {|a| a.attribute == :attachment } %>
+          
+            <%= render(
+              "collection_item_actions",
+              collection_presenter: collection_presenter,
+              collection_field_name: collection_field_name,
+              page: page,
+              parent_page: parent_page,
+              resource: resource,
+              parent_resource: parent_page.resource,
+              namespace: namespace,
+              table_title: "page-title"
+            ) %>
+          </div>
         </div>
       </div>
     <% end %>
   
     <div class="col-sm-6 col-md-4">
-      <div class="card card-sm border-primary border-dashed p-4">
-        <%= link_to(
-            t(
-              "administrate.actions.new_resource",
-              name: display_resource_name(page.resource_name, singular: true).downcase
-            ),
-            [:new, namespace, parent_page.resource, page.resource_path.to_sym],
-            'data-turbo-frame': "remote_modal"
-          ) if valid_action?(:new) && show_action?(:new, new_resource) %>
+      <div class="card card-sm border-primary border-dashed ratio ratio-1x1">
+        <div class="card-body text-center align-items-center d-flex justify-content-center">
+          <%= link_to(
+              t(
+                "administrate.actions.new_resource",
+                name: display_resource_name(page.resource_name, singular: true).downcase
+              ),
+              [:new, namespace, parent_page.resource, page.resource_path.to_sym],
+              'data-turbo-frame': "remote_modal"
+            ) if valid_action?(:new) && show_action?(:new, new_resource) %>
+        </div>
       </div>
     </div>
   </div>
