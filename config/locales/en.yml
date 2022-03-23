@@ -46,3 +46,8 @@ en:
       next: Next
       previous: Prev
       truncate: "&hellip;"
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%B %d, %Y"

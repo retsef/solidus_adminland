@@ -20,10 +20,11 @@ pin 'bootstrap', to: 'https://ga.jspm.io/npm:bootstrap@5.1.3/dist/js/bootstrap.e
 pin '@popperjs/core', to: 'https://ga.jspm.io/npm:@popperjs/core@2.11.2/dist/esm/index.js'
 
 pin 'choices.js', to: 'https://ga.jspm.io/npm:choices.js@9.0.1/public/assets/scripts/choices.js'
+pin 'tom-select', to: 'https://ga.jspm.io/npm:tom-select@2.0.1/dist/js/tom-select.complete.js'
+
 pin 'flatpickr', to: 'https://ga.jspm.io/npm:flatpickr@4.6.9/dist/flatpickr.js'
 # pin 'inputmask', to: 'https://ga.jspm.io/npm:inputmask@5.0.7/dist/inputmask.js'
 
 pin 'local-time-cdn', to: 'https://ga.jspm.io/npm:local-time@2.1.0/app/assets/javascripts/local-time.js'
 
-pin 'tom-select', to: 'https://ga.jspm.io/npm:tom-select@2.0.1/dist/js/tom-select.complete.js'
 pin 'apexcharts', to: 'https://ga.jspm.io/npm:apexcharts@3.33.2/dist/apexcharts.common.js'

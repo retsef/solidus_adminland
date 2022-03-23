@@ -7,8 +7,8 @@ class Spree::PropertyDashboard < Spree::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    name: Field::String.with_options(editable_inline: true),
-    presentation: Field::String.with_options(editable_inline: true),
+    name: Field::String, # .with_options(editable_inline: true),
+    presentation: Field::String,
     products: Field::HasMany.with_options(class_name: 'Spree::Product'),
     created_at: Field::DateTime,
     updated_at: Field::DateTime

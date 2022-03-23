@@ -53,10 +53,10 @@ The initial design is made with bootstrap 5 with [Tabler](https://github.com/tab
 
 ## Roadmap
 
-- [ ] Products CRUD
-  - [ ] Variants CRUD
-  - [ ] Prices CRUD
-  - [ ] Images CRUD
+- [x] Products CRUD
+  - [x] Variants CRUD
+  - [x] Prices CRUD
+  - [x] Images CRUD
   - [ ] Stocks CRUD
 
 - [ ] Variants CRUD

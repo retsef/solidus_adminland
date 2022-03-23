@@ -1,4 +1,4 @@
-import { Controller } from '@hotwired/stimulus'
+import { Controller } from '@hotwired/stimulus';
 import flatpickr from 'flatpickr';
 
 export default class extends Controller {
@@ -17,11 +17,8 @@ export default class extends Controller {
         })
     }
 
-    get enableTime() {
-        return this.element.dataset.type == 'datetime';
-    }
-
     disconnect() {
         this.picker.destroy()
     }
+
 }

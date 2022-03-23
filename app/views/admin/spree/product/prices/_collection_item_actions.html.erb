@@ -1,0 +1,29 @@
+<% actions = [
+    valid_action?(:edit, collection_presenter.resource_name),
+    valid_action?(:destroy, collection_presenter.resource_name)
+] %>
+
+<% if actions.include?(true) %>
+  <td class="cell-action" data-label="Actions">
+    <div class="btn-list flex-nowrap" role="group">
+    
+      <% if valid_action? :edit, collection_presenter.resource_name %>
+        <%= link_to(
+          t("administrate.actions.edit"),
+          [:edit, namespace, parent_resource, resource],
+          class: "btn btn-sm action-edit",
+          'data-turbo-frame': "remote_modal"
+          ) if show_action? :edit, resource %>
+      <% end %>
+
+      <% if valid_action? :destroy, collection_presenter.resource_name %>
+        <%= link_to(
+          t("administrate.actions.destroy"),
+          [namespace, parent_resource, resource],
+          class: "btn btn-sm btn-outline-danger action-destroy",
+          data: { turbo_method: :delete, turbo_confirm: t("administrate.actions.confirm"), turbo_action: "replace" }
+          ) if show_action? :destroy, resource %>
+      <% end %>
+    </div>
+  </td>
+<% end %>

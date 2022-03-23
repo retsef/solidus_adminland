@@ -9,22 +9,28 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     id: Field::Number,
     name: Field::String,
     description: Field::ActionText,
-    available_on: Field::DateTime,
-    discontinue_on: Field::DateTime,
+    available_on: Field::Date.with_options(filterable: true),
+    discontinue_on: Field::Date.with_options(filterable: true),
     slug: Field::String,
-    promotionable: Field::Boolean,
+    promotionable: Field::Boolean.with_options(filterable: true),
 
-    sku: Field::String.with_options(searchable: false),
     price: Field::Money,
     cost_price: Field::Money,
     cost_currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
+
+    sku: Field::String.with_options(searchable: false),
+    weight: Field::String.with_options(searchable: false),
+    height: Field::String.with_options(searchable: false),
+    width: Field::String.with_options(searchable: false),
+    depth: Field::String.with_options(searchable: false),
+    track_inventory: Field::Boolean.with_options(searchable: false),
 
     option_types: Field::HasMany.with_options(class_name: 'Spree::OptionType'),
     # properties: Field::HasMany.with_options(class_name: 'Spree::Property'),
     product_properties: Field::NestedHasMany.with_options(class_name: 'Spree::ProductProperty', skip: %i[product position]),
     # images: Field::NestedHasMany.with_options(class_name: 'Spree::Image', skip: %i[viewable position alt]),
 
-    classifications: Field::HasMany.with_options(class_name: 'Spree::Classification'),
+    # classifications: Field::HasMany.with_options(class_name: 'Spree::Classification'),
     taxons: Field::HasMany.with_options(class_name: 'Spree::Taxon'),
     tax_category: Field::BelongsTo.with_options(class_name: 'Spree::TaxCategory'),
     shipping_category: Field::BelongsTo.with_options(class_name: 'Spree::ShippingCategory'),
@@ -86,11 +92,19 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     description
     available_on
     discontinue_on
-    slug
+
     price
+    cost_price
+    cost_currency
     promotionable
 
     sku
+    weight
+    height
+    width
+    depth
+    track_inventory
+
     option_types
     product_properties
     taxons
@@ -98,28 +112,10 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     shipping_category
     variants
 
+    slug
     meta_title
     meta_description
     meta_keywords
-  ].freeze
-
-  FORM_ATTRIBUTES_NEW = %i[
-    name
-    description
-    available_on
-    discontinue_on
-
-    price
-    cost_price
-    cost_currency
-    promotionable
-
-    option_types
-    taxons
-    tax_category
-    shipping_category
-
-    sku
   ].freeze
 
   # COLLECTION_FILTERS

@@ -23,16 +23,19 @@ It displays a header, and renders the `_form` partial to do the heavy lifting.
     <header class="page-header d-print-none" role="banner">
       <div class="row g-3 align-items-center">
         <div class="col">
+          <!-- Pretitle -->
+          <div class="page-pretitle">
+            <%= link_to t("administrate.actions.back"), :back %>
+          </div>
           <!-- Title -->
-          <h2 class="page-title text-truncate"><%= content_for(:title) %></h2>
+          <h2 class="page-title text-truncate">
+            <%= content_for(:title) %>
+          </h2>
         </div>
 
         <div class="col-auto">
-          <%= link_to(
-            t("administrate.actions.show_resource", name: page.page_title),
-            [namespace, page.resource],
-            class: "btn btn-white",
-          ) if valid_action?(:show) && show_action?(:show, page.resource) %>
+          <!-- Actions -->
+          <%= render("edit_header_actions", page: page) %>
         </div>
       </div>
     </header>

@@ -1,0 +1,6 @@
+<%= link_to(
+  t("administrate.actions.clone_resource", name: page.page_title),
+  [:clone, namespace, page.resource],
+  class: "btn btn-ghost-secondary",
+  data: { turbo_method: :post }
+) if valid_action?(:clone) && show_action?(:clone, page.resource) %>

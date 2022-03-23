@@ -5,6 +5,10 @@ module Spree::ProductOverride
     accepts_nested_attributes_for :product_properties, allow_destroy: true, reject_if: :all_blank
 
     has_rich_text :description
+
+    delegate :track_inventory, :track_inventory=, to: :find_or_build_master
+
+    self.whitelisted_ransackable_attributes = %w[name slug available_on discontinue_on promotionable]
   end
 end
 

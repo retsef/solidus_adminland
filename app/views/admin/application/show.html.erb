@@ -35,11 +35,7 @@ as well as a link to its edit page.
 
         <div class="col-auto">
           <!-- Actions -->
-          <%= link_to(
-            t("administrate.actions.edit_resource", name: page.page_title),
-            [:edit, namespace, page.resource],
-            class: "btn btn-white",
-          ) if valid_action?(:edit) && show_action?(:edit, page.resource) %>
+          <%= render("show_header_actions", page: page) %>
         </div>
       </div>
 
