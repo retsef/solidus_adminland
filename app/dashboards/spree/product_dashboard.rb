@@ -15,8 +15,8 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     promotionable: Field::Boolean.with_options(filterable: true),
 
     price: Field::Money,
-    cost_price: Field::Money,
-    cost_currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
+    cost_price: Field::Money.with_options(searchable: false),
+    cost_currency: Field::Select.with_options(searchable: false, collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
 
     sku: Field::String.with_options(searchable: false),
     weight: Field::String.with_options(searchable: false),
@@ -116,6 +116,32 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     meta_title
     meta_description
     meta_keywords
+  ].freeze
+
+  FORM_ATTRIBUTES_NEW = %i[
+    name
+    description
+    available_on
+    discontinue_on
+
+    price
+    cost_price
+    cost_currency
+    promotionable
+
+    sku
+    weight
+    height
+    width
+    depth
+    track_inventory
+
+    option_types
+    product_properties
+    taxons
+    tax_category
+    shipping_category
+    variants
   ].freeze
 
   # COLLECTION_FILTERS

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
           resources :images
           resources :prices
 
-          resources :variants
+          resources :variants, except: %i[show]
 
           resources :stock_items
         end

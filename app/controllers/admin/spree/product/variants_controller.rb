@@ -24,6 +24,10 @@ module Admin
     #   send_foo_updated_email(requested_resource)
     # end
 
+    def show
+      redirect_to [:edit, namespace, requested_parent_resource, requested_resource], status: :moved_permanently
+    end
+
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
     # actions.

@@ -18,7 +18,7 @@ to display a collection of resources in an HTML table.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Collection
 %>
 
-<turbo-frame id="<%= dom_id(parent_page.resource, "images") %>">
+<turbo-frame id="<%= dom_id(parent_page.resource, controller_name) %>">
   <div class="row row-cards">
     <% resources.each do |resource| %>
       <div class="col-sm-6 col-md-4">

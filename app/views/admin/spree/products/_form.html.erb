@@ -140,18 +140,20 @@ and renders all form fields for a resource's editable attributes.
           <% end %>
         </div>
         
-        <!-- Product Shippings -->
-        <div class="card mb-3">
-          <div class="card-body">
-            <h3 class="card-title">Spedizione</h3>
-            <% content_attributes = %i[height width depth weight] %>
-            <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
-              <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
-                <%= render_field attribute, f: f %>
-              </div>
-            <% end %>
+        <% unless page.resource.has_variants? %>
+          <!-- Product Master Variant Shippings -->
+          <div class="card mb-3">
+            <div class="card-body">
+              <h3 class="card-title">Spedizione</h3>
+              <% content_attributes = %i[height width depth weight] %>
+              <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+                <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                  <%= render_field attribute, f: f %>
+                </div>
+              <% end %>
+            </div>
           </div>
-        </div>
+        <% end %>
 
         <!-- Product Properties -->
         <% if page.resource.persisted? %>
