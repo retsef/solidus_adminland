@@ -49,8 +49,11 @@ Rails.application.routes.draw do
         scope module: :order do
           resources :line_items
 
-          resources :line_item_adjustments, only: %i[index]
-          resources :shipment_adjustments, only: %i[index]
+          resource :bill_address
+          resource :ship_address
+
+          # resources :line_item_adjustments, only: %i[index]
+          # resources :shipment_adjustments, only: %i[index]
 
           resources :shipments
           resources :adjustments

@@ -18,55 +18,154 @@ as well as a link to its edit page.
 
 <% content_for(:title) { t("administrate.actions.show_resource", name: page.page_title) } %>
 
-<!-- Header -->
-<header class="page-header d-print-none" role="banner">
-  <div class="row g-2 align-items-center">
-    <div class="col">
-      <!-- Pretitle -->
-      <div class="page-pretitle">
-        <%= link_to t("administrate.actions.back"), :back %>
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
+    <!-- Header -->
+    <header class="page-header d-print-none" role="banner">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <!-- Pretitle -->
+          <div class="page-pretitle">
+            <%= link_to t("administrate.actions.back"), :back %>
+          </div>
+          <!-- Title -->
+          <h2 class="page-title text-truncate">
+            <%= content_for(:title) %>
+
+            <% status_attributes = %i[state payment_state shipment_state] %>
+            <% page.attributes.select{|a| status_attributes.include? a.attribute }.each do |attribute| %>
+              <span class="ms-3 attribute-data attribute-data--<%= attribute.html_class %>">
+                <%= render_field attribute, page: page %>
+              </span>
+            <% end %>
+          </h2>
+        </div>
+
+        <div class="col-auto">
+          <!-- Actions -->
+          <%= render("show_header_actions", page: page) %>
+        </div>
       </div>
-      <!-- Title -->
-      <h2 class="page-title text-truncate">
-        <%= content_for(:title) %>
-      </h2>
-    </div>
+    </header>
 
+    <section class="main-content__body" id="<%= dom_id(page.resource) %>">
+      <div class="form-body mt-3 mb-3">
+        <div class="row">
+          <%- attributes = page.attributes %>
 
-    <div class="col-auto">
-      <!-- Actions -->
-      <%= link_to(
-        t("administrate.actions.edit_resource", name: page.page_title),
-        [:edit, namespace, page.resource],
-        class: "btn btn-white",
-      ) if valid_action?(:edit) && show_action?(:edit, page.resource) %>
-    </div>
-  </div>
+          <!-- Content -->
+          <div class="col-12 col-md-8">
+            <!-- Line Items -->
+            <div class="card mb-3">
+              <div class="card-body">
+                <h3 class="card-title">Prodotti</h3>
+                <turbo-frame id="<%= dom_id(page.resource, "line_items") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::LineItem]) %>">
+                  <div class="row w-100 placeholder-glow gy-1">
+                    <% 3.times do %>
+                      <div class="placeholder col-12 h-30"></div>
+                    <% end %>
+                  </div>
+                </turbo-frame>
+              </div>
+            </div>
 
-  <div class="row align-items-center">
-    <div class="col">
-      <!-- Tabs -->
-      <%= render 'tabs', page: page, namespace: namespace %>
-    </div>
-  </div>
-</header>
+            <!-- Payments Overview -->
+            <div class="card mb-3">
+              <div class="card-body">
+                <h3 class="card-title">Pagamento</h3>
+                <% content_attributes = %i[item_total shipment_total additional_tax_total adjustment_total payment_total total] %>
+                <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+                  <div class="row gy-1">
+                    <div class="col attribute-label" id="<%= attribute.name %>">
+                      <%= t(
+                        "helpers.label.#{resource_name}.#{attribute.name}",
+                        default: page.resource.class.human_attribute_name(attribute.name),
+                      ) %>
+                    </div>
 
-<div class="row">
-  <div class="col-12">
-    <section class="main-content__body">
-      <dl>
-        <% page.attributes.each do |attribute| %>
-          <dt class="attribute-label" id="<%= attribute.name %>">
-          <%= t(
-            "helpers.label.#{resource_name}.#{attribute.name}",
-            default: page.resource.class.human_attribute_name(attribute.name),
-          ) %>
-          </dt>
+                    <div class="col attribute-data attribute-data--<%=attribute.html_class%> text-end">
+                      <%= render_field attribute, page: page %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
 
-          <dd class="attribute-data attribute-data--<%=attribute.html_class%>"
-              ><%= render_field attribute, page: page %></dd>
-        <% end %>
-      </dl>
+          <!-- Side content -->
+          <div class="col-12 col-md-4">
+            <!-- Customer -->
+            <% if page.resource.user_id? || page.resource.email? %>
+              <div class="card mb-3">
+                <!-- Customer ID -->
+                <div class="card-body">
+                  <h3 class="card-title">Cliente</h3>
+                </div>
+
+                <!-- Customer Email -->
+                <div class="card-body">
+                  <h3 class="card-title">Recapiti</h3>
+                </div>
+
+                <!-- Customer Billing Address -->
+                <div class="card-body">
+                  <h3 class="card-title">Indirizzo di fatturazione</h3>
+                </div>
+
+                <!-- Customer Shipping Address -->
+                <div class="card-body">
+                  <h3 class="card-title">Indirizzo di spedizione</h3>
+                </div>
+              </div>
+            <% else %>
+              <div class="card mb-3">
+                <!-- Customer ID -->
+                <div class="card-body">
+                  <h3 class="card-title">Cliente</h3>
+                </div>
+              </div>
+            <% end %>
+
+            <!-- Payment Risk -->
+            <% if page.resource.payments.exists? %>
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h3 class="card-title">Analisi del rishio di frode</h3>
+                  <legend><%= "#{t('spree.risk_analysis')}: #{t('spree.not') unless page.resource.is_risky?} #{t('spree.risky')}" %></legend>
+                  <dl>
+                    <dt><%= t('spree.failed_payment_attempts') %></dt>
+                    <dd><%= t('spree.payments_failed_count', count: page.resource.payments.failed.count) %></dd>
+                  
+                    <%- latest_payment = page.resource.payments.last %>
+                    <dt><%= t('spree.avs_response') %></td>
+                    <dd>
+                      <span class="status status-<%= latest_payment.is_avs_risky? ? 'warning' : 'success' %>">
+                        <% if latest_payment.is_avs_risky? %>
+                          <%= avs_response_code[latest_payment.avs_response] %>
+                        <% else %>
+                          <%= t('spree.success') %>
+                        <% end %>
+                      </span>
+                    </dd>
+
+                    <dt><%= t('spree.cvv_response') %></dt>
+                    <dd>
+                      <span class="status status-<%= latest_payment.is_cvv_risky? ? 'warning' : 'success' %>">
+                        <% if latest_payment.is_cvv_risky? %>
+                          <%= cvv_response_code[latest_payment.cvv_response_code] %>
+                        <% else %>
+                          <%= t('spree.success') %>
+                        <% end %>
+                      </span>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          
+        </div>
+      </div>
     </section>
   </div>
 </div>
