@@ -11,7 +11,7 @@
         <%= link_to(
           t("administrate.actions.edit"),
           [:edit, namespace, parent_resource, resource],
-          class: "btn btn-sm action-edit",
+          class: "btn btn-sm btn-ghost-primary action-edit",
           target: '_top'
           ) if show_action? :edit, resource %>
       <% end %>
@@ -20,7 +20,7 @@
         <%= link_to(
           t("administrate.actions.destroy"),
           [namespace, parent_resource, resource],
-          class: "btn btn-sm btn-outline-danger",
+          class: "btn btn-sm btn-ghost-danger actyion-destroy",
           data: { turbo_method: :delete, turbo_confirm: t("administrate.actions.confirm"), turbo_action: "replace" }
           ) if show_action? :destroy, resource %>
       <% end %>

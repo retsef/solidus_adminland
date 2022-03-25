@@ -49,6 +49,7 @@ Rails.application.routes.draw do
         scope module: :order do
           resources :line_items
 
+          resource :customer, only: %i[show edit update]
           resource :bill_address
           resource :ship_address
 

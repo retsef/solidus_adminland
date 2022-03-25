@@ -48,7 +48,7 @@ as well as a link to its edit page.
       </div>
     </header>
 
-    <section class="main-content__body" id="<%= dom_id(page.resource) %>">
+    <section class="main-content__body" id="<%= dom_id(page.resource, :form) %>">
       <div class="form-body mt-3 mb-3">
         <div class="row">
           <%- attributes = page.attributes %>
@@ -57,37 +57,39 @@ as well as a link to its edit page.
           <div class="col-12 col-md-8">
             <!-- Line Items -->
             <div class="card mb-3">
-              <div class="card-body">
+              <div class="card-header">
                 <h3 class="card-title">Prodotti</h3>
-                <turbo-frame id="<%= dom_id(page.resource, "line_items") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::LineItem]) %>">
+              </div>
+              <turbo-frame id="<%= dom_id(page.resource, "line_items") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::LineItem]) %>">
+                <div class="card-body">
                   <div class="row w-100 placeholder-glow gy-1">
                     <% 3.times do %>
                       <div class="placeholder col-12 h-30"></div>
                     <% end %>
                   </div>
-                </turbo-frame>
-              </div>
+                </div>
+              </turbo-frame>
             </div>
 
             <!-- Payments Overview -->
             <div class="card mb-3">
               <div class="card-body">
                 <h3 class="card-title">Pagamento</h3>
-                <% content_attributes = %i[item_total shipment_total additional_tax_total adjustment_total payment_total total] %>
-                <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
-                  <div class="row gy-1">
-                    <div class="col attribute-label" id="<%= attribute.name %>">
+                <div class="row gy-2">
+                  <% content_attributes = %i[item_total shipment_total additional_tax_total adjustment_total payment_total total] %>
+                  <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+                    <div class="col-6 attribute-label" id="<%= attribute.name %>">
                       <%= t(
                         "helpers.label.#{resource_name}.#{attribute.name}",
                         default: page.resource.class.human_attribute_name(attribute.name),
                       ) %>
                     </div>
 
-                    <div class="col attribute-data attribute-data--<%=attribute.html_class%> text-end">
+                    <div class="col-6 attribute-data attribute-data--<%=attribute.html_class%> text-end">
                       <%= render_field attribute, page: page %>
                     </div>
-                  </div>
-                <% end %>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>
@@ -95,36 +97,18 @@ as well as a link to its edit page.
           <!-- Side content -->
           <div class="col-12 col-md-4">
             <!-- Customer -->
-            <% if page.resource.user_id? || page.resource.email? %>
-              <div class="card mb-3">
-                <!-- Customer ID -->
+            <div class="card mb-3">
+              <turbo-frame id="<%= dom_id(page.resource, "customer") %>" src="<%= polymorphic_path([namespace, page.resource, :customer]) %>">
                 <div class="card-body">
                   <h3 class="card-title">Cliente</h3>
+                  <div class="row w-100 placeholder-glow gy-1">
+                    <% 3.times do %>
+                      <div class="placeholder col-12"></div>
+                    <% end %>
+                  </div>
                 </div>
-
-                <!-- Customer Email -->
-                <div class="card-body">
-                  <h3 class="card-title">Recapiti</h3>
-                </div>
-
-                <!-- Customer Billing Address -->
-                <div class="card-body">
-                  <h3 class="card-title">Indirizzo di fatturazione</h3>
-                </div>
-
-                <!-- Customer Shipping Address -->
-                <div class="card-body">
-                  <h3 class="card-title">Indirizzo di spedizione</h3>
-                </div>
-              </div>
-            <% else %>
-              <div class="card mb-3">
-                <!-- Customer ID -->
-                <div class="card-body">
-                  <h3 class="card-title">Cliente</h3>
-                </div>
-              </div>
-            <% end %>
+              </turbo-frame>
+            </div>
 
             <!-- Payment Risk -->
             <% if page.resource.payments.exists? %>

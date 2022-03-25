@@ -18,11 +18,7 @@ module Admin
       )
 
       if resource.valid?
-        redirect_to(
-          after_resource_created_path(resource),
-          notice: translate_with_resource('create.success'),
-          status: :see_other
-        )
+        redirect_to(after_resource_created_path(resource), notice: translate_with_resource('create.success'), status: :see_other)
       else
         render :new, locals: {
           page: Administrate::Page::Form.new(dashboard, resource)
@@ -43,11 +39,7 @@ module Admin
 
       # if requested_resource.update(resource_params)
       if requested_parent_resource.contents.update_cart(line_items_attributes: line_items_attributes)
-        redirect_to(
-          after_resource_updated_path(requested_resource),
-          notice: translate_with_resource('update.success'),
-          status: :see_other
-        )
+        redirect_to(after_resource_updated_path(requested_resource), notice: translate_with_resource('update.success'), status: :see_other)
       else
         render :edit, locals: {
           page: Administrate::Page::Form.new(dashboard, requested_resource)
@@ -56,13 +48,11 @@ module Admin
     end
 
     def destroy
-      requested_parent_resource.contents.remove_line_item(requested_resource)
-
-      # if requested_resource.destroy
-      #   flash[:notice] = translate_with_resource('destroy.success')
-      # else
-      #   flash[:error] = requested_resource.errors.full_messages.join('<br/>')
-      # end
+      if requested_parent_resource.contents.remove_line_item(requested_resource)
+        flash[:notice] = translate_with_resource('destroy.success')
+      else
+        flash[:error] = requested_resource.errors.full_messages.join('<br/>')
+      end
       redirect_to after_resource_destroyed_path(requested_resource), status: :see_other
     end
 

@@ -4,7 +4,7 @@
 		name: display_resource_name(page.resource_name, singular: true).downcase
 	),
 	[:export, namespace, page.resource_path.pluralize.to_sym, sanitized_order_params(page, :id).to_h.merge(format: :csv)],
-	class: 'btn btn-white'
+	class: 'btn btn-ghost-secondary'
 ) if valid_action?(:export) %>
 	
 <%= link_to(

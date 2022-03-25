@@ -1,0 +1,68 @@
+<%#
+# Show
+
+This view is the template for the show page.
+It renders the attributes of a resource,
+as well as a link to its edit page.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Show][1].
+  Contains methods for accessing the resource to be displayed on the page,
+  as well as helpers for describing how each attribute of the resource
+  should be displayed.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Show
+%>
+
+
+<turbo-frame id="<%= dom_id(parent_page.resource, controller_name) %>">
+  <section class="main-content__body">
+    <% if parent_page.resource.user_id? || parent_page.resource.email? %>
+      <!-- Customer ID -->
+      <div class="card-body">
+        <h3 class="card-title">Cliente</h3>
+      </div>
+
+      <!-- Customer Email -->
+      <div class="card-body">
+        <h3 class="card-title">Recapiti</h3>
+      </div>
+
+      <!-- Customer Billing Address -->
+      <div class="card-body">
+        <h3 class="card-title">Indirizzo di fatturazione</h3>
+      </div>
+
+      <!-- Customer Shipping Address -->
+      <div class="card-body">
+        <h3 class="card-title">Indirizzo di spedizione</h3>
+      </div>
+    <% end %>
+
+    <dl>
+      <% page.attributes.each do |attribute| %>
+        <%- attr_id = "#{attribute.name}_attribute".to_sym %>
+        <%- content_for(attr_id) do %>
+          <dt class="attribute-label" id="<%= attribute.name %>">
+            <%= t( "helpers.label.#{resource_name}.#{attribute.name}",
+                default: page.resource.class.human_attribute_name(attribute.name)) %>
+          </dt>
+
+          <dd class="attribute-data attribute-data--<%=attribute.html_class%>">
+            <%= render_field attribute, page: page %>
+          </dd>
+        <% end %>
+
+        <% unless attribute.editable_inline? %>
+          <%= content_for(attr_id) %>
+        <% else %>
+          <%= render('inline_edit', resource: page.resource, attribute: attribute.name, namespace: namespace) do %>
+            <%= content_for(attr_id) %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </dl>
+  </section>
+</turbo-frame>

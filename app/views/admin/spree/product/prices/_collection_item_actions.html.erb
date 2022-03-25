@@ -9,7 +9,7 @@
       <%= link_to(
         t("administrate.actions.edit"),
         [:edit, namespace, parent_resource, resource],
-        class: "action-edit",
+        class: "btn btn-sm btn-ghost-primary action-edit",
         'data-turbo-frame': "remote_modal"
         ) if show_action? :edit, resource %>
     <% end %>
@@ -18,7 +18,7 @@
       <%= link_to(
         t("administrate.actions.destroy"),
         [namespace, parent_resource, resource],
-        class: "text-danger action-destroy",
+        class: "btn btn-sm btn-ghost-danger action-destroy",
         data: { turbo_method: :delete, turbo_confirm: t("administrate.actions.confirm"), turbo_action: "replace" }
         ) if show_action? :destroy, resource %>
     <% end %>

@@ -15,12 +15,22 @@ By default, the attribute is rendered as a truncated string.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/String
 %>
 
-<!-- Avatar -->
-<div class="avatar avatar-md avatar-4by3 align-middle me-2">
-  <%- gallery = field.resource.variant.gallery.images %>
-  <%- image_src = gallery.any? && gallery.first.attachment.attached? ? url_for(gallery.first.attachment) : image_path('admin/default-placeholder.png') %>
-  <img src="<%= image_src %>" alt="<%= field.display_associated_resource %>" class="avatar-img rounded">
+<div class="row align-items-center">
+  <div class="col-auto">
+    <!-- Avatar -->
+    <div class="avatar avatar-sm avatar-4by3 align-middle">
+      <%- variant = field.resource.variant %>
+      <%- gallery = ([] unless variant) || variant.gallery.images %>
+      <%- image_src = gallery.any? && gallery.first.attachment.attached? ? url_for(gallery.first.attachment) : image_path('admin/default-placeholder.png') %>
+      <img src="<%= image_src %>" alt="<%= field.display_associated_resource %>" class="avatar-img rounded">
+    </div>
+  </div>
+  <div class="col text-truncate">
+    <div class="item-name text-reset d-block text-truncate">
+      <%= field.display_associated_resource %>
+    </div>
+    <div class="d-block text-muted mt-n1">
+      <%= field.resource.display_price %>
+    </div>
+  </div>
 </div>
-<span class="item-name text-reset">
-  <%= field.display_associated_resource %>
-</span>

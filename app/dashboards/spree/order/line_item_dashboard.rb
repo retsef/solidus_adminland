@@ -11,12 +11,13 @@ class Spree::Order::LineItemDashboard < Spree::Order::BaseDashboard
     variant: Field::BelongsTo.with_options(class_name: 'Spree::Variant'),
     # tax_category: Field::BelongsTo,
     # product: Field::HasOne,
-    #  adjustments: Field::HasMany,
+    # adjustments: Field::HasMany,
     # inventory_units: Field::HasMany,
     # line_item_actions: Field::HasMany,
     # actions: Field::HasMany,
     quantity: Field::Number,
     price: Field::Money,
+    total: Field::Money,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
     # cost_price: Field::String.with_options(searchable: false),
@@ -33,8 +34,8 @@ class Spree::Order::LineItemDashboard < Spree::Order::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     variant
-    price
     quantity
+    total
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -56,6 +57,10 @@ class Spree::Order::LineItemDashboard < Spree::Order::BaseDashboard
 
   FORM_ATTRIBUTES_NEW = %i[
     variant
+    quantity
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
     quantity
   ].freeze
 

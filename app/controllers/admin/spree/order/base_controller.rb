@@ -37,5 +37,17 @@ module Admin
     def resource_title
       resource_class.model_name.human
     end
+
+    def after_resource_created_path(_requested_resource)
+      [namespace, parent_page.resource]
+    end
+
+    def after_resource_updated_path(_requested_resource)
+      [namespace, parent_page.resource]
+    end
+
+    def after_resource_destroy_path(_requested_resource)
+      [namespace, parent_page.resource, controller_name.to_sym]
+    end
   end
 end
