@@ -1,7 +1,7 @@
 module Admin
-  class Spree::Order::LineItemAdjustmentsController < Spree::Order::BaseController
+  class Spree::Order::AddressesController < Spree::Order::BaseController
     def resource_class
-      ::Spree::LineItemAdjustment
+      ::Spree::Address
     end
 
     # Overwrite any of the RESTful controller actions to implement custom behavior
