@@ -1,7 +1,7 @@
 <fieldset class="list-group list-group-flush field-unit--nested" data-controller="nested-form">
   <%= f.hint field.attribute %>
 
-	<template data-target="nested-form.template">
+	<template data-nested-form-target="template">
 		<%= f.fields_for field.association_name, field.associated_class.new, child_index: 'NEW_RECORD' do |nested_form| %>
 			<%= render(
         partial: "fields/spree/product/product_properties/fields",
@@ -23,7 +23,7 @@
     ) %>
   <% end %>
 
-	<div class="list-group-item" data-target="nested-form.links">
+	<div class="list-group-item" data-nested-form-target="links">
 		<%= link_to(
       	t("administrate.fields.nested_has_many.add", 
         # resource: field.associated_class_name.titleize),

@@ -54,3 +54,20 @@
     display: inline-flex;
   }
 }
+
+// Administrate active storage
+.as-field {
+  height: auto;
+  overflow: hidden;
+}
+.as-field-index .as-field-image {
+  width: 50%;
+}
+.as-field-image {
+  max-height: unset !important;
+}
+.as-field-video {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}

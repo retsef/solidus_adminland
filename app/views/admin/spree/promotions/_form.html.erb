@@ -24,7 +24,6 @@ and renders all form fields for a resource's editable attributes.
           resource_name: display_resource_name(page.resource_name, singular: true)
         ) %>
       </h4>
-      <hr>
       <ul>
         <% page.resource.errors.full_messages.each do |message| %>
           <li class="flash-error align-items-center">
@@ -36,24 +35,119 @@ and renders all form fields for a resource's editable attributes.
   <% end %>
 
   <div class="form-body mt-3 mb-3">
-    <div class="card">
-      <div class="card-body">
-        <% page.attributes(controller.action_name).each do |attribute| -%>
-          <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
-            <% unless attribute.editable_inline? %>
-              <%= render_field attribute, f: f %>
-            <% else %>
-              <%= render('inline_fields', form: f, attribute: attribute.name, namespace: namespace) do %>
+    <div class="row">
+      <%- attributes = page.attributes(controller.action_name) %>
+
+      <!-- Content -->
+      <div class="col-12 col-md-8">
+        <!-- Main Promotion Content -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <% content_attributes = %i[name description promotion_category] %>
+            <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+              <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
                 <%= render_field attribute, f: f %>
-              <% end %>
+              </div>
             <% end %>
           </div>
-        <% end -%>
+        </div>
+        
+        <!-- Promotion Codes -->
+        <div class="card mb-3">
+          <div class="card-header">
+            <h3 class="card-title">Codici sconto</h3>
+          </div>
+          <% content_attributes = %i[promotion_codes] %>
+          <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+            <div class="field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+              <%= render_field attribute, f: f %>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Promotion Uses -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="card-title">Limiti di utilizzo</h3>
+            <% content_attributes = %i[usage_limit] %>
+            <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+              <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                <%= render_field attribute, f: f %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Promotion Availability -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="card-title">Periodo di validità</h3>
+            <% content_attributes = %i[starts_at expires_at] %>
+            <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+              <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                <%= render_field attribute, f: f %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Promotion Rules -->
+        <% if page.resource.persisted? %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h3 class="card-title">Regole di validità della promozione</h3>
+              <% content_attributes = %i[match_policy] %>
+              <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+                <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+                  <%= render_field attribute, f: f %>
+                </div>
+              <% end %>
+            </div>
+            <turbo-frame id="<%= dom_id(page.resource, "rules") %>" src="<%= polymorphic_path([namespace, page.resource, :rules]) %>">
+              <div class="card-body">
+                <div class="row w-100 placeholder-glow gy-1">
+                  <% 3.times do %>
+                    <div class="placeholder col-12"></div>
+                  <% end %>
+                </div>
+              </div>
+            </turbo-frame>
+          </div>
+        <% end %>
+
+        <!-- Promotion Actions -->
+        <% if page.resource.persisted? %>
+          <div class="card mb-3">
+            <div class="card-header">
+              <h3 class="card-title">Azioni all'applicazione della promozione</h3>
+            </div>
+            <turbo-frame id="<%= dom_id(page.resource, "actions") %>" src="<%= polymorphic_path([namespace, page.resource, :actions]) %>">
+              <div class="card-body">
+                <div class="row w-100 placeholder-glow gy-1">
+                  <% 3.times do %>
+                    <div class="placeholder col-12"></div>
+                  <% end %>
+                </div>
+              </div>
+            </turbo-frame>
+          </div>
+        <% end %>
+      </div>
+      
+      <!-- Side content -->
+      <div class="col-12 col-md-4">
+        <%#= render 'summary', page: page, f: f %>
       </div>
     </div>
   </div>
 
   <div class="form-actions">
-    <%= f.submit class: "btn w-100 btn-primary" %>
+    <hr/>
+    <% if valid_action? :destroy, page.resource_name %>
+      <%= link_to 'Delete', [namespace, page.resource], class: 'btn btn-outline-danger', 
+                  data: { turbo_method: :delete, turbo_confirm: t("administrate.actions.confirm"), turbo_action: "replace" } %>
+    <% end %>
+
+    <%= f.submit class: "btn btn-primary float-end" %>
   </div>
 <% end %>

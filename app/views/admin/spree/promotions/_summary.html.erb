@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Riepilogo</h3>
+    <% content_attributes = %i[name] %>
+    <% page.attributes.select{|a| content_attributes.include? a.attribute}.each do |attribute| %>
+      <div class="attribute-data attribute-data--<%=attribute.html_class%>">
+        <%= render_field attribute, page: page %>
+      </div>
+    <% end %>
+  </div>
+</div>

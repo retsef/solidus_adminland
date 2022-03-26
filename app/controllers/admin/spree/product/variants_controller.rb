@@ -65,6 +65,7 @@ module Admin
     def new_resource_params
       {
         product: requested_parent_resource,
+        sku: requested_parent_resource.sku,
         price: requested_parent_resource.price,
         cost_price: requested_parent_resource.cost_price,
         cost_currency: requested_parent_resource.cost_currency,

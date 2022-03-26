@@ -28,8 +28,8 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     codes: Field::HasMany.with_options(class_name: 'Spree::PromotionCode', skip: :promotion),
     promotion_codes: Field::NestedHasMany.with_options(class_name: 'Spree::PromotionCode', skip: :promotion),
     promotion_category: Field::BelongsTo.with_options(class_name: 'Spree::PromotionCategory', filterable: true),
-    promotion_rules: Field::NestedHasMany.with_options(class_name: 'Spree::PromotionRule', skip: %i[promotion]),
-    promotion_actions: Field::NestedHasMany.with_options(class_name: 'Spree::PromotionAction', skip: %i[promotion]),
+    # promotion_rules: Field::NestedHasMany.with_options(class_name: 'Spree::PromotionRule', skip: %i[promotion]),
+    # promotion_actions: Field::NestedHasMany.with_options(class_name: 'Spree::PromotionAction', skip: %i[promotion]),
 
     # order_promotions: Field::HasMany,
     # orders: Field::HasMany.with_options(class_name: 'Spree::Order'),
@@ -78,30 +78,6 @@ class Spree::PromotionDashboard < Spree::BaseDashboard
     promotion_codes
 
     match_policy
-    promotion_rules
-    promotion_actions
-  ].freeze
-
-  FORM_ATTRIBUTES_NEW = %i[
-    name
-    description
-    starts_at
-    expires_at
-    usage_limit
-
-    promotion_codes
-  ].freeze
-
-  FORM_ATTRIBUTES_EDIT = %i[
-    name
-    description
-    starts_at
-    expires_at
-    usage_limit
-
-    match_policy
-    promotion_rules
-    promotion_actions
   ].freeze
 
   # COLLECTION_FILTERS
