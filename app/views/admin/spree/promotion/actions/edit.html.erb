@@ -1,0 +1,25 @@
+<%#
+# Edit
+
+This view is the template for the edit page.
+
+It displays a header, and renders the `_form` partial to do the heavy lifting.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Form][1].
+  Contains helper methods to help display a form,
+  and knows which attributes should be displayed in the resource's form.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
+%>
+
+<% content_for(:title) { t("administrate.actions.edit_resource", name: page.page_title) } %>
+
+<%= render "modal_edit", title: content_for(:title) do %>
+    <section class="main-content__body" id="<%= dom_id(page.resource, :form) %>">
+      <%= render "form", page: page %>
+    </section>
+  </div>
+<% end %>

@@ -35,16 +35,24 @@ module Administrate::Field::BaseOverride
     def partial_prefixes
       return @partial_prefixes if @partial_prefixes.present?
 
-      resource_class_name = resource.class.name.underscore
+      resource_class = resource.class
+      resource_base_class_name = resource_class.base_class.name.underscore
+      resource_class_name = resource_class.name.underscore
       field_type = self.class.field_type
 
       @partial_prefixes = []
+
       @partial_prefixes << "fields/#{resource_class_name}/#{attribute}"
       @partial_prefixes << "fields/#{resource_class_name}/#{field_type}"
       @partial_prefixes << "fields/#{resource_class_name}"
+
+      @partial_prefixes << "fields/#{resource_base_class_name}/#{attribute}"
+      @partial_prefixes << "fields/#{resource_base_class_name}/#{field_type}"
+      @partial_prefixes << "fields/#{resource_base_class_name}"
+
       @partial_prefixes << "fields/#{field_type}" # Administrate default
 
-      @partial_prefixes
+      @partial_prefixes.uniq
     end
   end
 end

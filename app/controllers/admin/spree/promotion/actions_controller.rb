@@ -4,6 +4,12 @@ module Admin
       ::Spree::PromotionAction
     end
 
+    def dashboard_class
+      return super if action_name == 'index'
+
+      "#{find_resource(params[:id]).class}Dashboard".constantize
+    end
+
     def scoped_resource
       scoped_resource ||= resource_class.where(promotion: requested_parent_resource)
 

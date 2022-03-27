@@ -103,7 +103,7 @@ and renders all form fields for a resource's editable attributes.
                 </div>
               <% end %>
             </div>
-            <turbo-frame id="<%= dom_id(page.resource, "rules") %>" src="<%= polymorphic_path([namespace, page.resource, :rules]) %>">
+            <turbo-frame id="<%= dom_id(page.resource, "rules") %>" src="<%= polymorphic_path([namespace, page.resource, Spree::PromotionRule]) %>">
               <div class="card-body">
                 <div class="row w-100 placeholder-glow gy-1">
                   <% 3.times do %>
@@ -121,7 +121,7 @@ and renders all form fields for a resource's editable attributes.
             <div class="card-header">
               <h3 class="card-title">Azioni all'applicazione della promozione</h3>
             </div>
-            <turbo-frame id="<%= dom_id(page.resource, "actions") %>" src="<%= polymorphic_path([namespace, page.resource, :actions]) %>">
+            <turbo-frame id="<%= dom_id(page.resource, "actions") %>" src="<%= polymorphic_path([namespace, page.resource, Spree::PromotionAction]) %>">
               <div class="card-body">
                 <div class="row w-100 placeholder-glow gy-1">
                   <% 3.times do %>
@@ -136,7 +136,7 @@ and renders all form fields for a resource's editable attributes.
       
       <!-- Side content -->
       <div class="col-12 col-md-4">
-        <%#= render 'summary', page: page, f: f %>
+        <%= render 'summary', page: page, f: f %>
       </div>
     </div>
   </div>

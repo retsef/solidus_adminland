@@ -103,6 +103,12 @@ module Admin
       ).any? { |_name, attribute| attribute.filterable? }
     end
 
+    def resource_params
+      params.require(resource_class.model_name.param_key).
+        permit(dashboard.permitted_attributes).
+        transform_values { |v| read_param_value(v) }
+    end
+
     # TODO: create a custom resource_resolver for nested resources
     delegate :resource_title, to: :resource_resolver
     helper_method :resource_title

@@ -1,11 +1,18 @@
 <div class="card">
   <div class="card-body">
     <h3 class="card-title">Riepilogo</h3>
-    <% content_attributes = %i[name] %>
-    <% page.attributes.select{|a| content_attributes.include? a.attribute}.each do |attribute| %>
-      <div class="attribute-data attribute-data--<%=attribute.html_class%>">
-        <%= render_field attribute, page: page %>
-      </div>
-    <% end %>
+    
+    <h2 class="attribute-label">
+      <%= page.resource.name %>
+    </h2>
+
+    <ul>
+      <% page.resource.rules.each do |rule| %>
+        <li><%= rule.dashboard_display_name %></li>
+      <% end %>
+      <% page.resource.actions.each do |action| %>
+        <li><%= action.dashboard_display_name %></li>
+      <% end %>
+    </ul>
   </div>
 </div>

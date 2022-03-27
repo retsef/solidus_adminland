@@ -6,14 +6,18 @@ class Spree::Promotion::Rules::ItemTotalDashboard < Spree::Promotion::Rules::Bas
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    promotion: Field::BelongsTo,
     id: Field::Number,
-    product_group_id: Field::Number,
     type: Field::String,
+    code: Field::String,
+    promotion: Field::BelongsTo,
+    product_group_id: Field::Number,
+    preferences: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    code: Field::String,
-    preferences: Field::Text,
+
+    preferred_amount: Field::Money,
+    preferred_currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
+    preferred_operator: Field::Select.with_options(collection: Spree::Promotion::Rules::ItemTotal.operator_options),
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -23,33 +27,29 @@ class Spree::Promotion::Rules::ItemTotalDashboard < Spree::Promotion::Rules::Bas
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     promotion
-    id
-    product_group_id
     type
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    promotion
     id
-    product_group_id
+    promotion
     type
+    code
+    product_group_id
+    preferences
     created_at
     updated_at
-    code
-    preferences
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    promotion
-    product_group_id
-    type
-    code
-    preferences
+    preferred_operator
+    preferred_amount
+    preferred_currency
   ].freeze
 
   # COLLECTION_FILTERS
@@ -67,7 +67,9 @@ class Spree::Promotion::Rules::ItemTotalDashboard < Spree::Promotion::Rules::Bas
   # Overwrite this method to customize how item totals are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(item_total)
-  #   "Spree::Promotion::Rules::ItemTotal ##{item_total.id}"
-  # end
+  def display_resource(item_total)
+    translated_operator = resource_class.operator_options.detect { |a| a[1] == item_total.preferred_operator.to_sym }.first
+
+    "Item total #{translated_operator} #{item_total.preferred_amount} #{item_total.preferred_currency}"
+  end
 end

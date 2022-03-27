@@ -34,7 +34,6 @@ class Spree::Promotion::RuleDashboard < Spree::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     type
-    promotion
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
