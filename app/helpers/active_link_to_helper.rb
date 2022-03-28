@@ -78,36 +78,33 @@ module ActiveLinkToHelper
   #   active_link?('/root', ['users', ['show', 'edit']])
   #
   def active_link?(url, condition = nil)
-    @is_active_link ||= {}
-    @is_active_link[[url, condition]] ||= begin
-      original_url = url
-      url = Addressable::URI.parse(url).path
-      path = request.original_fullpath
-      case condition
-      when :inclusive, nil
-        path.match(%r{^#{Regexp.escape(url).chomp('/')}(/.*|\?.*)?$}).present?
-      when :exclusive
-        path.match(%r{^#{Regexp.escape(url)}/?(\?.*)?$}).present?
-      when :exact
-        path == original_url
-      when Regexp
-        path.match(condition).present?
-      when Array
-        controllers = [*condition[0]]
-        actions     = [*condition[1]]
-        ((controllers.blank? || controllers.member?(params[:controller])) &&
-          (actions.blank? || actions.member?(params[:action]))) ||
-          controllers.any? do |controller, action|
-            params[:controller] == controller.to_s && params[:action] == action.to_s
-          end
-      when TrueClass
-        true
-      when FalseClass
-        false
-      when Hash
-        condition.all? do |key, value|
-          params[key].to_s == value.to_s
+    original_url = url
+    url = Addressable::URI.parse(url).path
+    path = request.original_fullpath
+    case condition
+    when :inclusive, nil
+      path.match(%r{^#{Regexp.escape(url).chomp('/')}(/.*|\?.*)?$}).present?
+    when :exclusive
+      path.match(%r{^#{Regexp.escape(url)}/?(\?.*)?$}).present?
+    when :exact
+      path == original_url
+    when Regexp
+      path.match(condition).present?
+    when Array
+      controllers = [*condition[0]]
+      actions     = [*condition[1]]
+      ((controllers.blank? || controllers.member?(params[:controller])) &&
+        (actions.blank? || actions.member?(params[:action]))) ||
+        controllers.any? do |controller, action|
+          params[:controller] == controller.to_s && params[:action] == action.to_s
         end
+    when TrueClass
+      true
+    when FalseClass
+      false
+    when Hash
+      condition.all? do |key, value|
+        params[key].to_s == value.to_s
       end
     end
   end

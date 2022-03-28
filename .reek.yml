@@ -11,6 +11,12 @@ detectors:
   DuplicateMethodCall:
     max_calls: 2
 
+directories:
+  "app/dashboards":
+    TooManyConstants:
+      enabled: false
+    UtilityFunction:
+      enabled: false
 
 ### Excluding directories
 

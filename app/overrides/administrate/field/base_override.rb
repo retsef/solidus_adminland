@@ -42,13 +42,11 @@ module Administrate::Field::BaseOverride
 
       @partial_prefixes = []
 
-      @partial_prefixes << "fields/#{resource_class_name}/#{attribute}"
-      @partial_prefixes << "fields/#{resource_class_name}/#{field_type}"
-      @partial_prefixes << "fields/#{resource_class_name}"
-
-      @partial_prefixes << "fields/#{resource_base_class_name}/#{attribute}"
-      @partial_prefixes << "fields/#{resource_base_class_name}/#{field_type}"
-      @partial_prefixes << "fields/#{resource_base_class_name}"
+      [resource_class_name, resource_base_class_name].each do |class_name|
+        @partial_prefixes << "fields/#{class_name}/#{attribute}"
+        @partial_prefixes << "fields/#{class_name}/#{field_type}"
+        @partial_prefixes << "fields/#{class_name}"
+      end
 
       @partial_prefixes << "fields/#{field_type}" # Administrate default
 

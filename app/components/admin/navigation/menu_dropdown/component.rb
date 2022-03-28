@@ -1,6 +1,6 @@
 module Admin::Navigation
   class MenuDropdown::Component < BaseComponent
-    attr_accessor :label, :icon, :active, :options
+    attr_reader :label, :icon, :active, :options
 
     renders_many :items
 

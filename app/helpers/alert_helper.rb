@@ -3,8 +3,7 @@ module AlertHelper
     case key
     when :success then 'success'
     when :error then 'danger'
-    else
-      'info'
+    else 'info'
     end
   end
 end

@@ -1,0 +1,40 @@
+<%= form.label(label) %>
+
+<% if model.ransackable_scopes.include?(field) %>
+  <div class="input-icon">
+    <span class="input-icon-addon">
+      <%= field.symbol %>
+    </span>
+    <%= form.text_field field, value: form.object.send(field) %>
+    <span class="input-icon-addon">
+      <%= field.code %>
+    </span>
+  </div>
+<% else %>
+  <div class="form-group">
+    <%= form.label 'start' %>
+
+    <div class="input-icon mb-3">
+      <span class="input-icon-addon">
+        <%= field.symbol %>
+      </span>
+      <%= form.text_field "#{field}_gteq" %>
+
+      <span class="input-icon-addon">
+        <%= field.code %>
+      </span>
+    </div>
+
+    <%= form.label 'end' %>
+
+    <div class="input-icon">
+      <span class="input-icon-addon">
+        <%= field.symbol %>
+      </span>
+      <%= form.text_field "#{field}_lteq" %>
+      <span class="input-icon-addon">
+        <%= field.code %>
+      </span>
+    </div>
+  </div>
+<% end %>
