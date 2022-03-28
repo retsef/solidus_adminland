@@ -2,7 +2,7 @@ class Admin::MenuItem
   include ActiveModel::Model
   include ActiveLinkToHelper
 
-  attr_reader :icon, :position, :children
+  attr_accessor :icon, :position, :children
 
   def initialize(label: '', icon: nil, url: nil, position: 0, children: [])
     @label = label

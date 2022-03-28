@@ -1,5 +1,5 @@
 class Admin::Product::SeoPreview::Component < ApplicationComponent
-  attr_reader :resource
+  attr_accessor :resource
 
   def initialize(resource:)
     super

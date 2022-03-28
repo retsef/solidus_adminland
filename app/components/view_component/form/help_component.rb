@@ -5,7 +5,7 @@ module ViewComponent
     class HelpComponent < FieldComponent
       class_attribute :tag, instance_reader: false, instance_writer: false, instance_accessor: false,
                             instance_predicate: false
-      attr_reader :attribute_content
+      attr_accessor :attribute_content
 
       self.tag = :span
 

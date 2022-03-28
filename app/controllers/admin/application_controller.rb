@@ -12,6 +12,7 @@ module Admin
 
     prepend AdministrateRansack::Searchable
 
+    helper 'filters'
     helper 'local_time'
     helper 'active_link_to'
     helper 'alert'

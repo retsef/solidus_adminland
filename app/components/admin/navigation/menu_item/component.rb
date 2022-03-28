@@ -1,6 +1,6 @@
 module Admin::Navigation
   class MenuItem::Component < BaseComponent
-    attr_reader :label, :icon, :options
+    attr_accessor :label, :icon, :options
 
     def initialize(item: nil, **options)
       super

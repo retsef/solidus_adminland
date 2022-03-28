@@ -1,13 +1,16 @@
 <%= form.label(label) %>
+<%- code = ::Spree::Config[:currency] || ::Money.default_currency.iso_code %>
+<%- money = ::Spree::Money.new(0, currency: code) %>
+<%- currency = money.currency %>
 
 <% if model.ransackable_scopes.include?(field) %>
   <div class="input-icon">
     <span class="input-icon-addon">
-      <%= field.symbol %>
+      <%= currency.symbol %>
     </span>
     <%= form.text_field field, value: form.object.send(field) %>
     <span class="input-icon-addon">
-      <%= field.code %>
+      <%= code %>
     </span>
   </div>
 <% else %>
@@ -16,12 +19,12 @@
 
     <div class="input-icon mb-3">
       <span class="input-icon-addon">
-        <%= field.symbol %>
+        <%= currency.symbol %>
       </span>
       <%= form.text_field "#{field}_gteq" %>
 
       <span class="input-icon-addon">
-        <%= field.code %>
+        <%= code %>
       </span>
     </div>
 
@@ -29,11 +32,11 @@
 
     <div class="input-icon">
       <span class="input-icon-addon">
-        <%= field.symbol %>
+        <%= currency.symbol %>
       </span>
       <%= form.text_field "#{field}_lteq" %>
       <span class="input-icon-addon">
-        <%= field.code %>
+        <%= code %>
       </span>
     </div>
   </div>
