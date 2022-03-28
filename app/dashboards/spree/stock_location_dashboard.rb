@@ -10,7 +10,7 @@ class Spree::StockLocationDashboard < Spree::BaseDashboard
     name: Field::String,
     code: Field::String,
     position: Field::Number,
-    
+
     active: Field::Boolean,
     default: Field::Boolean,
     backorderable_default: Field::Boolean,

@@ -22,9 +22,9 @@ module FiltersHelper
       locals[:association] = locals[:model].reflections[field.to_s]
       render locals: locals, partial: 'filters/field_has_many'
     when 'Administrate::Field::Select'
-		  render locals: locals, partial: 'filters/field_select'
+      render locals: locals, partial: 'filters/field_select'
     else
-		  render locals: locals, partial: 'filters/field_other'
+      render locals: locals, partial: 'filters/field_other'
     end
   end
 end

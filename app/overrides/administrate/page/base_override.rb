@@ -28,7 +28,7 @@ module Administrate::Page::BaseOverride
 
     # Resource siblings navigation
     def resource_pointer
-      @resource_pointer ||= resource.seek([:id, :asc])
+      @resource_pointer ||= resource.seek(%i[id asc])
     end
 
     def next_resource
@@ -37,7 +37,7 @@ module Administrate::Page::BaseOverride
 
     def next_resource?
       return false unless next_resource
-      return false unless next_resource == resource
+      return false if next_resource == resource
 
       true
     end
@@ -48,7 +48,7 @@ module Administrate::Page::BaseOverride
 
     def prev_resource?
       return false unless prev_resource
-      return false unless prev_resource == resource
+      return false if prev_resource == resource
 
       true
     end
