@@ -8,7 +8,7 @@ class Spree::StoreDashboard < Spree::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
-    url: Field::Url,
+    url: Field::String,
     code: Field::String,
     default: Field::Boolean,
     bcc_email: Field::Email,
@@ -16,14 +16,19 @@ class Spree::StoreDashboard < Spree::BaseDashboard
     seo_title: Field::String,
     meta_description: Field::Text,
     meta_keywords: Field::Text,
+
     default_currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency, searchable: false),
-    cart_tax_country_iso: Field::String,
-    available_locales: Field::String,
+    cart_tax_country_iso: Field::Select.with_options(collection: Spree::Country.all.map { |c| [c.name, c.iso] }),
+
+    available_locales: Field::Select.with_options(collection: Spree.i18n_available_locales, multiple: true, searchable: false),
+
     # store_payment_methods: Field::HasMany,
     payment_methods: Field::HasMany.with_options(class_name: 'Spree::PaymentMethod'),
     # store_shipping_methods: Field::HasMany,
     shipping_methods: Field::HasMany.with_options(class_name: 'Spree::ShippingMethod'),
+
     orders: Field::HasMany.with_options(class_name: 'Spree::Order'),
+
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze

@@ -11,7 +11,7 @@ class Spree::PriceDashboard < Spree::BaseDashboard
     variant: Field::BelongsTo.with_options(class_name: 'Spree::Variant'),
     currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
     country: Field::BelongsTo.with_options(class_name: 'Spree::Country'),
-    country_iso: Field::String,
+    country_iso: Field::Select.with_options(collection: Spree::Country.all.map { |c| [c.name, c.iso] }),
     deleted_at: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime

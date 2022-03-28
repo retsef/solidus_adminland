@@ -28,7 +28,8 @@ to be displayed on a resource's edit form page.
         :first,
         field.data,
       ),
-      { include_blank: field.include_blank_option }, 
+      { include_blank: field.include_blank_option },
+      multiple: field.include_multiple_option, 
       'data-select-target': 'input'
     ) %>
   <% else %>
@@ -41,6 +42,7 @@ to be displayed on a resource's edit form page.
         field.data,
       ),
       { include_blank: field.include_blank_option },
+      multiple: field.include_multiple_option,
       'data-select-target': 'input'
     ) %>
   <% end %>
