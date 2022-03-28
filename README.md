@@ -73,8 +73,8 @@ The initial design is made with bootstrap 5 with [Tabler](https://github.com/tab
 
 - [x] Promotions CRUD
   - [x] Promotion Codes CRUD
-  - [ ] Promotion Rules CRUD
-  - [ ] Promotion Actions CRUD
+  - [-] Promotion Rules CRUD
+  - [-] Promotion Actions CRUD
 - [x] Promotion Category CRUD
 
 - [x] Stores CRUD
@@ -82,7 +82,7 @@ The initial design is made with bootstrap 5 with [Tabler](https://github.com/tab
 - [x] Option Value CRUD
 - [x] Property CRUD
 - [x] Shipping Category CRUD
-- [x] Shipoing Method CRUD
+- [-] Shipoing Method CRUD
 - [x] Stock Locations CRUD
 - [x] Tax Category CRUD
 - [x] Tax Rate CRUD
