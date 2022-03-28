@@ -10,18 +10,22 @@ class Spree::StockLocationDashboard < Spree::BaseDashboard
     name: Field::String,
     code: Field::String,
     position: Field::Number,
+    
+    active: Field::Boolean,
+    default: Field::Boolean,
+    backorderable_default: Field::Boolean,
+
     restock_inventory: Field::Boolean,
     fulfillable: Field::Boolean,
     check_stock_on_transfer: Field::Boolean,
+    propagate_all_variants: Field::Boolean,
 
-    default: Field::Boolean,
     address1: Field::String,
     address2: Field::String,
     city: Field::String,
     state_name: Field::String,
     zipcode: Field::String,
     phone: Field::String,
-    active: Field::Boolean,
     # users: Field::HasMany,
     state: Field::BelongsTo.with_options(class_name: 'Spree::State'),
     country: Field::BelongsTo.with_options(class_name: 'Spree::Country'),
@@ -32,8 +36,6 @@ class Spree::StockLocationDashboard < Spree::BaseDashboard
     # cartons: Field::HasMany,
     stock_movements: Field::HasMany.with_options(class_name: 'Spree::StockMovement'),
 
-    backorderable_default: Field::Boolean,
-    propagate_all_variants: Field::Boolean,
     admin_name: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime

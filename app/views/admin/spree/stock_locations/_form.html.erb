@@ -1,0 +1,87 @@
+<%#
+# Form Partial
+
+This partial is rendered on a resource's `new` and `edit` pages,
+and renders all form fields for a resource's editable attributes.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Form][1].
+  Contains helper methods to display a form,
+  and knows which attributes should be displayed in the resource's form.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
+%>
+
+<%= form_for([namespace, page.resource], html: { class: "form mb-3 mt-3", data: { turbo_action: "replace" } }) do |f| %>
+  <% if page.resource.errors.any? %>
+    <div id="error_explanation" class="form-errors alert alert-danger" role="alert">
+      <h4 class="alert-title">
+        <%= t(
+          "administrate.form.errors",
+          pluralized_errors: pluralize(page.resource.errors.count, t("administrate.form.error")),
+          resource_name: display_resource_name(page.resource_name, singular: true)
+        ) %>
+      </h4>
+      <ul>
+        <% page.resource.errors.full_messages.each do |message| %>
+          <li class="flash-error align-items-center">
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-body mt-3 mb-3">
+    <%- attributes = page.attributes(controller.action_name) %>
+    <!-- Main Store Location Content -->
+    <div class="card mb-3">
+      <div class="card-body">
+        <% content_attributes = %i[name code admin_name active default backorderable_default] %>
+        <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+          <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+            <%= render_field attribute, f: f %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Store Location Address -->
+    <div class="card mb-3">
+      <div class="card-body">
+        <h3 class="card-title">Address</h3>
+        <% content_attributes = %i[address1 address2 city zipcode state_name state country phone] %>
+        <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+          <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+            <%= render_field attribute, f: f %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Store Location Settings -->
+    <div class="card mb-3">
+      <div class="card-body">
+        <h3 class="card-title">Settings</h3>
+        <% content_attributes = %i[propagate_all_variants restock_inventory fulfillable check_stock_on_transfer] %>
+        <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+          <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+            <%= render_field attribute, f: f %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <hr/>
+    <% if valid_action? :destroy, page.resource_name %>
+      <%= link_to 'Delete', [namespace, page.resource], class: 'btn btn-outline-danger', 
+                  data: { turbo_method: :delete, turbo_confirm: t("administrate.actions.confirm"), turbo_action: "replace" } %>
+    <% end %>
+
+    <%= f.submit class: "btn btn-primary float-end" %>
+  </div>
+<% end %>
