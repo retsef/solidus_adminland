@@ -1,6 +1,4 @@
-require 'administrate/base_dashboard'
-
-class Spree::InventoryUnitDashboard < Administrate::BaseDashboard
+class Spree::InventoryUnitDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #

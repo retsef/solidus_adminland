@@ -1,4 +1,4 @@
-class Spree::Promotion::Rules::ProductDashboard < Spree::Promotion::Rules::BaseDashboard
+class Spree::Promotion::Rules::UserDashboard < Spree::Promotion::Rules::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -15,8 +15,7 @@ class Spree::Promotion::Rules::ProductDashboard < Spree::Promotion::Rules::BaseD
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
 
-    products: Field::HasMany.with_options(class_name: 'Spree::Product'),
-    preferred_match_policy: Field::Select.with_options(collection: Spree::Promotion::Rules::Product::MATCH_POLICIES),
+    users: Field::HasMany.with_options(class_name: Spree.user_class.to_s),
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -46,8 +45,7 @@ class Spree::Promotion::Rules::ProductDashboard < Spree::Promotion::Rules::BaseD
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    preferred_match_policy
-    products
+    users
   ].freeze
 
   # COLLECTION_FILTERS
@@ -65,7 +63,7 @@ class Spree::Promotion::Rules::ProductDashboard < Spree::Promotion::Rules::BaseD
   # Overwrite this method to customize how item totals are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(product)
-    "#{product.preferred_match_policy} of those #{product.products.size} products"
+  def display_resource(user)
+    "Any of those #{user.users.size} users"
   end
 end

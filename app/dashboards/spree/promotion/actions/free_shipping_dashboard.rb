@@ -6,12 +6,12 @@ class Spree::Promotion::Actions::FreeShippingDashboard < Spree::Promotion::Actio
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    promotion: Field::BelongsTo,
     id: Field::Number,
-    position: Field::Number,
     type: Field::String,
-    deleted_at: Field::DateTime,
+    position: Field::Number,
+    promotion: Field::BelongsTo,
     preferences: Field::Text,
+    deleted_at: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -23,20 +23,18 @@ class Spree::Promotion::Actions::FreeShippingDashboard < Spree::Promotion::Actio
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     promotion
-    id
-    position
     type
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    promotion
     id
-    position
+    promotion
     type
-    deleted_at
+    position
     preferences
+    deleted_at
     created_at
     updated_at
   ].freeze
@@ -45,11 +43,7 @@ class Spree::Promotion::Actions::FreeShippingDashboard < Spree::Promotion::Actio
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    promotion
-    position
-    type
-    deleted_at
-    preferences
+    
   ].freeze
 
   # COLLECTION_FILTERS
@@ -67,7 +61,7 @@ class Spree::Promotion::Actions::FreeShippingDashboard < Spree::Promotion::Actio
   # Overwrite this method to customize how free shippings are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(free_shipping)
-  #   "Spree::Promotion::Actions::FreeShipping ##{free_shipping.id}"
-  # end
+  def display_resource(_free_shipping)
+    'Free shipping'
+  end
 end
