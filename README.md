@@ -82,13 +82,13 @@ The initial design is made with bootstrap 5 with [Tabler](https://github.com/tab
 - [x] Option Value CRUD
 - [x] Property CRUD
 - [x] Shipping Category CRUD
-- [-] Shipoing Method CRUD
+- [-] Shipping Method CRUD
 - [x] Stock Locations CRUD
 - [x] Tax Category CRUD
 - [x] Tax Rate CRUD
 - [x] Taxonomy CRUD
 - [x] Taxon CRUD
-- [x] Payment Method CRUD
+- [-] Payment Method CRUD
 
 All the rights of logos and colors are get from solidus presskit
 The Admin theme is inspired from solidus website mockups and based on [Bootstrap 5](https://getbootstrap.com) version of [Tabler](https://github.com/tabler/tabler)
