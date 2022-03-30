@@ -1,4 +1,5 @@
 <fieldset class="list-group list-group-flush field-unit--nested" data-controller="nested-form">
+  <%= f.label field.attribute %>
   <%= f.hint field.attribute %>
 
 	<template data-nested-form-target="template">
@@ -15,7 +16,7 @@
 
   <%= f.fields_for field.association_name do |nested_form| %>
     <%= render(
-        partial: "fields/spree/#{f.object_name}/#{field.attribute}/fields",
+      partial: "fields/spree/#{f.object_name}/#{field.attribute}/fields",
       locals: {
         f: nested_form,
         field: field,

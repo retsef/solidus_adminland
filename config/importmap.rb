@@ -24,6 +24,7 @@ pin 'choices.js', to: 'https://ga.jspm.io/npm:choices.js@9.0.1/public/assets/scr
 pin 'tom-select', to: 'https://ga.jspm.io/npm:tom-select@2.0.1/dist/js/tom-select.complete.js'
 
 pin 'flatpickr', to: 'https://ga.jspm.io/npm:flatpickr@4.6.9/dist/flatpickr.js'
+pin 'litepicker', to: 'https://ga.jspm.io/npm:litepicker@2.0.12/dist/litepicker.umd.js'
 # pin 'inputmask', to: 'https://ga.jspm.io/npm:inputmask@5.0.7/dist/inputmask.js'
 
 pin 'local-time-cdn', to: 'https://ga.jspm.io/npm:local-time@2.1.0/app/assets/javascripts/local-time.js'

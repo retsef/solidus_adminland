@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import flatpickr from 'flatpickr';
+import { Litepicker } from 'litepicker';
 
 export default class extends Controller {
     static targets = [];
@@ -7,13 +7,18 @@ export default class extends Controller {
     picker = null;
 
     initialize() {
-        this.config = {}
+        this.config = {
+            buttonText: {
+    			previousMonth: `<i class="icon ti ti-chevron-left"></i>`,
+    			nextMonth: `<i class="icon ti ti-chevron-right"></i>`,
+            },
+        }
     }
 
     connect() {
-        this.picker = flatpickr(this.element, {
-            ...this.config,
-            enableTime: this.enableTime
+        this.picker = new Litepicker({ 
+            element: this.element,
+            ...this.config
         })
     }
 

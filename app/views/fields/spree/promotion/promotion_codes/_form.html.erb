@@ -4,7 +4,7 @@
 	<template data-nested-form-target="template">
 		<%= f.fields_for field.association_name, field.associated_class.new, child_index: 'NEW_RECORD' do |nested_form| %>
 			<%= render(
-        partial: "fields/spree/promotion/promotion_codes/fields",
+        partial: "fields/spree/#{f.object_name}/#{field.attribute}/fields",
         locals: {
           f: nested_form,
           field: field,
@@ -15,7 +15,7 @@
 
   <%= f.fields_for field.association_name do |nested_form| %>
     <%= render(
-      partial: "fields/spree/promotion/promotion_codes/fields",
+        partial: "fields/spree/#{f.object_name}/#{field.attribute}/fields",
       locals: {
         f: nested_form,
         field: field,

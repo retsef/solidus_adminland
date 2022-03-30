@@ -93,11 +93,13 @@ module ActiveLinkToHelper
     when Array
       controllers = [*condition[0]]
       actions     = [*condition[1]]
-      ((controllers.blank? || controllers.member?(params[:controller])) &&
-        (actions.blank? || actions.member?(params[:action]))) ||
-        controllers.any? do |controller, action|
-          params[:controller] == controller.to_s && params[:action] == action.to_s
-        end
+
+      controller_exist = controllers.blank? || controllers.member?(params[:controller])
+      action_exist = actions.blank? || actions.member?(params[:action])
+
+      return true if controller_exist && action_exist
+
+      controllers.any? { |controller, action| params[:controller] == controller.to_s && params[:action] == action.to_s }
     when TrueClass
       true
     when FalseClass
