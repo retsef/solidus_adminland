@@ -29,6 +29,7 @@ gem 'turbo-rails'
 # Solidus
 # gem 'solidus_api', '~> 3.1', '>= 3.1.1'
 gem 'solidus_core', '~> 3.1', '>= 3.1.1'
+gem 'solidus_sample', '~> 3.1', '>= 3.1.1'
 
 # Admin Panel
 gem 'administrate'

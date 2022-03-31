@@ -1,5 +1,15 @@
 module Admin
   class Spree::PaymentMethodsController < Admin::ApplicationController
+    def resource_class
+      ::Spree::PaymentMethod
+    end
+
+    def dashboard_class
+      return super if action_name == 'index'
+
+      "#{find_resource(params[:id]).class}Dashboard".constantize
+    end
+    
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #
