@@ -41,6 +41,9 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_reporter (0.6.5)
+      deeply_enumerable (>= 0.9.3, < 2.0)
+      rails (>= 5.1, < 7)
     activejob (6.1.5)
       activesupport (= 6.1.5)
       globalid (>= 0.3.6)
@@ -139,6 +142,7 @@ GEM
     crass (1.0.6)
     datetime_picker_rails (0.0.7)
       momentjs-rails (>= 2.8.1)
+    deeply_enumerable (0.9.3)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.4.4)
@@ -481,6 +485,7 @@ PLATFORMS
 
 DEPENDENCIES
   action_policy
+  active_reporter
   addressable (~> 2.8)
   administrate
   administrate-field-active_storage

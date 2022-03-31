@@ -51,6 +51,9 @@ gem 'view_component-form'
 gem 'ransack'
 gem 'order_query', '~> 0.5.2'
 
+# Report
+gem 'active_reporter'
+
 gem 'addressable', '~> 2.8'
 gem 'local_time'
 
