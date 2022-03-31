@@ -28,5 +28,6 @@ pin 'litepicker', to: 'https://ga.jspm.io/npm:litepicker@2.0.12/dist/litepicker.
 # pin 'inputmask', to: 'https://ga.jspm.io/npm:inputmask@5.0.7/dist/inputmask.js'
 
 pin 'local-time-cdn', to: 'https://ga.jspm.io/npm:local-time@2.1.0/app/assets/javascripts/local-time.js'
+pin 'lodash', to: 'https://ga.jspm.io/npm:lodash@4.17.21/lodash.js'
 
 pin 'apexcharts', to: 'https://ga.jspm.io/npm:apexcharts@3.33.2/dist/apexcharts.common.js'
