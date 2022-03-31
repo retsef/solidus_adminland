@@ -1,4 +1,4 @@
-class Spree::Calculator::DefaultTaxDashboard < Spree::CalculatorDashboard
+class Spree::Calculator::DistributedAmountDashboard < Spree::CalculatorDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
