@@ -130,7 +130,7 @@ as well as a link to its edit page.
           <div class="col-12 col-md-4">
             <!-- Customer -->
             <div class="card mb-3">
-              <turbo-frame id="<%= dom_id(page.resource, "customer") %>" src="<%= polymorphic_path([namespace, page.resource, :customer]) %>">
+              <turbo-frame id="<%= dom_id(page.resource, "customers") %>" src="<%= polymorphic_path([namespace, page.resource, :customer]) %>">
                 <div class="card-body">
                   <h3 class="card-title">Customer</h3>
                   <div class="row w-100 placeholder-glow gy-1">

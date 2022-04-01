@@ -11,10 +11,8 @@ module Admin
         @parent_page ||= Administrate::Page::Show.new(parent_dashboard, requested_parent_resource)
       end
 
-      def valid_action?(name, resource = dashboard_class)
-        # resource_path = resource.to_s.underscore.remove('_dashboard').pluralize
+      def valid_action?(name, resource = dashboard.class.to_s.remove('Dashboard'))
         resource_path = resource.to_s.underscore.pluralize
-        # resource_path = dashboard.class.to_s.scan(/(.+)Dashboard/).first.first.to_s.underscore.pluralize
 
         !!routes.detect do |controller, action|
           controller == resource_path && action == name.to_s

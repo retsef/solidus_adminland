@@ -117,7 +117,7 @@ to display a collection of resources in an HTML table.
           [:new, namespace, parent_page.resource, page.resource_path.to_sym],
           class: "btn btn-link",
           target: '_top'
-        ) if valid_action?(:new) && show_action?(:new, new_resource) %>
+        ) if valid_action?(:new) && show_action?(:new, page.resource_name) %>
     </div>
 
   <% end %>

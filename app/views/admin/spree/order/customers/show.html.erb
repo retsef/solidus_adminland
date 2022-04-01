@@ -19,27 +19,42 @@ as well as a link to its edit page.
 
 <turbo-frame id="<%= dom_id(parent_page.resource, controller_name) %>">
   <section class="main-content__body">
-    <% if parent_page.resource.user_id? || parent_page.resource.email? %>
+    <% if parent_page.resource.user_id? %>
       <!-- Customer ID -->
       <div class="card-body">
         <h3 class="card-title">Cliente</h3>
       </div>
-
-      <!-- Customer Email -->
-      <div class="card-body">
-        <h3 class="card-title">Recapiti</h3>
-      </div>
-
-      <!-- Customer Billing Address -->
-      <div class="card-body">
-        <h3 class="card-title">Indirizzo di fatturazione</h3>
-      </div>
-
-      <!-- Customer Shipping Address -->
-      <div class="card-body">
-        <h3 class="card-title">Indirizzo di spedizione</h3>
-      </div>
     <% end %>
+
+    <!-- Customer Email -->
+    <div class="card-body">
+      <h3 class="card-title">Recapiti</h3>
+      <%= parent_page.resource.email %>
+    </div>
+
+    <!-- Customer Billing Address -->
+    <div class="card-body">
+      <h3 class="card-title">Indirizzo di fatturazione</h3>
+      <turbo-frame id="<%= dom_id(parent_page.resource, "bill_address") %>" src="<%= polymorphic_path([namespace, parent_page.resource, :bill_address]) %>">
+        <div class="row w-100 placeholder-glow gy-1">
+          <% 3.times do %>
+            <div class="placeholder col-12 h-30"></div>
+          <% end %>
+        </div>
+      </turbo-frame>
+    </div>
+
+    <!-- Customer Shipping Address -->
+    <div class="card-body">
+      <h3 class="card-title">Indirizzo di spedizione</h3>
+      <turbo-frame id="<%= dom_id(parent_page.resource, "ship_address") %>" src="<%= polymorphic_path([namespace, parent_page.resource, :ship_address]) %>">
+        <div class="row w-100 placeholder-glow gy-1">
+          <% 3.times do %>
+            <div class="placeholder col-12 h-30"></div>
+          <% end %>
+        </div>
+      </turbo-frame>
+    </div>
 
     <dl>
       <% page.attributes.each do |attribute| %>

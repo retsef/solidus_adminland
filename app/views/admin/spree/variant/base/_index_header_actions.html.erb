@@ -5,4 +5,4 @@
 	),
 	[:new, namespace, parent_page.resource, page.resource_path.to_sym],
 	class: "btn btn-primary",
-) if valid_action?(:new) && show_action?(:new, new_resource) %>
+) if valid_action?(:new) && show_action?(:new, page.resource_name) %>
