@@ -1,4 +1,4 @@
-class Spree::Order::AdjustmentDashboard < Spree::Order::BaseDashboard
+class Spree::LineItemDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -7,18 +7,24 @@ class Spree::Order::AdjustmentDashboard < Spree::Order::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    amount: Field::Money.with_options(searchable: false),
-    label: Field::String,
-    eligible: Field::Boolean,
-    included: Field::Boolean,
-    finalized: Field::Boolean,
-    adjustable: Field::Polymorphic.with_options(classes: [Spree::Order, Spree::LineItem]),
-    source: Field::Polymorphic,
-    order: Field::BelongsTo,
-    promotion_code: Field::BelongsTo,
-    adjustment_reason: Field::BelongsTo,
+    order: Field::BelongsTo.with_options(class_name: 'Spree::Order'),
+    variant: Field::BelongsTo.with_options(class_name: 'Spree::Variant'),
+    # tax_category: Field::BelongsTo,
+    # product: Field::HasOne,
+    # adjustments: Field::HasMany,
+    # inventory_units: Field::HasMany,
+    # line_item_actions: Field::HasMany,
+    # actions: Field::HasMany,
+    quantity: Field::Number,
+    price: Field::Money,
+    total: Field::Money,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
+    # cost_price: Field::String.with_options(searchable: false),
+    # adjustment_total: Field::String.with_options(searchable: false),
+    # additional_tax_total: Field::String.with_options(searchable: false),
+    # promo_total: Field::String.with_options(searchable: false),
+    # included_tax_total: Field::String.with_options(searchable: false),
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -27,37 +33,35 @@ class Spree::Order::AdjustmentDashboard < Spree::Order::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    adjustable
-    label
-    amount
-    finalized
+    variant
+    quantity
+    total
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    adjustable
-    source
     order
-    promotion_code
-    adjustment_reason
-    id
-    amount
-    label
-    eligible
-    created_at
-    updated_at
-    included
-    finalized
+    variant
+    quantity
+    price
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    amount
-    label
-    adjustment_reason
+    variant
+    quantity
+  ].freeze
+
+  FORM_ATTRIBUTES_NEW = %i[
+    variant
+    quantity
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
+    quantity
   ].freeze
 
   # COLLECTION_FILTERS
@@ -72,10 +76,10 @@ class Spree::Order::AdjustmentDashboard < Spree::Order::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how adjustments are displayed
+  # Overwrite this method to customize how line items are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(adjustment)
-  #   "Spree::Adjustment ##{adjustment.id}"
+  # def display_resource(line_item)
+  #   "Spree::LineItem ##{line_item.id}"
   # end
 end

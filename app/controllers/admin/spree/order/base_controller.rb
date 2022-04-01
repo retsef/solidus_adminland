@@ -23,7 +23,7 @@ module Admin
     end
 
     def new_resource
-      resource_class.new(order: parent_page.resource)
+      resource_class.new(order: requested_parent_resource)
     end
 
     def sanitized_order_params(page, current_field_name)

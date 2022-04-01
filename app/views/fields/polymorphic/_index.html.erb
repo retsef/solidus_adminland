@@ -17,9 +17,13 @@ By default, the relationship is rendered as a link to the associated object.
 %>
 
 <% if field.data %>
-  <%= link_to(
-    field.display_associated_resource,
-    [namespace, field.data],
-    target: '_top'
-  ) %>
+  <% if valid_action?(:show, field.data.class) && show_action?(:show, field.resource) -%>
+    <%= link_to(
+      field.display_associated_resource,
+      [namespace, field.data],
+      target: '_top'
+    ) %>
+  <% elsif %>
+    <%= field.display_associated_resource %>
+  <% end %>
 <% end %>

@@ -4,11 +4,11 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     address: 'secondary',
     payment: 'secondary',
     delivery: 'secondary',
-    completed: 'success',
-    cancelled: 'error',
+    complete: 'success',
+    cancelled: 'secondary',
     awaiting_return: 'warning',
     returned: 'success',
-    resumed: 'warning'
+    resumed: 'warning',
   }.freeze
 
   SHIPMENT_STATE_CLASSES = {
@@ -16,15 +16,17 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     ready: 'info',
     backorder: 'info',
     partial: 'warning',
-    shipped: 'success'
+    shipped: 'success',
   }.freeze
 
   PAYMENT_STATE_CLASSES = {
+    paid: 'success',
     pending: 'warning',
     confirmed: 'info',
     purchased: 'success',
     declined: 'error',
-    deferred: 'secondary'
+    deferred: 'secondary',
+    balance_due: 'warning',
   }.freeze
 
   # ATTRIBUTE_TYPES

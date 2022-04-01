@@ -73,8 +73,6 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :line_items, only: %i[index]
-
       # Promotions
       resources :promotions do
         # resources :codes

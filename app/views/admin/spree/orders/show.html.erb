@@ -58,9 +58,41 @@ as well as a link to its edit page.
             <!-- Line Items -->
             <div class="card mb-3">
               <div class="card-header">
-                <h3 class="card-title">Prodotti</h3>
+                <h3 class="card-title">Line items</h3>
               </div>
               <turbo-frame id="<%= dom_id(page.resource, "line_items") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::LineItem]) %>">
+                <div class="card-body">
+                  <div class="row w-100 placeholder-glow gy-1">
+                    <% 3.times do %>
+                      <div class="placeholder col-12 h-30"></div>
+                    <% end %>
+                  </div>
+                </div>
+              </turbo-frame>
+            </div>
+
+            <!-- Shipments Overview -->
+            <div class="card mb-3">
+              <div class="card-header">
+                <h3 class="card-title">Shipments</h3>
+              </div>
+              <turbo-frame id="<%= dom_id(page.resource, "shipments") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Shipment]) %>">
+                <div class="card-body">
+                  <div class="row w-100 placeholder-glow gy-1">
+                    <% 3.times do %>
+                      <div class="placeholder col-12 h-30"></div>
+                    <% end %>
+                  </div>
+                </div>
+              </turbo-frame>
+            </div>
+
+            <!-- Adjustments Overview -->
+            <div class="card mb-3">
+              <div class="card-header">
+                <h3 class="card-title">Adjustments</h3>
+              </div>
+              <turbo-frame id="<%= dom_id(page.resource, "adjustments") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Adjustment]) %>">
                 <div class="card-body">
                   <div class="row w-100 placeholder-glow gy-1">
                     <% 3.times do %>
@@ -74,7 +106,7 @@ as well as a link to its edit page.
             <!-- Payments Overview -->
             <div class="card mb-3">
               <div class="card-body">
-                <h3 class="card-title">Pagamento</h3>
+                <h3 class="card-title">Summary Payments</h3>
                 <div class="row gy-2">
                   <% content_attributes = %i[item_total shipment_total additional_tax_total adjustment_total payment_total total] %>
                   <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
@@ -100,7 +132,7 @@ as well as a link to its edit page.
             <div class="card mb-3">
               <turbo-frame id="<%= dom_id(page.resource, "customer") %>" src="<%= polymorphic_path([namespace, page.resource, :customer]) %>">
                 <div class="card-body">
-                  <h3 class="card-title">Cliente</h3>
+                  <h3 class="card-title">Customer</h3>
                   <div class="row w-100 placeholder-glow gy-1">
                     <% 3.times do %>
                       <div class="placeholder col-12"></div>
@@ -115,7 +147,7 @@ as well as a link to its edit page.
               <div class="card mb-3">
                 <div class="card-body">
                   <h3 class="card-title">Analisi del rishio di frode</h3>
-                  <legend><%= "#{t('spree.risk_analysis')}: #{t('spree.not') unless page.resource.is_risky?} #{t('spree.risky')}" %></legend>
+                  <h2 class="card-title"><%= "#{t('spree.risk_analysis')}: #{t('spree.not') unless page.resource.is_risky?} #{t('spree.risky')}" %></h2>
                   <dl>
                     <dt><%= t('spree.failed_payment_attempts') %></dt>
                     <dd><%= t('spree.payments_failed_count', count: page.resource.payments.failed.count) %></dd>
