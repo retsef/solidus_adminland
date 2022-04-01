@@ -22,13 +22,13 @@ to display a collection of resources in an HTML table.
   <div class="row row-cards">
     <% resources.each do |resource| %>
       <div class="col-sm-6 col-md-4">
-        <div class="card card-sm ratio ratio-1x1">
+        <div class="card card-sm">
           <%# if show_action? :show, resource %>
             <%# = %(tabindex=0 role=link data-url=#{polymorphic_path([namespace, resource])}) %>
           <%# end %>
-          <div class="card-body">
-            <%= render_field collection_presenter.attributes_for(resource).detect {|a| a.attribute == :attachment } %>
-          
+          <%= render_field collection_presenter.attributes_for(resource).detect {|a| a.attribute == :attachment } %>
+
+          <div class="card-body p-1">
             <%= render(
               "collection_item_actions",
               collection_presenter: collection_presenter,
