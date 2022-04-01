@@ -16,7 +16,7 @@ class Spree::Order::AdjustmentDashboard < Spree::Order::BaseDashboard
     source: Field::Polymorphic,
     order: Field::BelongsTo,
     promotion_code: Field::BelongsTo,
-    adjustment_reason: Field::BelongsTo,
+    adjustment_reason: Field::BelongsTo.with_options(class_name: 'Spree::AdjustmentReason'),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze

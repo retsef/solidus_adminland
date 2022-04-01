@@ -79,7 +79,7 @@ class Spree::LineItemDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how line items are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(line_item)
-  #   "Spree::LineItem ##{line_item.id}"
-  # end
+  def display_resource(line_item)
+    "#{line_item.variant.name} (#{line_item.display_price})"
+  end
 end

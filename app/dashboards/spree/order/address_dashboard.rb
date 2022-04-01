@@ -7,9 +7,9 @@ class Spree::Order::AddressDashboard < Spree::Order::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
+    name: Field::String,
     address1: Field::String,
     address2: Field::String,
-    name: Field::String,
     city: Field::String,
     zipcode: Field::String,
     phone: Field::String,
@@ -36,36 +36,34 @@ class Spree::Order::AddressDashboard < Spree::Order::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    country
-    state
+    name
+    company
     address1
     address2
     city
     zipcode
-    phone
+    state
     state_name
+    country
+    phone
     alternative_phone
-    company
-    created_at
-    updated_at
-    name
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    country
-    state
+    name
+    company
     address1
     address2
-    city
     zipcode
-    phone
+    city
+    state
     state_name
+    country
+    phone
     alternative_phone
-    company
-    name
   ].freeze
 
   # COLLECTION_FILTERS
