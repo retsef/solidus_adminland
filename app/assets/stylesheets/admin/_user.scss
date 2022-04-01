@@ -29,8 +29,39 @@
   border-style: dashed;
 }
 
-// Active Storage Field
+// Table sorting
+.cell-label {
+  &.cell-label--asc, &.cell-label--desc {
+    &::after {
+      font-family: tabler-icons!important;
+      speak: none;
+      font-style: normal;
+      font-weight: 400;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
 
+      width: 1rem;
+      height: 1rem;
+      font-size: 1rem;
+      vertical-align: bottom;
+      stroke-width: 1.5;
+      box-sizing: border-box;
+    }
+  }
+
+  &.cell-label--asc::after {
+    content: "\ea62";
+  }
+
+  &.cell-label--desc::after {
+    content: "\ea5f";
+  }
+}
+
+// Active Storage Field
 .attachments-listing, .cell-data.cell-data--active-storage {
   img {
     width: 100%;
@@ -39,7 +70,6 @@
     object-position: center;
   }
 }
-
 
 // Inline Edit
 

@@ -16,6 +16,12 @@ module Admin
       resource_class.new(viewable: requested_parent_resource.master)
     end
 
+    # Override this value to specify the number of elements to display at a time
+    # on index pages. Defaults to 15.
+    def records_per_page
+      params[:per_page] || 99999
+    end
+
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #
