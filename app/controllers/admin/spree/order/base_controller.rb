@@ -5,7 +5,7 @@ module Admin
     private
 
     def scoped_resource
-      scoped_resource ||= resource_class.where(order: parent_page.resource)
+      scoped_resource ||= resource_class.where(order: requested_parent_resource)
 
       # Administrate ransack
       @ransack_results = scoped_resource.ransack(params[:q])
@@ -39,15 +39,15 @@ module Admin
     end
 
     def after_resource_created_path(_requested_resource)
-      [namespace, parent_page.resource]
+      [namespace, requested_parent_resource]
     end
 
     def after_resource_updated_path(_requested_resource)
-      [namespace, parent_page.resource]
+      [namespace, requested_parent_resource]
     end
 
     def after_resource_destroy_path(_requested_resource)
-      [namespace, parent_page.resource, controller_name.to_sym]
+      [namespace, requested_parent_resource, controller_name.to_sym]
     end
   end
 end

@@ -5,7 +5,7 @@ module Admin
     private
 
     def scoped_resource
-      scoped_resource ||= resource_class.where(variant: parent_page.resource)
+      scoped_resource ||= resource_class.where(variant: requested_parent_resource)
 
       # Administrate ransack
       @ransack_results = scoped_resource.ransack(params[:q])
@@ -23,7 +23,7 @@ module Admin
     end
 
     def new_resource
-      resource_class.new(variant: parent_page.resource)
+      resource_class.new(variant: requested_parent_resource)
     end
 
     def sanitized_order_params(page, current_field_name)

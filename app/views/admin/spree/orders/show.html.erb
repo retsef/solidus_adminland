@@ -148,13 +148,19 @@ as well as a link to its edit page.
                 <div class="card-body">
                   <h3 class="card-title">Analisi del rishio di frode</h3>
                   <h2 class="card-title"><%= "#{t('spree.risk_analysis')}: #{t('spree.not') unless page.resource.is_risky?} #{t('spree.risky')}" %></h2>
-                  <dl>
-                    <dt><%= t('spree.failed_payment_attempts') %></dt>
-                    <dd><%= t('spree.payments_failed_count', count: page.resource.payments.failed.count) %></dd>
-                  
+                  <div class="row gy-2 align-items-center">
+                    <div class="col-8 attribute-label">
+                      <%= t('spree.failed_payment_attempts') %>
+                    </div>
+                    <div class="col-4 attribute-data text-end">
+                      <%= t('spree.payments_failed_count', count: page.resource.payments.failed.count) %>
+                    </div>
+
                     <%- latest_payment = page.resource.payments.last %>
-                    <dt><%= t('spree.avs_response') %></td>
-                    <dd>
+                    <div class="col-8 attribute-label">
+                      <%= t('spree.avs_response') %>
+                    </div>
+                    <div class="col-4 attribute-data text-end">
                       <span class="status status-<%= latest_payment.is_avs_risky? ? 'warning' : 'success' %>">
                         <% if latest_payment.is_avs_risky? %>
                           <%= avs_response_code[latest_payment.avs_response] %>
@@ -162,10 +168,12 @@ as well as a link to its edit page.
                           <%= t('spree.success') %>
                         <% end %>
                       </span>
-                    </dd>
+                    </div>
 
-                    <dt><%= t('spree.cvv_response') %></dt>
-                    <dd>
+                    <div class="col-8 attribute-label">
+                      <%= t('spree.cvv_response') %>
+                    </div>
+                    <div class="col-4 attribute-data text-end">
                       <span class="status status-<%= latest_payment.is_cvv_risky? ? 'warning' : 'success' %>">
                         <% if latest_payment.is_cvv_risky? %>
                           <%= cvv_response_code[latest_payment.cvv_response_code] %>
@@ -173,8 +181,9 @@ as well as a link to its edit page.
                           <%= t('spree.success') %>
                         <% end %>
                       </span>
-                    </dd>
-                  </dl>
+                    </div>
+
+                  </div>
                 </div>
               </div>
             <% end %>

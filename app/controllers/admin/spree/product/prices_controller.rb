@@ -5,7 +5,7 @@ module Admin
     end
 
     def scoped_resource
-      scoped_resource ||= resource_class.where(variant: parent_page.resource.master)
+      scoped_resource ||= resource_class.where(variant: requested_parent_resource.master)
 
       # Administrate ransack
       @ransack_results = scoped_resource.ransack(params[:q])
@@ -13,7 +13,7 @@ module Admin
     end
 
     def new_resource
-      resource_class.new(variant: parent_page.resource.master)
+      resource_class.new(variant: requested_parent_resource.master)
     end
 
     # Overwrite any of the RESTful controller actions to implement custom behavior

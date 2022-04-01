@@ -5,7 +5,7 @@ module Admin
     end
 
     def scoped_resource
-      scoped_resource ||= resource_class.where(viewable: parent_page.resource)
+      scoped_resource ||= resource_class.where(viewable: requested_parent_resource)
 
       # Administrate ransack
       @ransack_results = scoped_resource.ransack(params[:q])

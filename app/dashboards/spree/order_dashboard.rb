@@ -39,7 +39,7 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     id: Field::Number,
     number: Field::String,
     email: Field::Email,
-    # user: Field::BelongsTo,
+    user: Field::BelongsTo.with_options(class_name: ::Spree.user_class),
 
     bill_address: Field::BelongsTo.with_options(class_name: 'Spree::Address'),
     ship_address: Field::BelongsTo.with_options(class_name: 'Spree::Address'),

@@ -20,18 +20,33 @@ module Admin
     #   Foo.find_by!(slug: param)
     # end
 
+    private
+
     # The result of this lookup will be available as `requested_resource`
 
     # Override this if you have certain roles that require a subset
     # this will be used to set the records shown on the `index` action.
     #
-    # def scoped_resource
-    #   if current_user.super_admin?
-    #     resource_class
-    #   else
-    #     resource_class.with_less_stuff
-    #   end
-    # end
+    def scoped_resource
+      scoped_resource ||= resource_class.where(email: requested_parent_resource.email)
+                                        .or(resource_class.where(id: requested_parent_resource.user_id))
+
+      # Administrate ransack
+      @ransack_results = scoped_resource.ransack(params[:q])
+      @ransack_results.result(distinct: true)
+    end
+
+    def requested_resource
+      @requested_resource ||= find_resource.tap do |resource|
+        authorize_resource(resource)
+      end
+    end
+
+    def find_resource
+      resource = scoped_resource.first
+
+      resource ||= resource_class.new(email: requested_parent_resource.email)
+    end
 
     # Override `resource_params` if you want to transform the submitted
     # data before it's persisted. For example, the following would turn all

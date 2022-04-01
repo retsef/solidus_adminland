@@ -1,4 +1,12 @@
 class Spree::Order::ShipmentDashboard < Spree::Order::BaseDashboard
+  STATE_CLASSES = {
+    pending: 'warning',
+    ready: 'info',
+    backorder: 'info',
+    partial: 'warning',
+    shipped: 'success',
+  }.freeze
+  
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -12,7 +20,7 @@ class Spree::Order::ShipmentDashboard < Spree::Order::BaseDashboard
     cost: Field::String.with_options(searchable: false),
     shipped_at: Field::DateTime,
     deprecated_address_id: Field::Number,
-    state: Field::String,
+    state: Field::Select.with_options(collection: STATE_CLASSES.keys, filterable: true, states: STATE_CLASSES, default: 'warning'),
 
     order: Field::BelongsTo,
     stock_location: Field::BelongsTo,
