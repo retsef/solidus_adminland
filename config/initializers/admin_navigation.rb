@@ -4,6 +4,8 @@ Rails.application.configure do
   # Main
   config.admin_navigation.main_entries = []
 
+  config.admin_navigation.main_entries << Admin::MenuItem.new(label: 'admin.navigation.main.home', icon: 'ti ti-home', url: :admin_root_path)
+
   config.admin_navigation.main_entries << Admin::MenuItem.new(label: 'admin.navigation.main.orders.title', icon: 'ti ti-inbox').tap do |item|
     item.append(Admin::MenuItem.new(label: 'admin.navigation.main.orders.all_orders', url: :admin_orders_path))
   end
@@ -17,6 +19,11 @@ Rails.application.configure do
 
   config.admin_navigation.main_entries << Admin::MenuItem.new(label: 'admin.navigation.main.customers.title', icon: 'ti ti-users').tap do |item|
     item.append(Admin::MenuItem.new(label: 'admin.navigation.main.customers.all_customers', url: :admin_users_path))
+  end
+
+  config.admin_navigation.main_entries << Admin::MenuItem.new(label: 'admin.navigation.main.dashboards.title', icon: 'ti ti-chart-bar').tap do |item|
+    item.append(Admin::MenuItem.new(label: 'admin.navigation.main.dashboards.all_dashboards', url: :admin_dashboards_path))
+    item.append(Admin::MenuItem.new(label: 'admin.navigation.main.dashboards.all_reports', url: :admin_reports_path))
   end
 
   config.admin_navigation.main_entries << Admin::MenuItem.new(label: 'admin.navigation.main.promotions.title', icon: 'ti ti-discount-2').tap do |item|

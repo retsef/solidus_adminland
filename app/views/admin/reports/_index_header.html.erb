@@ -1,0 +1,32 @@
+
+<% content_for(:title) do %>
+  Reports
+<% end %>
+
+<!-- Header -->
+<% content_for :page_header do %>
+<header class="page-header d-print-none" role="banner">
+  <div class="row g-2 align-items-center">
+    <div class="col">
+      <!-- Pretitle -->
+      <div class="page-pretitle">Overview</div>
+      <!-- Title -->
+      <h2 class="page-title">
+        <%= content_for(:title) %>
+      </h2>
+    </div>
+
+    <div class="col-12 col-md-auto ms-auto d-print-none">
+      <!-- Actions -->
+      
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+    <div class="col">
+      <!-- Tabs -->
+
+    </div>
+  </div>
+</header>
+<% end %>

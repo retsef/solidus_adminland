@@ -3,6 +3,7 @@ it:
   admin:
     navigation:
       main:
+        home: 'Home'
         orders:
           title: 'Ordini'
           all_orders: 'Tutti gli ordini'
@@ -15,6 +16,10 @@ it:
         customers:
           title: 'Clienti'
           all_customers: 'Tutti i clienti'
+        dashboards:
+          title: 'Analisi'
+          all_dashboards: 'Tutte le analitics'
+          all_reports: 'Tutti i report'
         promotions:
           title: 'Promozioni'
           all_promotions: 'Tutte le promozioni'

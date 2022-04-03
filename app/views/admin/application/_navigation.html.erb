@@ -39,17 +39,6 @@ as defined by the routes in the `admin/` namespace
             -->
           <%# end %>
         <%# end %>
-        
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <span class="nav-link-icon d-md-none d-lg-inline-block">
-              <i class="icon ti ti-home"></i> 
-            </span>
-            <span class="nav-link-title">
-              Home
-            </span>
-          </a>
-        </li>
 
         <%- Rails.application.config.admin_navigation.main_entries.sort_by(&:position).each do |menu_item| %>
           <% if menu_item.children? %>

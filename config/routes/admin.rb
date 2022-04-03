@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
   namespace :admin do
+    root to: 'home#index'
+
+    # Reports
+    get :dashboards, to: 'dashboards#index'
+    resources :reports, only: %i[index show]
+
+    # Solidus core resources
     scope module: :spree do
       # Products
       resources :products do
@@ -20,6 +27,7 @@ Rails.application.routes.draw do
         scope module: :variant do
           resources :images
           resources :prices
+          resources :stock_items
         end
       end
 
