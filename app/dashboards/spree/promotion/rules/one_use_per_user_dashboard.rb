@@ -1,5 +1,5 @@
 class Spree::Promotion::Rules::OneUsePerUserDashboard < Spree::Promotion::Rules::BaseDashboard
-    # ATTRIBUTE_TYPES
+  # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
   # Each different type represents an Administrate::Field object,
@@ -43,7 +43,7 @@ class Spree::Promotion::Rules::OneUsePerUserDashboard < Spree::Promotion::Rules:
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    
+
   ].freeze
 
   # COLLECTION_FILTERS

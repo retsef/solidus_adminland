@@ -6,7 +6,7 @@ class Spree::Order::ShipmentDashboard < Spree::Order::BaseDashboard
     partial: 'warning',
     shipped: 'success',
   }.freeze
-  
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #

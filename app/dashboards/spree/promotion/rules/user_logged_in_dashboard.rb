@@ -43,7 +43,7 @@ class Spree::Promotion::Rules::UserLoggedInDashboard < Spree::Promotion::Rules::
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    
+
   ].freeze
 
   # COLLECTION_FILTERS

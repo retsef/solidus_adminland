@@ -1,4 +1,4 @@
-class PurchasedOrderMonitor < ApplicationMonitor
+class PurchasedOrderAverageMonitor < ApplicationMonitor
   self.report_class = Spree::OrderReport
 
   def relation
@@ -10,7 +10,7 @@ class PurchasedOrderMonitor < ApplicationMonitor
   end
 
   def aggregators
-    %i[total]
+    %i[avg_total]
   end
 
   def dimensions

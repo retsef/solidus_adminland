@@ -11,6 +11,8 @@ class Spree::OrderReport < ApplicationReport
   sum_aggregator :shipment_total
   sum_aggregator :payment_total
 
+  average_aggregator :avg_total, expression: 'spree_orders.total'
+
   count_aggregator :email
   count_aggregator :guest, expression: 'spree_orders.guest_token'
   count_aggregator :user_id

@@ -26,7 +26,7 @@ module Admin
 
     # Override this if you have certain roles that require a subset
     # this will be used to set the records shown on the `index` action.
-    
+
     def scoped_resource
       scoped_resource ||= resource_class.where(id: requested_parent_resource.bill_address_id)
 

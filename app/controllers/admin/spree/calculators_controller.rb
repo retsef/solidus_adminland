@@ -9,7 +9,7 @@ module Admin
 
       "#{find_resource(params[:id]).class}Dashboard".constantize
     end
-    
+
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #

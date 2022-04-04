@@ -3,5 +3,8 @@ class Admin::ReportsController < Admin::ApplicationController
     @reports = []
   end
 
-  def show; end
+  def show
+    report_class = params[:id].camelcase.constantize
+    @report = report_class.new
+  end
 end

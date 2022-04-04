@@ -1,0 +1,72 @@
+<% content_for(:title) { @report.title } %>
+
+<!-- Header -->
+<header class="page-header d-print-none mb-3" role="banner">
+  <div class="row g-3 align-items-center">
+    <div class="col">
+      <!-- Pretitle -->
+      <div class="page-pretitle">
+        <%= link_to t("administrate.actions.back"), :back %>
+      </div>
+      <!-- Title -->
+      <h1 class="page-title text-truncate"><%= content_for(:title) %></h1>
+    </div>
+
+
+    <div class="col-auto">
+      <!-- Actions -->
+      <%= render("show_header_actions") %>
+    </div>
+  </div>
+
+  <div class="row align-items-center">
+    <div class="col">
+      <!-- Tabs -->
+
+    </div>
+  </div>
+</header>
+
+<div class="row">
+  <div class="col-12">
+    <section class="main-content__body">
+      <% if @report.show_chart? %>
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="chart-lg" data-controller="chart" data-chart-options-value="<%= @report.chart.apexcharts_options.to_json %>"></div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="card">
+        <div class="card-table table-responsive">
+          <table class="table table-vcenter">
+            <thead>
+              <tr>
+                <% @report.table.headers.each do |header| %>
+                  <th><%= header %></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+              <% @report.table.each_row do |row| %>
+                <tr>
+                  <% row.each_with_index do |cell, index| %>
+                    <% if index == 0 %>
+                      <td class="td-truncate">
+                        <div class="text-truncate"><%= cell %></div>
+                      </td>
+                    <% else %>
+                      <td class="text-nowrap text-muted"><%= cell %></td>
+                    <% end %>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</div>

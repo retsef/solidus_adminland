@@ -4,4 +4,5 @@ Rails.application.configure do
 
   config.admin_monitors << 'PurchasedOrderMonitor'
   config.admin_monitors << 'PurchasedOrderSameUserMonitor'
+  config.admin_monitors << 'PurchasedOrderAverageMonitor'
 end

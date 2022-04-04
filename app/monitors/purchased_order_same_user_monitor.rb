@@ -1,17 +1,26 @@
 class PurchasedOrderSameUserMonitor < ApplicationMonitor
-  def report
-    @report ||= Spree::OrderReport.new(
-      relation: Spree::Order.complete,
-      groupers: [:completed_at],
-      aggregators: [:user_id],
-      dimensions: {
-        completed_at: { min: since_at, max: until_at }
-      }
-    )
+  self.report_class = Spree::OrderReport
+
+  def relation
+    Spree::Order.complete
+  end
+
+  def groupers
+    %i[completed_at]
+  end
+
+  def aggregators
+    %i[user_id]
+  end
+
+  def dimensions
+    {
+      completed_at: { min: period.min, max: period.max }
+    }
   end
 
   def summary
-    report.data.sum(0) { |d| d[:values].first[:value] }
+    report.data.sum(0) { |d| d[:values].first[:value] || 0 }
   end
 
   def summary_diff
