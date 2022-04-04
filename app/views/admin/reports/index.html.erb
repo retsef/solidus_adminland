@@ -1,8 +1,46 @@
 <%= render("index_header") %>
 
 <div class="row">
-  <div class="col-12">
-    <section class="card p-0">
-    </section>
+  <div class="col-sm-12 col-md-6 col-lg-4">
+    <% @reports.each do |report| %>
+      <section class="card p-0">
+        <div class="card-header border-0">
+          <div class="card-title">Development activity</div>
+        </div>
+
+        <% if report.show_graph? %>
+          <div class="position-relative">
+            <div class="chart" data-controller="chart"></div>
+          </div>
+        <% end %>
+
+        <div class="card-table table-responsive">
+          <table class="table table-vcenter">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Commit</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for commit in site.data.commits limit: 6 %}
+              <tr>
+                <td class="w-1">
+                  {% include ui/avatar.html person-id=forloop.index size="sm" %}
+                </td>
+                <td class="td-truncate">
+                  <div class="text-truncate">
+                    {{ commit.description }}
+                  </div>
+                </td>
+                <td class="text-nowrap text-muted">{{ commit.date | date_to_string }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    <% end %>
   </div>
 </div>

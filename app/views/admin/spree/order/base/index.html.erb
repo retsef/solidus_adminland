@@ -39,7 +39,7 @@ It renders the `_table` partial to display details about the resources.
       <!-- Table Header -->
       <div class="card-header">
         <div class="row align-items-center">
-          <div class="col-md col-sm-12">
+          <div class="col-sm-auto col-md">
             
             <!-- Search Form -->
             <% if show_search_bar %>
@@ -52,7 +52,7 @@ It renders the `_table` partial to display details about the resources.
 
           </div>
 
-          <div class="col-auto me-n3">
+          <div class="col-auto">
 
             <!-- Per page select -->
             <%= form_tag polymorphic_path([namespace, parent_page.resource, page.resource_path.pluralize.to_sym]), method: :get do %>

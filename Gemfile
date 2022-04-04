@@ -9,7 +9,7 @@ gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
 gem 'sqlite3', '~> 1.4', group: %i[development test]
 gem 'pg', '>= 0.18', '< 2.0', group: :production
 # Use Puma as the app server
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 5.0', '>= 5.6.4'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

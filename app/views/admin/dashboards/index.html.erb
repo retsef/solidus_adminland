@@ -1,8 +1,75 @@
 <%= render("index_header") %>
 
 <div class="row">
-  <div class="col-12">
-    <section class="card p-0">
-    </section>
-  </div>
+  <% @monitors.each do |monitor| %>
+    <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+      <turbo-frame id="<%= monitor.id %>" class="card p-0">
+        <div class="card-header border-0">
+          <h3 class="card-title"><%= monitor.title %></h3>
+        </div>
+
+        <% if monitor.show_summary? %>
+          <div class="px-3 mt-1">
+            <div class="row g-2 align-items-center">
+              <div class="col">
+                <h1 class=""><%= monitor.summary %></h1>
+              </div>
+              <div class="col-auto">
+                <div class="text-muted">
+                  <% if monitor.summary_diff.positive? %>
+                    <i class="icon icon-inline ti ti-trending-up text-green"></i>
+                    <%= "+#{monitor.summary_diff}%" %>
+                  <% elsif monitor.summary_diff.negative? %>
+                    <i class="icon icon-inline ti ti-trending-down text-red"></i>
+                    <%= "-#{monitor.summary_diff}%" %>
+                  <% else %>
+                    <i class="icon icon-inline ti ti-minus text-gray"></i>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="position-relative">
+          <% if monitor.show_chart? %>
+            <div class="chart-lg" data-controller="chart" data-chart-options-value="<%= monitor.chart.apexcharts_options.to_json %>"></div>
+          <% end %>
+        </div>
+
+        <% if monitor.show_table? %>
+          <div class="card-table table-responsive">
+            <table class="table table-vcenter">
+              <thead>
+                <tr>
+                  <% monitor.table.headers.each do |header| %>
+                    <th><%= header %></th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% monitor.table.each_row do |row| %>
+                  <tr>
+                    <% row.each_with_index do |cell, index| %>
+                      <% if index == 0 %>
+                        <td class="td-truncate">
+                          <div class="text-truncate"><%= cell %></div>
+                        </td>
+                      <% else %>
+                        <td class="text-nowrap text-muted"><%= cell %></td>
+                      <% end %>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+
+        <div class="card-footer p-2 text-end">
+          <%= link_to "Show full report", admin_report_path(monitor.id), target: '_top' %>
+        </div>
+      </turbo-frame>
+    </div>
+  <% end %>
 </div>

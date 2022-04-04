@@ -21,6 +21,8 @@ module SolidusAdminBackend
   
     config.eager_load_paths << Rails.root.join('lib', 'spree', 'backend')
     config.eager_load_paths << Rails.root.join('app', 'forms')
+    config.eager_load_paths << Rails.root.join('app', 'reports')
+    config.eager_load_paths << Rails.root.join('app', 'monitors')
 
     # Load application's model / class decorators
     initializer 'spree.decorators' do |_app|

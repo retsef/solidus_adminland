@@ -31,3 +31,5 @@ pin 'local-time-cdn', to: 'https://ga.jspm.io/npm:local-time@2.1.0/app/assets/ja
 pin 'lodash', to: 'https://ga.jspm.io/npm:lodash@4.17.21/lodash.js'
 
 pin 'apexcharts', to: 'https://ga.jspm.io/npm:apexcharts@3.33.2/dist/apexcharts.common.js'
+
+pin "minimasonry", to: "https://ga.jspm.io/npm:minimasonry@1.3.0/build/minimasonry.esm.js"

@@ -1,5 +1,7 @@
 class Admin::ReportsController < Admin::ApplicationController
-  def index; end
+  def index
+    @reports = []
+  end
 
   def show; end
 end
