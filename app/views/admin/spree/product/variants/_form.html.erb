@@ -68,17 +68,19 @@ and renders all form fields for a resource's editable attributes.
                 <%= render_field attribute, f: f %>
               </div>
             <% end %>
+          </div>
 
-            <% if page.resource.persisted? %>
-              <turbo-frame id="<%= dom_id(page.resource, "prices") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Price]) %>">
+          <% if page.resource.persisted? %>
+            <turbo-frame id="<%= dom_id(page.resource, "prices") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Price]) %>">
+              <div class="card-body">
                 <div class="row w-100 placeholder-glow gy-1">
                   <% 3.times do %>
                     <div class="placeholder col-12"></div>
                   <% end %>
                 </div>
-              </turbo-frame>
-            <% end %>
-          </div>
+              </div>
+            </turbo-frame>
+          <% end %>
         </div>
 
         <!-- Variant Images -->
@@ -113,7 +115,7 @@ and renders all form fields for a resource's editable attributes.
             <% end %>
           </div>
           <% if page.resource.persisted? %>
-            <turbo-frame id="<%= dom_id(page.resource, "stocks") %>" src="/">
+            <turbo-frame id="<%= dom_id(page.resource, "stock_items") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::StockItem]) %>">
               <div class="card-body">
                 <div class="row w-100 placeholder-glow gy-1 gy-1">
                   <% 3.times do %>

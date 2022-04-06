@@ -1,0 +1,106 @@
+<%#
+# Collection
+
+This partial is used on the `index` and `show` pages
+to display a collection of resources in an HTML table.
+
+## Local variables:
+
+- `collection_presenter`:
+  An instance of [Administrate::Page::Collection][1].
+  The table presenter uses `ResourceDashboard::COLLECTION_ATTRIBUTES` to determine
+  the columns displayed in the table
+- `resources`:
+  An ActiveModel::Relation collection of resources to be displayed in the table.
+  By default, the number of resources is limited by pagination
+  or by a hard limit to prevent excessive page load times
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Collection
+%>
+
+<turbo-frame id="<%= dom_id(parent_page.resource, controller_name) %>">
+  <div class="table-responsive">
+    <table class="table table-sm table-hover table-vcenter table-nowrap card-table" aria-labelledby="<%= table_title %>">
+      <thead>
+        <tr>
+          <% collection_presenter.attribute_types.each do |attr_name, attr_type| %>
+            <th class="cell-label
+              cell-label--<%= attr_type.html_class %>
+              cell-label--<%= collection_presenter.ordered_html_class(attr_name) %>"
+              scope="col" role="columnheader"
+              aria-sort="<%= sort_order(collection_presenter.ordered_html_class(attr_name)) %>">
+              <%= link_to(
+                sanitized_order_params(page, collection_field_name).merge(
+                  collection_presenter.order_params_for(attr_name, key: collection_field_name)
+                ), 
+                class: "list-sort text-muted #{'desc' if collection_presenter.ordered_by?(attr_name)}", 
+                'data-sort': attr_name) do %>
+                  <%= t(
+                    "helpers.label.#{collection_presenter.resource_name}.#{attr_name}",
+                    default: resource_class.human_attribute_name(attr_name),
+                  ).titleize %>
+              <% end %>
+            </th>
+          <% end %>
+          
+          <%= render(
+            "collection_header_actions",
+            collection_presenter: collection_presenter,
+            page: page,
+            resources: resources,
+            table_title: "page-title"
+          ) %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% if resources.empty? %>
+          <%= render(
+              "collection_empty",
+              collection_presenter: collection_presenter,
+              collection_field_name: collection_field_name,
+              page: page,
+              namespace: namespace,
+              resources: resources,
+              table_title: "page-title"
+            ) %>
+        <% end %>
+
+        <% resources.each do |resource| %>
+          <tr class="table-row">
+            <% collection_presenter.attributes_for(resource).each do |attribute| %>
+              <td class="cell-data cell-data--<%= attribute.html_class %>" data-label="<%= attribute.name %>">  
+                <%= render_field attribute %>
+              </td>
+            <% end %>
+
+            <%= render(
+              "collection_item_actions",
+              collection_presenter: collection_presenter,
+              collection_field_name: collection_field_name,
+              page: page,
+              parent_page: parent_page,
+              resource: resource,
+              parent_resource: parent_page.resource,
+              namespace: namespace,
+              table_title: "page-title"
+            ) %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <% if valid_action?(:new) && show_action?(:new, page.resource_name) %>
+    <div class="card-body">
+      <%= link_to(
+          t(
+            "administrate.actions.new_resource",
+            name: display_resource_name(page.resource_name, singular: true).downcase
+          ),
+          [:new, namespace, parent_page.resource, page.resource_path.to_sym],
+          class: "btn btn-link",
+          'data-turbo-frame': "remote_modal"
+        ) %>
+    </div>
+  <% end %>
+</turbo-frame>

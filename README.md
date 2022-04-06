@@ -60,9 +60,9 @@ The initial design is made with bootstrap 5 with [Tabler](https://github.com/tab
   - [x] Stocks CRUD
 
 - [x] Variants CRUD
-  - [ ] Prices CRUD
-  - [ ] Images CRUD
-  - [ ] Stocks CRUD
+  - [x] Prices CRUD
+  - [x] Images CRUD
+  - [x] Stocks CRUD
 
 - [x] Orders CRUD
   - [x] Line Items CRUD

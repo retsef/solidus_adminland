@@ -1,5 +1,5 @@
 module Admin
-  class Spree::Product::StockItemsController < Spree::Product::BaseController
+  class Spree::Variant::StockItemsController < Spree::Variant::BaseController
     before_action :grep_count_on_hand, only: %i[create update]
 
     def resource_class
@@ -7,7 +7,7 @@ module Admin
     end
 
     def scoped_resource
-      scoped_resource ||= resource_class.where(variant: requested_parent_resource.variants_including_master)
+      scoped_resource ||= resource_class.where(variant: requested_parent_resource)
 
       # Administrate ransack
       @ransack_results = scoped_resource.ransack(params[:q])

@@ -1,4 +1,4 @@
-class Spree::Variant::ImageDashboard < Spree::Variant::BaseDashboard
+class Spree::Variant::StockItemDashboard < Spree::Variant::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -7,15 +7,15 @@ class Spree::Variant::ImageDashboard < Spree::Variant::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    type: Field::String,
-    alt: Field::Text,
-    viewable: Field::Polymorphic.with_options(classes: [Spree::Variant]),
-
-    attachment: Field::ActiveStorage,
-
-    position: Field::Number,
+    variant_name: Field::String,
+    variant: Field::BelongsTo.with_options(class_name: 'Spree::Variant'),
+    stock_location: Field::BelongsTo.with_options(class_name: 'Spree::StockLocation'),
+    stock_movements: Field::HasMany.with_options(class_name: 'Spree::StockMovement'),
+    count_on_hand: Field::Number,
+    backorderable: Field::Boolean,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    updated_at: Field::DateTime,
+    deleted_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -24,39 +24,27 @@ class Spree::Variant::ImageDashboard < Spree::Variant::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    position
-    attachment
-    alt
+    stock_location
+    backorderable
+    count_on_hand
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    attachment
-    viewable
-    type
-    alt
+    count_on_hand
+    backorderable
+    stock_location
+    stock_movements
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    viewable
-    attachment
-    position
-    type
-    alt
-  ].freeze
-
-  FORM_ATTRIBUTES_NEW = %i[
-    attachment
-    alt
-  ].freeze
-
-  FORM_ATTRIBUTES_EDIT = %i[
-    attachment
-    alt
+    stock_location
+    backorderable
+    count_on_hand
   ].freeze
 
   # COLLECTION_FILTERS
@@ -71,10 +59,10 @@ class Spree::Variant::ImageDashboard < Spree::Variant::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how images are displayed
+  # Overwrite this method to customize how stock items are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(image)
-  #   "Spree::Image ##{image.id}"
+  # def display_resource(stock_item)
+  #   "Spree::StockItem ##{stock_item.id}"
   # end
 end
