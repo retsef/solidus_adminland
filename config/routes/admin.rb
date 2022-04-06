@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
           resources :variants, except: %i[show]
 
-          resources :stock_items
+          resources :stock_items, only: %i[index show edit update]
         end
       end
       
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
         scope module: :variant do
           resources :images
           resources :prices
-          resources :stock_items
+          resources :stock_items, only: %i[index show edit update]
         end
       end
 
@@ -92,7 +92,7 @@ Rails.application.routes.draw do
       resources :promotion_categories
 
       # Stock
-      resources :stock_items
+      resources :stock_items, only: %i[index show edit update]
       resources :stock_locations
       resources :stock_movements
 

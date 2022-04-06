@@ -26,7 +26,7 @@ class Spree::TaxonDashboard < Spree::BaseDashboard
     # rgt: Field::Number,
     # depth: Field::Number,
     meta_title: Field::String,
-    meta_description: Field::String,
+    meta_description: Field::Text,
     meta_keywords: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
