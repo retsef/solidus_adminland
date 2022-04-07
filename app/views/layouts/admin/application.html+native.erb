@@ -1,0 +1,53 @@
+<%#
+# Application Layout
+
+This view template is used as the layout
+for every page that Administrate generates.
+
+By default, it renders:
+- Navigation
+- Content for a search bar
+  (if provided by a `content_for` block in a nested page)
+- Flashes
+- Links to stylesheets and JavaScripts
+%>
+
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+<head>
+  <meta charset="utf-8">
+  <meta name="ROBOTS" content="NOODP">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    <%= content_for(:title) %> - <%= application_title %>
+  </title>
+
+  <%= favicon_link_tag image_path('admin/solidus-symbol-dark.png') %>
+  
+  <%= render "stylesheet" %>
+  <%= render "javascript" %>
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag if defined?(csp_meta_tag) %>
+</head>
+<body class="layout-fluid theme-light" data-controller="theme">
+  <main class="page" role="main">
+    <div class="page-wrapper">
+      <%= render "flashes" -%>
+
+      <div class="container-xl">
+        <%= yield :page_header %>
+      </div>
+
+      <div class="page-body">
+        <div class="container-xl">
+          <%= yield %>
+        </div>
+      </div>
+
+      <%= turbo_frame_tag "remote_modal", target: "_top" %>
+    </div>
+  </main>
+  
+</body>
+</html>

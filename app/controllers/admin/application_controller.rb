@@ -9,6 +9,7 @@ module Admin
   class ApplicationController < Administrate::ApplicationController
     # Solidus Core
     include ::Spree::Core::ControllerHelpers::Store
+    include Admin::Variant
 
     prepend AdministrateRansack::Searchable
 
