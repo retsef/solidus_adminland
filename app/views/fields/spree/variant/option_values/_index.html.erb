@@ -1,0 +1,35 @@
+<%#
+# String Index Partial
+
+This partial renders a string attribute
+to be displayed on a resource's index page.
+
+By default, the attribute is rendered as a truncated string.
+
+## Local variables:
+
+- `field`:
+  An instance of [Administrate::Field::String][1].
+  A wrapper around the String pulled from the database.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/String
+%>
+
+<%# page = ::Administrate::Page::Show.new(@dashboard, field.resource) %>
+<%- option_values = field.resource.send(field.attribute) %>
+
+<div class="row align-items-center">
+  <div class="col-auto">
+    <% option_values.each do |option_value| %>
+      <p class="mb-1 small">
+        <span class="attribute-label fw-bolder">
+          <%= option_value.presentation %>
+        </span>
+
+        <span class="attribute-data fw-normal">
+          <%= option_value.name %>
+        </span>
+      </p>
+    <% end %>
+  </div>
+</div>
