@@ -1,0 +1,24 @@
+<% content_for(:title) do %>
+  <%= t(
+    "administrate.actions.new_resource",
+    name: display_resource_name(page.resource_name).titleize
+  ) %>
+<% end %>
+
+<header class="page-header d-print-none" role="banner">
+  <div class="row g-3 align-items-center">
+    <div class="col">
+      <!-- Pretitle -->
+      <div class="page-pretitle">
+        <%= link_to t("administrate.actions.back"), :back %>
+      </div>
+      <!-- Title -->
+      <h1 class="page-title text-truncate"><%= content_for(:title) %></h1>
+    </div>
+
+    <div class="col-auto">
+      <!-- Actions -->
+      <%= render("new_header_actions", page: page) %>
+    </div>
+  </div>
+</header>

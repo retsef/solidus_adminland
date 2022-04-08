@@ -16,37 +16,15 @@ as well as a link to its edit page.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Show
 %>
 
-<% content_for(:title) { t("administrate.actions.show_resource", name: page.page_title) } %>
-
 <div class="row justify-content-center">
   <div class="col-12 col-lg-10">
     <!-- Header -->
-    <header class="page-header d-print-none" role="banner">
-      <div class="row g-2 align-items-center">
-        <div class="col">
-          <!-- Pretitle -->
-          <div class="page-pretitle">
-            <%= link_to t("administrate.actions.back"), :back %>
-          </div>
-          <!-- Title -->
-          <h2 class="page-title text-truncate">
-            <%= content_for(:title) %>
-
-            <% status_attributes = %i[state payment_state shipment_state] %>
-            <% page.attributes.select{|a| status_attributes.include? a.attribute }.each do |attribute| %>
-              <span class="ms-3 attribute-data attribute-data--<%= attribute.html_class %>">
-                <%= render_field attribute, page: page %>
-              </span>
-            <% end %>
-          </h2>
-        </div>
-
-        <div class="col-auto">
-          <!-- Actions -->
-          <%= render("show_header_actions", page: page) %>
-        </div>
-      </div>
-    </header>
+    <%= render(
+      "show_header",
+        page: page,
+        resource: resource
+      ) 
+    %>
 
     <section class="main-content__body" id="<%= dom_id(page.resource, :form) %>">
       <div class="form-body mt-3 mb-3">

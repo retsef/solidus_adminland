@@ -16,36 +16,15 @@ as well as a link to its edit page.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Show
 %>
 
-<% content_for(:title) { t("administrate.actions.show_resource", name: page.page_title) } %>
-
 <div class="row justify-content-center">
   <div class="col-12 col-lg-10 col-xl-8">
     <!-- Header -->
-    <header class="page-header d-print-none" role="banner">
-      <div class="row g-3 align-items-center">
-        <div class="col">
-          <!-- Pretitle -->
-          <div class="page-pretitle">
-            <%= link_to t("administrate.actions.back"), :back %>
-          </div>
-          <!-- Title -->
-          <h1 class="page-title text-truncate"><%= content_for(:title) %></h1>
-        </div>
-
-
-        <div class="col-auto">
-          <!-- Actions -->
-          <%= render("show_header_actions", page: page) %>
-        </div>
-      </div>
-
-      <div class="row align-items-center">
-        <div class="col">
-          <!-- Tabs -->
-
-        </div>
-      </div>
-    </header>
+    <%=
+      render("show_header",
+        resource: resource,
+        page: page,
+      )
+    %>
 
     <div class="row">
       <div class="col-12">

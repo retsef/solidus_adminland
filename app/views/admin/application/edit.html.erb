@@ -15,30 +15,15 @@ It displays a header, and renders the `_form` partial to do the heavy lifting.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
 %>
 
-<% content_for(:title) { t("administrate.actions.edit_resource", name: page.page_title) } %>
-
 <div class="row justify-content-center">
   <div class="col-12 col-lg-10">
     <!-- Header -->
-    <header class="page-header d-print-none" role="banner">
-      <div class="row g-3 align-items-center">
-        <div class="col">
-          <!-- Pretitle -->
-          <div class="page-pretitle">
-            <%= link_to t("administrate.actions.back"), :back %>
-          </div>
-          <!-- Title -->
-          <h2 class="page-title text-truncate">
-            <%= content_for(:title) %>
-          </h2>
-        </div>
-
-        <div class="col-auto">
-          <!-- Actions -->
-          <%= render("edit_header_actions", page: page) %>
-        </div>
-      </div>
-    </header>
+    <%=
+      render("edit_header",
+        resource: resource,
+        page: page,
+      )
+    %>
 
     <section class="main-content__body" id="<%= dom_id(page.resource, :form) %>">
       <%= render "form", page: page %>
