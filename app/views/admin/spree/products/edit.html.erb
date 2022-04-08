@@ -18,10 +18,10 @@ It displays a header, and renders the `_form` partial to do the heavy lifting.
 <div class="row justify-content-center">
   <div class="col-12 col-lg-10">
     <!-- Header -->
-    <%= render(
-      "edit_header",
+    <%= 
+      render("edit_header",
         page: page,
-        resource: resource
+        resource: page.resource
       ) 
     %>
 
