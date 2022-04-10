@@ -29,8 +29,21 @@
   border-style: dashed;
 }
 
+// Table first column sticky
+.table-fscol-sticky {
+  th:first-child,
+  td:first-child {
+    position: sticky;
+    left: 0;
+  }
+
+  td:first-child {
+    background: #fff;
+  }
+}
+
 // Table sorting
-.cell-label {
+.table .cell-label {
   &.cell-label--asc, &.cell-label--desc {
     &::after {
       font-family: tabler-icons!important;

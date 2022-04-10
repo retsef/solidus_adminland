@@ -55,8 +55,6 @@ class Spree::ProductDashboard < Spree::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     name
     sku
-    available_on
-    discontinue_on
     price
   ].freeze
 

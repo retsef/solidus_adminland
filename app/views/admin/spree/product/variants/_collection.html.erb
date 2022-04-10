@@ -28,7 +28,7 @@ to display a collection of resources in an HTML table.
   <% else %>
 
     <div class="table-responsive">
-      <table class="table table-sm table-hover table-vcenter table-nowrap card-table" aria-labelledby="<%= table_title %>">
+      <table class="table table-sm table-fscol-sticky table-hover table-vcenter table-nowrap card-table" aria-labelledby="<%= table_title %>">
         <thead>
           <tr>
             <% collection_presenter.attribute_types.each do |attr_name, attr_type| %>
