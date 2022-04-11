@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "remote_modal" do %>
-  <div class="modal fade" tabindex="-1" data-controller="turbo-modal"
-    data-action="turbo:before-render@document->turbo-modal#hideBeforeRender turbo:submit-end@document->turbo-modal#hideBeforeRender">
+  <div class="modal fade" tabindex="-1" data-controller="turbo-modal" data-bs-backdrop="static" data-bs-keyboard="false"
+    data-action="turbo:before-render@document->turbo-modal#hideBeforeRender turbo:submit-end@document->turbo-modal#hideBeforeRender turbo:load@document->turbo-modal#showOnError">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

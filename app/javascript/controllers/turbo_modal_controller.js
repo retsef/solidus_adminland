@@ -3,6 +3,7 @@ import { Modal } from "bootstrap"
 
 export default class extends Controller {
   connect() {
+    console.log("Modal connect!")
     this.modal = new Modal(this.element)
     this.modal.show()
   }

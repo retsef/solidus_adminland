@@ -11,6 +11,16 @@ module Admin
       dry_resource = resource_class.new(resource_params)
       authorize_resource(dry_resource)
 
+      unless dry_resource.variant
+        dry_resource.valid?
+
+        render :new, locals: {
+          page: Administrate::Page::Form.new(dashboard, dry_resource)
+        }, status: :unprocessable_entity
+
+        return
+      end
+
       resource = requested_parent_resource.contents.add(
         dry_resource.variant,
         dry_resource.quantity || 1,

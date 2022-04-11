@@ -1,3 +1,14 @@
-<%= turbo_stream.update dom_id(page.resource, :form) do %>
-  <%= render "form", page: page %>
+<%= turbo_stream.update "remote_modal" do %>
+  <% content_for(:title) do %>
+    <%= t(
+      "administrate.actions.new_resource",
+      name: display_resource_name(page.resource_name).titleize
+    ) %>
+  <% end %>
+
+  <%= render "modal_edit", title: content_for(:title) do %>
+    <section class="main-content__body" id="<%= dom_id(page.resource, :form) %>">
+      <%= render "form", page: page %>
+    </section>
+  <% end %>
 <% end %>
