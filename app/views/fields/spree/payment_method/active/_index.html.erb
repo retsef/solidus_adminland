@@ -1,8 +1,8 @@
 <%#
-# Boolean Show Partial
+# Boolean Index Partial
 
 This partial renders a boolean attribute,
-to be displayed on a resource's show page.
+to be displayed on a resource's index page.
 
 By default, the attribute is rendered
 as a string representation of the boolean value.
@@ -17,5 +17,5 @@ as a string representation of the boolean value.
 %>
 
 <span class="status status-<%= field.data ? 'success' : 'secondary' %>">
-  <%= t(field.data) %>
+  <%= field.data ? "Active" : "Inactive" %>
 </span>

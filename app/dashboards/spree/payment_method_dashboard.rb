@@ -40,13 +40,11 @@ class Spree::PaymentMethodDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    type
     name
     description
     active
     available_to_users
     available_to_admin
-    payments
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -89,6 +87,19 @@ class Spree::PaymentMethodDashboard < Spree::BaseDashboard
     preferred_test_mode
   ].freeze
 
+  FORM_ATTRIBUTES_EDIT = %i[
+    name
+    description
+    active
+    stores
+    auto_capture
+    available_to_users
+    available_to_admin
+    preference_source
+    preferred_server
+    preferred_test_mode
+  ]
+
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search
   # field of the dashboard.
@@ -104,7 +115,7 @@ class Spree::PaymentMethodDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how payment methods are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(payment_method)
-  #   "Spree::PaymentMethod ##{payment_method.id}"
-  # end
+  def display_resource(payment_method)
+    payment_method.name
+  end
 end

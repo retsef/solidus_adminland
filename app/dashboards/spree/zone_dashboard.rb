@@ -75,7 +75,7 @@ class Spree::ZoneDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how zones are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(zone)
-  #   "Spree::Zone ##{zone.id}"
-  # end
+  def display_resource(zone)
+    zone.name
+  end
 end

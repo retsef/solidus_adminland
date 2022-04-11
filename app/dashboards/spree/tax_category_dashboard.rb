@@ -65,7 +65,7 @@ class Spree::TaxCategoryDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how tax categories are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(tax_category)
-  #   "Spree::TaxCategory ##{tax_category.id}"
-  # end
+  def display_resource(tax_category)
+    tax_category.name
+  end
 end

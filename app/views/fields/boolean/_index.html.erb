@@ -16,4 +16,6 @@ as a string representation of the boolean value.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/Boolean
 %>
 
-<%= field.to_s %>
+<span class="status status-<%= field.data ? 'success' : 'secondary' %>">
+  <%= t(field.data) %>
+</span>

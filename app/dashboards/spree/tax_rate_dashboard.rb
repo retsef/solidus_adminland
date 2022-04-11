@@ -88,7 +88,7 @@ class Spree::TaxRateDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how tax rates are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(tax_rate)
-  #   "Spree::TaxRate ##{tax_rate.id}"
-  # end
+  def display_resource(tax_rate)
+    tax_rate.name
+  end
 end

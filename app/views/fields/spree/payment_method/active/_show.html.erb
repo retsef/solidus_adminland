@@ -17,5 +17,5 @@ as a string representation of the boolean value.
 %>
 
 <span class="status status-<%= field.data ? 'success' : 'secondary' %>">
-  <%= t(field.data) %>
+  <%= field.data ? "Active" : "Inactive" %>
 </span>
