@@ -23,7 +23,7 @@ en:
         promotions:
           title: 'Promotions'
           all_promotions: 'All Promotions'
-          promotion_categories: 'Promotion Categories'
+          promotion_categories: 'Promotion categories'
         stocks:
           title: 'Stocks'
           all_stock_items: 'All Stock items'
@@ -32,13 +32,21 @@ en:
       settings:
         title: 'Settings'
         stores: 'Stores'
+        payment_methods: 'Payment methods'
+        reimbursements:
+          title: 'Reimbursements'
+          refund_reasons: 'Refund reasons'
+          reimbursement_types: 'Reimbursement types'
+          return_reasons: 'Return reasons'
+          adjustment_reasons: 'Adjustment reasons'
+          store_credit_reasons: 'Store credit reasons'
         shippings: 
           title: 'Shippings'
-          shipping_methods: 'Shipping Methods'
-          shipping_categories: 'Shipping Categories'
+          shipping_methods: 'Shipping methods'
+          shipping_categories: 'Shipping categories'
         taxes:
           title: 'Taxes'
-          tax_categories: 'Tax Categories'
-          tax_rates: 'Tax Rates'
+          tax_categories: 'Tax categories'
+          tax_rates: 'Tax rates'
         zones: 'Zones'
         

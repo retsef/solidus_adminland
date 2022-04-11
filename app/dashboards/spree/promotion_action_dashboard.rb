@@ -11,6 +11,10 @@ class Spree::PromotionActionDashboard < Spree::BaseDashboard
     resource_class.name.to_s
   end
 
+  def self.actions
+    Rails.application.config.spree.promotions.actions
+  end
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -20,7 +24,7 @@ class Spree::PromotionActionDashboard < Spree::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     position: Field::Number,
-    type: Field::Select.with_options(collection: Rails.application.config.spree.promotions.actions.map { |action| [action.model_name.human, action.name] }),
+    type: Field::Select.with_options(collection: actions.map { |action| [action.real_model_name.human, action.name] }),
     promotion: Field::BelongsTo,
     preferences: Field::Text,
     deleted_at: Field::DateTime,
@@ -34,7 +38,6 @@ class Spree::PromotionActionDashboard < Spree::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    position
     type
   ].freeze
 

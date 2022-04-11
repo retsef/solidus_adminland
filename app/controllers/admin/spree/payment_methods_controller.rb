@@ -5,7 +5,7 @@ module Admin
     end
 
     def dashboard_class
-      return super if action_name == 'index'
+      return super unless %w[edit update destroy].include? action_name
 
       "#{find_resource(params[:id]).class}Dashboard".constantize
     end

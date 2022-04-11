@@ -42,14 +42,24 @@ Rails.application.configure do
 
   config.admin_navigation.setting_entries << Admin::MenuItem.new(label: 'admin.navigation.settings.stores', icon: 'ti ti-building-store', url: :admin_stores_path)
 
-  config.admin_navigation.setting_entries << Admin::MenuItem.new(label: 'admin.navigation.settings.shippings.title', icon: 'ti ti-truck-delivery').tap do |item|
-    item.append(Admin::MenuItem.new(label: 'admin.navigation.settings.shippings.shipping_methods', url: :admin_shipping_methods_path))
-    item.append(Admin::MenuItem.new(label: 'admin.navigation.settings.shippings.shipping_categories', url: :admin_shipping_categories_path))
-  end
+  config.admin_navigation.setting_entries << Admin::MenuItem.new(label: 'admin.navigation.settings.payment_methods', icon: 'ti ti-wallet', url: :admin_payment_methods_path)
 
   config.admin_navigation.setting_entries << Admin::MenuItem.new(label: 'admin.navigation.settings.taxes.title', icon: 'ti ti-receipt-tax').tap do |item|
     item.append(Admin::MenuItem.new(label: 'admin.navigation.settings.taxes.tax_categories', url: :admin_tax_categories_path))
     item.append(Admin::MenuItem.new(label: 'admin.navigation.settings.taxes.tax_rates', url: :admin_tax_rates_path))
+  end
+
+  config.admin_navigation.setting_entries << Admin::MenuItem.new(label: 'admin.navigation.settings.reimbursements.title', icon: 'ti ti-receipt-refund').tap do |item|
+    item.append(Admin::MenuItem.new(label: 'admin.navigation.settings.reimbursements.refund_reasons', url: :admin_refund_reasons_path))
+    item.append(Admin::MenuItem.new(label: 'admin.navigation.settings.reimbursements.reimbursement_types', url: :admin_reimbursement_types_path))
+    item.append(Admin::MenuItem.new(label: 'admin.navigation.settings.reimbursements.return_reasons', url: :admin_return_reasons_path))
+    item.append(Admin::MenuItem.new(label: 'admin.navigation.settings.reimbursements.adjustment_reasons', url: :admin_adjustment_reasons_path))
+    item.append(Admin::MenuItem.new(label: 'admin.navigation.settings.reimbursements.store_credit_reasons', url: :admin_store_credit_reasons_path))
+  end
+
+  config.admin_navigation.setting_entries << Admin::MenuItem.new(label: 'admin.navigation.settings.shippings.title', icon: 'ti ti-truck-delivery').tap do |item|
+    item.append(Admin::MenuItem.new(label: 'admin.navigation.settings.shippings.shipping_methods', url: :admin_shipping_methods_path))
+    item.append(Admin::MenuItem.new(label: 'admin.navigation.settings.shippings.shipping_categories', url: :admin_shipping_categories_path))
   end
   
   config.admin_navigation.setting_entries << Admin::MenuItem.new(label: 'admin.navigation.settings.zones', icon: 'ti ti-globe', url: :admin_zones_path)

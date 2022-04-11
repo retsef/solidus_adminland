@@ -32,6 +32,14 @@ it:
       settings:
         title: 'Impostazioni'
         stores: 'Negozi'
+        payment_methods: 'Metodi di pagamento'
+        reimbursements:
+          title: 'Tipologie di reso'
+          refund_reasons: 'Motivazioni di riaccredito'
+          reimbursement_types: 'Tipi di rimborso'
+          return_reasons: 'Motivazioni di reso'
+          adjustment_reasons: 'Motivazioni per storni'
+          store_credit_reasons: 'Motivazioni per credito'
         shippings: 
           title: 'Spedizioni'
           shipping_methods: 'Metodi di spedizione'

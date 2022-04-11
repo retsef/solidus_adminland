@@ -102,12 +102,7 @@ Rails.application.routes.draw do
       # Settings
       resources :stores
 
-      resources :payment_methods, except: %i[edit update]
-      namespace :payment_method do
-        resources :store_credits, except: %i[index]
-        resources :checks, except: %i[index]
-        resources :credit_cards, except: %i[index]
-      end
+      resources :payment_methods
 
       resources :shipping_methods
       resources :shipping_categories
@@ -115,9 +110,13 @@ Rails.application.routes.draw do
       resources :tax_categories
       resources :tax_rates
 
+      resources :refund_reasons
+      resources :reimbursement_types
+      resources :return_reasons
+      resources :adjustment_reasons
+      resources :store_credit_reasons
+
       resources :zones
-      resources :countries
-      resources :states
     end
   end
 end

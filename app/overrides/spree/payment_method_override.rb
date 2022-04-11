@@ -1,4 +1,4 @@
-module Spree::PromotionRuleOverride
+module Spree::PaymentMethodOverride
   extend ActiveSupport::Concern
 
   class_methods do
@@ -7,9 +7,9 @@ module Spree::PromotionRuleOverride
     end
 
     def model_name
-      ActiveModel::Name.new(self, nil, 'Rule')
+      ActiveModel::Name.new(self, nil, 'Spree::PaymentMethod')
     end
   end
 end
 
-Spree::PromotionRule.include Spree::PromotionRuleOverride
+Spree::PaymentMethod.include Spree::PaymentMethodOverride

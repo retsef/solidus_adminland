@@ -1,4 +1,8 @@
 class Spree::PaymentMethodDashboard < Spree::BaseDashboard
+  def self.payment_methods
+    Rails.application.config.spree.payment_methods
+  end
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -7,7 +11,7 @@ class Spree::PaymentMethodDashboard < Spree::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    type: Field::Select.with_options(collection: Rails.application.config.spree.payment_methods.sort_by(&:name)),
+    type: Field::Select.with_options(collection: payment_methods.map { |rule| [rule.real_model_name.human, rule.name] }),
     name: Field::String,
     description: Field::Text,
     active: Field::Boolean,

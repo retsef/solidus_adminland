@@ -20,8 +20,8 @@ This partial renders an input element for polymorphic relationships.
     <%= pf.label :value, field.name.humanize %>
     <%= pf.hidden_field(:type, value: field.class.name) %>
     <%= pf.select(:value, 
-                  grouped_options_for_select(field.associated_resource_grouped_options, 
-                                            field.selected_global_id, prompt: true),
+                  grouped_options_for_select(field.associated_resource_grouped_options,
+                                            field.selected_global_id, prompt: true), {},
                   'data-select-target': 'input') %>
   </div>
 <% end %>

@@ -11,6 +11,10 @@ class Spree::PromotionRuleDashboard < Spree::BaseDashboard
     resource_class.name.to_s
   end
 
+  def self.rules
+    Rails.application.config.spree.promotions.rules
+  end
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -20,7 +24,7 @@ class Spree::PromotionRuleDashboard < Spree::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     code: Field::String,
-    type: Field::Select.with_options(collection: Rails.application.config.spree.promotions.rules.map { |action| [action.model_name.human, action.name] }),
+    type: Field::Select.with_options(collection: rules.map { |rule| [rule.real_model_name.human, rule.name] }),
     promotion: Field::BelongsTo,
     product_group_id: Field::Number,
     created_at: Field::DateTime,
@@ -34,7 +38,6 @@ class Spree::PromotionRuleDashboard < Spree::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     type
-    promotion
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
