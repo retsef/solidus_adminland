@@ -19,7 +19,10 @@
 <div class="offcanvas offcanvas-end overflow-auto" id="offcanvasFilters" tabindex="-1">
 	<%= search_form_for form_path, form_options do |f| %>
 	<div class="offcanvas-header">
-		<h4 class="offcanvas-title"><%= t('administrate.filter.label', resource: resource_name) %></h4>
+		<h4 class="offcanvas-title">
+			<button type="button" class="btn-close text-reset me-1" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			<%= t('administrate.filter.label', resource: resource_name) %>
+		</h4>
 		
 		<%= link_to clear_filters_path, class: 'btn btn-sm btn-link text-reset btn-clear-filters' do %>
 			<i class="icon ti ti-clear-all"></i>

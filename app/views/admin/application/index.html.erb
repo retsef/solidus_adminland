@@ -34,56 +34,53 @@ It renders the `_table` partial to display details about the resources.
 
 <div class="row">
   <div class="col-12">
-    <section class="card p-0">
-      <!-- Table Header -->
-      <div class="card-body container">
-        <div class="row align-items-center">
-          <div class="col-sm-auto col-md">
-            
-            <!-- Search Form -->
-            <% if show_search_bar %>
-              <%= render(
-                "search",
-                search_term: search_term,
-                resource_name: display_resource_name(page.resource_name)
-              ) %>
-            <% end %>
-
-          </div>
-
-          <div class="col-auto">
-
-            <!-- Per page select -->
-            <%= form_tag polymorphic_path([namespace, page.resource_path.pluralize.to_sym]), method: :get do %>
-              <%= select_tag :per_page, 
-                        options_for_select(
-                          [15, 30, 50].collect {|per_page| ["#{per_page} per page", per_page]}, 
-                          selected: params[:per_page] || 15),
-                        class: 'form-select form-control-sm' %>
-            <% end %>
-
-          </div>
-
-          <% if show_filters %>
-            <div class="col-auto">
-              <button class="btn" type="button" 
-                  data-bs-toggle="offcanvas" href="#offcanvasFilters" aria-controls="offcanvasFilters" 
-                  data-bs-auto-close="outside">
-                <i class="icon ti ti-adjustments me-1"></i>
-                <span>Filter</span>
-
-                <%- if @ransack_results.conditions.any? %>
-                  <span class="badge badge-pill bg-primary ms-1">
-                    <%= @ransack_results.conditions.size %>
-                  </span>
-                <% end %>
-              </button>
-            </div>
+    
+    <!-- Table Header -->
+    <div class="page-header mb-3">
+      <div class="row align-items-center">
+        <div class="col">
+          <!-- Search Form -->
+          <% if show_search_bar %>
+            <%= render(
+              "search",
+              search_term: search_term,
+              resource_name: display_resource_name(page.resource_name)
+            ) %>
           <% end %>
-
         </div>
-      </div>
 
+        <div class="col-auto ms-auto">
+          <!-- Per page select -->
+          <%= form_tag polymorphic_path([namespace, page.resource_path.pluralize.to_sym]), method: :get do %>
+            <%= select_tag :per_page, 
+                      options_for_select(
+                        [15, 30, 50].collect {|per_page| ["#{per_page} per page", per_page]}, 
+                        selected: params[:per_page] || 15),
+                      class: 'form-select form-control-sm' %>
+          <% end %>
+        </div>
+
+        <% if show_filters %>
+          <div class="col-auto ms-auto">
+            <button class="btn" type="button" 
+                data-bs-toggle="offcanvas" href="#offcanvasFilters" aria-controls="offcanvasFilters" 
+                data-bs-auto-close="outside">
+              <i class="icon ti ti-adjustments me-1"></i>
+              <span>Filter</span>
+
+              <%- if @ransack_results.conditions.any? %>
+                <span class="badge badge-pill bg-primary ms-1">
+                  <%= @ransack_results.conditions.size %>
+                </span>
+              <% end %>
+            </button>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+
+    <section class="card p-0">
       <!-- Table Body -->
       <turbo-frame id="index_<%= page.resource_name %>">
         <%= render(
