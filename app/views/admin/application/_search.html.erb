@@ -1,4 +1,4 @@
-<form class="search" role="search">
+<form class="search" role="search" data-controller="search">
   
   <div class="input-icon">
 
@@ -10,7 +10,8 @@
           id="search" type="search" name="search"
           placeholder="<%= t("administrate.search.label",
                               resource: resource_name) %>"
-          value="<%= search_term %>">
+          value="<%= search_term %>"
+          data-action="keyup->search#submit" data-turbo-preserve-focus>
 
 
     <%= link_to clear_search_params, class: "input-icon-addon" do %>
