@@ -30,7 +30,6 @@ class Spree::Order::AdjustmentDashboard < Spree::Order::BaseDashboard
     adjustable
     label
     amount
-    finalized
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -41,7 +40,6 @@ class Spree::Order::AdjustmentDashboard < Spree::Order::BaseDashboard
     order
     promotion_code
     adjustment_reason
-    id
     amount
     label
     eligible
@@ -55,6 +53,13 @@ class Spree::Order::AdjustmentDashboard < Spree::Order::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
+    adjustable
+    amount
+    label
+    adjustment_reason
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
     amount
     label
     adjustment_reason

@@ -24,13 +24,13 @@ class Spree::Order::ShipmentDashboard < Spree::Order::BaseDashboard
 
     order: Field::BelongsTo,
     stock_location: Field::BelongsTo,
-    adjustments: Field::HasMany,
-    inventory_units: Field::HasMany,
-    shipping_rates: Field::HasMany,
-    shipping_methods: Field::HasMany,
-    state_changes: Field::HasMany,
-    cartons: Field::HasMany,
-    line_items: Field::HasMany,
+    # adjustments: Field::HasMany,
+    # inventory_units: Field::HasMany,
+    # shipping_rates: Field::HasMany,
+    # shipping_methods: Field::HasMany,
+    # state_changes: Field::HasMany,
+    # cartons: Field::HasMany,
+    # line_items: Field::HasMany,
 
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -58,14 +58,6 @@ class Spree::Order::ShipmentDashboard < Spree::Order::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     order
     stock_location
-    adjustments
-    inventory_units
-    shipping_rates
-    shipping_methods
-    state_changes
-    cartons
-    line_items
-    id
     tracking
     number
     cost
@@ -84,25 +76,9 @@ class Spree::Order::ShipmentDashboard < Spree::Order::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    order
-    stock_location
-    adjustments
-    inventory_units
-    shipping_rates
-    shipping_methods
-    state_changes
-    cartons
-    line_items
     tracking
-    number
     cost
     shipped_at
-    deprecated_address_id
-    state
-    adjustment_total
-    additional_tax_total
-    promo_total
-    included_tax_total
   ].freeze
 
   # COLLECTION_FILTERS
