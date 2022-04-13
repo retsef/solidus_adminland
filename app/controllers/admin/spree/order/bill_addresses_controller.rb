@@ -7,10 +7,11 @@ module Admin
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #
-    # def update
-    #   super
-    #   send_foo_updated_email(requested_resource)
-    # end
+    def update
+      super
+
+      requested_parent_resource.update(bill_address_id: requested_resource.id)
+    end
 
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
@@ -42,7 +43,7 @@ module Admin
     end
 
     def find_resource
-      scoped_resource.first
+      scoped_resource.first || resource_class.new
     end
 
     # Override `resource_params` if you want to transform the submitted

@@ -56,8 +56,8 @@ Rails.application.routes.draw do
           resources :line_items
 
           resource :customer, only: %i[show edit update]
-          resource :bill_address, only: %i[show]
-          resource :ship_address, only: %i[show]
+          resource :bill_address, only: %i[show edit update]
+          resource :ship_address, only: %i[show edit update]
 
           resources :shipments, only: %i[index show edit update]
           resources :adjustments

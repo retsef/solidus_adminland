@@ -13,10 +13,10 @@ class Spree::Order::AdjustmentDashboard < Spree::Order::BaseDashboard
     included: Field::Boolean,
     finalized: Field::Boolean,
     adjustable: Field::Polymorphic.with_options(classes: [Spree::Order, Spree::LineItem]),
-    source: Field::Polymorphic,
+    source: Field::Polymorphic.with_options(classes: [Spree::TaxRate, Spree::PromotionAction]),
     order: Field::BelongsTo,
     promotion_code: Field::BelongsTo,
-    adjustment_reason: Field::BelongsTo.with_options(class_name: 'Spree::AdjustmentReason'),
+    adjustment_reason: Field::BelongsTo,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze

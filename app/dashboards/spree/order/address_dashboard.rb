@@ -8,6 +8,7 @@ class Spree::Order::AddressDashboard < Spree::Order::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
+    company: Field::String,
     address1: Field::String,
     address2: Field::String,
     city: Field::String,
@@ -15,7 +16,6 @@ class Spree::Order::AddressDashboard < Spree::Order::BaseDashboard
     phone: Field::String,
     state_name: Field::String,
     alternative_phone: Field::String,
-    company: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     country: Field::BelongsTo,
@@ -60,10 +60,8 @@ class Spree::Order::AddressDashboard < Spree::Order::BaseDashboard
     zipcode
     city
     state
-    state_name
     country
     phone
-    alternative_phone
   ].freeze
 
   # COLLECTION_FILTERS

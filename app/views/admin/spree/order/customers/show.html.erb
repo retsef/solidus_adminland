@@ -19,12 +19,11 @@ as well as a link to its edit page.
 
 <turbo-frame id="<%= dom_id(parent_page.resource, controller_name) %>">
   <section class="main-content__body">
-    <% if parent_page.resource.user_id? %>
-      <!-- Customer ID -->
-      <div class="card-body">
-        <h3 class="card-title">Cliente</h3>
-      </div>
-    <% end %>
+    <!-- Customer ID -->
+    <div class="card-body">
+      <h3 class="card-title">Cliente</h3>
+      <%= parent_page.resource.user_id %>
+    </div>
 
     <!-- Customer Email -->
     <div class="card-body">

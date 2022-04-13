@@ -1,0 +1,9 @@
+<%= turbo_stream.update "remote_modal" do %>
+  <% content_for(:title) { t("administrate.actions.edit_resource", name: page.page_title) } %>
+
+  <%= render "modal_edit", large: true, title: content_for(:title) do %>
+    <section class="main-content__body" id="<%= dom_id(page.resource, :form) %>">
+      <%= render "form", page: page %>
+    </section>
+  <% end %>
+<% end %>
