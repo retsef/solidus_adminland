@@ -81,11 +81,14 @@ module Admin
     end
 
     def destroy
-      if requested_resource.destroy
+      delete_method = requested_resource.respond_to?(:discard) ? :discard : :destroy
+
+      if requested_resource.send(delete_method)
         flash[:notice] = translate_with_resource('destroy.success')
       else
         flash[:error] = requested_resource.errors.full_messages.join('<br/>')
       end
+
       redirect_to after_resource_destroyed_path(requested_resource), status: :see_other
     end
 

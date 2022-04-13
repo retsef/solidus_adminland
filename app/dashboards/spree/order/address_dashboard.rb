@@ -79,7 +79,7 @@ class Spree::Order::AddressDashboard < Spree::Order::BaseDashboard
   # Overwrite this method to customize how addresses are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(address)
-  #   "Spree::Address ##{address.id}"
-  # end
+  def display_resource(_address)
+    'Address'
+  end
 end
