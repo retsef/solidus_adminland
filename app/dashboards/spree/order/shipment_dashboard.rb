@@ -96,7 +96,7 @@ class Spree::Order::ShipmentDashboard < Spree::Order::BaseDashboard
   # Overwrite this method to customize how shipments are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(shipment)
-  #   "Spree::Shipment ##{shipment.id}"
-  # end
+  def display_resource(shipment)
+    shipment.number
+  end
 end

@@ -1,4 +1,8 @@
 class Spree::Order::CustomerDashboard < Spree::Order::BaseDashboard
+  def self.model
+    Spree::Order
+  end
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -7,6 +11,8 @@ class Spree::Order::CustomerDashboard < Spree::Order::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
+    email: Field::Email,
+    user: Field::BelongsTo.with_options(class_name: ::Spree.user_class.to_s),
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -28,7 +34,8 @@ class Spree::Order::CustomerDashboard < Spree::Order::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-
+    user
+    email
   ].freeze
 
   # COLLECTION_FILTERS

@@ -83,6 +83,22 @@ as well as a link to its edit page.
 
             <!-- Payments Overview -->
             <div class="card mb-3">
+              <div class="card-header">
+                <h3 class="card-title">Payments</h3>
+              </div>
+              <turbo-frame id="<%= dom_id(page.resource, "payments") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Payment]) %>">
+                <div class="card-body">
+                  <div class="row w-100 placeholder-glow gy-1">
+                    <% 3.times do %>
+                      <div class="placeholder col-12 h-30"></div>
+                    <% end %>
+                  </div>
+                </div>
+              </turbo-frame>
+            </div>
+
+            <!-- Payments Overview -->
+            <div class="card mb-3">
               <div class="card-body">
                 <h3 class="card-title">Summary Payments</h3>
                 <div class="row gy-2">

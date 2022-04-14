@@ -1,4 +1,12 @@
 class Spree::Order::PaymentDashboard < Spree::Order::BaseDashboard
+  STATE_CLASSES = {
+    complete: 'success',
+    pending: 'warning',
+    invalid: 'error',
+    purchased: 'success',
+    declined: 'error'
+  }.freeze
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -10,8 +18,8 @@ class Spree::Order::PaymentDashboard < Spree::Order::BaseDashboard
     number: Field::String,
     cvv_response_code: Field::String,
     cvv_response_message: Field::String,
-    amount: Field::String.with_options(searchable: false),
-    state: Field::String,
+    amount: Field::Money.with_options(searchable: false),
+    state: Field::Select.with_options(collection: STATE_CLASSES.keys, filterable: true, states: STATE_CLASSES, default: 'warning'),
     response_code: Field::String,
     avs_response: Field::String,
 
@@ -20,7 +28,7 @@ class Spree::Order::PaymentDashboard < Spree::Order::BaseDashboard
     # offsets: Field::HasMany,
     # log_entries: Field::HasMany,
     # state_changes: Field::HasMany,
-    #  capture_events: Field::HasMany,
+    # capture_events: Field::HasMany,
     # refunds: Field::HasMany,
 
     order: Field::BelongsTo.with_options(class_name: 'Spree::Order'),
@@ -45,18 +53,17 @@ class Spree::Order::PaymentDashboard < Spree::Order::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    id
+    number
     amount
     state
+    payment_method
+
     response_code
     avs_response
-    number
     cvv_response_code
     cvv_response_message
 
-    order
     source
-    payment_method
 
     created_at
     updated_at

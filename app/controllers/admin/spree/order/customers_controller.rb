@@ -1,7 +1,9 @@
 module Admin
   class Spree::Order::CustomersController < Spree::Order::BaseController
     def resource_class
-      ::Spree.user_class
+      return ::Spree.user_class if %w[index show].include?(action_name)
+
+      ::Spree::Order
     end
 
     # Overwrite any of the RESTful controller actions to implement custom behavior

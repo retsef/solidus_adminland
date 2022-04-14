@@ -160,7 +160,7 @@ class Spree::LegacyUserDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how legacy users are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(legacy_user)
-  #   "Spree::LegacyUser ##{legacy_user.id}"
-  # end
+  def display_resource(legacy_user)
+    legacy_user.email
+  end
 end

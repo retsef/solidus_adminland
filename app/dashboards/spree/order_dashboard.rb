@@ -39,7 +39,7 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     id: Field::Number,
     number: Field::String,
     email: Field::Email,
-    user: Field::BelongsTo.with_options(class_name: ::Spree.user_class),
+    user: Field::BelongsTo.with_options(class_name: ::Spree.user_class.to_s),
 
     bill_address: Field::BelongsTo.with_options(class_name: 'Spree::Address'),
     ship_address: Field::BelongsTo.with_options(class_name: 'Spree::Address'),
@@ -133,6 +133,7 @@ class Spree::OrderDashboard < Spree::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     number
+    user
     email
     state
     item_total

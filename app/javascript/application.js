@@ -1,10 +1,5 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 
-// import stimulusFlatpickr from 'stimulus-flatpickr'
-// application.register("flatpickr", stimulusFlatpickr)
-
-// import TomSelect from 'tom-select'
-
 import Rails from '@rails/ujs'
 import * as ActiveStorage from '@rails/activestorage'
 

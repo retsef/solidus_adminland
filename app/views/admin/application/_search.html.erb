@@ -11,8 +11,8 @@
           placeholder="<%= t("administrate.search.label",
                               resource: resource_name) %>"
           value="<%= search_term %>"
-          data-action="keyup->search#submit" data-turbo-preserve-focus>
-
+          data-search-target="input"
+          data-action="keyup->search#submit">
 
     <%= link_to clear_search_params, class: "input-icon-addon" do %>
       <span class="d-none"><%= t("administrate.search.clear") %></span>

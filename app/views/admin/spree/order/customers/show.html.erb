@@ -21,14 +21,27 @@ as well as a link to its edit page.
   <section class="main-content__body">
     <!-- Customer ID -->
     <div class="card-body">
-      <h3 class="card-title">Cliente</h3>
-      <%= parent_page.resource.user_id %>
+      <h3 class="card-title">
+        Cliente
+
+        <%= link_to(
+          t("administrate.actions.edit_resource", name: "Customer"),
+          [:edit, namespace, parent_page.resource, controller_name.singularize.to_sym],
+          class: "btn btn-link",
+          'data-turbo-frame': "remote_modal"
+        ) %>
+      </h3>
+      <% if parent_page.resource.user.present? %>
+        <%= render_field parent_page.attributes.detect{|a| a.name == "user"} %>
+      <% else %>
+        <%= t('spree.guest_checkout') %>
+      <% end %>
     </div>
 
     <!-- Customer Email -->
     <div class="card-body">
       <h3 class="card-title">Recapiti</h3>
-      <%= parent_page.resource.email %>
+      <%= render_field parent_page.attributes.detect{|a| a.name == "email"} %>
     </div>
 
     <!-- Customer Billing Address -->
