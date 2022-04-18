@@ -1,12 +1,4 @@
-class Spree::Order::PaymentDashboard < Spree::Order::BaseDashboard
-  STATE_CLASSES = {
-    complete: 'success',
-    pending: 'warning',
-    invalid: 'error',
-    purchased: 'success',
-    declined: 'error'
-  }.freeze
-
+class Spree::RefundDashboard < Spree::Order::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -15,26 +7,16 @@ class Spree::Order::PaymentDashboard < Spree::Order::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    number: Field::String,
-    cvv_response_code: Field::String,
-    cvv_response_message: Field::String,
-    amount: Field::Money.with_options(searchable: false),
-    state: Field::Select.with_options(collection: STATE_CLASSES.keys, filterable: true, states: STATE_CLASSES, default: 'warning'),
-    response_code: Field::String,
-    avs_response: Field::String,
+    payment: Field::BelongsTo,
+    amount: Field::String.with_options(searchable: false),
+    reason: Field::BelongsTo.with_options(class_name: 'Spree::RefundReason'),
 
-    source: Field::Polymorphic.with_options(classes: [Spree::CreditCard]),
-    payment_method: Field::BelongsTo.with_options(class_name: 'Spree::PaymentMethod'),
-    # offsets: Field::HasMany,
+    # reimbursement: Field::BelongsTo,
     # log_entries: Field::HasMany,
-    # state_changes: Field::HasMany,
-    # capture_events: Field::HasMany,
-    # refunds: Field::HasMany,
-
-    order: Field::BelongsTo.with_options(class_name: 'Spree::Order'),
+    transaction_id: Field::String,
 
     created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    updated_at: Field::DateTime,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -44,27 +26,18 @@ class Spree::Order::PaymentDashboard < Spree::Order::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     created_at
-    number
-    state
-    payment_method
+    payment
     amount
+    reason
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    number
     amount
-    state
-    payment_method
-
-    response_code
-    avs_response
-    cvv_response_code
-    cvv_response_message
-
-    source
-
+    payment
+    reason
+    transaction_id
     created_at
     updated_at
   ].freeze
@@ -74,12 +47,19 @@ class Spree::Order::PaymentDashboard < Spree::Order::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     amount
-    payment_method
+    payment
+    reason
   ].freeze
 
-  FORM_ATTRIBUTES_EDIT = %i[
+  FORM_ATTRIBUTES_NEW = %i[
     amount
-  ]
+    payment
+    reason
+  ].freeze
+
+  FORM_ATTRIBUTES_NEW = %i[
+    reason
+  ].freeze
 
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search
@@ -93,10 +73,10 @@ class Spree::Order::PaymentDashboard < Spree::Order::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how payments are displayed
+  # Overwrite this method to customize how refunds are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(payment)
-  #   "Spree::Payment ##{payment.id}"
+  # def display_resource(refund)
+  #   "Spree::Refund ##{refund.id}"
   # end
 end

@@ -19,8 +19,8 @@ class Spree::CreditCardDashboard < Spree::BaseDashboard
     payment_method: Field::BelongsTo,
     payments: Field::HasMany,
     # wallet_payment_sources: Field::HasMany,
-    # user: Field::BelongsTo,
-    # address: Field::BelongsTo,
+    user: Field::BelongsTo,
+    address: Field::BelongsTo,
 
     created_at: Field::DateTime,
     updated_at: Field::DateTime
@@ -65,7 +65,7 @@ class Spree::CreditCardDashboard < Spree::BaseDashboard
     gateway_customer_profile_id
     gateway_payment_profile_id
     payment_method
-    payments
+    address
   ].freeze
 
   # COLLECTION_FILTERS

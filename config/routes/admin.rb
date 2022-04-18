@@ -70,10 +70,9 @@ Rails.application.routes.draw do
               patch :capture
               patch :void
             end
-
-            resources :refunds
           end
 
+          resources :refunds
           resources :reimbursements
           resources :cancellations
         end
