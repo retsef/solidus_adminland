@@ -90,9 +90,6 @@ GEM
     administrate-field-hidden (0.1.0)
       administrate (< 1.0.0)
       rails (>= 4.2, < 8)
-    administrate_batch_actions (0.3.0)
-      administrate
-      rails (>= 5.2)
     administrate_exportable (0.5.0)
       actionview (>= 5.2.2.1)
       administrate (>= 0.13.0)
@@ -492,7 +489,6 @@ DEPENDENCIES
   administrate
   administrate-field-active_storage
   administrate-field-hidden
-  administrate_batch_actions
   administrate_exportable
   administrate_ransack
   bootsnap (>= 1.4.4)

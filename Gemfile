@@ -35,7 +35,6 @@ gem 'solidus_sample', '~> 3.1', '>= 3.1.1'
 gem 'administrate'
 gem 'administrate_ransack'
 gem 'administrate_exportable'
-gem 'administrate_batch_actions'
 
 gem 'administrate-field-active_storage'
 gem 'administrate-field-hidden'

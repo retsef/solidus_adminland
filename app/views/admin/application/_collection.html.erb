@@ -22,7 +22,11 @@ to display a collection of resources in an HTML table.
   <table class="table table-sm table-hover table-fscol-sticky table-vcenter table-nowrap card-table" aria-labelledby="<%= table_title %>">
     <thead>
       <tr>
-        <%= administrate_batch_actions_select_all() %>
+        <% if show_bulk_actions %>
+          <th class="w-1">
+            <input type="checkbox" data-table-target="all" data-action="click->table#toggle_all" class="form-check-input m-0 align-middle" aria-label="Select all" />
+          </th>
+        <% end %>
 
         <% collection_presenter.attribute_types.each do |attr_name, attr_type| %>
           <th class="cell-label
@@ -70,7 +74,12 @@ to display a collection of resources in an HTML table.
 
       <% resources.each do |resource| %>
         <tr class="table-row" id="<%= dom_id(resource) %>">
-          <%= administrate_batch_actions_checkbox(resource.id) %>
+          <% if show_bulk_actions %>
+            <td>
+              <input type="checkbox" value="<%= resource.id %>" data-table-target="box" data-action="click->table#check" class="form-check-input m-0 align-middle" />
+            </td>
+          <% end %>
+
           <% collection_presenter.attributes_for(resource).each do |attribute| %>
             <td class="cell-data cell-data--<%= attribute.html_class %>" data-label="<%= attribute.name %>">
               <% if valid_action?(:show, collection_presenter.resource_name) && show_action?(:show, resource) -%>
@@ -79,7 +88,7 @@ to display a collection of resources in an HTML table.
                 <% end %>
               <% else %>
                 <%= render_field attribute %>
-              <% end -%>
+              <% end %>
             </td>
           <% end %>
 

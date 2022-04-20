@@ -13,6 +13,8 @@ Rails.application.routes.draw do
         get :export, on: :collection
         post :clone, on: :member
 
+        post :destroy_bulk, on: :collection
+
         scope module: :product do
           resources :images
           resources :prices
@@ -22,7 +24,7 @@ Rails.application.routes.draw do
           resources :stock_items, only: %i[index show edit update]
         end
       end
-      
+
       resources :variants, only: %i[index show] do
         scope module: :variant do
           resources :images

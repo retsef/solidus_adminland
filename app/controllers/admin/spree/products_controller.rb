@@ -10,6 +10,26 @@ module Admin
     #   send_foo_updated_email(requested_resource)
     # end
 
+    def destroy_bulk
+      authorize_resource(resource_class)
+
+      result_bulk = true
+      delete_method = resource_class.respond_to?(:discard_all) ? :discard : :destroy
+      scoped_resource.transaction do
+        result_bulk = scoped_resource.find(params[:batch_action_ids]).collect(&delete_method)
+
+        raise ActiveRecord::Rollback if result_bulk.detect(&:!)
+      end
+
+      if result_bulk
+        flash[:notice] = translate_with_resource('destroy.success')
+      else
+        flash[:error] = translate_with_resource('destroy.failed')
+      end
+
+      redirect_to after_resource_destroyed_path(nil), status: :see_other
+    end
+
     def show
       redirect_to [:edit, namespace, requested_resource], status: :moved_permanently
     end

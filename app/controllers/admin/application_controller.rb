@@ -52,7 +52,8 @@ module Admin
         search_term: search_term,
         page: page,
         show_search_bar: show_search_bar?,
-        show_filters: show_filters?
+        show_filters: show_filters?,
+        show_bulk_actions: show_bulk_actions?,
       }
     end
 
@@ -106,6 +107,10 @@ module Admin
       dashboard.attribute_types_for(
         dashboard.all_attributes
       ).any? { |_name, attribute| attribute.filterable? }
+    end
+
+    def show_bulk_actions?
+      methods.any? { |name| name.to_s.end_with?('_bulk') }
     end
 
     def resource_params

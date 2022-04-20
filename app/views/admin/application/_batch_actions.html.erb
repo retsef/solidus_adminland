@@ -7,11 +7,9 @@
 
     <div class="col-auto me-n3">
       <!-- Actions -->
-      <%= administrate_batch_actions_button(
-          'delete',
-          '#',
-          { class: 'btn', confirm: '' }
-        ) %>
+      <%= link_to 'delete', polymorphic_path([:destroy_bulk, namespace, resource_class]), class: "btn",
+        data: { table_target: 'action', action: 'click->table#action_method', 
+                turbo_confirm: t("administrate.actions.confirm"), turbo_action: "replace", turbo_method: :post } %>
     </div>
   </div>
 
