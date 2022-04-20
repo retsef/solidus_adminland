@@ -20,10 +20,8 @@ module Spree::ActiveStorageAdapter::AttachmentOverride
       size = style_to_size(style&.to_sym)
 
       @attachment.variant(
-        resize: size,
-        strip: true,
-        'auto-orient': true,
-        colorspace: 'sRGB'
+        resize_to_limit: size,
+        strip: true
       ).processed
     end
   end

@@ -22,6 +22,8 @@ to display a collection of resources in an HTML table.
   <table class="table table-sm table-hover table-fscol-sticky table-vcenter table-nowrap card-table" aria-labelledby="<%= table_title %>">
     <thead>
       <tr>
+        <%= administrate_batch_actions_select_all() %>
+
         <% collection_presenter.attribute_types.each do |attr_name, attr_type| %>
           <th class="cell-label
             cell-label--<%= attr_type.html_class %>
@@ -68,6 +70,7 @@ to display a collection of resources in an HTML table.
 
       <% resources.each do |resource| %>
         <tr class="table-row" id="<%= dom_id(resource) %>">
+          <%= administrate_batch_actions_checkbox(resource.id) %>
           <% collection_presenter.attributes_for(resource).each do |attribute| %>
             <td class="cell-data cell-data--<%= attribute.html_class %>" data-label="<%= attribute.name %>">
               <% if valid_action?(:show, collection_presenter.resource_name) && show_action?(:show, resource) -%>

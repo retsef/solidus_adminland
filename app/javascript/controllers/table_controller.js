@@ -1,71 +1,74 @@
 import { Controller } from "@hotwired/stimulus";
+import _ from "lodash";
 
 export default class extends Controller {
-  static targets = ['table', 'select_all', 'checkbox', 'button'];
+  static targets = ['all', 'box', 'modal', 'count', 'action'];
 
   connect() {
+    if (this.selectedItems.length > 0) {
+      this.boxTagets.forEach(function(checkbox) {
+        checkbox.checked = false;
+      });
 
+      this.allTarget.checked = false;
+    }
   }
 
   disconnect() {
 
   }
 
-  //window.onpageshow
-  onpageshow(event) {
-    if (selectedItemIds()) {
-      checkboxes.forEach(function(checkbox) {
-        checkbox.checked = false;
-      });
-
-      selectAllCheckboxes.checked = false;
-    }
-  }
-
-  onClickSelectAll(event) {
-    checkboxes.forEach(function(checkbox) {
-      checkbox.checked = selectAllCheckboxes.checked;
+  toggle_all(event) {
+    var all_checked = this.allTarget.checked;
+    this.boxTargets.forEach(function(checkbox) {
+      checkbox.checked = all_checked;
     });
 
-    checkAndToggleActionButtons();
+    this.checkAndToggleActionButtons();
   }
 
-  actionClick(event){
-    button.href += '?' + selectedItemIds();
+  clear(event) {
+    this.boxTargets.forEach(function(checkbox) {
+      checkbox.checked = false;
+    });
+
+    this.allTarget.checked = false;
+
+    // this.checkAndToggleActionButtons();
   }
 
-  /*
-  checkboxes.forEach(function(checkbox){
-    checkbox.closest('td').addEventListener('click', function(event){
-      event.stopImmediatePropagation();
-    })
+  check(event) {
+    event.stopImmediatePropagation();
 
-    checkbox.addEventListener('click', function(event) {
-      event.stopImmediatePropagation();
+    if(!event.target.checked) {
+      this.allTarget.checked = false;
+    }
 
-      checkAndToggleActionButtons();
-    })
+    this.checkAndToggleActionButtons();
   }
-  */
+
+  action_method(event){
+    this.actionTarget.href += '?' + this.selectedItemIds;
+  }
+
+  get selectedItems() {
+    return _.filter(this.boxTargets, function(checkbox) {
+      if (checkbox.checked) { return checkbox }
+    });
+  }
 
   get selectedItemIds() {
-    var ids = Array.prototype.filter.call(checkboxes, function(checkbox) {
-          if (checkbox.checked) { return checkbox }
-        }).map(function(checkbox) {
-          return 'batch_action_ids[]=' + checkbox.value
-        }).join('&');
-    return ids;
+    return this.selectedItems.map(function(checkbox) {
+      return 'batch_action_ids[]=' + checkbox.value
+    }).join('&');
   }
 
-  get checkAndToggleActionButtons() {
-    if (selectedItemIds()) {
-      buttons.forEach(function(button){
-        button.classList.remove('disabled');
-      });
+  checkAndToggleActionButtons() {
+    if (this.selectedItems.length > 0) {
+      this.countTarget.innerText = this.selectedItems.length;
+      this.modalTarget.classList.add('show');
     } else {
-      buttons.forEach(function(button){
-        button.classList.add('disabled');
-      });
+      this.modalTarget.classList.remove('show');
     }
   }
 }

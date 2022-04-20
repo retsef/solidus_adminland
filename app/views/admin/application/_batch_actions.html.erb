@@ -1,0 +1,20 @@
+<div class="batch-actions-alert alert alert-secondary alert-dismissible fade" role="alert" data-table-target="modal">
+  <!-- Content -->
+  <div class="row align-items-center">
+    <div class="col">
+      <span class="list-alert-count" data-table-target="count">0</span> <%= resource_name %> selected
+    </div>
+
+    <div class="col-auto me-n3">
+      <!-- Actions -->
+      <%= administrate_batch_actions_button(
+          'delete',
+          '#',
+          { class: 'btn', confirm: '' }
+        ) %>
+    </div>
+  </div>
+
+  <!-- Close -->
+  <button type="button" class="btn-close" aria-label="Close" data-action="click->table#clear"></button>
+</div>
