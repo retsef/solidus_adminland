@@ -98,7 +98,7 @@ class Spree::PaymentMethodDashboard < Spree::BaseDashboard
     preference_source
     preferred_server
     preferred_test_mode
-  ]
+  ].freeze
 
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search

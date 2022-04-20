@@ -79,7 +79,7 @@ class Spree::Order::PaymentDashboard < Spree::Order::BaseDashboard
 
   FORM_ATTRIBUTES_EDIT = %i[
     amount
-  ]
+  ].freeze
 
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search
