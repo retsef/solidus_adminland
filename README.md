@@ -69,9 +69,9 @@ The initial design is made with bootstrap 5 with [Tabler](https://github.com/tab
 
 - [x] Orders CRUD
   - [x] Line Items CRUD
-  - [ ] Customer info CRUD
-  - [ ] Payments CRUD
-  - [ ] Refunds CRUD
+  - [x] Customer info CRUD
+  - [x] Payments CRUD
+  - [-] Refunds CRUD
   - [ ] RMA CRUD
 
 - [x] Promotions CRUD
@@ -91,7 +91,7 @@ The initial design is made with bootstrap 5 with [Tabler](https://github.com/tab
 - [x] Tax Rate CRUD
 - [x] Taxonomy CRUD
 - [x] Taxon CRUD
-- [-] Payment Method CRUD
+- [x] Payment Method CRUD
 
 All the rights of logos and colors are get from solidus presskit
 The Admin theme is inspired from solidus website mockups and based on [Bootstrap 5](https://getbootstrap.com) version of [Tabler](https://github.com/tabler/tabler)
