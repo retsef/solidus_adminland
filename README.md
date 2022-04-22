@@ -12,6 +12,13 @@
 This starts as a fun project for internal purpose to make a more reliable version of [solidus_backend](https://github.com/solidusio/solidus/tree/master/backend) admin panel.
 Solidus has a great core component and a battery included admin interface but, in our opinion and due to our customizations, the admin gem lacks of design stucture for being a real side infrastructure for comunicating with solidus_core structure.
 
+## Features
+- Beatiful and easy to use (UX matters)
+- Hotwire Turbo powered ⚡️
+- Stimulus with importmaps for small sparkles ✨
+- Filtering made easy with Ransack
+- Batch operations like destroy
+
 ## Why rewrite the wheel?
 
 As said, in our opinion, solidus_backend relay on so many caveout of being stuck to libraries chosed back to the spree fork (Deface im looking at you!) and this stucure is too strict to those choices:
