@@ -8,7 +8,7 @@ module Admin
       scoped_resource ||= resource_class.where(viewable: requested_parent_resource.variants_including_master)
 
       # Administrate ransack
-      @ransack_results = scoped_resource.ransack(params[:q])
+      @ransack_results = authorized_scope(scoped_resource).ransack(params[:q])
       @ransack_results.result(distinct: true)
     end
 

@@ -32,13 +32,15 @@ module Admin
       scoped_resource ||= resource_class.where(id: requested_parent_resource.bill_address_id)
 
       # Administrate ransack
-      @ransack_results = scoped_resource.ransack(params[:q])
+      @ransack_results = authorized_scope(scoped_resource).ransack(params[:q])
       @ransack_results.result(distinct: true)
     end
 
     def requested_resource
       @requested_resource ||= find_resource.tap do |resource|
         authorize_resource(resource)
+
+        # resource.address_type = 'billing'
       end
     end
 

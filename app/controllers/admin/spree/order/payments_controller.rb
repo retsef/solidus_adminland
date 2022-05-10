@@ -13,12 +13,10 @@ module Admin
     # end
 
     def create
-      resource = Spree::PaymentCreate.new(requested_parent_resource, object_params).build
+      resource = ::Spree::PaymentCreate.new(requested_parent_resource, resource_params).build
       authorize_resource(resource)
 
-      if resource.payment_method.source_required? && params[:card].present? && params[:card] != 'new'
-        resource.source = resource.payment_method.payment_source_class.find_by(id: params[:card])
-      end
+      resource.source = resource.payment_method.payment_source_class.find_by(id: params[:card]) if resource.payment_method.source_required? && params[:card].present? && params[:card] != 'new'
 
       begin
         unless resource.save
@@ -40,14 +38,37 @@ module Admin
         end
 
         redirect_to(after_resource_created_path(resource), notice: translate_with_resource('create.success'), status: :see_other)
-        
       rescue Spree::Core::GatewayError => e
         flash[:error] = e.message.to_s
-        
+
         render :new, locals: {
           page: Administrate::Page::Form.new(dashboard, resource)
         }, status: :unprocessable_entity
       end
+    end
+
+    %i[void capture].each do |event|
+      define_method(event) do
+        return unless requested_resource.payment_source
+
+        # Because we have a transition method also called void, we do this to avoid conflicts.
+        event = 'void_transaction' if event == :void
+        if requested_resource.send("#{event}!")
+          flash[:success] = t('spree.payment_updated')
+        else
+          flash[:error] = t('spree.cannot_perform_operation')
+        end
+
+        redirect_to(after_resource_updated_path(requested_resource), status: :see_other)
+      rescue Spree::Core::GatewayError => e
+        flash[:error] = e.message.to_set
+
+        redirect_to(after_resource_updated_path(requested_resource), status: :see_other)
+      end
+
+      #  render :edit, locals: {
+      #    page: Administrate::Page::Form.new(dashboard, requested_resource),
+      #  }, status: :unprocessable_entity
     end
 
     # Override this method to specify custom lookup behavior.

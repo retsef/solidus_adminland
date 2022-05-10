@@ -15,6 +15,8 @@ By default, the input is a text box.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/Url
 %>
 
+<%- current_store ||= Spree::Store.default %>
+
 <div class="form-group">
   <%= f.label field.attribute %>
   <%= f.hint field.attribute %>

@@ -7,7 +7,7 @@ but each page can define additional JS sources
 by providing a `content_for(:javascript)` block.
 %>
 
-<%= javascript_importmap_tags %>
+<%= javascript_importmap_tags "admin" %>
 
 <%# Administrate::Engine.javascripts.each do |js_path|
   <%=# javascript_include_tag js_path

@@ -1,4 +1,4 @@
-class Spree::RefundDashboard < Spree::Order::BaseDashboard
+class Spree::Order::RefundDashboard < Spree::Order::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #

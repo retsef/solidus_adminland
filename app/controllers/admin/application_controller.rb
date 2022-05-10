@@ -18,7 +18,16 @@ module Admin
     helper 'active_link_to'
     helper 'alert'
 
+    rescue_from ActionPolicy::Unauthorized do |ex|
+      if ex.result.all_details[:not_found]
+        head :not_found
+      else
+        head :unauthorized
+      end
+    end
+
     before_action :authenticate_admin
+    verify_authorized
 
     default_form_builder Admin::FormBuilder
 
@@ -26,15 +35,33 @@ module Admin
       # TODO: Add authentication logic here.
     end
 
-    # Override this value to specify the number of elements to display at a time
-    # on index pages. Defaults to 15.
-    def records_per_page
-      params[:per_page] || 15
+    def current_user
+      nil
     end
 
+    # ActionPolicy
     def authorize_resource(resource)
-      resource
-      # authorize! action_name, resource
+      # resource
+      authorize! resource
+    end
+
+    def implicit_authorization_target
+      @requested_resource || resource_class
+    end
+
+    def show_action?(action, resource = nil)
+      resource ||= @requested_resource || resource_class
+
+      allowed_to? "#{action}?".to_sym, resource
+      # Pundit.policy!(pundit_user, resource).send("#{action}?".to_sym)
+    end
+
+    def scoped_resource
+      scoped_resource ||= resource_class.all
+
+      # Administrate ransack
+      @ransack_results = authorized_scope(scoped_resource).ransack(params[:q])
+      @ransack_results.result(distinct: true)
     end
 
     # Copied from https://github.com/thoughtbot/administrate/blob/v0.17.0/app/controllers/administrate/application_controller.rb#L5
@@ -93,7 +120,33 @@ module Admin
       redirect_to after_resource_destroyed_path(requested_resource), status: :see_other
     end
 
+    def destroy_bulk
+      authorize_resource(resource_class)
+
+      result_bulk = true
+      delete_method = resource_class.respond_to?(:discard_all) ? :discard : :destroy
+      scoped_resource.transaction do
+        result_bulk = scoped_resource.find(params[:batch_action_ids]).collect(&delete_method)
+
+        raise ActiveRecord::Rollback if result_bulk.detect(&:!)
+      end
+
+      if result_bulk
+        flash[:notice] = translate_with_resource('destroy.success')
+      else
+        flash[:error] = translate_with_resource('destroy.failed')
+      end
+
+      redirect_to after_resource_destroyed_path(nil), status: :see_other
+    end
+
     private
+
+    # Override this value to specify the number of elements to display at a time
+    # on index pages. Defaults to 15.
+    def records_per_page
+      params[:per_page] || 15
+    end
 
     def filter_resources(resources, search_term:)
       Administrate::Search.new(
@@ -110,10 +163,19 @@ module Admin
     end
 
     def show_bulk_actions?
-      methods.any? { |name| name.to_s.end_with?('_bulk') }
+      methods.any? { |name| valid_action?(name) if name.to_s.end_with?('_bulk') }
+    end
+
+    def valid_action?(name, resource = resource_class)
+      routes.include?([resource.to_s.underscore.pluralize, name.to_s])
+    end
+
+    def routes
+      @routes ||= Administrate::Namespace.new(namespace).routes.to_set
     end
 
     def resource_params
+      # authorized_scope
       params.require(resource_class.model_name.param_key)
             .permit(dashboard.permitted_attributes)
             .transform_values { |v| read_param_value(v) }

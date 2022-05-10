@@ -1,6 +1,12 @@
 module Admin
-  class Spree::OrdersController < Admin::ApplicationController
+  class Spree::OrdersController < Spree::BaseController
     include AdministrateExportable::Exporter
+
+    authorize :order, through: :current_order
+
+    def current_order
+      @current_order ||= resource_class.find_by(number: params[:id])
+    end
 
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
@@ -17,6 +23,7 @@ module Admin
       order_importer_params[:ship_address] = user&.ship_address
 
       resource = ::Spree::Core::Importer::Order.import(user, order_importer_params)
+      authorize_resource(resource)
 
       redirect_to(
         after_resource_created_path(resource),

@@ -18,11 +18,17 @@ All show page attributes of has_one relationship would be rendered
 <% if field.linkable? %>
   <fieldset class="attribute--nested">
     <legend>
-      <%= link_to(
-        field.display_associated_resource,
-        [namespace, field.data],
-        target: '_top'
-      ) %>
+
+      <% if valid_action?(:show, field.associated_class) && show_action?(:show, field.associated_class) %>
+        <%= link_to(
+          field.display_associated_resource,
+          [namespace, field.data],
+          target: '_top'
+        ) %>
+      <% else %>
+        <%= field.display_associated_resource %>
+      <% end %>
+      
     </legend>
     <% field.nested_show.attributes.each do |attribute| -%>
       <div>

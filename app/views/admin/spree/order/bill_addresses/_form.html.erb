@@ -16,7 +16,7 @@ and renders all form fields for a resource's editable attributes.
 
 <%= form_for([namespace, parent_page.resource, page.resource], 
       url: [namespace, parent_page.resource, controller_name.singularize.to_sym], method: :patch, 
-      html: { class: "form", data: { turbo_action: "replace" } }) do |f| %>
+      html: { class: "form", data: { turbo_action: "replace", controller: 'spree--address--form' } }) do |f| %>
   <% if page.resource.errors.any? %>
     <div id="error_explanation" class="form-errors alert alert-danger" role="alert">
       <h4 class="alert-title">
@@ -40,8 +40,29 @@ and renders all form fields for a resource's editable attributes.
   <div class="form-body modal-body row">
     <%- attributes = page.attributes(controller.action_name) %>
 
-    <% contact_attributes = %i[name company address1 address2] %>
+    <% type_attributes = %i[address_type] %>
+    <% attributes.select{|a| type_attributes.include? a.attribute }.each do |attribute| %>
+      <div class="field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+        <%= render_field attribute, f: f %>
+      </div>
+    <% end -%>
+
+    <% contact_attributes = %i[customer_type name] %>
     <% attributes.select{|a| contact_attributes.include? a.attribute }.each do |attribute| %>
+      <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>" data-spree--address--form-target="<%= attribute.name %>">
+        <%= render_field attribute, f: f %>
+      </div>
+    <% end -%>
+
+    <% business_attributes = %i[company personal_tax_code vat_number billing_email einvoicing_code] %>
+    <% attributes.select{|a| business_attributes.include? a.attribute }.each do |attribute| %>
+      <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>" data-spree--address--form-target="<%= attribute.name %>">
+        <%= render_field attribute, f: f %>
+      </div>
+    <% end -%>
+
+    <% addr_attributes = %i[address1 address2] %>
+    <% attributes.select{|a| addr_attributes.include? a.attribute }.each do |attribute| %>
       <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
         <%= render_field attribute, f: f %>
       </div>
@@ -54,7 +75,7 @@ and renders all form fields for a resource's editable attributes.
       </div>
     <% end -%>
 
-    <% attributes.reject{|a| (contact_attributes + city_attributes).include? a.attribute }.each do |attribute| %>
+    <% attributes.reject{|a| (type_attributes + contact_attributes + business_attributes + addr_attributes + city_attributes).include? a.attribute }.each do |attribute| %>
       <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
         <%= render_field attribute, f: f %>
       </div>

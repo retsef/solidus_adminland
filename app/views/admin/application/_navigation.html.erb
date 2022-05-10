@@ -41,12 +41,20 @@ as defined by the routes in the `admin/` namespace
         <%# end %>
 
         <%- Rails.application.config.admin_navigation.main_entries.sort_by(&:position).each do |menu_item| %>
+          <% if menu_item.resource_class.present? %>
+            <% next unless valid_action? :index, menu_item.resource_class %>
+          <% end %>
+
           <% if menu_item.children? %>
 
             <%= render Admin::Navigation::MenuDropdown::Component.new(icon: menu_item.icon, label: menu_item.label, 
-                active: menu_item.urls.any? {|u| active_link? u }) do |c| %>
+                active: menu_item.urls.any? {|u| active_link? u }) do |component| %>
               <%- menu_item.ordered_children.each do |child_menu_item| %>
-                <% c.item do %>
+                <% if child_menu_item.resource_class.present? %>
+                  <% next unless valid_action? :index, child_menu_item.resource_class %>
+                <% end %>
+
+                <% component.item do %>
                   <%= active_link_to child_menu_item.label, child_menu_item.url, class: 'dropdown-item' %>
                 <% end %>
               <% end %>
@@ -71,12 +79,20 @@ as defined by the routes in the `admin/` namespace
       <!-- Navigation -->
       <ul class="navbar-nav mb-md-4">
         <%- Rails.application.config.admin_navigation.setting_entries.sort_by(&:position).each do |menu_item| %>
+          <% if menu_item.resource_class.present? %>
+            <% next unless valid_action? :index, menu_item.resource_class %>
+          <% end %>
+
           <% if menu_item.children? %>
 
             <%= render Admin::Navigation::MenuDropdown::Component.new(icon: menu_item.icon, label: menu_item.label,
-                                                                      active: menu_item.urls.any? {|u| active_link? u }) do |c| %>
+                                                                      active: menu_item.urls.any? {|u| active_link? u }) do |component| %>
               <%- menu_item.ordered_children.each do |child_menu_item| %>
-                <% c.item do %>
+                <% if child_menu_item.resource_class.present? %>
+                  <% next unless valid_action? :index, child_menu_item.resource_class %>
+                <% end %>
+
+                <% component.item do %>
                   <%= active_link_to child_menu_item.label, child_menu_item.url, class: 'dropdown-item' %>
                 <% end %>
               <% end %>

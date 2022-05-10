@@ -20,8 +20,5 @@ By default, the attribute is rendered as a truncated string.
   <%- default_state = field.options[:default] || 'secondary' %>
   <%- status_class = states[field.data.to_sym] || default_state %>
 
-  <span class="status status-<%= status_class %>">
-    <span class="status-dot"></span>
-    <%= field.data %>
-  </span>
+  <span class="badge bg-<%= status_class %>-lt"><%= field.data %></span>
 <% end %>

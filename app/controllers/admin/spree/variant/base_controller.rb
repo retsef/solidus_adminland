@@ -1,6 +1,12 @@
 module Admin
-  class Spree::Variant::BaseController < Admin::ApplicationController
+  class Spree::Variant::BaseController < Spree::BaseController
     include BelongsTo
+
+    authorize :variant, through: :current_variant
+
+    def current_variant
+      @current_variant ||= find_parent_resource(params[:variant_id])
+    end
 
     private
 
@@ -8,14 +14,18 @@ module Admin
       scoped_resource ||= resource_class.where(variant: requested_parent_resource)
 
       # Administrate ransack
-      @ransack_results = scoped_resource.ransack(params[:q])
+      @ransack_results = authorized_scope(scoped_resource).ransack(params[:q])
       @ransack_results.result(distinct: true)
     end
 
     def requested_parent_resource
-      @requested_parent_resource ||= ::Spree::Variant.find(params[:variant_id]).tap do |resource|
+      @requested_parent_resource ||= find_parent_resource(params[:variant_id]).tap do |resource|
         authorize_resource(resource)
       end
+    end
+
+    def find_parent_resource(param)
+      ::Spree::Variant.find(param)
     end
 
     def parent_dashboard

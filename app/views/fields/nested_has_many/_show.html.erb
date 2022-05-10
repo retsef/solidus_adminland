@@ -24,6 +24,7 @@ from the associated resource class's dashboard.
       page: page,
       resources: field.resources(page_number, order),
       table_title: field.name,
+      show_bulk_actions: false,
     ) %>
     
     <% if field.more_than_limit? %>

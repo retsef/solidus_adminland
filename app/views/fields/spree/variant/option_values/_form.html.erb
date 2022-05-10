@@ -20,7 +20,7 @@ and is augmented with [Selectize].
 %>
 
 <% field.resource.product.option_types.each_with_index do |option_type, index| %>
-  <div class="form-group">
+  <div class="form-group mb-3">
     <%= f.label option_type.presentation, for: "#{f.object_name}_#{field.attribute_key}_#{option_type.id}" %>
     <%= f.collection_select(field.attribute_key,
             option_type.option_values,

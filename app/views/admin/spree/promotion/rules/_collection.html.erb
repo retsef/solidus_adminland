@@ -90,7 +90,7 @@ to display a collection of resources in an HTML table.
       </tbody>
     </table>
   </div>
-  <% if valid_action?(:new) && show_action?(:new, page.resource_name) %>
+  <% if valid_action?(:new) && show_action?(:new) %>
     <div class="card-body">
       <%= link_to(
           t(

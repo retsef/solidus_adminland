@@ -5,16 +5,16 @@
 
 <% if actions.include?(true) %>
   <td class="cell-action" data-label="Actions">
-    <% if valid_action? :edit, collection_presenter.resource_name %>
+    <% if valid_action?(:edit, collection_presenter.resource_name) && show_action?(:edit, resource) %>
       <%= link_to(
         t("administrate.actions.edit"),
         [:edit, namespace, parent_resource, resource],
         class: "btn btn-sm btn-ghost-primary action-edit",
-        target: '_top'
+        'data-turbo-frame': "remote_modal"
         ) if show_action? :edit, resource %>
     <% end %>
 
-    <% if valid_action? :destroy, collection_presenter.resource_name %>
+    <% if valid_action?(:destroy, collection_presenter.resource_name) && show_action?(:destroy, resource) %>
       <%= link_to(
         t("administrate.actions.destroy"),
         [namespace, parent_resource, resource],

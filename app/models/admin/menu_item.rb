@@ -2,12 +2,14 @@ class Admin::MenuItem
   include ActiveModel::Model
   include ActiveLinkToHelper
 
-  attr_accessor :icon, :position, :children
+  attr_accessor :icon, :resource_class, :position, :children
 
-  def initialize(label: '', icon: nil, url: nil, position: 0, children: [])
+  def initialize(label: '', icon: nil, url: nil, resource_class: nil, position: 0, children: [])
     @label = label
     @icon = icon
     @url = url
+
+    @resource_class = resource_class
     @position = position
     @children = children
   end

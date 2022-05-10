@@ -3,3 +3,10 @@
   [:edit, namespace, page.resource],
   class: "btn btn-ghost-secondary",
 ) if valid_action?(:edit) && show_action?(:edit, page.resource) %>
+
+<%= link_to(
+  t("administrate.actions.destroy_resource", name: page.page_title),
+  [namespace, page.resource],
+  class: "btn btn-ghost-danger",
+  data: { turbo_method: :delete, turbo_confirm: t("administrate.actions.confirm"), turbo_action: "replace" }
+) if valid_action?(:destroy) && show_action?(:destroy, page.resource) %>

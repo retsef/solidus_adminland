@@ -1,5 +1,5 @@
 module Admin
-  class Spree::PaymentMethodsController < Admin::ApplicationController
+  class Spree::PaymentMethodsController < Spree::BaseController
     def resource_class
       ::Spree::PaymentMethod
     end

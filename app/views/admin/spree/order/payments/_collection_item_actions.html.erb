@@ -1,11 +1,15 @@
 <% actions = [
     valid_action?(:edit, collection_presenter.resource_name),
-    valid_action?(:destroy, collection_presenter.resource_name)
+    valid_action?(:destroy, collection_presenter.resource_name),
+    valid_action?(:void, collection_presenter.resource_name),
+    valid_action?(:capture, collection_presenter.resource_name)
 ] %>
+
+<%# resource.actions %>
 
 <% if actions.include?(true) %>
   <td class="cell-action" data-label="Actions">
-    <% if valid_action? :edit, collection_presenter.resource_name %>
+    <% if valid_action?(:edit, collection_presenter.resource_name) && show_action?(:edit, resource) %>
       <%= link_to(
         t("administrate.actions.edit"),
         [:edit, namespace, parent_resource, resource],
@@ -14,13 +18,31 @@
         ) if show_action? :edit, resource %>
     <% end %>
 
-    <% if valid_action? :destroy, collection_presenter.resource_name %>
+    <% if valid_action?(:destroy, collection_presenter.resource_name) && show_action?(:destroy, resource) %>
       <%= link_to(
         t("administrate.actions.destroy"),
         [namespace, parent_resource, resource],
         class: "btn btn-sm btn-ghost-danger action-destroy",
         data: { turbo_method: :delete, turbo_confirm: t("administrate.actions.confirm"), turbo_action: "replace" }
         ) if show_action? :destroy, resource %>
+    <% end %>
+
+    <% if valid_action?(:void, collection_presenter.resource_name) && show_action?(:void, resource) %>
+      <%= link_to(
+        t("admin.spree.payments.actions.void"),
+        [:void, namespace, parent_resource, resource],
+        class: "btn btn-sm btn-ghost-danger action-void",
+        data: { turbo_frame: :_top, turbo_method: :patch, turbo_action: "replace" }
+        ) if show_action? :void, resource %>
+    <% end %>
+
+    <% if valid_action?(:capture, collection_presenter.resource_name) && show_action?(:capture, resource) %>
+      <%= link_to(
+        t("admin.spree.payments.actions.capture"),
+        [:capture, namespace, parent_resource, resource],
+        class: "btn btn-sm btn-ghost-success action-capture",
+        data: { turbo_frame: :_top, turbo_method: :patch, turbo_action: "replace" }
+        ) if show_action? :capture, resource %>
     <% end %>
   </td>
 <% end %>

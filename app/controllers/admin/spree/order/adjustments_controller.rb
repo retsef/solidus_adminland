@@ -26,7 +26,7 @@ module Admin
     def update
       if requested_resource.update(resource_params)
         requested_parent_resource.recalculate
-        
+
         redirect_to(after_resource_updated_path(requested_resource), notice: translate_with_resource('update.success'), status: :see_other)
       else
         render :edit, locals: {

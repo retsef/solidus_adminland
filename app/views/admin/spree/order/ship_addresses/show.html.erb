@@ -30,7 +30,7 @@ as well as a link to its edit page.
     <% end %>
   </section>
 
-  <% if valid_action?(:edit) && show_action?(:edit, page.resource_name) %>
+  <% if valid_action?(:edit) && show_action?(:edit) %>
     <%= link_to(
         t(
           "administrate.actions.edit_resource",

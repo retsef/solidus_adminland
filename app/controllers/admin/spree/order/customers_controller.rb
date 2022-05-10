@@ -34,7 +34,7 @@ module Admin
                                         .or(resource_class.where(id: requested_parent_resource.user_id))
 
       # Administrate ransack
-      @ransack_results = scoped_resource.ransack(params[:q])
+      @ransack_results = authorized_scope(scoped_resource).ransack(params[:q])
       @ransack_results.result(distinct: true)
     end
 

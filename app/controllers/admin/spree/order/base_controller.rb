@@ -1,6 +1,12 @@
 module Admin
-  class Spree::Order::BaseController < Admin::ApplicationController
+  class Spree::Order::BaseController < Spree::BaseController
     include BelongsTo
+
+    authorize :order, through: :current_order
+
+    def current_order
+      @current_order ||= find_parent_resource(params[:order_id])
+    end
 
     private
 
@@ -13,9 +19,13 @@ module Admin
     end
 
     def requested_parent_resource
-      @requested_parent_resource ||= ::Spree::Order.find_by!(number: params[:order_id]).tap do |resource|
+      @requested_parent_resource ||= find_parent_resource(params[:order_id]).tap do |resource|
         authorize_resource(resource)
       end
+    end
+
+    def find_parent_resource(param)
+      ::Spree::Order.find_by!(number: param)
     end
 
     def parent_dashboard

@@ -1,4 +1,4 @@
-<% content_for(:title) { t("administrate.actions.show_resource", name: page.page_title) } %>
+<% content_for(:title) { page.page_title } %>
 
 <header class="page-header d-print-none" role="banner">
   <div class="row g-2 align-items-center">
@@ -18,6 +18,9 @@
           </span>
         <% end %>
       </h2>
+      <div class="text-muted mt-1">
+        <%= "#{l(page.resource.created_at, format: :long)} from #{page.resource.channel}" %>
+      </div>
     </div>
 
     <div class="col-auto">

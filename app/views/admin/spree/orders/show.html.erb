@@ -29,95 +29,26 @@ as well as a link to its edit page.
     <section class="main-content__body" id="<%= dom_id(page.resource, :form) %>">
       <div class="form-body mt-3 mb-3">
         <div class="row">
-          <%- attributes = page.attributes %>
-
           <!-- Content -->
           <div class="col-12 col-md-8">
             <!-- Line Items -->
-            <div class="card mb-3">
-              <div class="card-header">
-                <h3 class="card-title">Line items</h3>
-              </div>
-              <turbo-frame id="<%= dom_id(page.resource, "line_items") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::LineItem]) %>">
-                <div class="card-body">
-                  <div class="row w-100 placeholder-glow gy-1">
-                    <% 3.times do %>
-                      <div class="placeholder col-12 h-30"></div>
-                    <% end %>
-                  </div>
-                </div>
-              </turbo-frame>
-            </div>
+            <%= render 'line_items', page: page %>
 
             <!-- Shipments Overview -->
-            <div class="card mb-3">
-              <div class="card-header">
-                <h3 class="card-title">Shipments</h3>
-              </div>
-              <turbo-frame id="<%= dom_id(page.resource, "shipments") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Shipment]) %>">
-                <div class="card-body">
-                  <div class="row w-100 placeholder-glow gy-1">
-                    <% 3.times do %>
-                      <div class="placeholder col-12 h-30"></div>
-                    <% end %>
-                  </div>
-                </div>
-              </turbo-frame>
-            </div>
+            <%- if page.resource.completed? %>
+              <%= render 'shipments', page: page %>
+            <% end %>
 
-            <!-- Adjustments Overview -->
-            <div class="card mb-3">
-              <div class="card-header">
-                <h3 class="card-title">Adjustments</h3>
-              </div>
-              <turbo-frame id="<%= dom_id(page.resource, "adjustments") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Adjustment]) %>">
-                <div class="card-body">
-                  <div class="row w-100 placeholder-glow gy-1">
-                    <% 3.times do %>
-                      <div class="placeholder col-12 h-30"></div>
-                    <% end %>
-                  </div>
-                </div>
-              </turbo-frame>
-            </div>
+            <%- unless page.resource.paid? %>
+              <!-- Adjustments Overview -->
+              <%= render 'adjustments', page: page %>
+
+              <!-- Payments Overview -->
+              <%= render 'payments', page: page %>
+            <% end %>
 
             <!-- Payments Overview -->
-            <div class="card mb-3">
-              <div class="card-header">
-                <h3 class="card-title">Payments</h3>
-              </div>
-              <turbo-frame id="<%= dom_id(page.resource, "payments") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Payment]) %>">
-                <div class="card-body">
-                  <div class="row w-100 placeholder-glow gy-1">
-                    <% 3.times do %>
-                      <div class="placeholder col-12 h-30"></div>
-                    <% end %>
-                  </div>
-                </div>
-              </turbo-frame>
-            </div>
-
-            <!-- Payments Overview -->
-            <div class="card mb-3">
-              <div class="card-body">
-                <h3 class="card-title">Summary Payments</h3>
-                <div class="row gy-2">
-                  <% content_attributes = %i[item_total shipment_total additional_tax_total adjustment_total payment_total total] %>
-                  <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
-                    <div class="col-6 attribute-label" id="<%= attribute.name %>">
-                      <%= t(
-                        "helpers.label.#{resource_name}.#{attribute.name}",
-                        default: page.resource.class.human_attribute_name(attribute.name),
-                      ) %>
-                    </div>
-
-                    <div class="col-6 attribute-data attribute-data--<%=attribute.html_class%> text-end">
-                      <%= render_field attribute, page: page %>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-            </div>
+            <%= render 'summary', page: page %>
           </div>
 
           <!-- Side content -->
@@ -155,7 +86,7 @@ as well as a link to its edit page.
                       <%= t('spree.avs_response') %>
                     </div>
                     <div class="col-4 attribute-data text-end">
-                      <span class="status status-<%= latest_payment.is_avs_risky? ? 'warning' : 'success' %>">
+                      <span class="badge bg-<%= latest_payment.is_avs_risky? ? 'warning' : 'success' %>-lt">
                         <% if latest_payment.is_avs_risky? %>
                           <%= avs_response_code[latest_payment.avs_response] %>
                         <% else %>
@@ -168,7 +99,7 @@ as well as a link to its edit page.
                       <%= t('spree.cvv_response') %>
                     </div>
                     <div class="col-4 attribute-data text-end">
-                      <span class="status status-<%= latest_payment.is_cvv_risky? ? 'warning' : 'success' %>">
+                      <span class="badge bg-<%= latest_payment.is_cvv_risky? ? 'warning' : 'success' %>-lt">
                         <% if latest_payment.is_cvv_risky? %>
                           <%= cvv_response_code[latest_payment.cvv_response_code] %>
                         <% else %>

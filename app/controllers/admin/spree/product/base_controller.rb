@@ -1,6 +1,12 @@
 module Admin
-  class Spree::Product::BaseController < Admin::ApplicationController
+  class Spree::Product::BaseController < Spree::BaseController
     include BelongsTo
+
+    authorize :product, through: :current_product
+
+    def current_product
+      @current_product ||= find_parent_resource(params[:product_id])
+    end
 
     private
 
@@ -8,14 +14,18 @@ module Admin
       scoped_resource ||= resource_class.where(product: requested_parent_resource)
 
       # Administrate ransack
-      @ransack_results = scoped_resource.ransack(params[:q])
+      @ransack_results = authorized_scope(scoped_resource).ransack(params[:q])
       @ransack_results.result(distinct: true)
     end
 
     def requested_parent_resource
-      @requested_parent_resource ||= ::Spree::Product.friendly.find(params[:product_id]).tap do |resource|
+      @requested_parent_resource ||= find_parent_resource(params[:product_id]).tap do |resource|
         authorize_resource(resource)
       end
+    end
+
+    def find_parent_resource(param)
+      ::Spree::Product.friendly.find(param)
     end
 
     def parent_dashboard

@@ -12,6 +12,19 @@ module Admin
     #   send_foo_updated_email(requested_resource)
     # end
 
+    def update
+      if requested_resource.update(resource_params)
+        requested_resource.select_shipping_method(shipping_method) if shipping_method.present?
+        requested_parent_resource.recalculate
+
+        redirect_to(after_resource_updated_path(requested_resource), notice: translate_with_resource('update.success'), status: :see_other)
+      else
+        render :edit, locals: {
+          page: Administrate::Page::Form.new(dashboard, requested_resource),
+        }, status: :unprocessable_entity
+      end
+    end
+
     # Override this method to specify custom lookup behavior.
     # This will be used to set the resource for the `show`, `edit`, and `update`
     # actions.
@@ -46,5 +59,11 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
+
+    private
+
+    def shipping_method
+      ::Spree::ShippingMethod.find_by(id: params.require(resource_class.model_name.param_key)[:shipping_method])
+    end
   end
 end

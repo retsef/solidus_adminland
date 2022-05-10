@@ -1,3 +1,21 @@
+<%= link_to(
+	t(".refunds"),
+	[namespace, page.resource, Spree::Refund],
+	class: 'btn btn-ghost-secondary'
+) if show_action?(:index, Spree::Refund) %>
+
+<%= link_to(
+	t(".return_authorizations"),
+	[namespace, page.resource, Spree::ReturnAuthorization],
+	class: 'btn btn-ghost-secondary'
+) if show_action?(:index, Spree::ReturnAuthorization) %>
+
+<%= link_to(
+	t(".customer_returns"),
+	[namespace, page.resource, Spree::CustomerReturn],
+	class: 'btn btn-ghost-secondary'
+) if show_action?(:index, Spree::CustomerReturn) %>
+
 <div class="btn-group" role="group" aria-label="Navigation">
   <%= link_to(
     [namespace, page.prev_resource],

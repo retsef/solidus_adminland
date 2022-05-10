@@ -143,7 +143,7 @@ and renders all form fields for a resource's editable attributes.
 
   <div class="form-actions">
     <hr/>
-    <% if valid_action? :destroy, page.resource_name %>
+    <% if valid_action?(:destroy, page.resource_name) && show_action?(:destroy, page.resource) %>
       <%= link_to 'Delete', [namespace, page.resource], class: 'btn btn-outline-danger', 
                   data: { turbo_method: :delete, turbo_confirm: t("administrate.actions.confirm"), turbo_action: "replace" } %>
     <% end %>

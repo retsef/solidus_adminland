@@ -10,7 +10,9 @@
   // --tblr-body-bg: #fafbfc;
 }
 
-.btn-ghost-warning, .btn-outline-warning, .btn-warning {
+.btn-ghost-warning,
+.btn-outline-warning,
+.btn-warning {
   --tblr-btn-color: #f59f00;
   --tblr-btn-color-interactive: #dd8f00;
   --tblr-btn-color-text: #fafbfc;
@@ -18,5 +20,5 @@
 
 .status-warning {
   --tblr-status-color: #f59f00;
-  --tblr-status-color-rgb: 245,159,0;
+  --tblr-status-color-rgb: 245, 159, 0;
 }

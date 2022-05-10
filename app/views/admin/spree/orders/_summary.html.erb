@@ -1,0 +1,21 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <h3 class="card-title">Summary Payments</h3>
+    <div class="row gy-2">
+      <%- attributes = page.attributes %>
+      <% content_attributes = %i[item_total shipment_total additional_tax_total adjustment_total payment_total total] %>
+      <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
+        <div class="col-6 attribute-label" id="<%= attribute.name %>">
+          <%= t(
+            "helpers.label.#{resource_name}.#{attribute.name}",
+            default: page.resource.class.human_attribute_name(attribute.name),
+          ) %>
+        </div>
+
+        <div class="col-6 attribute-data attribute-data--<%=attribute.html_class%> text-end">
+          <%= render_field attribute, page: page %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

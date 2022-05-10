@@ -15,7 +15,7 @@ class Spree::ShippingMethodDashboard < Spree::BaseDashboard
     shipping_categories: Field::HasMany.with_options(class_name: 'Spree::ShippingCategory'),
     shipping_rates: Field::HasMany.with_options(class_name: 'Spree::ShippingRate'),
     shipments: Field::HasMany.with_options(class_name: 'Spree::Shipment'),
-    cartons: Field::HasMany,
+    cartons: Field::HasMany.with_options(class_name: 'Spree::Carton'),
     zones: Field::HasMany.with_options(class_name: 'Spree::Zone'),
     tax_category: Field::BelongsTo.with_options(class_name: 'Spree::TaxCategory'),
     stock_locations: Field::HasMany.with_options(class_name: 'Spree::StockLocation'),

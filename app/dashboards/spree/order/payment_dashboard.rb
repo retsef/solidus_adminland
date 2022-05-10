@@ -2,9 +2,9 @@ class Spree::Order::PaymentDashboard < Spree::Order::BaseDashboard
   STATE_CLASSES = {
     complete: 'success',
     pending: 'warning',
-    invalid: 'error',
+    invalid: 'danger',
     purchased: 'success',
-    declined: 'error'
+    declined: 'danger'
   }.freeze
 
   # ATTRIBUTE_TYPES

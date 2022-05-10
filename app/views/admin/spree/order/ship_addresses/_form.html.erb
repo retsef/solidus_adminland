@@ -40,7 +40,14 @@ and renders all form fields for a resource's editable attributes.
   <div class="form-body modal-body row">
     <%- attributes = page.attributes(controller.action_name) %>
 
-    <% contact_attributes = %i[name company address1 address2] %>
+    <% type_attributes = %i[address_type] %>
+    <% attributes.select{|a| type_attributes.include? a.attribute }.each do |attribute| %>
+      <div class="field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+        <%= render_field attribute, f: f %>
+      </div>
+    <% end -%>
+
+    <% contact_attributes = %i[name address1 address2] %>
     <% attributes.select{|a| contact_attributes.include? a.attribute }.each do |attribute| %>
       <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
         <%= render_field attribute, f: f %>
@@ -54,7 +61,7 @@ and renders all form fields for a resource's editable attributes.
       </div>
     <% end -%>
 
-    <% attributes.reject{|a| (contact_attributes + city_attributes).include? a.attribute }.each do |attribute| %>
+    <% attributes.reject{|a| (type_attributes + contact_attributes + city_attributes).include? a.attribute }.each do |attribute| %>
       <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
         <%= render_field attribute, f: f %>
       </div>

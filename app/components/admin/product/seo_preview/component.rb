@@ -11,7 +11,7 @@ class Admin::Product::SeoPreview::Component < ApplicationComponent
   end
 
   def meta_title
-    resource.send(:meta_title).presence || resource.send(:name).truncate(128)
+    resource.send(:meta_title).presence || resource.send(:name).to_s.truncate(128)
   end
 
   def meta_url

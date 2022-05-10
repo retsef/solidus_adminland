@@ -26,8 +26,9 @@ class Spree::Order::ShipmentDashboard < Spree::Order::BaseDashboard
     stock_location: Field::BelongsTo,
     # adjustments: Field::HasMany,
     # inventory_units: Field::HasMany,
-    # shipping_rates: Field::HasMany,
-    # shipping_methods: Field::HasMany,
+    shipping_rates: Field::HasMany,
+    shipping_methods: Field::HasMany,
+    shipping_method: Field::Select.with_options(collection: []),
     # state_changes: Field::HasMany,
     # cartons: Field::HasMany,
     # line_items: Field::HasMany,
@@ -50,7 +51,8 @@ class Spree::Order::ShipmentDashboard < Spree::Order::BaseDashboard
     number
     state
     shipped_at
-    stock_location
+    shipping_method
+    tracking
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -58,6 +60,7 @@ class Spree::Order::ShipmentDashboard < Spree::Order::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     order
     stock_location
+    shipping_method
     tracking
     number
     cost
@@ -77,9 +80,12 @@ class Spree::Order::ShipmentDashboard < Spree::Order::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     tracking
-    cost
-    shipped_at
   ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
+    shipping_method
+    tracking
+  ]
 
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search

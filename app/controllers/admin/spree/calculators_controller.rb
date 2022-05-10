@@ -1,5 +1,5 @@
 module Admin
-  class Spree::CalculatorsController < Admin::ApplicationController
+  class Spree::CalculatorsController < Spree::BaseController
     def resource_class
       ::Spree::Calculator
     end

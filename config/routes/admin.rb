@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
+  concern :paginatable do
+    get '(page/:page)', action: :index, on: :collection, as: ''
+  end
+
   namespace :admin do
     root to: 'home#index'
+    resources :search, only: :index
 
     # Reports
     get :dashboards, to: 'dashboards#index'
@@ -12,7 +17,6 @@ Rails.application.routes.draw do
       resources :products do
         get :export, on: :collection
         post :clone, on: :member
-
         post :destroy_bulk, on: :collection
 
         scope module: :product do
@@ -67,7 +71,7 @@ Rails.application.routes.draw do
           resources :return_authorizations
           resources :customer_returns
 
-          resources :payments, only: %i[index show new create] do
+          resources :payments, except: %i[destroy] do
             member do
               patch :capture
               patch :void
@@ -83,7 +87,7 @@ Rails.application.routes.draw do
       # Promotions
       resources :promotions do
         # resources :codes
-        
+
         scope module: :promotion do
           resources :rules
           resources :actions

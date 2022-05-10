@@ -14,7 +14,7 @@ and renders all form fields for a resource's editable attributes.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
 %>
 
-<%= form_for([namespace, parent_page.resource, page.resource], html: { class: "form mb-3 mt-3", data: { turbo_action: "replace" } }) do |f| %>
+<%= form_for([namespace, parent_page.resource, page.resource], html: { class: "form" }) do |f| %>
   <% if page.resource.errors.any? %>
     <div id="error_explanation" class="form-errors alert alert-danger" role="alert">
       <h4 class="alert-title">
@@ -35,25 +35,24 @@ and renders all form fields for a resource's editable attributes.
     </div>
   <% end %>
 
-  <div class="form-body mt-3 mb-3">
-    <div class="card">
-      <div class="card-body">
-        <% page.attributes(controller.action_name).each do |attribute| -%>
-          <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
-            <% unless attribute.editable_inline? %>
-              <%= render_field attribute, f: f %>
-            <% else %>
-              <%= render('inline_fields', form: f, attribute: attribute.name, namespace: namespace) do %>
-                <%= render_field attribute, f: f %>
-              <% end %>
-            <% end %>
-          </div>
-        <% end -%>
+  <div class="form-body modal-body">
+    <% page.attributes(controller.action_name).each do |attribute| -%>
+      <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
+        <% unless attribute.editable_inline? %>
+          <%= render_field attribute, f: f %>
+        <% else %>
+          <%= render('inline_fields', form: f, attribute: attribute.name, namespace: namespace) do %>
+            <%= render_field attribute, f: f %>
+          <% end %>
+        <% end %>
       </div>
-    </div>
+    <% end -%>
   </div>
 
-  <div class="form-actions">
-    <%= f.submit class: "btn w-100 btn-primary" %>
+  <div class="form-actions modal-footer">
+    <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+      Cancel
+    </a>
+    <%= f.submit class: "btn btn-primary ms-auto" %>
   </div>
 <% end %>

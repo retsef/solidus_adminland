@@ -37,7 +37,6 @@ class Spree::Order::AddressDashboard < Spree::Order::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     name
-    company
     address1
     address2
     city
@@ -54,7 +53,6 @@ class Spree::Order::AddressDashboard < Spree::Order::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     name
-    company
     address1
     address2
     zipcode
