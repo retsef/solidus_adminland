@@ -78,6 +78,8 @@ The initial design is made with bootstrap 5 with [Tabler](https://github.com/tab
   - [x] Line Items CRUD
   - [x] Customer info CRUD
   - [x] Payments CRUD
+  - [x] Shipments CRUD
+  - [x] Adjustments CRUD
   - [-] Refunds CRUD
   - [ ] RMA CRUD
 
