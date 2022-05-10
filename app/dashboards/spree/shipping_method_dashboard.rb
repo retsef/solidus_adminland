@@ -104,7 +104,7 @@ class Spree::ShippingMethodDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how shipping methods are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(shipping_method)
-  #   "Spree::ShippingMethod ##{shipping_method.id}"
-  # end
+  def display_resource(shipping_method)
+    shipping_method.name
+  end
 end

@@ -1,4 +1,4 @@
-class Spree::ShipmentDashboard < ApplicationDashboard
+class Spree::ShipmentDashboard < Spree::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
