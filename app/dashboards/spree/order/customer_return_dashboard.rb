@@ -9,10 +9,10 @@ class Spree::Order::CustomerReturnDashboard < Spree::Order::BaseDashboard
     id: Field::Number,
     number: Field::String,
 
-    stock_location: Field::BelongsTo,
-    return_items: Field::HasMany,
-    return_authorizations: Field::HasMany,
-    reimbursements: Field::HasMany,
+    stock_location: Field::BelongsTo.with_options(class_name: 'Spree::StockLocation'),
+    return_items: Field::HasMany.with_options(class_name: 'Spree::ReturnItem'),
+    return_authorizations: Field::HasMany.with_options(class_name: 'Spree::ReturnAuthorization'),
+    reimbursements: Field::HasMany.with_options(class_name: 'Spree::Reimbursement'),
 
     created_at: Field::DateTime,
     updated_at: Field::DateTime,

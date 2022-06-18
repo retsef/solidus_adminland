@@ -89,6 +89,19 @@ class Spree::StoreDashboard < Spree::BaseDashboard
     meta_keywords
   ].freeze
 
+  FORM_ATTRIBUTES_NEW = %i[
+    name
+    url
+    code
+    default
+    cart_tax_country_iso
+
+    mail_from_address
+    default_currency
+    available_locales
+    bcc_email
+  ].freeze
+
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search
   # field of the dashboard.

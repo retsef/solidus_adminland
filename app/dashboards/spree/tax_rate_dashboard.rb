@@ -1,4 +1,8 @@
 class Spree::TaxRateDashboard < Spree::BaseDashboard
+  def self.calculators
+    Rails.application.config.spree.calculators.tax_rates
+  end
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -14,10 +18,12 @@ class Spree::TaxRateDashboard < Spree::BaseDashboard
     starts_at: Field::DateTime,
     expires_at: Field::DateTime,
 
-    calculator: Field::HasOne.with_options(class_name: 'Spree::Calculator'),
+    calculator: Field::HasOne, # .with_options(class_name: 'Spree::Calculator'),
+    calculator_type: Field::Select.with_options(collection: calculators.map { |rule| [rule.model_name.human, rule.name] }),
+
     zone: Field::BelongsTo.with_options(class_name: 'Spree::Zone'),
     tax_categories: Field::HasMany.with_options(class_name: 'Spree::TaxCategory'),
-    adjustments: Field::HasMany.with_options(class_name: 'Spree::Adjustment'),
+    #  adjustments: Field::HasMany.with_options(class_name: 'Spree::Adjustment'),
     # shipping_rate_taxes: Field::HasMany,
 
     deleted_at: Field::DateTime,
@@ -50,10 +56,9 @@ class Spree::TaxRateDashboard < Spree::BaseDashboard
     amount
     show_rate_in_label
     included_in_price
-    calculator
-    zone
     tax_categories
-    adjustments
+    zone
+    calculator
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -68,6 +73,41 @@ class Spree::TaxRateDashboard < Spree::BaseDashboard
 
     included_in_price
     show_rate_in_label
+
+    calculator
+    calculator_type
+
+    starts_at
+    expires_at
+  ].freeze
+
+  FORM_ATTRIBUTES_NEW = %i[
+    name
+
+    amount
+    zone
+    tax_categories
+
+    included_in_price
+    show_rate_in_label
+
+    calculator_type
+
+    starts_at
+    expires_at
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
+    name
+
+    amount
+    zone
+    tax_categories
+
+    included_in_price
+    show_rate_in_label
+
+    calculator
 
     starts_at
     expires_at

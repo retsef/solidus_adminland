@@ -3,20 +3,26 @@ Rails.application.routes.draw do
     get '(page/:page)', action: :index, on: :collection, as: ''
   end
 
+  concern :exportable do
+    get :export, on: :collection
+  end
+
+  concern :clonable do
+    post :clone, on: :member
+  end
+
   namespace :admin do
     root to: 'home#index'
     resources :search, only: :index
 
     # Reports
-    get :dashboards, to: 'dashboards#index'
+    resources :dashboards, only: %i[index show]
     resources :reports, only: %i[index show]
 
     # Solidus core resources
     scope module: :spree do
       # Products
-      resources :products do
-        get :export, on: :collection
-        post :clone, on: :member
+      resources :products, concerns: %i[exportable clonable] do
         post :destroy_bulk, on: :collection
 
         scope module: :product do
@@ -49,9 +55,7 @@ Rails.application.routes.draw do
       resources :taxons
 
       # Orders
-      resources :orders, except: %i[edit update] do
-        get :export, on: :collection
-
+      resources :orders, except: %i[edit update], concerns: %i[exportable] do
         member do
           put :cancel
           put :approve
@@ -102,7 +106,7 @@ Rails.application.routes.draw do
       resources :stock_movements
 
       # Users
-      resources :users
+      resources :users, concerns: %i[exportable]
 
       # Settings
       resources :stores

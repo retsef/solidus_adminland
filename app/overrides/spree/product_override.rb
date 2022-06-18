@@ -8,6 +8,7 @@ module Spree::ProductOverride
 
     delegate :track_inventory, :track_inventory=, to: :find_or_build_master
 
+    self.whitelisted_ransackable_associations = %w[variants_including_master master variants taxons option_types product_properties]
     self.whitelisted_ransackable_attributes = %w[name slug available_on discontinue_on promotionable]
   end
 end

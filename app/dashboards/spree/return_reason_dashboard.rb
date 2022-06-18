@@ -29,7 +29,6 @@ class Spree::ReturnReasonDashboard < Spree::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     name
     active
-    mutable
     created_at
     updated_at
   ].freeze
@@ -40,7 +39,6 @@ class Spree::ReturnReasonDashboard < Spree::BaseDashboard
   FORM_ATTRIBUTES = %i[
     name
     active
-    mutable
   ].freeze
 
   # COLLECTION_FILTERS

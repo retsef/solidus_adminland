@@ -19,7 +19,7 @@ By default, the attribute is rendered as a truncated string.
 <%- attributes = %i[sku name] %>
 <%- variant = field.resource.variant %>
 
-<div class="d-flex py-1 align-items-center">
+<div class="d-flex py-1 align-items-center mw-50" style="width: max-content;">
   <!-- Avatar -->
   <%- gallery = variant.gallery.images %>
   <%- image_src = gallery.any? && gallery.first.attachment.attached? ? url_for(gallery.first.attachment) : image_path('admin/default-placeholder.png') %>

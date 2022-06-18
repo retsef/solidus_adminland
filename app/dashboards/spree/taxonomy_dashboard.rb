@@ -20,6 +20,7 @@ class Spree::TaxonomyDashboard < Spree::BaseDashboard
     name: Field::String,
     position: Field::Number,
     taxons: Field::NestedHasMany.with_options(class_name: 'Spree::Taxon', skip: TAXON_EXCLUDED_PARAMS),
+    store: Field::BelongsTo.with_options(class_name: 'Spree::Store'),
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -32,6 +33,7 @@ class Spree::TaxonomyDashboard < Spree::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     name
     taxons
+    store
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -39,6 +41,7 @@ class Spree::TaxonomyDashboard < Spree::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     name
     taxons
+    store
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -47,6 +50,7 @@ class Spree::TaxonomyDashboard < Spree::BaseDashboard
   FORM_ATTRIBUTES = %i[
     name
     taxons
+    store
   ].freeze
 
   # COLLECTION_FILTERS

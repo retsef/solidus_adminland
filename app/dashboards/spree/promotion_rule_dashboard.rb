@@ -24,7 +24,7 @@ class Spree::PromotionRuleDashboard < Spree::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     code: Field::String,
-    type: Field::Select.with_options(collection: rules.map { |rule| [rule.real_model_name.human, rule.name] }),
+    type: Field::Select.with_options(collection: rules.map { |rule| [rule.model_name.human, rule.name] }),
     promotion: Field::BelongsTo,
     product_group_id: Field::Number,
     created_at: Field::DateTime,

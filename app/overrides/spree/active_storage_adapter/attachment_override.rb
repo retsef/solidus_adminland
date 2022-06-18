@@ -17,7 +17,7 @@ module Spree::ActiveStorageAdapter::AttachmentOverride
     private
 
     def variant_style(style)
-      size = style_to_size(style&.to_sym)
+      size = style_to_size(style)
 
       @attachment.variant(
         resize_to_limit: size,

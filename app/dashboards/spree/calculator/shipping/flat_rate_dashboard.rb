@@ -11,7 +11,7 @@ class Spree::Calculator::Shipping::FlatRateDashboard < Spree::Calculator::Shippi
     # preferences: Field::Text,
 
     preferred_amount: Field::Number,
-    preferred_currency: Field::String,
+    preferred_currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
 
     created_at: Field::DateTime,
     updated_at: Field::DateTime,

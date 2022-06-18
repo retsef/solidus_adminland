@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 import _ from "lodash";
 
 export default class extends Controller {
-  static targets = ['all', 'box', 'modal', 'count', 'action'];
+  static targets = ['all', 'box', 'modal', 'count', 'action', 'per_page', 'per_page_form'];
 
   connect() {
     if (this.selectedItems.length > 0) {
@@ -70,5 +70,13 @@ export default class extends Controller {
     } else {
       this.modalTarget.classList.remove('show');
     }
+  }
+
+  changePerPage(event) {
+    let url = new URL(this.per_page_formTarget.action);
+    url.searchParams.set('per_page', event.target.value);
+
+    this.per_page_formTarget.action = url.toString();
+    this.per_page_formTarget.submit();
   }
 }

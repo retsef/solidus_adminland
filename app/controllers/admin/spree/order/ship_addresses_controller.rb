@@ -40,7 +40,7 @@ module Admin
       @requested_resource ||= find_resource.tap do |resource|
         authorize_resource(resource)
 
-        # resource.address_type = 'shipping'
+        resource.address_type = 'shipping'
       end
     end
 

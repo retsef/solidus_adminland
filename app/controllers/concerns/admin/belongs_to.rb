@@ -12,11 +12,7 @@ module Admin
       end
 
       def valid_action?(name, resource = dashboard.class.to_s.remove('Dashboard'))
-        resource_path = resource.to_s.underscore.pluralize
-
-        !!routes.detect do |controller, action|
-          controller == resource_path && action == name.to_s
-        end
+        routes.include?([resource.to_s.underscore.pluralize, name.to_s])
       end
 
       # def after_resource_destroyed_path(_requested_resource)

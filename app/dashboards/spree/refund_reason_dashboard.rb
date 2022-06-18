@@ -32,7 +32,6 @@ class Spree::RefundReasonDashboard < Spree::BaseDashboard
     name
     code
     active
-    mutable
     created_at
     updated_at
   ].freeze
@@ -44,7 +43,6 @@ class Spree::RefundReasonDashboard < Spree::BaseDashboard
     name
     code
     active
-    mutable
   ].freeze
 
   # COLLECTION_FILTERS

@@ -51,12 +51,14 @@ It renders the `_table` partial to display details about the resources.
 
         <div class="col-auto ms-auto">
           <!-- Per page select -->
-          <%= form_tag polymorphic_path([namespace, page.resource_path.pluralize.to_sym]), method: :get do %>
+          <%= form_tag polymorphic_path([namespace, page.resource_path.pluralize.to_sym], search: params[:search]), method: :get, 
+            data: { 'table-target': 'per_page_form', turbo_action: 'replace' } do %>
             <%= select_tag :per_page, 
                       options_for_select(
-                        [15, 30, 50].collect {|per_page| ["#{per_page} per page", per_page]}, 
+                        [5, 15, 30, 50].collect {|per_page| ["#{per_page} per page", per_page]}, 
                         selected: params[:per_page] || 15),
-                      class: 'form-select form-control-flush' %>
+                      class: 'form-select form-control-flush', 
+                      data: { 'table-target': 'per_page', action: 'change->table#changePerPage' } %>
           <% end %>
         </div>
 

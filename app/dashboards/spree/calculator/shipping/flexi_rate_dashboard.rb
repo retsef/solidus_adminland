@@ -13,7 +13,7 @@ class Spree::Calculator::Shipping::FlexiRateDashboard < Spree::Calculator::Shipp
     preferred_first_item: Field::Number,
     preferred_additional_item: Field::Number,
     preferred_max_items: Field::Number,
-    preferred_currency: Field::String,
+    preferred_currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
 
     created_at: Field::DateTime,
     updated_at: Field::DateTime,

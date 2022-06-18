@@ -24,7 +24,7 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     pending: 'warning',
     confirmed: 'info',
     purchased: 'success',
-    declined: 'error',
+    declined: 'danger',
     deferred: 'secondary',
     balance_due: 'warning',
   }.freeze
@@ -80,7 +80,7 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     # approver: Field::BelongsTo,
     # canceler: Field::BelongsTo,
 
-    total: Field::Money.with_options(searchable: false),
+    total: Field::Money.with_options(searchable: false, filterable: true),
     item_total: Field::Money.with_options(searchable: false),
     additional_tax_total: Field::Money.with_options(searchable: false),
     shipment_total: Field::Money.with_options(searchable: false),
@@ -88,8 +88,9 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     payment_total: Field::Money.with_options(searchable: false),
     currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
 
+    created_at: Field::DateTime.with_options(filterable: true),
     completed_at: Field::DateTime.with_options(filterable: true),
-    channel: Field::String,
+    channel: Field::String.with_options(filterable: true),
 
     special_instructions: Field::Text,
 
@@ -109,7 +110,6 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     frontend_viewable: Field::Boolean,
 
     last_ip_address: Field::String,
-    created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
 
@@ -136,6 +136,8 @@ class Spree::OrderDashboard < Spree::BaseDashboard
     user
     email
     state
+    payment_state
+    shipment_state
     item_total
     shipment_total
     additional_tax_total

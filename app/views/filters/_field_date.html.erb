@@ -8,23 +8,31 @@
     <%= form.text_field field, value: form.object.send(field), data: { type: 'date', controller: 'datetime' } %>
   </div>
 <% else %>
-  <div class="form-group">
-    <%= form.label 'start' %>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <%= form.label 'start' %>
 
-    <div class="input-icon mb-3">
-      <span class="input-icon-addon">
-        <i class="icon ti ti-calendar"></i>
-      </span>
-      <%= form.text_field "#{field}_gteq", data: { type: 'date', controller: 'datetime' } %>
+        <div class="input-icon">
+          <span class="input-icon-addon">
+            <i class="icon ti ti-calendar"></i>
+          </span>
+          <%= form.text_field "#{field}_gteq", data: { type: 'date', controller: 'datetime' } %>
+        </div>
+      </div>
     </div>
 
-    <%= form.label 'end' %>
+    <div class="col">
+      <div class="form-group">
+        <%= form.label 'end' %>
 
-    <div class="input-icon">
-      <span class="input-icon-addon">
-        <i class="icon ti ti-calendar"></i>
-      </span>
-      <%= form.text_field "#{field}_lteq", data: { type: 'date', controller: 'datetime' } %>
+        <div class="input-icon">
+          <span class="input-icon-addon">
+            <i class="icon ti ti-calendar"></i>
+          </span>
+          <%= form.text_field "#{field}_lteq", data: { type: 'date', controller: 'datetime' } %>
+        </div>
+      </div>
     </div>
   </div>
 <% end %>

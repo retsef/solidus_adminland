@@ -13,7 +13,7 @@ class Spree::Calculator::Shipping::PriceSackDashboard < Spree::Calculator::Shipp
     preferred_minimal_amount: Field::Number,
     preferred_normal_amount: Field::Number,
     preferred_discount_amount: Field::Number,
-    preferred_currency: Field::String,
+    preferred_currency: Field::Select.with_options(collection: Spree::Config.available_currencies.map(&:iso_code), selected: Spree::Config.currency),
 
     created_at: Field::DateTime,
     updated_at: Field::DateTime,

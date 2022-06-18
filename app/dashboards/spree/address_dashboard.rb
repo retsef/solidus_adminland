@@ -20,7 +20,7 @@ class Spree::AddressDashboard < Spree::BaseDashboard
     alternative_phone: Field::String,
 
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -87,7 +87,7 @@ class Spree::AddressDashboard < Spree::BaseDashboard
   # Overwrite this method to customize how addresses are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(address)
-  #   "Spree::Address ##{address.id}"
-  # end
+  def display_resource(address)
+    "#{address.name}, #{address.address1} #{address.address2} #{address.city} #{address.zipcode}, #{address.state.name} #{address.country.name}"
+  end
 end

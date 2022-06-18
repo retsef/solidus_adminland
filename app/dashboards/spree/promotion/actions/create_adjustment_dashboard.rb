@@ -1,4 +1,8 @@
 class Spree::Promotion::Actions::CreateAdjustmentDashboard < Spree::Promotion::Actions::BaseDashboard
+  def self.calculators
+    Rails.application.config.spree.calculators.promotion_actions_create_adjustments
+  end
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -6,14 +10,18 @@ class Spree::Promotion::Actions::CreateAdjustmentDashboard < Spree::Promotion::A
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    promotion: Field::BelongsTo,
-    calculator: Field::HasOne,
-    adjustments: Field::HasMany,
     id: Field::Number,
     position: Field::Number,
     type: Field::String,
-    deleted_at: Field::DateTime,
+    promotion: Field::BelongsTo,
+
+    calculator: Field::HasOne, # .with_options(class_name: 'Spree::Calculator'),
+    calculator_type: Field::Select.with_options(collection: calculators.map { |rule| [rule.model_name.human, rule.name] }),
+
+    adjustments: Field::HasMany,
     preferences: Field::Text,
+
+    deleted_at: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -27,18 +35,17 @@ class Spree::Promotion::Actions::CreateAdjustmentDashboard < Spree::Promotion::A
     promotion
     calculator
     adjustments
-    id
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    promotion
-    calculator
-    adjustments
     id
     position
     type
+    promotion
+    calculator
+    adjustments
     deleted_at
     preferences
     created_at
@@ -49,13 +56,16 @@ class Spree::Promotion::Actions::CreateAdjustmentDashboard < Spree::Promotion::A
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    promotion
     calculator
-    adjustments
-    position
-    type
-    deleted_at
-    preferences
+    calculator_type
+  ].freeze
+
+  FORM_ATTRIBUTES_NEW = %i[
+    calculator_type
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
+    calculator
   ].freeze
 
   # COLLECTION_FILTERS

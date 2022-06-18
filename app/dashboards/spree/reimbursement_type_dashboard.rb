@@ -1,4 +1,8 @@
 class Spree::ReimbursementTypeDashboard < Spree::BaseDashboard
+  def self.reimbursement_types
+    [Spree::ReimbursementType::OriginalPayment, Spree::ReimbursementType::StoreCredit, Spree::ReimbursementType::Exchange, Spree::ReimbursementType::Credit]
+  end
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -7,7 +11,7 @@ class Spree::ReimbursementTypeDashboard < Spree::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    type: Field::String,
+    type: Field::Select.with_options(collection: reimbursement_types.map { |r_type| [r_type.model_name.human, r_type.name] }),
     name: Field::String,
     active: Field::Boolean,
     mutable: Field::Boolean,
@@ -22,7 +26,6 @@ class Spree::ReimbursementTypeDashboard < Spree::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     name
-    type
     active
   ].freeze
 
@@ -30,9 +33,7 @@ class Spree::ReimbursementTypeDashboard < Spree::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     name
-    type
     active
-    mutable
     created_at
     updated_at
   ].freeze
@@ -44,7 +45,11 @@ class Spree::ReimbursementTypeDashboard < Spree::BaseDashboard
     name
     type
     active
-    mutable
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
+    name
+    active
   ].freeze
 
   # COLLECTION_FILTERS

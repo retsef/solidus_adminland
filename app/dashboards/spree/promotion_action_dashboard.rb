@@ -24,7 +24,7 @@ class Spree::PromotionActionDashboard < Spree::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     position: Field::Number,
-    type: Field::Select.with_options(collection: actions.map { |action| [action.real_model_name.human, action.name] }),
+    type: Field::Select.with_options(collection: actions.map { |action| [action.model_name.human, action.name] }),
     promotion: Field::BelongsTo,
     preferences: Field::Text,
     deleted_at: Field::DateTime,

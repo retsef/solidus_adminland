@@ -22,6 +22,20 @@ module Admin
 
     # The result of this lookup will be available as `requested_resource`
 
+    private
+
+    def scoped_resource
+      scoped_resource ||= resource_class.all
+
+      # Administrate ransack
+      @ransack_results = scoped_resource.ransack(params[:q])
+      @ransack_results.result(distinct: true)
+    end
+
+    def new_resource
+      resource_class.new
+    end
+
     # Override this if you have certain roles that require a subset
     # this will be used to set the records shown on the `index` action.
     #
@@ -46,8 +60,6 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
-
-    private
 
     def new_resource
       resource_class.new

@@ -8,16 +8,18 @@
         <%= link_to t("administrate.actions.back"), :back %>
       </div>
       <!-- Title -->
-      <h2 class="page-title text-truncate">
-        <%= content_for(:title) %>
+      <div class="text-truncate">
+        <h2 class="page-title d-inline-block">
+          <%= content_for(:title) %>
+        </h2>
 
         <% status_attributes = %i[state payment_state shipment_state] %>
         <% page.attributes.select{|a| status_attributes.include? a.attribute }.each do |attribute| %>
-          <span class="ms-3 attribute-data attribute-data--<%= attribute.html_class %>">
+          <span class="ms-1 attribute-data attribute-data--<%= attribute.html_class %>">
             <%= render_field attribute, page: page %>
           </span>
         <% end %>
-      </h2>
+      </div>
       <div class="text-muted mt-1">
         <%= "#{l(page.resource.created_at, format: :long)} from #{page.resource.channel}" %>
       </div>

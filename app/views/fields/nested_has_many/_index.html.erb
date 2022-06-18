@@ -10,4 +10,5 @@ as a count of how many objects are associated through the relationship.
   A wrapper around the has_many relationship pulled from the database.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/HasMany
 %>
-<%= pluralize(field.data.size, field.attribute.to_s.humanize.downcase) %>
+
+<%= "#{field.data.size} #{field.associated_class.model_name.human(count: field.data.size)}" %>

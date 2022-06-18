@@ -1,4 +1,8 @@
 class Spree::ShippingMethodDashboard < Spree::BaseDashboard
+  def self.calculators
+    Rails.application.config.spree.calculators.shipping_methods
+  end
+
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -10,7 +14,8 @@ class Spree::ShippingMethodDashboard < Spree::BaseDashboard
     name: Field::String,
     code: Field::String,
 
-    calculator: Field::HasOne,
+    calculator: Field::HasOne.with_options(class_name: 'Spree::ShippingCalculator'), # Spree::Calculator::Shipping::Base
+    calculator_type: Field::Select.with_options(collection: calculators.map { |rule| [rule.model_name.human, rule.name] }),
 
     shipping_categories: Field::HasMany.with_options(class_name: 'Spree::ShippingCategory'),
     shipping_rates: Field::HasMany.with_options(class_name: 'Spree::ShippingRate'),
@@ -47,7 +52,6 @@ class Spree::ShippingMethodDashboard < Spree::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    id
     name
     admin_name
     code
@@ -75,18 +79,63 @@ class Spree::ShippingMethodDashboard < Spree::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     name
-    shipping_categories
-    shipping_rates
-    tax_category
-    stock_locations
-    stores
-    tracking_url
-    admin_name
     code
-    available_to_all
+    admin_name
     carrier
     service_level
+    stores
+
+    tracking_url
+
+    available_to_all
     available_to_users
+
+    shipping_categories
+    zones
+    tax_category
+
+    calculator
+    calculator_type
+  ].freeze
+
+  FORM_ATTRIBUTES_EDIT = %i[
+    name
+    code
+    admin_name
+    carrier
+    service_level
+    stores
+
+    tracking_url
+
+    available_to_all
+    available_to_users
+
+    shipping_categories
+    zones
+    tax_category
+
+    calculator
+  ].freeze
+
+  FORM_ATTRIBUTES_NEW = %i[
+    name
+    code
+    admin_name
+    carrier
+    service_level
+    stores
+
+    tracking_url
+
+    available_to_all
+    available_to_users
+
+    shipping_categories
+    zones
+    tax_category
+
+    calculator_type
   ].freeze
 
   # COLLECTION_FILTERS

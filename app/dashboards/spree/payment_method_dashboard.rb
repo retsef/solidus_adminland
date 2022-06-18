@@ -11,7 +11,7 @@ class Spree::PaymentMethodDashboard < Spree::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    type: Field::Select.with_options(collection: payment_methods.map { |rule| [rule.real_model_name.human, rule.name] }),
+    type: Field::Select.with_options(collection: payment_methods.map { |rule| [rule.model_name.human, rule.name] }),
     name: Field::String,
     description: Field::Text,
     active: Field::Boolean,

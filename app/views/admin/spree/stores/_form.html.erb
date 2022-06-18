@@ -64,7 +64,7 @@ and renders all form fields for a resource's editable attributes.
     <!-- Store Currency -->
     <div class="card mb-3">
       <div class="card-body">
-        <h3 class="card-title">Valuta</h3>
+        <h3 class="card-title">Currency</h3>
         <% content_attributes = %i[default_currency cart_tax_country_iso] %>
         <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
           <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">

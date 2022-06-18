@@ -14,8 +14,6 @@ class Spree::Promotion::Rules::StoreDashboard < Spree::Promotion::Rules::BaseDas
     preferences: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-
-    stores: Field::HasMany.with_options(class_name: 'Spree::Store')
   }.freeze
 
   # COLLECTION_ATTRIBUTES

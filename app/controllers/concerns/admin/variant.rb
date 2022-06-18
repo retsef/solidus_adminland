@@ -6,20 +6,16 @@ module Admin::Variant
 
     private
 
-    def detect_device_format
+    def detect_device_format # rubocop:disable Metrics/CyclomaticComplexity
       case request.user_agent
       when /Turbo Native/i
         request.variant = :native
-      when /iPad/i
+      when /POS/i
+        request.variant = :pos
+      when /iPhone/i || (/Android/i && /mobile/i) || /Windows Phone/i
+        request.variant = :phone
+      when /iPad/i || /Android/i
         request.variant = :tablet
-      when /iPhone/i
-        request.variant = :phone
-      when /Android/i && /mobile/i
-        request.variant = :phone
-      when /Android/i
-        request.variant = :tablet
-      when /Windows Phone/i
-        request.variant = :phone
       end
     end
   end

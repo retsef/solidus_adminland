@@ -1,15 +1,10 @@
 <% if association %>
-  <% field_key = model.ransackable_scopes.include?(field) ? field : "#{field}_id_in" %>
-  <% desc = association.klass.method_defined?(:dashboard_display_name) ? :dashboard_display_name : :to_s %>
-  <% collection = association.klass.send(association.klass.respond_to?(:admin_scope) ? :admin_scope : :all) %>
+  <div class="form-group" data-controller='select'>
+    <% field_key = model.ransackable_scopes.include?(field) ? field : "#{field}_id_in" %>
+    <% desc = association.klass.method_defined?(:dashboard_display_name) ? :dashboard_display_name : :to_s %>
+    <% collection = association.klass.all %>
 
-  <div class="form-group">
     <%= form.label(label) %>
-    <%= form.collection_check_boxes(field_key, collection, :id, desc) do |b| %>
-      <%= b.label do %>
-        <%= b.check_box %>
-        <span><%= b.object.send(desc) %></span>
-      <% end %>
-    <% end %>
+    <%= form.collection_select(field_key, collection, :id, desc, { include_blank: true }, 'data-select-target': 'input', multiple: true) %>
   </div>
 <% end %>

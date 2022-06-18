@@ -25,15 +25,17 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     depth: Field::String.with_options(searchable: false),
     track_inventory: Field::Boolean.with_options(searchable: false),
 
-    option_types: Field::HasMany.with_options(class_name: 'Spree::OptionType'),
+    option_types: Field::HasMany.with_options(class_name: 'Spree::OptionType', filterable: true),
     # properties: Field::HasMany.with_options(class_name: 'Spree::Property'),
     product_properties: Field::NestedHasMany.with_options(class_name: 'Spree::ProductProperty', skip: %i[product position]),
     # images: Field::NestedHasMany.with_options(class_name: 'Spree::Image', skip: %i[viewable position alt]),
 
     # classifications: Field::HasMany.with_options(class_name: 'Spree::Classification'),
-    taxons: Field::HasMany.with_options(class_name: 'Spree::Taxon'),
+    taxons: Field::HasMany.with_options(class_name: 'Spree::Taxon', filterable: true),
     tax_category: Field::BelongsTo.with_options(class_name: 'Spree::TaxCategory'),
     shipping_category: Field::BelongsTo.with_options(class_name: 'Spree::ShippingCategory'),
+    # stores: Field::HasMany.with_options(class_name: 'Spree::Store', filterable: true),
+
     variants: Field::HasMany.with_options(class_name: 'Spree::Variant'),
     prices: Field::HasMany.with_options(class_name: 'Spree::Price'),
     stock_items: Field::HasMany.with_options(class_name: 'Spree::StockItem'),
@@ -55,6 +57,7 @@ class Spree::ProductDashboard < Spree::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     name
     sku
+    stores
     price
   ].freeze
 
@@ -76,6 +79,7 @@ class Spree::ProductDashboard < Spree::BaseDashboard
 
     tax_category
     shipping_category
+    stores
 
     meta_title
     meta_description
@@ -108,6 +112,7 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     taxons
     tax_category
     shipping_category
+    stores
     variants
 
     slug
@@ -139,6 +144,8 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     taxons
     tax_category
     shipping_category
+    stores
+
     variants
   ].freeze
 
@@ -153,6 +160,10 @@ class Spree::ProductDashboard < Spree::BaseDashboard
   #     open: ->(resources) { resources.where(open: true) }
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
+
+  def collection_includes
+    [:stores, { master: %i[images prices] }] # , :variant_images, { variants: %i[images], master: %i[images prices] }]
+  end
 
   # Overwrite this method to customize how products are displayed
   # across all pages of the admin dashboard.

@@ -8,11 +8,11 @@ by providing a `content_for(:stylesheet)` block.
 %>
 
 <!-- Tabler -->
-<link rel="stylesheet" href="https://unpkg.com/@tabler/core@latest/dist/css/tabler.min.css">
+<%= stylesheet_link_tag "https://unpkg.com/@tabler/core@latest/dist/css/tabler.min.css", media: 'all', 'data-turbo-track': 'reload' %>
 <!-- Tabler Vendors -->
-<link rel="stylesheet" href="https://unpkg.com/@tabler/core@latest/dist/css/tabler-vendors.min.css">
+<%= stylesheet_link_tag "https://unpkg.com/@tabler/core@latest/dist/css/tabler-vendors.min.css", media: 'all', 'data-turbo-track': 'reload' %>
 <!-- Tabler Icons -->
-<link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css">
+<%= stylesheet_link_tag "https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css", media: 'all', 'data-turbo-track': 'reload' %>
 
 <%= stylesheet_link_tag 'admin', media: 'all', 'data-turbo-track': 'reload' %>
 

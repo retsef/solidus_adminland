@@ -55,7 +55,7 @@ and renders all form fields for a resource's editable attributes.
         <!-- Promotion Codes -->
         <div class="card mb-3">
           <div class="card-header">
-            <h3 class="card-title">Codici sconto</h3>
+            <h3 class="card-title">Promo code</h3>
           </div>
           <% content_attributes = %i[promotion_codes] %>
           <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
@@ -68,7 +68,7 @@ and renders all form fields for a resource's editable attributes.
         <!-- Promotion Uses -->
         <div class="card mb-3">
           <div class="card-body">
-            <h3 class="card-title">Limiti di utilizzo</h3>
+            <h3 class="card-title">Usage limit</h3>
             <% content_attributes = %i[usage_limit] %>
             <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
               <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
@@ -81,7 +81,7 @@ and renders all form fields for a resource's editable attributes.
         <!-- Promotion Availability -->
         <div class="card mb-3">
           <div class="card-body">
-            <h3 class="card-title">Periodo di validità</h3>
+            <h3 class="card-title">Period of validity</h3>
             <% content_attributes = %i[starts_at expires_at] %>
             <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
               <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
@@ -95,7 +95,7 @@ and renders all form fields for a resource's editable attributes.
         <% if page.resource.persisted? %>
           <div class="card mb-3">
             <div class="card-body">
-              <h3 class="card-title">Regole di validità della promozione</h3>
+              <h3 class="card-title">Promotion rules</h3>
               <% content_attributes = %i[match_policy] %>
               <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
                 <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
@@ -119,7 +119,7 @@ and renders all form fields for a resource's editable attributes.
         <% if page.resource.persisted? %>
           <div class="card mb-3">
             <div class="card-header">
-              <h3 class="card-title">Azioni all'applicazione della promozione</h3>
+              <h3 class="card-title">Promotion actions</h3>
             </div>
             <turbo-frame id="<%= dom_id(page.resource, "actions") %>" src="<%= polymorphic_path([namespace, page.resource, Spree::PromotionAction]) %>">
               <div class="card-body">

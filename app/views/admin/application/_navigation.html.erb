@@ -43,6 +43,7 @@ as defined by the routes in the `admin/` namespace
         <%- Rails.application.config.admin_navigation.main_entries.sort_by(&:position).each do |menu_item| %>
           <% if menu_item.resource_class.present? %>
             <% next unless valid_action? :index, menu_item.resource_class %>
+            <% next unless show_action? :index, menu_item.resource_class %>
           <% end %>
 
           <% if menu_item.children? %>
@@ -52,6 +53,7 @@ as defined by the routes in the `admin/` namespace
               <%- menu_item.ordered_children.each do |child_menu_item| %>
                 <% if child_menu_item.resource_class.present? %>
                   <% next unless valid_action? :index, child_menu_item.resource_class %>
+                  <% next unless show_action? :index, child_menu_item.resource_class %>
                 <% end %>
 
                 <% component.item do %>
@@ -81,6 +83,7 @@ as defined by the routes in the `admin/` namespace
         <%- Rails.application.config.admin_navigation.setting_entries.sort_by(&:position).each do |menu_item| %>
           <% if menu_item.resource_class.present? %>
             <% next unless valid_action? :index, menu_item.resource_class %>
+            <% next unless show_action? :index, menu_item.resource_class %>
           <% end %>
 
           <% if menu_item.children? %>
@@ -90,6 +93,7 @@ as defined by the routes in the `admin/` namespace
               <%- menu_item.ordered_children.each do |child_menu_item| %>
                 <% if child_menu_item.resource_class.present? %>
                   <% next unless valid_action? :index, child_menu_item.resource_class %>
+                  <% next unless show_action? :index, child_menu_item.resource_class %>
                 <% end %>
 
                 <% component.item do %>

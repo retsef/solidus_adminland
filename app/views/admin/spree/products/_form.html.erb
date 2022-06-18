@@ -57,7 +57,7 @@ and renders all form fields for a resource's editable attributes.
         <% if page.resource.persisted? %>
           <div class="card mb-3">
             <div class="card-body">
-              <h3 class="card-title">Contenuti Multimediali</h3>
+              <h3 class="card-title">Media</h3>
               <turbo-frame id="<%= dom_id(page.resource, "images") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Image]) %>">
                 <div class="row w-100 placeholder-glow">
                   <% 3.times do %>
@@ -76,7 +76,7 @@ and renders all form fields for a resource's editable attributes.
         <!-- Product Prices -->
         <div class="card mb-3">
           <div class="card-body">
-            <h3 class="card-title">Prezzi</h3>
+            <h3 class="card-title">Prices</h3>
             <% content_attributes = %i[price cost_price cost_currency] %>
             <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
               <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
@@ -102,7 +102,7 @@ and renders all form fields for a resource's editable attributes.
         <% if page.resource.persisted? %>
           <div class="card mb-3">
             <div class="card-header">
-              <h3 class="card-title">Varianti</h3>
+              <h3 class="card-title">Variants</h3>
             </div>
             <turbo-frame id="<%= dom_id(page.resource, "variants") %>" src="<%= polymorphic_path([namespace, page.resource, ::Spree::Variant]) %>">
               <div class="card-body">
@@ -119,7 +119,7 @@ and renders all form fields for a resource's editable attributes.
         <!-- Product Stocks -->
         <div class="card mb-3">
           <div class="card-body">
-            <h3 class="card-title">Scorte</h3>
+            <h3 class="card-title">Stock items</h3>
             <% content_attributes = %i[sku track_inventory] %>
             <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
               <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
@@ -144,7 +144,7 @@ and renders all form fields for a resource's editable attributes.
           <!-- Product Master Variant Shippings -->
           <div class="card mb-3">
             <div class="card-body">
-              <h3 class="card-title">Spedizione</h3>
+              <h3 class="card-title">Shipping</h3>
               <% content_attributes = %i[height width depth weight] %>
               <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
                 <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
@@ -159,7 +159,7 @@ and renders all form fields for a resource's editable attributes.
         <% if page.resource.persisted? %>
           <div class="card mb-3">
             <div class="card-header">
-              <h3 class="card-title">Proprietà aggiuntive</h3>
+              <h3 class="card-title">Property</h3>
             </div>
             <% content_attributes = %i[product_properties] %>
             <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
@@ -195,7 +195,7 @@ and renders all form fields for a resource's editable attributes.
         <!-- Available -->
         <div class="card mb-3">
           <div class="card-body">
-            <h3 class="card-title">Disponibilità</h3>
+            <h3 class="card-title">Availability</h3>
             <% content_attributes = %i[available_on discontinue_on] %>
             <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
               <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">
@@ -207,7 +207,7 @@ and renders all form fields for a resource's editable attributes.
 
         <div class="card mb-3 bg-light-lt">
           <div class="card-body text-black">
-            <h3 class="card-title">Organizzazione dei prodotti</h3>
+            <h3 class="card-title">Additional info</h3>
             <% content_attributes = %i[option_types taxons tax_category shipping_category stores] %>
             <% attributes.select{|a| content_attributes.include? a.attribute }.each do |attribute| %>
               <div class="mb-3 field-unit field-unit--<%= attribute.html_class %> field-unit--<%= requireness(attribute) %>">

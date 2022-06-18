@@ -17,7 +17,7 @@ as well as a link to its edit page.
 %>
 
 <div class="row justify-content-center">
-  <div class="col-12 col-lg-10">
+  <div class="col-12 col-lg-10 col-xl-9">
     <!-- Header -->
     <%= 
       render("show_header",
@@ -71,7 +71,7 @@ as well as a link to its edit page.
             <% if page.resource.payments.exists? %>
               <div class="card mb-3">
                 <div class="card-body">
-                  <h3 class="card-title">Analisi del rishio di frode</h3>
+                  <h3 class="card-title">Risk analysis</h3>
                   <h2 class="card-title"><%= "#{t('spree.risk_analysis')}: #{t('spree.not') unless page.resource.is_risky?} #{t('spree.risky')}" %></h2>
                   <div class="row gy-2 align-items-center">
                     <div class="col-8 attribute-label">

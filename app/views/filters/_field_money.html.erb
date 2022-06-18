@@ -14,30 +14,38 @@
     </span>
   </div>
 <% else %>
-  <div class="form-group">
-    <%= form.label 'start' %>
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <%= form.label 'start' %>
 
-    <div class="input-icon mb-3">
-      <span class="input-icon-addon">
-        <%= currency.symbol %>
-      </span>
-      <%= form.text_field "#{field}_gteq" %>
+        <div class="input-icon">
+          <span class="input-icon-addon">
+            <%= currency.symbol %>
+          </span>
+          <%= form.text_field "#{field}_gteq" %>
 
-      <span class="input-icon-addon">
-        <%= code %>
-      </span>
+          <span class="input-icon-addon">
+            <%= code %>
+          </span>
+        </div>
+      </div>
     </div>
 
-    <%= form.label 'end' %>
+    <div class="col">
+      <div class="form-group">
+        <%= form.label 'end' %>
 
-    <div class="input-icon">
-      <span class="input-icon-addon">
-        <%= currency.symbol %>
-      </span>
-      <%= form.text_field "#{field}_lteq" %>
-      <span class="input-icon-addon">
-        <%= code %>
-      </span>
+        <div class="input-icon">
+          <span class="input-icon-addon">
+            <%= currency.symbol %>
+          </span>
+          <%= form.text_field "#{field}_lteq" %>
+          <span class="input-icon-addon">
+            <%= code %>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 <% end %>

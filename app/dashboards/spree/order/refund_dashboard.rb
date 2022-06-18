@@ -7,7 +7,7 @@ class Spree::Order::RefundDashboard < Spree::Order::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    payment: Field::BelongsTo,
+    payment: Field::BelongsTo.with_options(class_name: 'Spree::Payment'),
     amount: Field::String.with_options(searchable: false),
     reason: Field::BelongsTo.with_options(class_name: 'Spree::RefundReason'),
 
