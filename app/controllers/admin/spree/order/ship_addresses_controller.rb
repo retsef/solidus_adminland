@@ -36,15 +36,7 @@ module Admin
       @ransack_results.result(distinct: true)
     end
 
-    def requested_resource
-      @requested_resource ||= find_resource.tap do |resource|
-        authorize_resource(resource)
-
-        resource.address_type = 'shipping'
-      end
-    end
-
-    def find_resource
+    def find_resource(_params)
       scoped_resource.first || resource_class.new
     end
 

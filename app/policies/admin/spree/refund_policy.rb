@@ -5,7 +5,11 @@ module Admin
     pre_check :any_payments?
 
     def any_payments?
-      allow! if order.payments.any?
+      deny! if order.payments.empty?
+    end
+
+    def index?
+      order.payments.completed.any?
     end
   end
 end

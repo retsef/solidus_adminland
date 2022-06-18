@@ -2,10 +2,10 @@ module Admin
   class Spree::ReturnAuthorizationPolicy < Spree::BasePolicy
     authorize :order
 
-    pre_check :order_shipped?, only: %i[new create]
+    pre_check :order_shipped?
 
     def order_shipped?
-      allow! if order.shipped?
+      deny! unless order.shipped?
     end
   end
 end

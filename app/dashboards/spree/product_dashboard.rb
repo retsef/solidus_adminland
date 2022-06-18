@@ -57,7 +57,6 @@ class Spree::ProductDashboard < Spree::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     name
     sku
-    stores
     price
   ].freeze
 
@@ -79,7 +78,6 @@ class Spree::ProductDashboard < Spree::BaseDashboard
 
     tax_category
     shipping_category
-    stores
 
     meta_title
     meta_description
@@ -112,7 +110,6 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     taxons
     tax_category
     shipping_category
-    stores
     variants
 
     slug
@@ -144,7 +141,6 @@ class Spree::ProductDashboard < Spree::BaseDashboard
     taxons
     tax_category
     shipping_category
-    stores
 
     variants
   ].freeze
@@ -162,7 +158,7 @@ class Spree::ProductDashboard < Spree::BaseDashboard
   COLLECTION_FILTERS = {}.freeze
 
   def collection_includes
-    [:stores, { master: %i[images prices] }] # , :variant_images, { variants: %i[images], master: %i[images prices] }]
+    [{ master: %i[images prices] }] # , :variant_images, { variants: %i[images], master: %i[images prices] }]
   end
 
   # Overwrite this method to customize how products are displayed
